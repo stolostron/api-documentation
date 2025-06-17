@@ -31,6 +31,9 @@ jobs:
       # 3. Runs the make command to install dependencies and generate the docs
       - name: Generate API Documentation
         run: make api-docs
+        env:
+          RELEASE_BRANCH: release-2.14
+          BACKPLANE_BRANCH: backplane-2.9
         
       # 4. Commits the changed files in the 'api-docs' directory
       - name: Commit Documentation Changes
