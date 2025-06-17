@@ -7,8 +7,8 @@ deps:
 
 .PHONY: api-docs
 api-docs: setup
-	git clone git@github.com:stolostron/multiclusterhub-operator.git
-	git clone git@github.com:stolostron/backplane-operator.git
+	git clone https://github.com/stolostron/multiclusterhub-operator
+	git clone https://github.com/stolostron/backplane-operator
 	mv multiclusterhub-operator/pkg/templates/crds ./acm-crds
 	mv backplane-operator/pkg/templates/crds ./mce-crds
 	rm -rf multiclusterhub-operator backplane-operator
