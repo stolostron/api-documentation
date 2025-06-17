@@ -1,10 +1,10 @@
-# Custom Resource API Documentation
+# Advanced Cluster ManagementCustom Resource API Documentation
 
 This document provides an overview of the Custom Resource Definitions (CRDs) used in this project.
 
 ## ImageClusterInstall
 
-ImageClusterInstallSpec defines the desired state of ImageClusterInstall
+ImageClusterInstallStatus defines the observed state of ImageClusterInstall
 
 [View a detailed API Reference for ImageClusterInstall](imageclusterinstall_api.md).
 
@@ -28,7 +28,7 @@ Description not found in CRD.
 
 ## DiscoveryConfig
 
-DiscoveryConfigSpec defines the desired state of DiscoveryConfig
+DiscoveryConfigStatus defines the observed state of DiscoveryConfig
 
 [View a detailed API Reference for DiscoveryConfig](discoveryconfig_api.md).
 
@@ -588,7 +588,7 @@ Metal3ClusterTemplateSpec defines the desired state of Metal3ClusterTemplate.
 
 ## IPPool
 
-IPPoolSpec defines the desired state of IPPool.
+IPPoolStatus defines the observed state of IPPool.
 
 [View a detailed API Reference for IPPool](ippool_api.md).
 
@@ -620,7 +620,7 @@ Metal3MachineStatus defines the observed state of Metal3Machine.
 
 ## Metal3DataTemplate
 
-Metal3DataTemplateSpec defines the desired state of Metal3DataTemplate.
+Metal3DataTemplateStatus defines the observed state of Metal3DataTemplate.
 
 [View a detailed API Reference for Metal3DataTemplate](metal3datatemplate_api.md).
 

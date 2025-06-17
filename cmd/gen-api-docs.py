@@ -134,14 +134,13 @@ def parse_crd_file(file_path):
                 'description': properties.get('description', 'No description provided.'),
                 'validations': []
             }
-            if field == '':
-                field_info = {}
-            if 'minimum' in properties:
-                field_info['validations'].append(f"Minimum={properties['minimum']}")
-            if 'maximum' in properties:
-                field_info['validations'].append(f"Maximum={properties['maximum']}")
-            if 'pattern' in properties:
-                field_info['validations'].append(f"Pattern={properties['pattern']}")
+            if field != '':
+                if 'minimum' in properties:
+                    field_info['validations'].append(f"Minimum={properties['minimum']}")
+                if 'maximum' in properties:
+                    field_info['validations'].append(f"Maximum={properties['maximum']}")
+                if 'pattern' in properties:
+                    field_info['validations'].append(f"Pattern={properties['pattern']}")
             if 'properties' in properties and properties.get('type').lower() == 'object':
                 field_info['inline'] = {'fields': parse_schema_fields(properties['properties'])}
             if 'items' in properties:
@@ -153,7 +152,6 @@ def parse_crd_file(file_path):
         return fields
 
     try:
-        
         # Check for 'spec' and 'status' fields in the CRD schema
         spec = crd.get('spec', {})
         names = spec.get('names', {})
