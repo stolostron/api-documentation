@@ -8,12 +8,21 @@
 # 
 # Or run make with: RELEASE_BRANCH=release-2.10.0 BACKPLANE_BRANCH=release-2.10.0 make api-docs
 
-.PHONY: deps
+.PHONY: deps ensure-gen-api-docs
 deps:
 	@which python3 > /dev/null || (echo "Python3 not found. Attempting to install..." && (command -v apt-get >/dev/null 2>&1 && sudo apt-get update && sudo apt-get install -y python3) || (command -v yum >/dev/null 2>&1 && sudo yum install -y python3) || (command -v brew >/dev/null 2>&1 && brew install python3) || (echo "Automatic install failed. Please install Python3 manually." && exit 1))
 	@python3 -c "import yaml" 2>/dev/null || (echo "PyYAML not found. Installing..." && python3 -m pip install --user pyyaml)
 	@which curl > /dev/null || (echo "Curl not found. Attempting to install..." && (command -v apt-get >/dev/null 2>&1 && sudo apt-get update && sudo apt-get install -y curl) || (command -v yum >/dev/null 2>&1 && sudo yum install -y curl) || (command -v brew >/dev/null 2>&1 && brew install curl) || (echo "Automatic install failed. Please install Curl manually." && exit 1))
 	@which git > /dev/null || (echo "Git not found. Attempting to install..." && (command -v apt-get >/dev/null 2>&1 && sudo apt-get update && sudo apt-get install -y git) || (command -v yum >/dev/null 2>&1 && sudo yum install -y git) || (command -v brew >/dev/null 2>&1 && brew install git) || (echo "Automatic install failed. Please install Git manually." && exit 1))
+
+
+.PHONY: ensure-gen-api-docs
+ensure-gen-api-docs:
+	@if [ ! -f cmd/gen-api-docs.py ]; then \
+		echo "cmd/gen-api-docs.py not found. Downloading..."; \
+		mkdir -p cmd; \
+		curl -sSL -o cmd/gen-api-docs.py https://raw.githubusercontent.com/stolostron/api-documentation/main/cmd/gen-api-docs.py; \
+	fi
 
 .PHONY: api-docs
 api-docs: setup
@@ -29,3 +38,6 @@ api-docs: setup
 setup: deps
 	@mkdir -p api-docs
 
+.PHONY: gen-api-docs
+gen-api-docs: setup
+	python3 cmd/gen-api-docs.py $(SEARCH_DIR)
