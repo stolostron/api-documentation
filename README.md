@@ -40,3 +40,33 @@ Contributions to this documentation are welcome! Please open issues or pull requ
 ## License
 
 This repository is licensed under the [Apache 2.0 License](./LICENSE).
+
+## Branching for a Release
+
+To create a release branch and ensure the GitHub Action workflow uses the correct branches for external dependencies:
+
+1. **Create a Release Branch:**
+   - From your main branch, create a new branch for the release. For example:
+     ```sh
+     git checkout -b release-2.14
+     git push origin release-2.14
+     ```
+
+2. **Update the GitHub Action Workflow:**
+   - Edit `.github/workflows/generate-api-docs.yml` to set the correct default branch for cloning external repositories.
+   - If your release branch is `release-2.14`, ensure the workflow or Makefile logic sets:
+     - `CLONE_BRANCH=release-2.14` for `multiclusterhub-operator`
+     - `backplane-2.9` for `backplane-operator` (where `2.9` is derived from the release as described in the Makefile logic)
+
+3. **Commit and Push Changes:**
+   - Commit your workflow achanges to the release branch:
+     ```sh
+     git add .github/workflows/generate-api-docs.yml Makefile
+     git commit -m "Update workflow for release-2.14"
+     git push origin release-2.14
+     ```
+
+4. **Run the GitHub Action:**
+   - Trigger the workflow from the Actions tab, ensuring it runs on your release branch.
+
+Refer to the Makefile and workflow comments for more details on how the correct branches are selected.
