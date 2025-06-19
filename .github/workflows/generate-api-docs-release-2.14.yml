@@ -1,5 +1,5 @@
 # .github/workflows/generate-api-docs.yml
-name: release-2.14: Generate and Commit API Docs
+name: release-2.14, Generate and Commit API Docs
 
 # Controls when the action will run.
 on:
