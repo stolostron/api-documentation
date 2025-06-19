@@ -29,3 +29,6 @@ api-docs: setup
 setup: deps
 	@mkdir -p api-docs
 
+.PHONY: gen-api-docs
+gen-api-docs: setup
+	python3 cmd/gen-api-docs.py $(SEARCH_DIR)
