@@ -21,7 +21,7 @@ To add a new release, follow these steps:
 2. **Create and checkout a new branch for the release:**
    Replace `release-2.15.0` with your desired release branch name.
    ```sh
-   git checkout -b release-2.15.0
+   git checkout -b release-2.15
    ```
 
 3. **Copy and rename the GitHub Action workflow:**
@@ -53,7 +53,7 @@ To add a new release, follow these steps:
      ```
    - Merge the release branch:
      ```sh
-     git merge release-2.15.0
+     git merge release-2.15
      ```
    - Push the updated `main` branch:
      ```sh
