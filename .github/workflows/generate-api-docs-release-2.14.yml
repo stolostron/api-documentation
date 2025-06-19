@@ -67,3 +67,4 @@ jobs:
           file_pattern: "api-docs/**/*.md"
           add_options: "-A"
           status_options: "--porcelain"
+          branch: ${{ env.RELEASE_BRANCH }}
