@@ -1,3 +1,13 @@
+# Include common build rules (uncomment if you have a common.mk file)
+# include common.mk
+
+# Release branch configuration
+# For different releases, set these environment variables:
+# export RELEASE_BRANCH=release-2.10.0
+# export BACKPLANE_BRANCH=release-2.10.0
+# 
+# Or run make with: RELEASE_BRANCH=release-2.10.0 BACKPLANE_BRANCH=release-2.10.0 make api-docs
+
 .PHONY: deps
 deps:
 	@which python3 > /dev/null || (echo "Python3 not found. Attempting to install..." && (command -v apt-get >/dev/null 2>&1 && sudo apt-get update && sudo apt-get install -y python3) || (command -v yum >/dev/null 2>&1 && sudo yum install -y python3) || (command -v brew >/dev/null 2>&1 && brew install python3) || (echo "Automatic install failed. Please install Python3 manually." && exit 1))
