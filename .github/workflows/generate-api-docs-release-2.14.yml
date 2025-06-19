@@ -46,12 +46,15 @@ jobs:
       # 4. Debug: Check state after generation
       - name: Debug - Check state after generation
         run: |
+          echo "Current branch: $(git branch --show-current)"
           echo "Files in api-docs after generation:"
           ls -la api-docs/ || echo "api-docs directory still doesn't exist"
           echo "Git status after generation:"
           git status
           echo "Git diff:"
           git diff --name-only || echo "No changes detected"
+          echo "Git diff with content:"
+          git diff || echo "No diff content"
 
       # 5. Commits the changed files in the 'api-docs' directory
       - name: Commit Documentation Changes
@@ -61,6 +64,6 @@ jobs:
           commit_user_name: "GitHub Actions Bot"
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
           commit_author: "GitHub Actions Bot <github-actions[bot]@users.noreply.github.com>"
-          file_pattern: "api-docs/"
+          file_pattern: "api-docs/**/*.md"
           add_options: "-A"
           status_options: "--porcelain"
