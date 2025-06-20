@@ -3,13 +3,12 @@
 Check out the repository, then run the following commnads:
 ```
 curl -o Makefile.api https://raw.githubusercontent.com/stolostron/api-documentation/main/Makefile && \
-curl -o cmd/gen-api-docs.py https://raw.githubusercontent.com/stolostron/api-documentation/main/cmd/gen-api-docs.py && \
 grep -q 'include Makefile.api' Makefile || sed -i '1i # See https://github.com/stolostron/api-documentation/blob/main/DEVELOPMENT.md for Makefile.api usage instructions\ninclude Makefile.api' Makefile
 ```
 
 Now run
 ```
-SEARCH_DIR=<path_to_crds_or_type.go> make api-docs-path
+SEARCH_DIR=<path_to_crds_or_type.go> make gen-api-docs
 ```
 Commit and push the changes.
 
