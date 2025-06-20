@@ -1,0 +1,70 @@
+# .github/workflows/generate-api-docs.yml
+name: release-2.14, Generate and Commit API Docs
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow at 00:00 UTC every day.
+  schedule:
+    - cron: '0 0 * * *'
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Add permissions for the workflow
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  # This workflow contains a single job called "generate-docs"
+  generate-docs:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    env:
+      RELEASE_BRANCH: 'release-2.14'
+      PATH: './helm/crds'
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # 1. Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.RELEASE_BRANCH }}
+
+      # 2. Sets up Python environment for the make command
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' # Use a recent Python 3 version
+
+      # 3. Runs the make command to install dependencies and generate the docs
+      - name: Generate API Documentation
+        run: SEARCH_DIR=${{ env.PATH }} make gen-api-docs
+        
+      # 4. Debug: Check state after generation
+      - name: Debug - Check state after generation
+        run: |
+          echo "Current branch: $(git branch --show-current)"
+          echo "Files in api-docs after generation:"
+          ls -la api-docs/ || echo "api-docs directory still doesn't exist"
+          echo "Git status after generation:"
+          git status
+          echo "Git diff:"
+          git diff --name-only || echo "No changes detected"
+          echo "Git diff with content:"
+          git diff || echo "No diff content"
+
+      # 5. Commits the changed files in the 'api-docs' directory
+      - name: Commit Documentation Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs(api): Auto-generate API documentation for ${{ env.RELEASE_BRANCH }}"
+          commit_user_name: "GitHub Actions Bot"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_author: "GitHub Actions Bot <github-actions[bot]@users.noreply.github.com>"
+          file_pattern: "api-docs/**/*.md"
+          add_options: "-A"
+          status_options: "--porcelain"
+          branch: ${{ env.RELEASE_BRANCH }}

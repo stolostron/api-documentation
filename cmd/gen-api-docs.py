@@ -10,6 +10,9 @@ from collections import defaultdict
 # List of folder names to ignore during file search
 IGNORED_FOLDERS = ['vendor', '.github', '.git', 'hack']
 
+# Global search directory
+search_dir = '.'
+
 def is_primitive(go_type):
     primitives = {'string', 'int', 'int32', 'int64', 'float32', 'float64', 'bool', 'byte', 'rune', 'uint', 'uint32', 'uint64', 'map', '[]byte', 'interface{}'}
     # Also treat slices and maps of primitives as primitives
@@ -221,7 +224,7 @@ def generate_markdown(crd_info, output_dir, go_files):
 
 def collect_go_type_files():
     go_type_files = []
-    for root, _, files in os.walk('.'):
+    for root, _, files in os.walk(search_dir):
         if any(ignored in root.split(os.sep) for ignored in IGNORED_FOLDERS):
             continue
         for file in files:
@@ -230,13 +233,17 @@ def collect_go_type_files():
     return go_type_files
 
 def main():
+    import sys
+    global search_dir
+    if len(sys.argv) > 1:
+        search_dir = sys.argv[1]
     api_docs_dir = './api-docs'
     if not os.path.exists(api_docs_dir):
         os.makedirs(api_docs_dir)
     go_type_files = collect_go_type_files()
     crd_definitions = []
     kind_to_source = {}
-    for root, _, files in os.walk('.'):
+    for root, _, files in os.walk(search_dir):
         if api_docs_dir.lstrip('./') in root:
             continue
         if any(ignored in root.split(os.sep) for ignored in IGNORED_FOLDERS):
