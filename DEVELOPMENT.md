@@ -8,7 +8,7 @@ grep -q 'include Makefile.api' Makefile || sed -i '1i # See https://github.com/s
 
 Now run
 ```
-SEARCH_DIR=<path_to_crds_or_type.go> make api-docs-path
+SEARCH_DIR=<path_to_crds_or_type.go> make gen-api-docs
 ```
 Commit and push the changes.
 
