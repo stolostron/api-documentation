@@ -288,7 +288,7 @@ def main():
             'link': md_file
         })
     with open(os.path.join(api_docs_dir, 'README.md'), 'w') as f:
-        f.write("# Advanced Cluster ManagementCustom Resource API Documentation\n\n")
+        f.write("# Advanced Cluster Management Custom Resource API Documentation\n\n")
         f.write("This document provides an overview of the Custom Resource Definitions (CRDs) used in this project.\n\n")
         for entry in index_entries:
             f.write(f"## {entry['kind']}\n\n")
