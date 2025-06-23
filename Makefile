@@ -45,7 +45,7 @@ setup: deps
 
 .PHONY: gen-api-docs
 gen-api-docs: setup
-	python3 cmd/gen-api-docs.py $${SEARCH_DIR}S
+	python3 cmd/gen-api-docs.py $(SEARCH_DIR)
 
 .PHONY: gen-api-docs-core
 gen-api-docs-core: setup-core gen-api-docs remove-core-crds
