@@ -10,6 +10,9 @@ from collections import defaultdict
 # List of folder names to ignore during file search
 IGNORED_FOLDERS = ['vendor', '.github', '.git', 'hack']
 
+# Global search directory
+search_dir = '.'
+
 def is_primitive(go_type):
     primitives = {'string', 'int', 'int32', 'int64', 'float32', 'float64', 'bool', 'byte', 'rune', 'uint', 'uint32', 'uint64', 'map', '[]byte', 'interface{}'}
     # Also treat slices and maps of primitives as primitives
@@ -171,7 +174,7 @@ def parse_crd_file(file_path):
                 field_schema = properties[field_name]
                 schema = field_schema.get('properties', {})
                 if 'description' in field_schema:
-                    crd_info['description'] = field_schema['description']
+                    crd_info['description'+field_name] = field_schema['description']
                 crd_info[field_name] = parse_schema_fields(schema)
     except (KeyError, IndexError) as e:
         print(f"Exception details: {e}")
@@ -208,12 +211,13 @@ def generate_markdown(crd_info, output_dir, go_files):
     file_path = os.path.join(output_dir, f"{kind.lower()}_api.md")
     with open(file_path, 'w') as f:
         f.write(f"# {kind} API\n\n")
-        f.write(f"{crd_info.get('description', 'No description available.')}\n\n")
         f.write("## Spec Fields\n\n")
+        f.write(f"{crd_info.get('descriptionspec', 'No description available.')}\n\n")
         f.write("| Field | Type | Description | Validations |\n")
         f.write("|:---|---|---|---|\n")
         f.write(render_fields(crd_info.get('spec', []), go_files))
         f.write("## Status Fields\n\n")
+        f.write(f"{crd_info.get('descriptionstatus', 'No description available.')}\n\n")
         f.write("| Field | Type | Description | Validations |\n")
         f.write("|:---|---|---|---|\n")
         f.write(render_fields(crd_info.get('status', []), go_files))
@@ -221,7 +225,7 @@ def generate_markdown(crd_info, output_dir, go_files):
 
 def collect_go_type_files():
     go_type_files = []
-    for root, _, files in os.walk('.'):
+    for root, _, files in os.walk(search_dir):
         if any(ignored in root.split(os.sep) for ignored in IGNORED_FOLDERS):
             continue
         for file in files:
@@ -230,13 +234,17 @@ def collect_go_type_files():
     return go_type_files
 
 def main():
+    import sys
+    global search_dir
+    if len(sys.argv) > 1:
+        search_dir = sys.argv[1]
     api_docs_dir = './api-docs'
     if not os.path.exists(api_docs_dir):
         os.makedirs(api_docs_dir)
     go_type_files = collect_go_type_files()
     crd_definitions = []
     kind_to_source = {}
-    for root, _, files in os.walk('.'):
+    for root, _, files in os.walk(search_dir):
         if api_docs_dir.lstrip('./') in root:
             continue
         if any(ignored in root.split(os.sep) for ignored in IGNORED_FOLDERS):
@@ -281,7 +289,7 @@ def main():
             'link': md_file
         })
     with open(os.path.join(api_docs_dir, 'README.md'), 'w') as f:
-        f.write("# Advanced Cluster ManagementCustom Resource API Documentation\n\n")
+        f.write("# Advanced Cluster Management Custom Resource API Documentation\n\n")
         f.write("This document provides an overview of the Custom Resource Definitions (CRDs) used in this project.\n\n")
         for entry in index_entries:
             f.write(f"## {entry['kind']}\n\n")
