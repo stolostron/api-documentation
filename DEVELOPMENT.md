@@ -23,7 +23,7 @@ For the first time setup, you need to download the GitHub workflow action and se
 
 2. **Download the workflow file:**
    ```sh
-   curl -o .github/workflows/generate-api-docs-release-2.14.yml https://raw.githubusercontent.com/jnpacker/api-documentation/refs/heads/main/.github/workflows/generate-api-docs-release-2.14.yml
+   curl -o .github/workflows/generate-api-docs-release-2.14.yml https://raw.githubusercontent.com/stolostron/api-documentation/refs/heads/main/workflows/generate-api-docs-release-2.14.yml
    ```
 3. **Rename and edit the workflow file:**
    ```sh

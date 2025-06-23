@@ -174,7 +174,7 @@ def parse_crd_file(file_path):
                 field_schema = properties[field_name]
                 schema = field_schema.get('properties', {})
                 if 'description' in field_schema:
-                    crd_info['description'] = field_schema['description']
+                    crd_info['description'+field_name] = field_schema['description']
                 crd_info[field_name] = parse_schema_fields(schema)
     except (KeyError, IndexError) as e:
         print(f"Exception details: {e}")
@@ -211,12 +211,13 @@ def generate_markdown(crd_info, output_dir, go_files):
     file_path = os.path.join(output_dir, f"{kind.lower()}_api.md")
     with open(file_path, 'w') as f:
         f.write(f"# {kind} API\n\n")
-        f.write(f"{crd_info.get('description', 'No description available.')}\n\n")
         f.write("## Spec Fields\n\n")
+        f.write(f"{crd_info.get('descriptionspec', 'No description available.')}\n\n")
         f.write("| Field | Type | Description | Validations |\n")
         f.write("|:---|---|---|---|\n")
         f.write(render_fields(crd_info.get('spec', []), go_files))
         f.write("## Status Fields\n\n")
+        f.write(f"{crd_info.get('descriptionstatus', 'No description available.')}\n\n")
         f.write("| Field | Type | Description | Validations |\n")
         f.write("|:---|---|---|---|\n")
         f.write(render_fields(crd_info.get('status', []), go_files))
