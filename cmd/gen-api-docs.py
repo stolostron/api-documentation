@@ -120,11 +120,27 @@ def parse_go_file(file_path, go_files, parsed_types=None):
 
 def parse_crd_file(file_path):
     with open(file_path, 'r') as f:
-        try:
-            crd = yaml.safe_load(f)
-        except yaml.YAMLError as e:
-            print(f"Error parsing YAML file {file_path}: {e}")
-            return None
+        content = f.read()
+
+    # Filter out Helm template syntax before parsing YAML
+    # Remove Helm template blocks like {{- if .Values.manageCRDs }}, {{ .Values.something }}, etc.
+    import re
+    # Remove Helm template conditionals and loops
+    content = re.sub(r'\{\{-?\s*if\s+[^}]+\s*-?\}\}', '', content)
+    content = re.sub(r'\{\{-?\s*else\s*-?\}\}', '', content)
+    content = re.sub(r'\{\{-?\s*end\s*-?\}\}', '', content)
+    content = re.sub(r'\{\{-?\s*range\s+[^}]+\s*-?\}\}', '', content)
+    content = re.sub(r'\{\{-?\s*with\s+[^}]+\s*-?\}\}', '', content)
+    # Remove Helm template variables like {{ .Values.something }}
+    content = re.sub(r'\{\{-?[^}]+-?\}\}', '', content)
+    # Remove lines that are only whitespace after template removal
+    content = '\n'.join(line for line in content.split('\n') if line.strip())
+    
+    try:
+        crd = yaml.safe_load(content)
+    except yaml.YAMLError as e:
+        print(f"Error parsing YAML file {file_path}: {e}")
+        return None
     if not crd or crd.get('kind') != 'CustomResourceDefinition':
         return None
 
