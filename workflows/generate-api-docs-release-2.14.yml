@@ -23,7 +23,8 @@ jobs:
 
     env:
       RELEASE_BRANCH: 'release-2.14'
-      PATH: './helm/crds'
+      SEARCH_DIR: '.'
+      FORCE_DOWNLOAD: 'true'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -41,7 +42,7 @@ jobs:
 
       # 3. Runs the make command to install dependencies and generate the docs
       - name: Generate API Documentation
-        run: SEARCH_DIR=${{ env.PATH }} make gen-api-docs
+        run: SEARCH_DIR=${{ env.SEARCH_DIR }} FORCE_DOWNLOAD=${{ env.FORCE_DOWNLOAD }} make gen-api-docs
         
       # 4. Debug: Check state after generation
       - name: Debug - Check state after generation

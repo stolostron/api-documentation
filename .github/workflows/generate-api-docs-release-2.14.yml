@@ -24,6 +24,7 @@ jobs:
     env:
       RELEASE_BRANCH: 'release-2.14'
       BACKPLANE_BRANCH: 'backplane-2.9'
+      FORCE_DOWNLOAD: 'true'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -41,7 +42,7 @@ jobs:
 
       # 3. Runs the make command to install dependencies and generate the docs
       - name: Generate API Documentation
-        run: RELEASE_BRANCH=${{ env.RELEASE_BRANCH }} BACKPLANE_BRANCH=${{ env.BACKPLANE_BRANCH }} make api-docs
+        run: RELEASE_BRANCH=${{ env.RELEASE_BRANCH }} BACKPLANE_BRANCH=${{ env.BACKPLANE_BRANCH }} FORCE_DOWNLOAD=${{ env.FORCE_DOWNLOAD }} make gen-api-docs-core
         
       # 4. Debug: Check state after generation
       - name: Debug - Check state after generation

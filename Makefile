@@ -8,6 +8,9 @@
 # 
 # Or run make with: RELEASE_BRANCH=release-2.10.0 BACKPLANE_BRANCH=release-2.10.0 make api-docs
 
+SEARCH_DIR ?= .
+FORCE_DOWNLOAD ?= false
+
 .PHONY: deps
 deps: ensure-gen-api-docs
 	@which python3 > /dev/null || (echo "Python3 not found. Attempting to install..." && (command -v apt-get >/dev/null 2>&1 && sudo apt-get update && sudo apt-get install -y python3) || (command -v yum >/dev/null 2>&1 && sudo yum install -y python3) || (command -v brew >/dev/null 2>&1 && brew install python3) || (echo "Automatic install failed. Please install Python3 manually." && exit 1))
@@ -18,8 +21,8 @@ deps: ensure-gen-api-docs
 
 .PHONY: ensure-gen-api-docs
 ensure-gen-api-docs:
-	@if [ ! -f cmd/gen-api-docs.py ]; then \
-		echo "cmd/gen-api-docs.py not found. Downloading..."; \
+	@if [ ! -f cmd/gen-api-docs.py ] || [ "$${FORCE_DOWNLOAD}" = "true" ]; then \
+		echo "cmd/gen-api-docs.py not found or FORCE_DOWNLOAD is true. Downloading..."; \
 		mkdir -p cmd; \
 		curl -sSL -o cmd/gen-api-docs.py https://raw.githubusercontent.com/stolostron/api-documentation/main/cmd/gen-api-docs.py; \
 	fi
@@ -44,6 +47,6 @@ setup: deps
 gen-api-docs: setup
 	python3 cmd/gen-api-docs.py $(SEARCH_DIR)
 
-.PHONY: api-docs
-api-docs: setup-core gen-api-docs remove-core-crds
+.PHONY: gen-api-docs-core
+gen-api-docs-core: setup-core gen-api-docs remove-core-crds
 	echo "API docs generated successfully"
