@@ -1,8 +1,8 @@
 # OpenshiftAssistedConfigTemplate API
 
-OpenshiftAssistedConfigTemplateStatus defines the observed state of OpenshiftAssistedConfigTemplate
-
 ## Spec Fields
+
+OpenshiftAssistedConfigTemplateSpec defines the desired state of OpenshiftAssistedConfigTemplate
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -35,6 +35,8 @@ OpenshiftAssistedConfigTemplateStatus defines the observed state of OpenshiftAss
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **sshAuthorizedKey** | `string` | SSHAuthorizedKey is a SSH public keys that will be added to all agents for use in debugging. | N/A |
 ## Status Fields
+
+OpenshiftAssistedConfigTemplateStatus defines the observed state of OpenshiftAssistedConfigTemplate
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

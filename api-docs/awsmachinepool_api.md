@@ -1,8 +1,8 @@
 # AWSMachinePool API
 
-AWSMachinePoolStatus defines the observed state of AWSMachinePool.
-
 ## Spec Fields
+
+AWSMachinePoolSpec defines the desired state of AWSMachinePool.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -59,6 +59,8 @@ AWSMachinePoolStatus defines the observed state of AWSMachinePool.
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **values** | `array` | Values includes one or more filter values. Filter values are case-sensitive. | N/A |
 | └>&nbsp;&nbsp; **id** | `string` | ID of resource | N/A |
 ## Status Fields
+
+AWSMachinePoolStatus defines the observed state of AWSMachinePool.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

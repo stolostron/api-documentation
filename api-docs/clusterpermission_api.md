@@ -1,8 +1,8 @@
 # ClusterPermission API
 
-ClusterPermissionStatus defines the observed state of ClusterPermission
-
 ## Spec Fields
+
+ClusterPermissionSpec defines the desired state of ClusterPermission
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -67,6 +67,8 @@ ClusterPermissionStatus defines the observed state of ClusterPermission
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **resources** | `array` | Resources is a list of resources this rule applies to. '*' represents all resources. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **verbs** | `array` | Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs. | N/A |
 ## Status Fields
+
+ClusterPermissionStatus defines the observed state of ClusterPermission
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

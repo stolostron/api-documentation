@@ -1,8 +1,8 @@
 # ManagedProxyConfiguration API
 
-ManagedProxyConfigurationStatus defines the observed state of ManagedProxyConfiguration
-
 ## Spec Fields
+
+ManagedProxyConfigurationSpec is the prescription of ManagedProxyConfiguration
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -52,6 +52,8 @@ ManagedProxyConfigurationStatus defines the observed state of ManagedProxyConfig
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **value** | `string` | Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string. | N/A |
 | └>&nbsp;&nbsp; **replicas** | `integer` | `replicas` is the expected replicas of the proxy servers. Note that the replicas will also be reflected in the flag `--server-count` so that agents can discover all the server instances. | N/A |
 ## Status Fields
+
+ManagedProxyConfigurationStatus defines the observed state of ManagedProxyConfiguration
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

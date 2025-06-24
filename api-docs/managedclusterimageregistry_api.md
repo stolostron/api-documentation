@@ -1,8 +1,8 @@
 # ManagedClusterImageRegistry API
 
-Status represents the desired status of the managedClusterImageRegistry.
-
 ## Spec Fields
+
+Spec defines the information of the ManagedClusterImageRegistry.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -17,6 +17,8 @@ Status represents the desired status of the managedClusterImageRegistry.
 | └>&nbsp;&nbsp; **source** | `string` | Source is the source registry. All image registries will be replaced by Mirror if Source is empty. | N/A |
 |  **registry** | `string` | Registry is the Mirror registry which will replace all images registries. will be ignored if Registries is not empty. | N/A |
 ## Status Fields
+
+Status represents the desired status of the managedClusterImageRegistry.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

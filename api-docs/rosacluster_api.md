@@ -1,8 +1,8 @@
 # ROSACluster API
 
-ROSAClusterStatus defines the observed state of ROSACluster.
-
 ## Spec Fields
+
+ROSAClusterSpec defines the desired state of ROSACluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -10,6 +10,8 @@ ROSAClusterStatus defines the observed state of ROSACluster.
 | └>&nbsp;&nbsp; **host** | `string` | The hostname on which the API server is serving. | N/A |
 | └>&nbsp;&nbsp; **port** | `integer` | The port on which the API server is serving. | N/A |
 ## Status Fields
+
+ROSAClusterStatus defines the observed state of ROSACluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

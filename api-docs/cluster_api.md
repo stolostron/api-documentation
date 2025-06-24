@@ -1,8 +1,8 @@
 # Cluster API
 
-ClusterStatus defines the observed state of Cluster.
-
 ## Spec Fields
+
+ClusterSpec defines the desired state of Cluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -34,6 +34,8 @@ ClusterStatus defines the observed state of Cluster.
 | └>&nbsp;&nbsp; **uid** | `string` | UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids | N/A |
 |  **paused** | `boolean` | paused can be used to prevent controllers from processing the Cluster and all its associated objects. | N/A |
 ## Status Fields
+
+ClusterStatus defines the observed state of Cluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

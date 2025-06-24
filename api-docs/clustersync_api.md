@@ -1,12 +1,14 @@
 # ClusterSync API
 
-ClusterSyncStatus defines the observed state of ClusterSync
-
 ## Spec Fields
+
+ClusterSyncSpec defines the desired state of ClusterSync
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
 ## Status Fields
+
+ClusterSyncStatus defines the observed state of ClusterSync
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

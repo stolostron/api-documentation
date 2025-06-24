@@ -1,8 +1,8 @@
 # ClusterClass API
 
-ClusterClassSpec describes the desired state of the ClusterClass.
-
 ## Spec Fields
+
+ClusterClassSpec describes the desired state of the ClusterClass.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -62,6 +62,8 @@ ClusterClassSpec describes the desired state of the ClusterClass.
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **annotations** | `object` | annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **labels** | `object` | Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels | N/A |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

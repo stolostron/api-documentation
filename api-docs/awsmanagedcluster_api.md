@@ -1,8 +1,8 @@
 # AWSManagedCluster API
 
-AWSManagedClusterStatus defines the observed state of AWSManagedCluster
-
 ## Spec Fields
+
+AWSManagedClusterSpec defines the desired state of AWSManagedCluster
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -10,6 +10,8 @@ AWSManagedClusterStatus defines the observed state of AWSManagedCluster
 | └>&nbsp;&nbsp; **host** | `string` | The hostname on which the API server is serving. | N/A |
 | └>&nbsp;&nbsp; **port** | `integer` | The port on which the API server is serving. | N/A |
 ## Status Fields
+
+AWSManagedClusterStatus defines the observed state of AWSManagedCluster
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

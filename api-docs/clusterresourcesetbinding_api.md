@@ -1,8 +1,8 @@
 # ClusterResourceSetBinding API
 
-ClusterResourceSetBindingSpec defines the desired state of ClusterResourceSetBinding.
-
 ## Spec Fields
+
+ClusterResourceSetBindingSpec defines the desired state of ClusterResourceSetBinding.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -15,6 +15,8 @@ ClusterResourceSetBindingSpec defines the desired state of ClusterResourceSetBin
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **lastAppliedTime** | `string` | lastAppliedTime identifies when this resource was last applied to the cluster. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | name of the resource that is in the same namespace with ClusterResourceSet object. | N/A |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

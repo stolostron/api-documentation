@@ -1,10 +1,10 @@
-# Advanced Cluster ManagementCustom Resource API Documentation
+# Advanced Cluster Management Custom Resource API Documentation
 
 This document provides an overview of the Custom Resource Definitions (CRDs) used in this project.
 
 ## AgentServiceConfig
 
-AgentServiceConfigStatus defines the observed state of AgentServiceConfig
+Description not found in CRD.
 
 [View a detailed API Reference for AgentServiceConfig](agentserviceconfig_api.md).
 
@@ -20,7 +20,7 @@ Description not found in CRD.
 
 ## AgentClassification
 
-AgentClassificationStatus defines the observed state of AgentClassification
+Description not found in CRD.
 
 [View a detailed API Reference for AgentClassification](agentclassification_api.md).
 
@@ -36,7 +36,7 @@ Description not found in CRD.
 
 ## AgentClusterInstall
 
-AgentClusterInstallStatus defines the observed state of the AgentClusterInstall.
+Description not found in CRD.
 
 [View a detailed API Reference for AgentClusterInstall](agentclusterinstall_api.md).
 
@@ -44,7 +44,7 @@ AgentClusterInstallStatus defines the observed state of the AgentClusterInstall.
 
 ## HypershiftAgentServiceConfig
 
-HypershiftAgentServiceConfigSpec defines the desired state of HypershiftAgentServiceConfig.
+Description not found in CRD.
 
 [View a detailed API Reference for HypershiftAgentServiceConfig](hypershiftagentserviceconfig_api.md).
 
@@ -52,7 +52,7 @@ HypershiftAgentServiceConfigSpec defines the desired state of HypershiftAgentSer
 
 ## Agent
 
-AgentStatus defines the observed state of Agent
+Description not found in CRD.
 
 [View a detailed API Reference for Agent](agent_api.md).
 
@@ -68,7 +68,7 @@ Description not found in CRD.
 
 ## OpenshiftAssistedConfig
 
-OpenshiftAssistedConfigStatus defines the observed state of OpenshiftAssistedConfig
+Description not found in CRD.
 
 [View a detailed API Reference for OpenshiftAssistedConfig](openshiftassistedconfig_api.md).
 
@@ -76,7 +76,7 @@ OpenshiftAssistedConfigStatus defines the observed state of OpenshiftAssistedCon
 
 ## OpenshiftAssistedConfigTemplate
 
-OpenshiftAssistedConfigTemplateStatus defines the observed state of OpenshiftAssistedConfigTemplate
+Description not found in CRD.
 
 [View a detailed API Reference for OpenshiftAssistedConfigTemplate](openshiftassistedconfigtemplate_api.md).
 
@@ -84,7 +84,7 @@ OpenshiftAssistedConfigTemplateStatus defines the observed state of OpenshiftAss
 
 ## OpenshiftAssistedControlPlane
 
-OpenshiftAssistedControlPlaneStatus defines the observed state of OpenshiftAssistedControlPlane
+Description not found in CRD.
 
 [View a detailed API Reference for OpenshiftAssistedControlPlane](openshiftassistedcontrolplane_api.md).
 
@@ -92,7 +92,7 @@ OpenshiftAssistedControlPlaneStatus defines the observed state of OpenshiftAssis
 
 ## ImageClusterInstall
 
-ImageClusterInstallStatus defines the observed state of ImageClusterInstall
+Description not found in CRD.
 
 [View a detailed API Reference for ImageClusterInstall](imageclusterinstall_api.md).
 
@@ -100,7 +100,7 @@ ImageClusterInstallStatus defines the observed state of ImageClusterInstall
 
 ## MachineDrainRule
 
-spec defines the spec of a MachineDrainRule.
+Description not found in CRD.
 
 [View a detailed API Reference for MachineDrainRule](machinedrainrule_api.md).
 
@@ -108,7 +108,7 @@ spec defines the spec of a MachineDrainRule.
 
 ## ClusterClass
 
-ClusterClassSpec describes the desired state of the ClusterClass.
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterClass](clusterclass_api.md).
 
@@ -116,7 +116,7 @@ ClusterClassSpec describes the desired state of the ClusterClass.
 
 ## MachineSet
 
-MachineSetStatus defines the observed state of MachineSet.
+Description not found in CRD.
 
 [View a detailed API Reference for MachineSet](machineset_api.md).
 
@@ -124,7 +124,7 @@ MachineSetStatus defines the observed state of MachineSet.
 
 ## ClusterResourceSetBinding
 
-ClusterResourceSetBindingSpec defines the desired state of ClusterResourceSetBinding.
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterResourceSetBinding](clusterresourcesetbinding_api.md).
 
@@ -132,7 +132,7 @@ ClusterResourceSetBindingSpec defines the desired state of ClusterResourceSetBin
 
 ## Cluster
 
-ClusterStatus defines the observed state of Cluster.
+Description not found in CRD.
 
 [View a detailed API Reference for Cluster](cluster_api.md).
 
@@ -140,7 +140,7 @@ ClusterStatus defines the observed state of Cluster.
 
 ## MachineDeployment
 
-MachineDeploymentStatus defines the observed state of MachineDeployment.
+Description not found in CRD.
 
 [View a detailed API Reference for MachineDeployment](machinedeployment_api.md).
 
@@ -148,7 +148,7 @@ MachineDeploymentStatus defines the observed state of MachineDeployment.
 
 ## MachineHealthCheck
 
-Most recently observed status of MachineHealthCheck resource
+Description not found in CRD.
 
 [View a detailed API Reference for MachineHealthCheck](machinehealthcheck_api.md).
 
@@ -156,7 +156,7 @@ Most recently observed status of MachineHealthCheck resource
 
 ## Machine
 
-MachineStatus defines the observed state of Machine.
+Description not found in CRD.
 
 [View a detailed API Reference for Machine](machine_api.md).
 
@@ -164,7 +164,7 @@ MachineStatus defines the observed state of Machine.
 
 ## ExtensionConfig
 
-ExtensionConfigStatus is the current state of the ExtensionConfig
+Description not found in CRD.
 
 [View a detailed API Reference for ExtensionConfig](extensionconfig_api.md).
 
@@ -172,7 +172,7 @@ ExtensionConfigStatus is the current state of the ExtensionConfig
 
 ## ClusterResourceSet
 
-ClusterResourceSetStatus defines the observed state of ClusterResourceSet.
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterResourceSet](clusterresourceset_api.md).
 
@@ -180,7 +180,7 @@ ClusterResourceSetStatus defines the observed state of ClusterResourceSet.
 
 ## Metal3DataClaim
 
-Metal3DataClaimStatus defines the observed state of Metal3DataClaim.
+Description not found in CRD.
 
 [View a detailed API Reference for Metal3DataClaim](metal3dataclaim_api.md).
 
@@ -188,7 +188,7 @@ Metal3DataClaimStatus defines the observed state of Metal3DataClaim.
 
 ## Metal3Machine
 
-Metal3MachineStatus defines the observed state of Metal3Machine.
+Description not found in CRD.
 
 [View a detailed API Reference for Metal3Machine](metal3machine_api.md).
 
@@ -196,7 +196,7 @@ Metal3MachineStatus defines the observed state of Metal3Machine.
 
 ## Metal3MachineTemplate
 
-Metal3MachineTemplateSpec defines the desired state of Metal3MachineTemplate.
+Description not found in CRD.
 
 [View a detailed API Reference for Metal3MachineTemplate](metal3machinetemplate_api.md).
 
@@ -204,7 +204,7 @@ Metal3MachineTemplateSpec defines the desired state of Metal3MachineTemplate.
 
 ## IPAddress
 
-IPAddressSpec defines the desired state of IPAddress.
+Description not found in CRD.
 
 [View a detailed API Reference for IPAddress](ipaddress_api.md).
 
@@ -212,7 +212,7 @@ IPAddressSpec defines the desired state of IPAddress.
 
 ## Metal3RemediationTemplate
 
-Metal3RemediationTemplateStatus defines the observed state of Metal3RemediationTemplate.
+Description not found in CRD.
 
 [View a detailed API Reference for Metal3RemediationTemplate](metal3remediationtemplate_api.md).
 
@@ -220,7 +220,7 @@ Metal3RemediationTemplateStatus defines the observed state of Metal3RemediationT
 
 ## IPClaim
 
-IPClaimStatus defines the observed state of IPClaim.
+Description not found in CRD.
 
 [View a detailed API Reference for IPClaim](ipclaim_api.md).
 
@@ -228,7 +228,7 @@ IPClaimStatus defines the observed state of IPClaim.
 
 ## Metal3Remediation
 
-Metal3RemediationStatus defines the observed state of Metal3Remediation.
+Description not found in CRD.
 
 [View a detailed API Reference for Metal3Remediation](metal3remediation_api.md).
 
@@ -236,7 +236,7 @@ Metal3RemediationStatus defines the observed state of Metal3Remediation.
 
 ## Metal3DataTemplate
 
-Metal3DataTemplateStatus defines the observed state of Metal3DataTemplate.
+Description not found in CRD.
 
 [View a detailed API Reference for Metal3DataTemplate](metal3datatemplate_api.md).
 
@@ -244,7 +244,7 @@ Metal3DataTemplateStatus defines the observed state of Metal3DataTemplate.
 
 ## Metal3Cluster
 
-Metal3ClusterStatus defines the observed state of Metal3Cluster.
+Description not found in CRD.
 
 [View a detailed API Reference for Metal3Cluster](metal3cluster_api.md).
 
@@ -252,7 +252,7 @@ Metal3ClusterStatus defines the observed state of Metal3Cluster.
 
 ## IPPool
 
-IPPoolStatus defines the observed state of IPPool.
+Description not found in CRD.
 
 [View a detailed API Reference for IPPool](ippool_api.md).
 
@@ -260,7 +260,7 @@ IPPoolStatus defines the observed state of IPPool.
 
 ## Metal3Data
 
-Metal3DataStatus defines the observed state of Metal3Data.
+Description not found in CRD.
 
 [View a detailed API Reference for Metal3Data](metal3data_api.md).
 
@@ -268,7 +268,7 @@ Metal3DataStatus defines the observed state of Metal3Data.
 
 ## Metal3ClusterTemplate
 
-Metal3ClusterTemplateSpec defines the desired state of Metal3ClusterTemplate.
+Description not found in CRD.
 
 [View a detailed API Reference for Metal3ClusterTemplate](metal3clustertemplate_api.md).
 
@@ -276,7 +276,7 @@ Metal3ClusterTemplateSpec defines the desired state of Metal3ClusterTemplate.
 
 ## ClusterState
 
-ClusterStateStatus defines the observed state of ClusterState
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterState](clusterstate_api.md).
 
@@ -284,7 +284,7 @@ ClusterStateStatus defines the observed state of ClusterState
 
 ## HiveConfig
 
-HiveConfigStatus defines the observed state of Hive
+Description not found in CRD.
 
 [View a detailed API Reference for HiveConfig](hiveconfig_api.md).
 
@@ -292,7 +292,7 @@ HiveConfigStatus defines the observed state of Hive
 
 ## ClusterRelocate
 
-ClusterRelocateStatus defines the observed state of ClusterRelocate.
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterRelocate](clusterrelocate_api.md).
 
@@ -300,7 +300,7 @@ ClusterRelocateStatus defines the observed state of ClusterRelocate.
 
 ## SyncSet
 
-SyncSetStatus defines the observed state of a SyncSet
+Description not found in CRD.
 
 [View a detailed API Reference for SyncSet](syncset_api.md).
 
@@ -308,7 +308,7 @@ SyncSetStatus defines the observed state of a SyncSet
 
 ## ClusterSync
 
-ClusterSyncStatus defines the observed state of ClusterSync
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterSync](clustersync_api.md).
 
@@ -316,7 +316,7 @@ ClusterSyncStatus defines the observed state of ClusterSync
 
 ## MachinePoolNameLease
 
-MachinePoolNameLeaseStatus defines the observed state of MachinePoolNameLease.
+Description not found in CRD.
 
 [View a detailed API Reference for MachinePoolNameLease](machinepoolnamelease_api.md).
 
@@ -324,7 +324,7 @@ MachinePoolNameLeaseStatus defines the observed state of MachinePoolNameLease.
 
 ## ClusterSyncLease
 
-ClusterSyncLeaseSpec is the specification of a ClusterSyncLease.
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterSyncLease](clustersynclease_api.md).
 
@@ -332,7 +332,7 @@ ClusterSyncLeaseSpec is the specification of a ClusterSyncLease.
 
 ## Checkpoint
 
-CheckpointStatus defines the observed state of Checkpoint
+Description not found in CRD.
 
 [View a detailed API Reference for Checkpoint](checkpoint_api.md).
 
@@ -340,7 +340,7 @@ CheckpointStatus defines the observed state of Checkpoint
 
 ## ClusterImageSet
 
-ClusterImageSetStatus defines the observed state of ClusterImageSet
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterImageSet](clusterimageset_api.md).
 
@@ -348,7 +348,7 @@ ClusterImageSetStatus defines the observed state of ClusterImageSet
 
 ## ClusterClaim
 
-ClusterClaimStatus defines the observed state of ClusterClaim.
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterClaim](clusterclaim_api.md).
 
@@ -356,7 +356,7 @@ ClusterClaimStatus defines the observed state of ClusterClaim.
 
 ## MachinePool
 
-MachinePoolStatus defines the observed state of MachinePool
+Description not found in CRD.
 
 [View a detailed API Reference for MachinePool](machinepool_api.md).
 
@@ -364,7 +364,7 @@ MachinePoolStatus defines the observed state of MachinePool
 
 ## SyncIdentityProvider
 
-IdentityProviderStatus defines the observed state of SyncSet
+Description not found in CRD.
 
 [View a detailed API Reference for SyncIdentityProvider](syncidentityprovider_api.md).
 
@@ -372,7 +372,7 @@ IdentityProviderStatus defines the observed state of SyncSet
 
 ## ClusterPool
 
-ClusterPoolStatus defines the observed state of ClusterPool
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterPool](clusterpool_api.md).
 
@@ -380,7 +380,7 @@ ClusterPoolStatus defines the observed state of ClusterPool
 
 ## ClusterProvision
 
-ClusterProvisionStatus defines the observed state of ClusterProvision.
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterProvision](clusterprovision_api.md).
 
@@ -388,7 +388,7 @@ ClusterProvisionStatus defines the observed state of ClusterProvision.
 
 ## ClusterDeploymentCustomization
 
-ClusterDeploymentCustomizationStatus defines the observed state of ClusterDeploymentCustomization.
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterDeploymentCustomization](clusterdeploymentcustomization_api.md).
 
@@ -396,7 +396,7 @@ ClusterDeploymentCustomizationStatus defines the observed state of ClusterDeploy
 
 ## SelectorSyncIdentityProvider
 
-IdentityProviderStatus defines the observed state of SyncSet
+Description not found in CRD.
 
 [View a detailed API Reference for SelectorSyncIdentityProvider](selectorsyncidentityprovider_api.md).
 
@@ -404,7 +404,7 @@ IdentityProviderStatus defines the observed state of SyncSet
 
 ## ClusterDeployment
 
-ClusterDeploymentStatus defines the observed state of ClusterDeployment
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterDeployment](clusterdeployment_api.md).
 
@@ -412,7 +412,7 @@ ClusterDeploymentStatus defines the observed state of ClusterDeployment
 
 ## DNSZone
 
-DNSZoneStatus defines the observed state of DNSZone
+Description not found in CRD.
 
 [View a detailed API Reference for DNSZone](dnszone_api.md).
 
@@ -420,7 +420,7 @@ DNSZoneStatus defines the observed state of DNSZone
 
 ## ClusterDeprovision
 
-ClusterDeprovisionStatus defines the observed state of ClusterDeprovision
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterDeprovision](clusterdeprovision_api.md).
 
@@ -428,7 +428,7 @@ ClusterDeprovisionStatus defines the observed state of ClusterDeprovision
 
 ## SelectorSyncSet
 
-SelectorSyncSetStatus defines the observed state of a SelectorSyncSet
+Description not found in CRD.
 
 [View a detailed API Reference for SelectorSyncSet](selectorsyncset_api.md).
 
@@ -436,7 +436,7 @@ SelectorSyncSetStatus defines the observed state of a SelectorSyncSet
 
 ## FakeClusterInstall
 
-FakeClusterInstallStatus defines the observed state of the FakeClusterInstall.
+Description not found in CRD.
 
 [View a detailed API Reference for FakeClusterInstall](fakeclusterinstall_api.md).
 
@@ -444,7 +444,7 @@ FakeClusterInstallStatus defines the observed state of the FakeClusterInstall.
 
 ## ManagedProxyConfiguration
 
-ManagedProxyConfigurationStatus defines the observed state of ManagedProxyConfiguration
+Description not found in CRD.
 
 [View a detailed API Reference for ManagedProxyConfiguration](managedproxyconfiguration_api.md).
 
@@ -452,7 +452,7 @@ ManagedProxyConfigurationStatus defines the observed state of ManagedProxyConfig
 
 ## ManagedProxyServiceResolver
 
-ManagedProxyServiceResolverStatus defines the observed state of ManagedProxyServiceResolver.
+Description not found in CRD.
 
 [View a detailed API Reference for ManagedProxyServiceResolver](managedproxyserviceresolver_api.md).
 
@@ -460,7 +460,7 @@ ManagedProxyServiceResolverStatus defines the observed state of ManagedProxyServ
 
 ## AWSManagedCluster
 
-AWSManagedClusterStatus defines the observed state of AWSManagedCluster
+Description not found in CRD.
 
 [View a detailed API Reference for AWSManagedCluster](awsmanagedcluster_api.md).
 
@@ -468,7 +468,7 @@ AWSManagedClusterStatus defines the observed state of AWSManagedCluster
 
 ## ROSAMachinePool
 
-RosaMachinePoolStatus defines the observed state of RosaMachinePool.
+Description not found in CRD.
 
 [View a detailed API Reference for ROSAMachinePool](rosamachinepool_api.md).
 
@@ -476,7 +476,7 @@ RosaMachinePoolStatus defines the observed state of RosaMachinePool.
 
 ## AWSClusterStaticIdentity
 
-Spec for this AWSClusterStaticIdentity
+Description not found in CRD.
 
 [View a detailed API Reference for AWSClusterStaticIdentity](awsclusterstaticidentity_api.md).
 
@@ -484,7 +484,7 @@ Spec for this AWSClusterStaticIdentity
 
 ## AWSMachinePool
 
-AWSMachinePoolStatus defines the observed state of AWSMachinePool.
+Description not found in CRD.
 
 [View a detailed API Reference for AWSMachinePool](awsmachinepool_api.md).
 
@@ -492,7 +492,7 @@ AWSMachinePoolStatus defines the observed state of AWSMachinePool.
 
 ## AWSMachineTemplate
 
-AWSMachineTemplateStatus defines a status for an AWSMachineTemplate.
+Description not found in CRD.
 
 [View a detailed API Reference for AWSMachineTemplate](awsmachinetemplate_api.md).
 
@@ -500,7 +500,7 @@ AWSMachineTemplateStatus defines a status for an AWSMachineTemplate.
 
 ## AWSFargateProfile
 
-FargateProfileStatus defines the observed state of FargateProfile.
+Description not found in CRD.
 
 [View a detailed API Reference for AWSFargateProfile](awsfargateprofile_api.md).
 
@@ -508,7 +508,7 @@ FargateProfileStatus defines the observed state of FargateProfile.
 
 ## EKSConfig
 
-EKSConfigStatus defines the observed state of the Amazon EKS Bootstrap Configuration.
+Description not found in CRD.
 
 [View a detailed API Reference for EKSConfig](eksconfig_api.md).
 
@@ -516,7 +516,7 @@ EKSConfigStatus defines the observed state of the Amazon EKS Bootstrap Configura
 
 ## AWSManagedMachinePool
 
-AWSManagedMachinePoolStatus defines the observed state of AWSManagedMachinePool.
+Description not found in CRD.
 
 [View a detailed API Reference for AWSManagedMachinePool](awsmanagedmachinepool_api.md).
 
@@ -524,7 +524,7 @@ AWSManagedMachinePoolStatus defines the observed state of AWSManagedMachinePool.
 
 ## AWSClusterTemplate
 
-AWSClusterTemplateSpec defines the desired state of AWSClusterTemplate.
+Description not found in CRD.
 
 [View a detailed API Reference for AWSClusterTemplate](awsclustertemplate_api.md).
 
@@ -532,7 +532,7 @@ AWSClusterTemplateSpec defines the desired state of AWSClusterTemplate.
 
 ## AWSManagedControlPlane
 
-AWSManagedControlPlaneStatus defines the observed state of an Amazon EKS Cluster.
+Description not found in CRD.
 
 [View a detailed API Reference for AWSManagedControlPlane](awsmanagedcontrolplane_api.md).
 
@@ -540,7 +540,7 @@ AWSManagedControlPlaneStatus defines the observed state of an Amazon EKS Cluster
 
 ## EKSConfigTemplate
 
-EKSConfigTemplateSpec defines the desired state of templated EKSConfig Amazon EKS Bootstrap Configuration resources.
+Description not found in CRD.
 
 [View a detailed API Reference for EKSConfigTemplate](eksconfigtemplate_api.md).
 
@@ -548,7 +548,7 @@ EKSConfigTemplateSpec defines the desired state of templated EKSConfig Amazon EK
 
 ## ROSAControlPlane
 
-RosaControlPlaneStatus defines the observed state of ROSAControlPlane.
+Description not found in CRD.
 
 [View a detailed API Reference for ROSAControlPlane](rosacontrolplane_api.md).
 
@@ -556,7 +556,7 @@ RosaControlPlaneStatus defines the observed state of ROSAControlPlane.
 
 ## AWSCluster
 
-AWSClusterStatus defines the observed state of AWSCluster.
+Description not found in CRD.
 
 [View a detailed API Reference for AWSCluster](awscluster_api.md).
 
@@ -564,7 +564,7 @@ AWSClusterStatus defines the observed state of AWSCluster.
 
 ## AWSClusterRoleIdentity
 
-Spec for this AWSClusterRoleIdentity.
+Description not found in CRD.
 
 [View a detailed API Reference for AWSClusterRoleIdentity](awsclusterroleidentity_api.md).
 
@@ -572,7 +572,7 @@ Spec for this AWSClusterRoleIdentity.
 
 ## AWSClusterControllerIdentity
 
-Spec for this AWSClusterControllerIdentity.
+Description not found in CRD.
 
 [View a detailed API Reference for AWSClusterControllerIdentity](awsclustercontrolleridentity_api.md).
 
@@ -580,7 +580,7 @@ Spec for this AWSClusterControllerIdentity.
 
 ## AWSMachine
 
-AWSMachineStatus defines the observed state of AWSMachine.
+Description not found in CRD.
 
 [View a detailed API Reference for AWSMachine](awsmachine_api.md).
 
@@ -588,7 +588,7 @@ AWSMachineStatus defines the observed state of AWSMachine.
 
 ## ROSACluster
 
-ROSAClusterStatus defines the observed state of ROSACluster.
+Description not found in CRD.
 
 [View a detailed API Reference for ROSACluster](rosacluster_api.md).
 
@@ -596,7 +596,7 @@ ROSAClusterStatus defines the observed state of ROSACluster.
 
 ## DiscoveredCluster
 
-DiscoveredClusterStatus defines the observed state of DiscoveredCluster
+Description not found in CRD.
 
 [View a detailed API Reference for DiscoveredCluster](discoveredcluster_api.md).
 
@@ -604,7 +604,7 @@ DiscoveredClusterStatus defines the observed state of DiscoveredCluster
 
 ## DiscoveryConfig
 
-DiscoveryConfigStatus defines the observed state of DiscoveryConfig
+Description not found in CRD.
 
 [View a detailed API Reference for DiscoveryConfig](discoveryconfig_api.md).
 
@@ -612,7 +612,7 @@ DiscoveryConfigStatus defines the observed state of DiscoveryConfig
 
 ## ClusterCurator
 
-ClusterCuratorStatus defines the observed state of ClusterCurator work
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterCurator](clustercurator_api.md).
 
@@ -620,7 +620,7 @@ ClusterCuratorStatus defines the observed state of ClusterCurator work
 
 ## ClusterManager
 
-Status represents the current status of controllers that govern the lifecycle of managed clusters.
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterManager](clustermanager_api.md).
 
@@ -628,7 +628,7 @@ Status represents the current status of controllers that govern the lifecycle of
 
 ## ManagedServiceAccount
 
-ManagedServiceAccountStatus defines the observed state of ManagedServiceAccount
+Description not found in CRD.
 
 [View a detailed API Reference for ManagedServiceAccount](managedserviceaccount_api.md).
 
@@ -636,7 +636,7 @@ ManagedServiceAccountStatus defines the observed state of ManagedServiceAccount
 
 ## KlusterletConfig
 
-Status defines the observed state of KlusterletConfig
+Description not found in CRD.
 
 [View a detailed API Reference for KlusterletConfig](klusterletconfig_api.md).
 
@@ -644,7 +644,7 @@ Status defines the observed state of KlusterletConfig
 
 ## ManagedClusterView
 
-Status describes current status of a view
+Description not found in CRD.
 
 [View a detailed API Reference for ManagedClusterView](managedclusterview_api.md).
 
@@ -652,7 +652,7 @@ Status describes current status of a view
 
 ## ManagedClusterImageRegistry
 
-Status represents the desired status of the managedClusterImageRegistry.
+Description not found in CRD.
 
 [View a detailed API Reference for ManagedClusterImageRegistry](managedclusterimageregistry_api.md).
 
@@ -660,7 +660,7 @@ Status represents the desired status of the managedClusterImageRegistry.
 
 ## ManagedClusterInfo
 
-Status represents the desired status of the Cluster
+Description not found in CRD.
 
 [View a detailed API Reference for ManagedClusterInfo](managedclusterinfo_api.md).
 
@@ -668,7 +668,7 @@ Status represents the desired status of the Cluster
 
 ## ManagedClusterAction
 
-Status describes the desired status of the action
+Description not found in CRD.
 
 [View a detailed API Reference for ManagedClusterAction](managedclusteraction_api.md).
 
@@ -676,7 +676,7 @@ Status describes the desired status of the action
 
 ## Restore
 
-RestoreStatus defines the observed state of Restore
+Description not found in CRD.
 
 [View a detailed API Reference for Restore](restore_api.md).
 
@@ -684,7 +684,7 @@ RestoreStatus defines the observed state of Restore
 
 ## BackupSchedule
 
-BackupScheduleStatus defines the observed state of BackupSchedule
+Description not found in CRD.
 
 [View a detailed API Reference for BackupSchedule](backupschedule_api.md).
 
@@ -692,7 +692,7 @@ BackupScheduleStatus defines the observed state of BackupSchedule
 
 ## Search
 
-SearchStatus defines the observed state of Search.
+Description not found in CRD.
 
 [View a detailed API Reference for Search](search_api.md).
 
@@ -708,7 +708,7 @@ Description not found in CRD.
 
 ## ClusterInstance
 
-ClusterInstanceStatus defines the observed state of ClusterInstance
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterInstance](clusterinstance_api.md).
 
@@ -724,7 +724,7 @@ Description not found in CRD.
 
 ## KlusterletAddonConfig
 
-KlusterletAddonConfigStatus defines the observed state of KlusterletAddonConfig
+Description not found in CRD.
 
 [View a detailed API Reference for KlusterletAddonConfig](klusterletaddonconfig_api.md).
 
@@ -732,7 +732,7 @@ KlusterletAddonConfigStatus defines the observed state of KlusterletAddonConfig
 
 ## PolicyAutomation
 
-PolicyAutomationStatus defines the observed state of the PolicyAutomation resource.
+Description not found in CRD.
 
 [View a detailed API Reference for PolicyAutomation](policyautomation_api.md).
 
@@ -740,7 +740,7 @@ PolicyAutomationStatus defines the observed state of the PolicyAutomation resour
 
 ## Policy
 
-PolicyStatus reports the observed status of the policy resulting from its policy templates.
+Description not found in CRD.
 
 [View a detailed API Reference for Policy](policy_api.md).
 
@@ -748,7 +748,7 @@ PolicyStatus reports the observed status of the policy resulting from its policy
 
 ## PlacementBinding
 
-PlacementBindingStatus defines the observed state of the PlacementBinding resource.
+Description not found in CRD.
 
 [View a detailed API Reference for PlacementBinding](placementbinding_api.md).
 
@@ -756,7 +756,7 @@ PlacementBindingStatus defines the observed state of the PlacementBinding resour
 
 ## PolicySet
 
-PolicySetStatus reports the observed status of the policy set resulting from its policies.
+Description not found in CRD.
 
 [View a detailed API Reference for PolicySet](policyset_api.md).
 
@@ -764,7 +764,7 @@ PolicySetStatus reports the observed status of the policy set resulting from its
 
 ## Channel
 
-The most recent observed status of the Channel.
+Description not found in CRD.
 
 [View a detailed API Reference for Channel](channel_api.md).
 
@@ -772,7 +772,7 @@ The most recent observed status of the Channel.
 
 ## Application
 
-ApplicationStatus defines controller's the observed state of Application
+Description not found in CRD.
 
 [View a detailed API Reference for Application](application_api.md).
 
@@ -780,7 +780,7 @@ ApplicationStatus defines controller's the observed state of Application
 
 ## Subscription
 
-SubscriptionStatus defines the observed status of a subscription
+Description not found in CRD.
 
 [View a detailed API Reference for Subscription](subscription_api.md).
 
@@ -796,7 +796,7 @@ Description not found in CRD.
 
 ## Deployable
 
-DeployableStatus defines the observed state of Deployable.
+Description not found in CRD.
 
 [View a detailed API Reference for Deployable](deployable_api.md).
 
@@ -820,7 +820,7 @@ Description not found in CRD.
 
 ## GitOpsCluster
 
-GitOpsClusterStatus defines the observed state of GitOpsCluster.
+Description not found in CRD.
 
 [View a detailed API Reference for GitOpsCluster](gitopscluster_api.md).
 
@@ -828,7 +828,7 @@ GitOpsClusterStatus defines the observed state of GitOpsCluster.
 
 ## PlacementRule
 
-PlacementRuleStatus defines the observed state of PlacementRule
+Description not found in CRD.
 
 [View a detailed API Reference for PlacementRule](placementrule_api.md).
 
@@ -844,7 +844,7 @@ Description not found in CRD.
 
 ## ClusterPermission
 
-ClusterPermissionStatus defines the observed state of ClusterPermission
+Description not found in CRD.
 
 [View a detailed API Reference for ClusterPermission](clusterpermission_api.md).
 
@@ -852,7 +852,7 @@ ClusterPermissionStatus defines the observed state of ClusterPermission
 
 ## ObservabilityAddon
 
-ObservabilityAddonStatus defines the observed state of ObservabilityAddon
+Description not found in CRD.
 
 [View a detailed API Reference for ObservabilityAddon](observabilityaddon_api.md).
 
@@ -860,7 +860,7 @@ ObservabilityAddonStatus defines the observed state of ObservabilityAddon
 
 ## Observatorium
 
-ObservatoriumStatus defines the observed state of Observatorium
+Description not found in CRD.
 
 [View a detailed API Reference for Observatorium](observatorium_api.md).
 
@@ -868,7 +868,7 @@ ObservatoriumStatus defines the observed state of Observatorium
 
 ## MultiClusterObservability
 
-MultiClusterObservabilityStatus defines the observed state of MultiClusterObservability.
+Description not found in CRD.
 
 [View a detailed API Reference for MultiClusterObservability](multiclusterobservability_api.md).
 
@@ -876,7 +876,7 @@ MultiClusterObservabilityStatus defines the observed state of MultiClusterObserv
 
 ## SubmarinerConfig
 
-Status represents the current status of submariner configuration
+Description not found in CRD.
 
 [View a detailed API Reference for SubmarinerConfig](submarinerconfig_api.md).
 
@@ -884,7 +884,7 @@ Status represents the current status of submariner configuration
 
 ## SubmarinerDiagnoseConfig
 
-Status represents the current status of SubmarinerDiagnose
+Description not found in CRD.
 
 [View a detailed API Reference for SubmarinerDiagnoseConfig](submarinerdiagnoseconfig_api.md).
 

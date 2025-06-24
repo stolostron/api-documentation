@@ -1,8 +1,8 @@
 # ClusterProvision API
 
-ClusterProvisionStatus defines the observed state of ClusterProvision.
-
 ## Spec Fields
+
+ClusterProvisionSpec defines the results of provisioning a cluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -23,6 +23,8 @@ ClusterProvisionStatus defines the observed state of ClusterProvision.
 |  **prevProvisionName** | `string` | PrevProvisionName is the name of the previous failed provision attempt. | N/A |
 |  **stage** | `string` | Stage is the stage of provisioning that the cluster deployment has reached. | N/A |
 ## Status Fields
+
+ClusterProvisionStatus defines the observed state of ClusterProvision.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

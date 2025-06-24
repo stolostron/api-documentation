@@ -1,8 +1,8 @@
 # ManagedServiceAccount API
 
-ManagedServiceAccountStatus defines the observed state of ManagedServiceAccount
-
 ## Spec Fields
+
+ManagedServiceAccountSpec defines the desired state of ManagedServiceAccount
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -11,6 +11,8 @@ ManagedServiceAccountStatus defines the observed state of ManagedServiceAccount
 | └>&nbsp;&nbsp; **validity** | `string` | Validity is the duration for which the signed ServiceAccount token is valid. | N/A |
 |  **ttlSecondsAfterCreation** | `integer` | ttlSecondsAfterCreation limits the lifetime of a ManagedServiceAccount. If the ttlSecondsAfterCreation field is set, the ManagedServiceAccount will be automatically deleted regardless of the ManagedServiceAccount's status. When the ManagedServiceAccount is deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the ManagedServiceAccount won't be automatically deleted. If this field is set to zero, the ManagedServiceAccount becomes eligible for deletion immediately after its creation. In order to use ttlSecondsAfterCreation, the EphemeralIdentity feature gate must be enabled. | `Minimum=0` |
 ## Status Fields
+
+ManagedServiceAccountStatus defines the observed state of ManagedServiceAccount
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

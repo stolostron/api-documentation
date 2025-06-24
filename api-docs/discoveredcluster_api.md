@@ -1,8 +1,8 @@
 # DiscoveredCluster API
 
-DiscoveredClusterStatus defines the observed state of DiscoveredCluster
-
 ## Spec Fields
+
+DiscoveredClusterSpec defines the desired state of DiscoveredCluster
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -31,6 +31,8 @@ DiscoveredClusterStatus defines the observed state of DiscoveredCluster
 |  **status** | `string` | Status represents the current state of the discovered cluster (e.g Active, Stale). | N/A |
 |  **type** | `string` | Type defines the type of cluster, such as OpenShift, Kubernetes, or a specific managed service type. | N/A |
 ## Status Fields
+
+DiscoveredClusterStatus defines the observed state of DiscoveredCluster
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

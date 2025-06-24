@@ -1,8 +1,8 @@
 # ObservabilityAddon API
 
-ObservabilityAddonStatus defines the observed state of ObservabilityAddon
-
 ## Spec Fields
+
+ObservabilityAddonSpec is the spec of observability addon.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -16,6 +16,8 @@ ObservabilityAddonStatus defines the observed state of ObservabilityAddon
 |  **scrapeSizeLimitBytes** | `integer` | ScrapeSizeLimitBytes is the max size in bytes for a single metrics scrape from in-cluster Prometheus. Default is 1 GiB. | N/A |
 |  **workers** | `integer` | Workers is the number of workers in metrics-collector that work in parallel to push metrics to hub server. If set to > 1, metrics-collector will shard /federate calls to Prometheus, based on matcher rules provided by allowlist. Ensure that number of matchers exceeds number of workers. | `Minimum=1` |
 ## Status Fields
+
+ObservabilityAddonStatus defines the observed state of ObservabilityAddon
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

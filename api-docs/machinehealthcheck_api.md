@@ -1,8 +1,8 @@
 # MachineHealthCheck API
 
-Most recently observed status of MachineHealthCheck resource
-
 ## Spec Fields
+
+Specification of machine health check policy
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -28,6 +28,8 @@ Most recently observed status of MachineHealthCheck resource
 | └>&nbsp;&nbsp; **timeout** | `string` | No description provided. | N/A |
 | └>&nbsp;&nbsp; **type** | `string` | No description provided. | N/A |
 ## Status Fields
+
+Most recently observed status of MachineHealthCheck resource
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

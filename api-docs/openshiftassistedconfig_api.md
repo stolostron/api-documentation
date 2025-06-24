@@ -1,8 +1,8 @@
 # OpenshiftAssistedConfig API
 
-OpenshiftAssistedConfigStatus defines the observed state of OpenshiftAssistedConfig
-
 ## Spec Fields
+
+OpenshiftAssistedConfigSpec defines the desired state of OpenshiftAssistedConfig
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -30,6 +30,8 @@ OpenshiftAssistedConfigStatus defines the observed state of OpenshiftAssistedCon
 | └>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
 |  **sshAuthorizedKey** | `string` | SSHAuthorizedKey is a SSH public keys that will be added to all agents for use in debugging. | N/A |
 ## Status Fields
+
+OpenshiftAssistedConfigStatus defines the observed state of OpenshiftAssistedConfig
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

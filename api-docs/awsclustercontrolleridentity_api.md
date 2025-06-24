@@ -1,8 +1,8 @@
 # AWSClusterControllerIdentity API
 
-Spec for this AWSClusterControllerIdentity.
-
 ## Spec Fields
+
+Spec for this AWSClusterControllerIdentity.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -15,6 +15,8 @@ Spec for this AWSClusterControllerIdentity.
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **values** | `array` | values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **matchLabels** | `object` | matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed. | N/A |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

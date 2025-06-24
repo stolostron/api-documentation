@@ -1,8 +1,8 @@
 # Metal3Machine API
 
-Metal3MachineStatus defines the observed state of Metal3Machine.
-
 ## Spec Fields
+
+Metal3MachineSpec defines the desired state of Metal3Machine.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -39,6 +39,8 @@ Metal3MachineStatus defines the observed state of Metal3Machine.
 | └>&nbsp;&nbsp; **name** | `string` | name is unique within a namespace to reference a secret resource. | N/A |
 | └>&nbsp;&nbsp; **namespace** | `string` | namespace defines the space within which the secret name must be unique. | N/A |
 ## Status Fields
+
+Metal3MachineStatus defines the observed state of Metal3Machine.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

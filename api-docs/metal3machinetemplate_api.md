@@ -1,8 +1,8 @@
 # Metal3MachineTemplate API
 
-Metal3MachineTemplateSpec defines the desired state of Metal3MachineTemplate.
-
 ## Spec Fields
+
+Metal3MachineTemplateSpec defines the desired state of Metal3MachineTemplate.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -42,6 +42,8 @@ Metal3MachineTemplateSpec defines the desired state of Metal3MachineTemplate.
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | name is unique within a namespace to reference a secret resource. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **namespace** | `string` | namespace defines the space within which the secret name must be unique. | N/A |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,10 @@
 # SyncIdentityProvider API
 
-IdentityProviderStatus defines the observed state of SyncSet
-
 ## Spec Fields
+
+SyncIdentityProviderSpec defines the SyncIdentityProviderCommonSpec identity providers to sync along with
+ClusterDeploymentRefs indicating which clusters the SyncIdentityProvider applies to in the
+SyncIdentityProvider's namespace.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -91,6 +93,8 @@ IdentityProviderStatus defines the observed state of SyncSet
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **preferredUsernameHeaders** | `array` | preferredUsernameHeaders is the set of headers to check for the preferred username | N/A |
 | └>&nbsp;&nbsp; **type** | `string` | type identifies the identity provider type for this entry. | N/A |
 ## Status Fields
+
+IdentityProviderStatus defines the observed state of SyncSet
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

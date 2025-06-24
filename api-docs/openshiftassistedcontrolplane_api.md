@@ -1,8 +1,8 @@
 # OpenshiftAssistedControlPlane API
 
-OpenshiftAssistedControlPlaneStatus defines the observed state of OpenshiftAssistedControlPlane
-
 ## Spec Fields
+
+OpenshiftAssistedControlPlaneSpec defines the desired state of OpenshiftAssistedControlPlane
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -72,6 +72,8 @@ OpenshiftAssistedControlPlaneStatus defines the observed state of OpenshiftAssis
 | └>&nbsp;&nbsp; **sshAuthorizedKey** | `string` | SSHAuthorizedKey is a SSH public keys that will be added to all agents for use in debugging. | N/A |
 |  **replicas** | `integer` | No description provided. | N/A |
 ## Status Fields
+
+OpenshiftAssistedControlPlaneStatus defines the observed state of OpenshiftAssistedControlPlane
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

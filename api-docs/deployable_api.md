@@ -1,8 +1,8 @@
 # Deployable API
 
-DeployableStatus defines the observed state of Deployable.
-
 ## Spec Fields
+
+DeployableSpec defines the desired state of Deployable.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -40,6 +40,8 @@ DeployableStatus defines the observed state of Deployable.
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **uid** | `string` | UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids | N/A |
 |  **template** | `object` | No description provided. | N/A |
 ## Status Fields
+
+DeployableStatus defines the observed state of Deployable.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

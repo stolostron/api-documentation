@@ -1,8 +1,8 @@
 # ROSAControlPlane API
 
-RosaControlPlaneStatus defines the observed state of ROSAControlPlane.
-
 ## Spec Fields
+
+RosaControlPlaneSpec defines the desired state of ROSAControlPlane.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -91,6 +91,8 @@ RosaControlPlaneStatus defines the observed state of ROSAControlPlane.
 |  **versionGate** | `string` | VersionGate requires acknowledgment when upgrading ROSA-HCP y-stream versions (e.g., from 4.15 to 4.16). Default is WaitForAcknowledge. WaitForAcknowledge: If acknowledgment is required, the upgrade will not proceed until VersionGate is set to Acknowledge or AlwaysAcknowledge. Acknowledge: If acknowledgment is required, apply it for the upgrade. After upgrade is done set the version gate to WaitForAcknowledge. AlwaysAcknowledge: If acknowledgment is required, apply it and proceed with the upgrade. | N/A |
 |  **workerRoleARN** | `string` | WorkerRoleARN is an AWS IAM role that will be attached to worker instances. | N/A |
 ## Status Fields
+
+RosaControlPlaneStatus defines the observed state of ROSAControlPlane.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

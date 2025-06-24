@@ -1,8 +1,8 @@
 # ClusterManager API
 
-Status represents the current status of controllers that govern the lifecycle of managed clusters.
-
 ## Spec Fields
+
+Spec represents a desired deployment configuration of controllers that govern registration and work distribution for attached Klusterlets.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -58,6 +58,8 @@ Status represents the current status of controllers that govern the lifecycle of
 | └>&nbsp;&nbsp; **workDriver** | `string` | WorkDriver represents the type of work driver. Possible values are "kube", "mqtt", or "grpc". If not provided, the default value is "kube". If set to non-"kube" drivers, the klusterlet need to use the same driver. and the driver configuration must be provided in a secret named "work-driver-config" in the namespace where the cluster manager is running, adhering to the following structure: config.yaml: |   <driver-config-in-yaml>  For detailed driver configuration, please refer to the sdk-go documentation: https://github.com/open-cluster-management-io/sdk-go/blob/main/pkg/cloudevents/README.md#supported-protocols-and-drivers | N/A |
 |  **workImagePullSpec** | `string` | WorkImagePullSpec represents the desired image configuration of work controller/webhook installed on hub. | N/A |
 ## Status Fields
+
+Status represents the current status of controllers that govern the lifecycle of managed clusters.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

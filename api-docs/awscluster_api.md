@@ -1,8 +1,8 @@
 # AWSCluster API
 
-AWSClusterStatus defines the observed state of AWSCluster.
-
 ## Spec Fields
+
+AWSClusterSpec defines the desired state of an EC2-based Kubernetes cluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -65,6 +65,8 @@ AWSClusterStatus defines the observed state of AWSCluster.
 | └>&nbsp;&nbsp; **nodesIAMInstanceProfiles** | `array` | NodesIAMInstanceProfiles is a list of IAM instance profiles, which will be allowed to read worker nodes bootstrap data from S3 Bucket. | N/A |
 |  **sshKeyName** | `string` | SSHKeyName is the name of the ssh key to attach to the bastion host. Valid values are empty string (do not use SSH keys), a valid SSH key name, or omitted (use the default SSH key name) | N/A |
 ## Status Fields
+
+AWSClusterStatus defines the observed state of AWSCluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

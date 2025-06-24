@@ -1,8 +1,8 @@
 # ClusterResourceSet API
 
-ClusterResourceSetStatus defines the observed state of ClusterResourceSet.
-
 ## Spec Fields
+
+ClusterResourceSetSpec defines the desired state of ClusterResourceSet.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -17,6 +17,8 @@ ClusterResourceSetStatus defines the observed state of ClusterResourceSet.
 | └>&nbsp;&nbsp; **name** | `string` | name of the resource that is in the same namespace with ClusterResourceSet object. | N/A |
 |  **strategy** | `string` | strategy is the strategy to be used during applying resources. Defaults to ApplyOnce. This field is immutable. | N/A |
 ## Status Fields
+
+ClusterResourceSetStatus defines the observed state of ClusterResourceSet.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # KlusterletConfig API
 
-Status defines the observed state of KlusterletConfig
-
 ## Spec Fields
+
+Spec defines the desired state of KlusterletConfig
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -59,6 +59,8 @@ Status defines the observed state of KlusterletConfig
 | └>&nbsp;&nbsp; **mirror** | `string` | Mirror is the mirrored registry of the Source. Will be ignored if Mirror is empty. | N/A |
 | └>&nbsp;&nbsp; **source** | `string` | Source is the source registry. All image registries will be replaced by Mirror if Source is empty. | N/A |
 ## Status Fields
+
+Status defines the observed state of KlusterletConfig
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

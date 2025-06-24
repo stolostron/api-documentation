@@ -1,8 +1,8 @@
 # EKSConfig API
 
-EKSConfigStatus defines the observed state of the Amazon EKS Bootstrap Configuration.
-
 ## Spec Fields
+
+EKSConfigSpec defines the desired state of Amazon EKS Bootstrap Configuration.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -17,6 +17,8 @@ EKSConfigStatus defines the observed state of the Amazon EKS Bootstrap Configura
 |  **serviceIPV6Cidr** | `string` | ServiceIPV6Cidr is the ipv6 cidr range of the cluster. If this is specified then the ip family will be set to ipv6. | N/A |
 |  **useMaxPods** | `boolean` | UseMaxPods  sets --max-pods for the kubelet when true. | N/A |
 ## Status Fields
+
+EKSConfigStatus defines the observed state of the Amazon EKS Bootstrap Configuration.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # Metal3Data API
 
-Metal3DataStatus defines the observed state of Metal3Data.
-
 ## Spec Fields
+
+Metal3DataSpec defines the desired state of Metal3Data.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -31,6 +31,8 @@ Metal3DataStatus defines the observed state of Metal3Data.
 | └>&nbsp;&nbsp; **uid** | `string` | UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids | N/A |
 |  **templateReference** | `string` | TemplateReference refers to the Template the Metal3MachineTemplate refers to. It can be matched against the key or it may also point to the name of the template Metal3Data refers to | N/A |
 ## Status Fields
+
+Metal3DataStatus defines the observed state of Metal3Data.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

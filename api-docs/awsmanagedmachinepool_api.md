@@ -1,8 +1,8 @@
 # AWSManagedMachinePool API
 
-AWSManagedMachinePoolStatus defines the observed state of AWSManagedMachinePool.
-
 ## Spec Fields
+
+AWSManagedMachinePoolSpec defines the desired state of AWSManagedMachinePool.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -61,6 +61,8 @@ AWSManagedMachinePoolStatus defines the observed state of AWSManagedMachinePool.
 | └>&nbsp;&nbsp; **maxUnavailable** | `integer` | MaxUnavailable is the maximum number of nodes unavailable at once during a version update. Nodes will be updated in parallel. The maximum number is 100. | `Minimum=1`<br>`Maximum=100` |
 | └>&nbsp;&nbsp; **maxUnavailablePrecentage** | `integer` | MaxUnavailablePercentage is the maximum percentage of nodes unavailable during a version update. This percentage of nodes will be updated in parallel, up to 100 nodes at once. | `Minimum=1`<br>`Maximum=100` |
 ## Status Fields
+
+AWSManagedMachinePoolStatus defines the observed state of AWSManagedMachinePool.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

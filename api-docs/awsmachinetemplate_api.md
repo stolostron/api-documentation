@@ -1,8 +1,8 @@
 # AWSMachineTemplate API
 
-AWSMachineTemplateStatus defines a status for an AWSMachineTemplate.
-
 ## Spec Fields
+
+AWSMachineTemplateSpec defines the desired state of AWSMachineTemplate.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -66,6 +66,8 @@ AWSMachineTemplateStatus defines a status for an AWSMachineTemplate.
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **tenancy** | `string` | Tenancy indicates if instance should run on shared or single-tenant hardware. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **uncompressedUserData** | `boolean` | UncompressedUserData specify whether the user data is gzip-compressed before it is sent to ec2 instance. cloud-init has built-in support for gzip-compressed user data user data stored in aws secret manager is always gzip-compressed. | N/A |
 ## Status Fields
+
+AWSMachineTemplateStatus defines a status for an AWSMachineTemplate.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

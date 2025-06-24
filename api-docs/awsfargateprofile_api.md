@@ -1,8 +1,8 @@
 # AWSFargateProfile API
 
-FargateProfileStatus defines the observed state of FargateProfile.
-
 ## Spec Fields
+
+FargateProfileSpec defines the desired state of FargateProfile.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -15,6 +15,8 @@ FargateProfileStatus defines the observed state of FargateProfile.
 | └>&nbsp;&nbsp; **namespace** | `string` | Namespace specifies which namespace this selector should match. | N/A |
 |  **subnetIDs** | `array` | SubnetIDs specifies which subnets are used for the auto scaling group of this nodegroup. | N/A |
 ## Status Fields
+
+FargateProfileStatus defines the observed state of FargateProfile.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # ClusterCurator API
 
-ClusterCuratorStatus defines the observed state of ClusterCurator work
-
 ## Spec Fields
+
+ClusterCuratorSpec defines the desired state of ClusterCurator
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -79,6 +79,8 @@ ClusterCuratorStatus defines the observed state of ClusterCurator work
 | └>&nbsp;&nbsp; **towerAuthSecret** | `string` | TowerAuthSecret is ansible secret used in template to run in tower | N/A |
 | └>&nbsp;&nbsp; **upstream** | `string` | Upstream may be used to specify the preferred update server. By default it will use the appropriate update server for the cluster and region. | N/A |
 ## Status Fields
+
+ClusterCuratorStatus defines the observed state of ClusterCurator work
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # MachinePool API
 
-MachinePoolStatus defines the observed state of MachinePool
-
 ## Spec Fields
+
+MachinePoolSpec defines the desired state of MachinePool
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -141,6 +141,8 @@ MachinePoolStatus defines the observed state of MachinePool
 | └>&nbsp;&nbsp; **timeAdded** | `string` | TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints. | N/A |
 | └>&nbsp;&nbsp; **value** | `string` | The taint value corresponding to the taint key. | N/A |
 ## Status Fields
+
+MachinePoolStatus defines the observed state of MachinePool
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

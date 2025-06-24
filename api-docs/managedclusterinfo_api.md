@@ -1,14 +1,16 @@
 # ManagedClusterInfo API
 
-Status represents the desired status of the Cluster
-
 ## Spec Fields
+
+Spec defines the information of the Cluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
 |  **loggingCA** | `string` | LoggingCA is the ca data for logging server to authorize apiserver | N/A |
 |  **masterEndpoint** | `string` | MasterEndpoint shows the apiserver endpoint of managed cluster | N/A |
 ## Status Fields
+
+Status represents the desired status of the Cluster
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # IPAddress API
 
-IPAddressSpec defines the desired state of IPAddress.
-
 ## Spec Fields
+
+IPAddressSpec defines the desired state of IPAddress.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -27,6 +27,8 @@ IPAddressSpec defines the desired state of IPAddress.
 | └>&nbsp;&nbsp; **uid** | `string` | UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids | N/A |
 |  **prefix** | `integer` | Prefix is the mask of the network as integer (max 128) | `Maximum=128` |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

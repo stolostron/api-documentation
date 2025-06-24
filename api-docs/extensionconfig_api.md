@@ -1,8 +1,8 @@
 # ExtensionConfig API
 
-ExtensionConfigStatus is the current state of the ExtensionConfig
-
 ## Spec Fields
+
+ExtensionConfigSpec is the desired state of the ExtensionConfig
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -22,6 +22,8 @@ ExtensionConfigStatus is the current state of the ExtensionConfig
 | └>&nbsp;&nbsp; **matchLabels** | `object` | matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed. | N/A |
 |  **settings** | `object` | settings defines key value pairs to be passed to all calls to all supported RuntimeExtensions. Note: Settings can be overridden on the ClusterClass. | N/A |
 ## Status Fields
+
+ExtensionConfigStatus is the current state of the ExtensionConfig
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # AWSClusterRoleIdentity API
 
-Spec for this AWSClusterRoleIdentity.
-
 ## Spec Fields
+
+Spec for this AWSClusterRoleIdentity.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -24,6 +24,8 @@ Spec for this AWSClusterRoleIdentity.
 | └>&nbsp;&nbsp; **kind** | `string` | Kind of the identity. | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name of the identity. | N/A |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # HiveConfig API
 
-HiveConfigStatus defines the observed state of Hive
-
 ## Spec Fields
+
+HiveConfigSpec defines the desired state of Hive
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -129,6 +129,8 @@ HiveConfigStatus defines the observed state of Hive
 |  **syncSetReapplyInterval** | `string` | SyncSetReapplyInterval is a string duration indicating how much time must pass before SyncSet resources will be reapplied. The default reapply interval is two hours. This is a Duration value; see https://pkg.go.dev/time#ParseDuration for accepted formats. Note: due to discrepancies in validation vs parsing, we use a Pattern instead of `Format=duration`. See https://bugzilla.redhat.com/show_bug.cgi?id=2050332 https://github.com/kubernetes/apimachinery/issues/131 https://github.com/kubernetes/apiextensions-apiserver/issues/56 | `Pattern=^([0-9]+(\.[0-9]+)?(ns\|us\|µs\|ms\|s\|m\|h))+$` |
 |  **targetNamespace** | `string` | TargetNamespace is the namespace where the core Hive components should be run. Defaults to "hive". Will be created if it does not already exist. All resource references in HiveConfig can be assumed to be in the TargetNamespace. NOTE: Whereas it is possible to edit this value, causing hive to "move" its core components to the new namespace, the old namespace is not deleted, as it will still contain resources created by kubernetes and/or other OpenShift controllers. | N/A |
 ## Status Fields
+
+HiveConfigStatus defines the observed state of Hive
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

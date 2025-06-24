@@ -1,8 +1,8 @@
 # ROSAMachinePool API
 
-RosaMachinePoolStatus defines the observed state of RosaMachinePool.
-
 ## Spec Fields
+
+RosaMachinePoolSpec defines the desired state of RosaMachinePool.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -31,6 +31,8 @@ RosaMachinePoolStatus defines the observed state of RosaMachinePool.
 |  **version** | `string` | Version specifies the OpenShift version of the nodes associated with this machinepool. ROSAControlPlane version is used if not set. | N/A |
 |  **volumeSize** | `integer` | VolumeSize set the disk volume size for the machine pool, in Gib. The default is 300 GiB. | `Minimum=75`<br>`Maximum=16384` |
 ## Status Fields
+
+RosaMachinePoolStatus defines the observed state of RosaMachinePool.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

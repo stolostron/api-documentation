@@ -1,8 +1,8 @@
 # BackupSchedule API
 
-BackupScheduleStatus defines the observed state of BackupSchedule
-
 ## Spec Fields
+
+BackupScheduleSpec defines the desired state of BackupSchedule
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -16,6 +16,8 @@ BackupScheduleStatus defines the observed state of BackupSchedule
 |  **veleroTtl** | `string` | TTL is a time.Duration-parseable string describing how long the Velero Backup should be retained for. If not specified the maximum default value set by velero is used - 720h | N/A |
 |  **volumeSnapshotLocations** | `array` | VolumeSnapshotLocations is a list containing names of VolumeSnapshotLocations associated with this backup. | N/A |
 ## Status Fields
+
+BackupScheduleStatus defines the observed state of BackupSchedule
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,10 @@
 # SelectorSyncSet API
 
-SelectorSyncSetStatus defines the observed state of a SelectorSyncSet
-
 ## Spec Fields
+
+SelectorSyncSetSpec defines the SyncSetCommonSpec resources and patches to sync along
+with a ClusterDeploymentSelector indicating which clusters the SelectorSyncSet applies
+to in any namespace.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -32,6 +34,8 @@ SelectorSyncSetStatus defines the observed state of a SelectorSyncSet
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name is the name of the secret | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **namespace** | `string` | Namespace is the namespace where the secret lives. If not present for the source secret reference, it is assumed to be the same namespace as the syncset with the reference. | N/A |
 ## Status Fields
+
+SelectorSyncSetStatus defines the observed state of a SelectorSyncSet
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

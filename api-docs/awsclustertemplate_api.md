@@ -1,8 +1,8 @@
 # AWSClusterTemplate API
 
-AWSClusterTemplateSpec defines the desired state of AWSClusterTemplate.
-
 ## Spec Fields
+
+AWSClusterTemplateSpec defines the desired state of AWSClusterTemplate.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -70,6 +70,8 @@ AWSClusterTemplateSpec defines the desired state of AWSClusterTemplate.
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **nodesIAMInstanceProfiles** | `array` | NodesIAMInstanceProfiles is a list of IAM instance profiles, which will be allowed to read worker nodes bootstrap data from S3 Bucket. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **sshKeyName** | `string` | SSHKeyName is the name of the ssh key to attach to the bastion host. Valid values are empty string (do not use SSH keys), a valid SSH key name, or omitted (use the default SSH key name) | N/A |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

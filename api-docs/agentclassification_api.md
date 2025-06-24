@@ -1,8 +1,8 @@
 # AgentClassification API
 
-AgentClassificationStatus defines the observed state of AgentClassification
-
 ## Spec Fields
+
+AgentClassificationSpec defines the desired state of AgentClassification
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -10,6 +10,8 @@ AgentClassificationStatus defines the observed state of AgentClassification
 |  **labelValue** | `string` | LabelValue specifies the label value to apply to matched Agents | N/A |
 |  **query** | `string` | Query is in gojq format (https://github.com/itchyny/gojq#difference-to-jq) and will be invoked on each Agent's inventory. The query should return a boolean. The operator will apply the label to any Agent for which "true" is returned. | N/A |
 ## Status Fields
+
+AgentClassificationStatus defines the observed state of AgentClassification
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

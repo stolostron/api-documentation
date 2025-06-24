@@ -1,8 +1,8 @@
 # ClusterClaim API
 
-ClusterClaimStatus defines the observed state of ClusterClaim.
-
 ## Spec Fields
+
+ClusterClaimSpec defines the desired state of the ClusterClaim.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -15,6 +15,8 @@ ClusterClaimStatus defines the observed state of ClusterClaim.
 | └>&nbsp;&nbsp; **name** | `string` | Name of the object being referenced. | N/A |
 | └>&nbsp;&nbsp; **namespace** | `string` | Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error. | N/A |
 ## Status Fields
+
+ClusterClaimStatus defines the observed state of ClusterClaim.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

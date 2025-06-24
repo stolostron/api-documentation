@@ -1,8 +1,8 @@
 # Agent API
 
-AgentStatus defines the observed state of Agent
-
 ## Spec Fields
+
+AgentSpec defines the desired state of Agent
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -22,6 +22,8 @@ AgentStatus defines the observed state of Agent
 |  **nodeLabels** | `object` | NodeLabels are the labels to be applied on the node associated with this agent | N/A |
 |  **role** | `string` | HostRole host role   swagger:model host-role | N/A |
 ## Status Fields
+
+AgentStatus defines the observed state of Agent
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

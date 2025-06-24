@@ -1,8 +1,8 @@
 # SubmarinerConfig API
 
-Status represents the current status of submariner configuration
-
 ## Spec Fields
+
+Spec defines the configuration of the Submariner
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -48,6 +48,8 @@ Status represents the current status of submariner configuration
 | └>&nbsp;&nbsp; **sourceNamespace** | `string` | SourceNamespace represents the catalog source namespace of a submariner subscription. The default value is openshift-marketplace | N/A |
 | └>&nbsp;&nbsp; **startingCSV** | `string` | StartingCSV represents the startingCSV of a submariner subscription. | N/A |
 ## Status Fields
+
+Status represents the current status of submariner configuration
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # MultiClusterObservability API
 
-MultiClusterObservabilityStatus defines the observed state of MultiClusterObservability.
-
 ## Spec Fields
+
+MultiClusterObservabilitySpec defines the desired state of MultiClusterObservability.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -40,6 +40,8 @@ MultiClusterObservabilityStatus defines the observed state of MultiClusterObserv
 | └>&nbsp;&nbsp; **tolerationSeconds** | `integer` | TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. | N/A |
 | └>&nbsp;&nbsp; **value** | `string` | Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string. | N/A |
 ## Status Fields
+
+MultiClusterObservabilityStatus defines the observed state of MultiClusterObservability.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

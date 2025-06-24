@@ -1,8 +1,8 @@
 # Channel API
 
-The most recent observed status of the Channel.
-
 ## Spec Fields
+
+ChannelSpec defines the desired state of Channel
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -36,6 +36,8 @@ The most recent observed status of the Channel.
 |  **sourceNamespaces** | `array` | A list of namespace names from which Deployables can be promoted. | N/A |
 |  **type** | `string` | ChannelType defines a type of channel | N/A |
 ## Status Fields
+
+The most recent observed status of the Channel.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

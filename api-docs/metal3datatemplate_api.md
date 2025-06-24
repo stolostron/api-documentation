@@ -1,8 +1,8 @@
 # Metal3DataTemplate API
 
-Metal3DataTemplateStatus defines the observed state of Metal3DataTemplate.
-
 ## Spec Fields
+
+Metal3DataTemplateSpec defines the desired state of Metal3DataTemplate.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -164,6 +164,8 @@ Metal3DataTemplateStatus defines the observed state of Metal3DataTemplate.
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **dnsFromIPPool** | `string` | DNSFromIPPool is the name of the IPPool from which to get the DNS servers | N/A |
 |  **templateReference** | `string` | TemplateReference refers to the Template the Metal3MachineTemplate refers to. It can be matched against the key or it may also point to the name of the template Metal3Data refers to | N/A |
 ## Status Fields
+
+Metal3DataTemplateStatus defines the observed state of Metal3DataTemplate.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

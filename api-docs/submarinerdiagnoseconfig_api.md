@@ -1,8 +1,8 @@
 # SubmarinerDiagnoseConfig API
 
-Status represents the current status of SubmarinerDiagnose
-
 ## Spec Fields
+
+Spec defines the configuration of the Submariner
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -25,6 +25,8 @@ Status represents the current status of SubmarinerDiagnose
 |  **k8sVersion** | `boolean` | No description provided. | N/A |
 |  **kubeProxyMode** | `boolean` | No description provided. | N/A |
 ## Status Fields
+
+Status represents the current status of SubmarinerDiagnose
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

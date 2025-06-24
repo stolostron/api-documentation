@@ -1,14 +1,16 @@
 # PolicySet API
 
-PolicySetStatus reports the observed status of the policy set resulting from its policies.
-
 ## Spec Fields
+
+PolicySetSpec defines the group of policies to be included in the policy set.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
 |  **description** | `string` | Description is the description of this policy set. | N/A |
 |  **policies** | `array` | Policies is a list of policy names that are contained within the policy set. | N/A |
 ## Status Fields
+
+PolicySetStatus reports the observed status of the policy set resulting from its policies.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

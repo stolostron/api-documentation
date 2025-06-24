@@ -1,8 +1,8 @@
 # KlusterletAddonConfig API
 
-KlusterletAddonConfigStatus defines the observed state of KlusterletAddonConfig
-
 ## Spec Fields
+
+KlusterletAddonConfigSpec defines the desired state of KlusterletAddonConfig
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -30,6 +30,8 @@ KlusterletAddonConfigStatus defines the observed state of KlusterletAddonConfig
 | └>&nbsp;&nbsp; **proxyPolicy** | `string` | ProxyPolicy defines the policy to set proxy for each addon agent. default is Disabled. Disabled means that the addon agent pods do not configure the proxy env variables. OCPGlobalProxy means that the addon agent pods use the cluster-wide proxy config of OCP cluster provisioned by ACM. CustomProxy means that the addon agent pods use the ProxyConfig specified in KlusterletAddonConfig. | N/A |
 |  **version** | `string` | DEPRECATED in release 2.4 and will be removed in the future since not used anymore. | N/A |
 ## Status Fields
+
+KlusterletAddonConfigStatus defines the observed state of KlusterletAddonConfig
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

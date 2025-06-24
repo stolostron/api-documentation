@@ -1,8 +1,8 @@
 # ClusterInstance API
 
-ClusterInstanceStatus defines the observed state of ClusterInstance
-
 ## Spec Fields
+
+ClusterInstanceSpec defines the desired state of ClusterInstance
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -98,6 +98,8 @@ ClusterInstanceStatus defines the observed state of ClusterInstance
 | └>&nbsp;&nbsp; **name** | `string` | Name specifies the name of the referenced object. | N/A |
 | └>&nbsp;&nbsp; **namespace** | `string` | Namespace specifies the namespace of the referenced object. | N/A |
 ## Status Fields
+
+ClusterInstanceStatus defines the observed state of ClusterInstance
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

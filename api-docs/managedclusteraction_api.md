@@ -1,8 +1,8 @@
 # ManagedClusterAction API
 
-Status describes the desired status of the action
-
 ## Spec Fields
+
+Spec defines the desired behavior of the action.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -13,6 +13,8 @@ Status describes the desired status of the action
 | └>&nbsp;&nbsp; **resource** | `string` | Resource of the object | N/A |
 | └>&nbsp;&nbsp; **template** | `object` | ObjectTemplate is the template of the object | N/A |
 ## Status Fields
+
+Status describes the desired status of the action
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # GitOpsCluster API
 
-GitOpsClusterStatus defines the observed state of GitOpsCluster.
-
 ## Spec Fields
+
+GitOpsClusterSpec defines the desired state of GitOpsCluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -21,6 +21,8 @@ GitOpsClusterStatus defines the observed state of GitOpsCluster.
 | └>&nbsp;&nbsp; **resourceVersion** | `string` | Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency | N/A |
 | └>&nbsp;&nbsp; **uid** | `string` | UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids | N/A |
 ## Status Fields
+
+GitOpsClusterStatus defines the observed state of GitOpsCluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

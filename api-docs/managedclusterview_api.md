@@ -1,8 +1,8 @@
 # ManagedClusterView API
 
-Status describes current status of a view
-
 ## Spec Fields
+
+Spec defines the desired configuration of a view
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -15,6 +15,8 @@ Status describes current status of a view
 | └>&nbsp;&nbsp; **updateIntervalSeconds** | `integer` | UpdateIntervalSeconds is the interval to update view | N/A |
 | └>&nbsp;&nbsp; **version** | `string` | Version is the version of the subject | N/A |
 ## Status Fields
+
+Status describes current status of a view
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

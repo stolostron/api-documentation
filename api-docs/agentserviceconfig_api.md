@@ -1,8 +1,8 @@
 # AgentServiceConfig API
 
-AgentServiceConfigStatus defines the observed state of AgentServiceConfig
-
 ## Spec Fields
+
+AgentServiceConfigSpec defines the desired state of AgentServiceConfig.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -101,6 +101,8 @@ AgentServiceConfigStatus defines the observed state of AgentServiceConfig
 | └>&nbsp;&nbsp; **version** | `string` | Version is the Operating System version of the image. | N/A |
 |  **unauthenticatedRegistries** | `array` | UnauthenticatedRegistries is a list of registries from which container images can be pulled without authentication. They will be appended to the default list (quay.io, registry.ci.openshift.org). Any registry on this list will not require credentials to be in the pull secret validated by the assisted-service. | N/A |
 ## Status Fields
+
+AgentServiceConfigStatus defines the observed state of AgentServiceConfig
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

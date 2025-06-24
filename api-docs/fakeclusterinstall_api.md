@@ -1,8 +1,8 @@
 # FakeClusterInstall API
 
-FakeClusterInstallStatus defines the observed state of the FakeClusterInstall.
-
 ## Spec Fields
+
+FakeClusterInstallSpec defines the desired state of the FakeClusterInstall.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -25,6 +25,8 @@ FakeClusterInstallStatus defines the observed state of the FakeClusterInstall.
 |  **imageSetRef** | `object` | ImageSetRef is a reference to a ClusterImageSet. The release image specified in the ClusterImageSet will be used to install the cluster. | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name is the name of the ClusterImageSet that this refers to | N/A |
 ## Status Fields
+
+FakeClusterInstallStatus defines the observed state of the FakeClusterInstall.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

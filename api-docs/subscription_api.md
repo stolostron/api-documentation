@@ -1,8 +1,8 @@
 # Subscription API
 
-SubscriptionStatus defines the observed status of a subscription
-
 ## Spec Fields
+
+SubscriptionSpec defines the desired state of Subscription
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -68,6 +68,8 @@ SubscriptionStatus defines the observed status of a subscription
 | └>&nbsp;&nbsp; **windowtype** | `string` | Activiate time window or not. The subscription deployment will only be handled during these active windows Valid values include: active,blocked,Active,Blocked | N/A |
 |  **watchHelmNamespaceScopedResources** | `boolean` | WatchHelmNamespaceScopedResources is used to enable watching namespace scope Helm chart resources | N/A |
 ## Status Fields
+
+SubscriptionStatus defines the observed status of a subscription
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

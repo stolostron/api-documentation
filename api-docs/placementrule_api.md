@@ -1,8 +1,8 @@
 # PlacementRule API
 
-PlacementRuleStatus defines the observed state of PlacementRule
-
 ## Spec Fields
+
+PlacementRuleSpec defines the desired state of PlacementRule
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -31,6 +31,8 @@ PlacementRuleStatus defines the observed state of PlacementRule
 | └>&nbsp;&nbsp; **type** | `string` | ResourceType defines types can be sorted | N/A |
 |  **schedulerName** | `string` | INSERT ADDITIONAL SPEC FIELDS - desired state of cluster Important: Run "make" to regenerate code after modifying this file schedulerName, default to use mcm controller | N/A |
 ## Status Fields
+
+PlacementRuleStatus defines the observed state of PlacementRule
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # ClusterRelocate API
 
-ClusterRelocateStatus defines the observed state of ClusterRelocate.
-
 ## Spec Fields
+
+ClusterRelocateSpec defines the relocation of clusters from one Hive instance to another.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -16,6 +16,8 @@ ClusterRelocateStatus defines the observed state of ClusterRelocate.
 | └>&nbsp;&nbsp; **name** | `string` | Name is the name of the secret. | N/A |
 | └>&nbsp;&nbsp; **namespace** | `string` | Namespace is the namespace where the secret lives. | N/A |
 ## Status Fields
+
+ClusterRelocateStatus defines the observed state of ClusterRelocate.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

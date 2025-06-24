@@ -1,8 +1,8 @@
 # NMStateConfig API
 
-Description not found in CRD.
-
 ## Spec Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -11,6 +11,8 @@ Description not found in CRD.
 | └>&nbsp;&nbsp; **macAddress** | `string` | mac address present on the host. | `Pattern=^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$` |
 | └>&nbsp;&nbsp; **name** | `string` | nic name used in the yaml, which relates 1:1 to the mac address. Name in REST API: logicalNICName | N/A |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # ClusterDeploymentCustomization API
 
-ClusterDeploymentCustomizationStatus defines the observed state of ClusterDeploymentCustomization.
-
 ## Spec Fields
+
+ClusterDeploymentCustomizationSpec defines the desired state of ClusterDeploymentCustomization.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -22,6 +22,8 @@ ClusterDeploymentCustomizationStatus defines the observed state of ClusterDeploy
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **value** | `string` | Value is the *string* value to be used in the operation. For more complex values, use ValueJSON. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **valueJSON** | `string` | ValueJSON is a string representing a JSON object to be used in the operation. As such, internal quotes must be escaped. If nonempty, Value is ignored. | N/A |
 ## Status Fields
+
+ClusterDeploymentCustomizationStatus defines the observed state of ClusterDeploymentCustomization.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

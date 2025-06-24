@@ -1,8 +1,10 @@
 # SyncSet API
 
-SyncSetStatus defines the observed state of a SyncSet
-
 ## Spec Fields
+
+SyncSetSpec defines the SyncSetCommonSpec resources and patches to sync along with
+ClusterDeploymentRefs indicating which clusters the SyncSet applies to in the
+SyncSet's namespace.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -28,6 +30,8 @@ SyncSetStatus defines the observed state of a SyncSet
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name is the name of the secret | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **namespace** | `string` | Namespace is the namespace where the secret lives. If not present for the source secret reference, it is assumed to be the same namespace as the syncset with the reference. | N/A |
 ## Status Fields
+
+SyncSetStatus defines the observed state of a SyncSet
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

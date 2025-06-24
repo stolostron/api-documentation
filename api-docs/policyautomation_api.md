@@ -1,8 +1,8 @@
 # PolicyAutomation API
 
-PolicyAutomationStatus defines the observed state of the PolicyAutomation resource.
-
 ## Spec Fields
+
+PolicyAutomationSpec defines how and when automation is initiated for the referenced policy.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -19,6 +19,8 @@ PolicyAutomationStatus defines the observed state of the PolicyAutomation resour
 |  **policyRef** | `string` | PolicyRef is the name of the policy that this automation resource is bound to. | N/A |
 |  **rescanAfter** | `string` | RescanAfter is reserved for future use and should not be set. | N/A |
 ## Status Fields
+
+PolicyAutomationStatus defines the observed state of the PolicyAutomation resource.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

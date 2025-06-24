@@ -1,8 +1,8 @@
 # InfraEnv API
 
-Description not found in CRD.
-
 ## Spec Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -37,6 +37,8 @@ Description not found in CRD.
 | └>&nbsp;&nbsp; **name** | `string` | Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid? | N/A |
 |  **sshAuthorizedKey** | `string` | SSHAuthorizedKey is a SSH public keys that will be added to all agents for use in debugging. | N/A |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

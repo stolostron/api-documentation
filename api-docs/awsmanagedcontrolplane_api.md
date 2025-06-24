@@ -1,8 +1,8 @@
 # AWSManagedControlPlane API
 
-AWSManagedControlPlaneStatus defines the observed state of an Amazon EKS Cluster.
-
 ## Spec Fields
+
+AWSManagedControlPlaneSpec defines the desired state of an Amazon EKS Cluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -153,6 +153,8 @@ AWSManagedControlPlaneStatus defines the observed state of an Amazon EKS Cluster
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **optional** | `boolean` | Specify whether the Secret or its key must be defined | N/A |
 ## Status Fields
+
+AWSManagedControlPlaneStatus defines the observed state of an Amazon EKS Cluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

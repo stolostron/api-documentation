@@ -1,8 +1,8 @@
 # EKSConfigTemplate API
 
-EKSConfigTemplateSpec defines the desired state of templated EKSConfig Amazon EKS Bootstrap Configuration resources.
-
 ## Spec Fields
+
+EKSConfigTemplateSpec defines the desired state of templated EKSConfig Amazon EKS Bootstrap Configuration resources.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -19,6 +19,8 @@ EKSConfigTemplateSpec defines the desired state of templated EKSConfig Amazon EK
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **serviceIPV6Cidr** | `string` | ServiceIPV6Cidr is the ipv6 cidr range of the cluster. If this is specified then the ip family will be set to ipv6. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **useMaxPods** | `boolean` | UseMaxPods  sets --max-pods for the kubelet when true. | N/A |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

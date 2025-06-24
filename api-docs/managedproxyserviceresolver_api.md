@@ -1,8 +1,8 @@
 # ManagedProxyServiceResolver API
 
-ManagedProxyServiceResolverStatus defines the observed state of ManagedProxyServiceResolver.
-
 ## Spec Fields
+
+ManagedProxyServiceResolverSpec defines the desired state of ManagedProxyServiceResolver.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -16,6 +16,8 @@ ManagedProxyServiceResolverStatus defines the observed state of ManagedProxyServ
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **namespace** | `string` | Namespace represents the namespace of the service. | N/A |
 | └>&nbsp;&nbsp; **type** | `string` | Type represents the type of the selector. Now only ServiceRef type is supported. | N/A |
 ## Status Fields
+
+ManagedProxyServiceResolverStatus defines the observed state of ManagedProxyServiceResolver.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

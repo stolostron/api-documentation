@@ -1,8 +1,8 @@
 # Metal3RemediationTemplate API
 
-Metal3RemediationTemplateStatus defines the observed state of Metal3RemediationTemplate.
-
 ## Spec Fields
+
+Metal3RemediationTemplateSpec defines the desired state of Metal3RemediationTemplate.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -13,6 +13,8 @@ Metal3RemediationTemplateStatus defines the observed state of Metal3RemediationT
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **timeout** | `string` | Sets the timeout between remediation retries. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **type** | `string` | Type of remediation. | N/A |
 ## Status Fields
+
+Metal3RemediationTemplateStatus defines the observed state of Metal3RemediationTemplate.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

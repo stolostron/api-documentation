@@ -1,8 +1,8 @@
 # AWSClusterStaticIdentity API
 
-Spec for this AWSClusterStaticIdentity
-
 ## Spec Fields
+
+Spec for this AWSClusterStaticIdentity
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -16,6 +16,8 @@ Spec for this AWSClusterStaticIdentity
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **matchLabels** | `object` | matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed. | N/A |
 |  **secretRef** | `string` | Reference to a secret containing the credentials. The secret should contain the following data keys:  AccessKeyID: AKIAIOSFODNN7EXAMPLE  SecretAccessKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY  SessionToken: Optional | N/A |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

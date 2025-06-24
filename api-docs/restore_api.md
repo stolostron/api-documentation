@@ -1,8 +1,8 @@
 # Restore API
 
-RestoreStatus defines the observed state of Restore
-
 ## Spec Fields
+
+RestoreSpec defines the desired state of Restore
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -59,6 +59,8 @@ RestoreStatus defines the observed state of Restore
 |  **veleroManagedClustersBackupName** | `string` | VeleroManagedClustersBackupName is the name of the velero back-up used to restore managed clusters. Is required, valid values are latest, skip or backup_name If value is set to latest, the latest backup is used, skip will not restore this type of backup backup_name points to the name of the backup to be restored | N/A |
 |  **veleroResourcesBackupName** | `string` | VeleroResourcesBackupName is the name of the velero back-up used to restore resources. Is required, valid values are latest, skip or backup_name If value is set to latest, the latest backup is used, skip will not restore this type of backup backup_name points to the name of the backup to be restored | N/A |
 ## Status Fields
+
+RestoreStatus defines the observed state of Restore
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

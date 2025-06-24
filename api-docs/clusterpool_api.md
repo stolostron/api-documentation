@@ -1,8 +1,8 @@
 # ClusterPool API
 
-ClusterPoolStatus defines the observed state of ClusterPool
-
 ## Spec Fields
+
+ClusterPoolSpec defines the desired state of the ClusterPool.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -151,6 +151,8 @@ ClusterPoolStatus defines the observed state of ClusterPool
 |  **size** | `integer` | Size is the default number of clusters that we should keep provisioned and waiting for use. | `Minimum=0` |
 |  **skipMachinePools** | `boolean` | SkipMachinePools allows creating clusterpools where the machinepools are not managed by hive after cluster creation | N/A |
 ## Status Fields
+
+ClusterPoolStatus defines the observed state of ClusterPool
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

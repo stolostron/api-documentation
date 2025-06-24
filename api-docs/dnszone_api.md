@@ -1,8 +1,8 @@
 # DNSZone API
 
-DNSZoneStatus defines the observed state of DNSZone
-
 ## Spec Fields
+
+DNSZoneSpec defines the desired state of DNSZone
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -28,6 +28,8 @@ DNSZoneStatus defines the observed state of DNSZone
 |  **preserveOnDelete** | `boolean` | PreserveOnDelete allows the user to disconnect a DNSZone from Hive without deprovisioning it. This can also be used to abandon ongoing DNSZone deprovision. Typically set automatically due to PreserveOnDelete being set on a ClusterDeployment. | N/A |
 |  **zone** | `string` | Zone is the DNS zone to host | N/A |
 ## Status Fields
+
+DNSZoneStatus defines the observed state of DNSZone
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

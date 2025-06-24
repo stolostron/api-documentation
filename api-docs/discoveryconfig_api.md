@@ -1,8 +1,8 @@
 # DiscoveryConfig API
 
-DiscoveryConfigStatus defines the observed state of DiscoveryConfig
-
 ## Spec Fields
+
+DiscoveryConfigSpec defines the desired state of DiscoveryConfig
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -14,6 +14,8 @@ DiscoveryConfigStatus defines the observed state of DiscoveryConfig
 | └>&nbsp;&nbsp; **openShiftVersions** | `array` | OpenShiftVersions is the list of release versions of OpenShift of the form "<Major>.<Minor>" | N/A |
 | └>&nbsp;&nbsp; **regions** | `array` | Regions is the list of regions where OpenShift clusters are located. This helps in filtering clusters based on geographic location or data center region, useful for compliance or latency requirements. | N/A |
 ## Status Fields
+
+DiscoveryConfigStatus defines the observed state of DiscoveryConfig
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # AgentClusterInstall API
 
-AgentClusterInstallStatus defines the observed state of the AgentClusterInstall.
-
 ## Spec Fields
+
+AgentClusterInstallSpec defines the desired state of the AgentClusterInstall.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -76,6 +76,8 @@ AgentClusterInstallStatus defines the observed state of the AgentClusterInstall.
 | └>&nbsp;&nbsp; **noProxy** | `string` | NoProxy is a comma-separated list of domains and CIDRs for which the proxy should not be used. | N/A |
 |  **sshPublicKey** | `string` | SSHPublicKey will be added to all cluster hosts for use in debugging. | N/A |
 ## Status Fields
+
+AgentClusterInstallStatus defines the observed state of the AgentClusterInstall.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

@@ -1,8 +1,8 @@
 # Application API
 
-ApplicationStatus defines controller's the observed state of Application
-
 ## Spec Fields
+
+ApplicationSpec defines the specification for an Application.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -85,6 +85,8 @@ ApplicationStatus defines controller's the observed state of Application
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **values** | `array` | values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch. | N/A |
 | └>&nbsp;&nbsp; **matchLabels** | `object` | matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed. | N/A |
 ## Status Fields
+
+ApplicationStatus defines controller's the observed state of Application
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

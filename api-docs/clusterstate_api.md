@@ -1,12 +1,14 @@
 # ClusterState API
 
-ClusterStateStatus defines the observed state of ClusterState
-
 ## Spec Fields
+
+ClusterStateSpec defines the desired state of ClusterState
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
 ## Status Fields
+
+ClusterStateStatus defines the observed state of ClusterState
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

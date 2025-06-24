@@ -1,8 +1,8 @@
 # Policy API
 
-PolicyStatus reports the observed status of the policy resulting from its policy templates.
-
 ## Spec Fields
+
+PolicySpec defines the configurations of the policy engine resources to deliver to the managed clusters.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -27,6 +27,8 @@ PolicyStatus reports the observed status of the policy resulting from its policy
 | └>&nbsp;&nbsp; **objectDefinition** | `object` | A Kubernetes object defining the policy to apply to a managed cluster | N/A |
 |  **remediationAction** | `string` | RemediationAction specifies the remediation of the policy. The parameter values are "enforce" and "inform". If specified, the value that is defined overrides any remediationAction parameter defined in the child policies in the "policy-templates" section. Important: Not all policy engine kinds support the enforce feature. | N/A |
 ## Status Fields
+
+PolicyStatus reports the observed status of the policy resulting from its policy templates.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

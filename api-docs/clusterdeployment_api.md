@@ -1,8 +1,8 @@
 # ClusterDeployment API
 
-ClusterDeploymentStatus defines the observed state of ClusterDeployment
-
 ## Spec Fields
+
+ClusterDeploymentSpec defines the desired state of ClusterDeployment
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -210,6 +210,8 @@ ClusterDeploymentStatus defines the observed state of ClusterDeployment
 |  **pullSecretRef** | `object` | PullSecretRef is the reference to the secret to use when pulling images. | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
 ## Status Fields
+
+ClusterDeploymentStatus defines the observed state of ClusterDeployment
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

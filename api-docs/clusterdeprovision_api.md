@@ -1,8 +1,8 @@
 # ClusterDeprovision API
 
-ClusterDeprovisionStatus defines the observed state of ClusterDeprovision
-
 ## Spec Fields
+
+ClusterDeprovisionSpec defines the desired state of ClusterDeprovision
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -62,6 +62,8 @@ ClusterDeprovisionStatus defines the observed state of ClusterDeprovision
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **vCenter** | `string` | VCenter is the vSphere vCenter hostname. | N/A |
 ## Status Fields
+
+ClusterDeprovisionStatus defines the observed state of ClusterDeprovision
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

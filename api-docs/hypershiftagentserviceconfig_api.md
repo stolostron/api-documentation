@@ -1,8 +1,8 @@
 # HypershiftAgentServiceConfig API
 
-HypershiftAgentServiceConfigSpec defines the desired state of HypershiftAgentServiceConfig.
-
 ## Spec Fields
+
+HypershiftAgentServiceConfigSpec defines the desired state of HypershiftAgentServiceConfig.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -103,6 +103,8 @@ HypershiftAgentServiceConfigSpec defines the desired state of HypershiftAgentSer
 | └>&nbsp;&nbsp; **version** | `string` | Version is the Operating System version of the image. | N/A |
 |  **unauthenticatedRegistries** | `array` | UnauthenticatedRegistries is a list of registries from which container images can be pulled without authentication. They will be appended to the default list (quay.io, registry.ci.openshift.org). Any registry on this list will not require credentials to be in the pull secret validated by the assisted-service. | N/A |
 ## Status Fields
+
+No description available.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

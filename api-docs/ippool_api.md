@@ -1,8 +1,8 @@
 # IPPool API
 
-IPPoolStatus defines the observed state of IPPool.
-
 ## Spec Fields
+
+IPPoolSpec defines the desired state of IPPool.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -20,6 +20,8 @@ IPPoolStatus defines the observed state of IPPool.
 |  **preAllocations** | `object` | PreAllocations contains the preallocated IP addresses | N/A |
 |  **prefix** | `integer` | Prefix is the mask of the network as integer (max 128) | `Maximum=128` |
 ## Status Fields
+
+IPPoolStatus defines the observed state of IPPool.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

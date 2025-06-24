@@ -1,8 +1,8 @@
 # AWSMachine API
 
-AWSMachineStatus defines the observed state of AWSMachine.
-
 ## Spec Fields
+
+AWSMachineSpec defines the desired state of an Amazon EC2 instance.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -61,6 +61,8 @@ AWSMachineStatus defines the observed state of AWSMachine.
 |  **tenancy** | `string` | Tenancy indicates if instance should run on shared or single-tenant hardware. | N/A |
 |  **uncompressedUserData** | `boolean` | UncompressedUserData specify whether the user data is gzip-compressed before it is sent to ec2 instance. cloud-init has built-in support for gzip-compressed user data user data stored in aws secret manager is always gzip-compressed. | N/A |
 ## Status Fields
+
+AWSMachineStatus defines the observed state of AWSMachine.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

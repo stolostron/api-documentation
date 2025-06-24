@@ -1,8 +1,8 @@
 # ImageClusterInstall API
 
-ImageClusterInstallStatus defines the observed state of ImageClusterInstall
-
 ## Spec Fields
+
+ImageClusterInstallSpec defines the desired state of ImageClusterInstall
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
@@ -45,6 +45,8 @@ ImageClusterInstallStatus defines the observed state of ImageClusterInstall
 | └>&nbsp;&nbsp; **noProxy** | `string` | NoProxy is a comma-separated list of domains and CIDRs for which the proxy should not be used. | N/A |
 |  **sshKey** | `string` | SSHKey is the public Secure Shell (SSH) key to provide access to instances. Equivalent to install-config.yaml's sshKey. This key will be added to the host to allow ssh access | N/A |
 ## Status Fields
+
+ImageClusterInstallStatus defines the observed state of ImageClusterInstall
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
