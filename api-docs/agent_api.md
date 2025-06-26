@@ -20,7 +20,7 @@ AgentSpec defines the desired state of Agent
 |  **installerArgs** | `string` | Json formatted string containing the user overrides for the host's coreos installer args | N/A |
 |  **machineConfigPool** | `string` | No description provided. | N/A |
 |  **nodeLabels** | `object` | NodeLabels are the labels to be applied on the node associated with this agent | N/A |
-|  **role** | `string` | HostRole host role   swagger:model host-role | N/A |
+|  **role** | `string` | HostRole host role swagger:model host-role | N/A |
 ## Status Fields
 
 AgentStatus defines the observed state of Agent
@@ -105,7 +105,7 @@ AgentStatus defines the observed state of Agent
 |  **kind** | `string` | Kind corresponds to the same field in the model Host. It indicates the type of cluster the host is being installed to; either an existing cluster (day-2) or a new cluster (day-1). Value is one of: "AddToExistingClusterHost" (day-2) or "Host" (day-1) | N/A |
 |  **ntpSources** | `array` | No description provided. | N/A |
 | └>&nbsp;&nbsp; **sourceName** | `string` | No description provided. | N/A |
-| └>&nbsp;&nbsp; **sourceState** | `string` | SourceState source state   swagger:model source_state | N/A |
+| └>&nbsp;&nbsp; **sourceState** | `string` | SourceState source state swagger:model source_state | N/A |
 |  **progress** | `object` | No description provided. | N/A |
 | └>&nbsp;&nbsp; **currentStage** | `string` | current installation stage | N/A |
 | └>&nbsp;&nbsp; **installationPercentage** | `integer` | Estimate progress (percentage) | N/A |
@@ -113,5 +113,5 @@ AgentStatus defines the observed state of Agent
 | └>&nbsp;&nbsp; **progressStages** | `array` | All stages (ordered by their appearance) for this agent | N/A |
 | └>&nbsp;&nbsp; **stageStartTime** | `string` | host field: progress: stage_started_at | N/A |
 | └>&nbsp;&nbsp; **stageUpdateTime** | `string` | host field: progress: stage_updated_at | N/A |
-|  **role** | `string` | HostRole host role   swagger:model host-role | N/A |
+|  **role** | `string` | HostRole host role swagger:model host-role | N/A |
 |  **validationsInfo** | `object` | ValidationsInfo is a JSON-formatted string containing the validation results for each validation id grouped by category (network, hosts-data, etc.) | N/A |
