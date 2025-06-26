@@ -1,0 +1,73 @@
+{{- if .Values.enableCRD }}
+apiVersion: apiextensions.k8s.io/v1
+{{- end }}
+kind: CustomResourceDefinition
+metadata:
+  name: helm-sample.example.com
+spec:
+  group: example.com
+  names:
+    kind: HelmSample
+    plural: helmsamples
+    singular: helmsample
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            description: Specification for HelmSample resource
+            properties:
+              name:
+                type: string
+                description: The name of the helm sample resource
+                pattern: "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+              replicas:
+                type: integer
+                description: Number of replicas to run
+                minimum: 1
+                maximum: 10
+              enabled:
+                type: boolean
+                description: Whether the helm sample is enabled
+              config:
+                type: object
+                description: Configuration object
+                properties:
+                  timeout:
+                    type: integer
+                    description: Timeout in seconds
+                    minimum: 1
+                  retries:
+                    type: integer
+                    description: Number of retries
+                    minimum: 0
+                    maximum: 5
+              items:
+                type: array
+                description: List of items
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Item name
+                    value:
+                      type: integer
+                      description: Item value
+          status:
+            type: object
+            description: Status of HelmSample resource
+            properties:
+              phase:
+                type: string
+                description: Current phase of the helm sample
+                enum: [Pending, Running, Completed, Failed]
+              readyReplicas:
+                type: integer
+                description: Number of ready replicas 
