@@ -139,7 +139,6 @@ def parse_crd_file(file_path):
     content = re.sub(r'\{\{-?[^}]+-?\}\}', '', content)
     # Remove lines that are only whitespace after template removal
     content = '\n'.join(line for line in content.split('\n') if line.strip())
-
     try:
         crd = yaml.safe_load(content)
     except yaml.YAMLError as e:
