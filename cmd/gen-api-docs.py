@@ -5,13 +5,13 @@
 import os
 import re
 import yaml
-from collections import defaultdict
 
 # List of folder names to ignore during file search
-IGNORED_FOLDERS = ['vendor', '.github', '.git', 'hack']
+IGNORED_FOLDERS = ['vendor', '.github', '.git', 'hack', 'tests']
 
 # Global search directory
 search_dir = '.'
+
 
 def is_primitive(go_type):
     primitives = {'string', 'int', 'int32', 'int64', 'float32', 'float64', 'bool', 'byte', 'rune', 'uint', 'uint32', 'uint64', 'map', '[]byte', 'interface{}'}
@@ -26,6 +26,7 @@ def is_primitive(go_type):
     if go_type.startswith('metav1.') or go_type.startswith('corev1.'):
         return True
     return False
+
 
 def find_go_struct(type_name, go_files):
     # Look for a struct definition with the exact type name
@@ -51,6 +52,7 @@ def find_go_struct(type_name, go_files):
                     if len(parts) == 1 and parts[0] == type_name:
                         return struct_body, file_path, content
     return None, None, None
+
 
 def parse_go_struct(type_name, go_files, parsed_types):
     if type_name in parsed_types:
@@ -104,6 +106,7 @@ def parse_go_struct(type_name, go_files, parsed_types):
         fields.append(field_info)
     return {'kind': type_name, 'description': struct_comment, 'fields': fields}
 
+
 def parse_go_file(file_path, go_files, parsed_types=None):
     if parsed_types is None:
         parsed_types = set()
@@ -117,6 +120,7 @@ def parse_go_file(file_path, go_files, parsed_types=None):
     # Find the Spec struct for this Kind
     spec_struct_name = kind + 'Spec'
     return parse_go_struct(spec_struct_name, go_files, parsed_types)
+
 
 def parse_crd_file(file_path):
     with open(file_path, 'r') as f:
@@ -135,7 +139,6 @@ def parse_crd_file(file_path):
     content = re.sub(r'\{\{-?[^}]+-?\}\}', '', content)
     # Remove lines that are only whitespace after template removal
     content = '\n'.join(line for line in content.split('\n') if line.strip())
-    
     try:
         crd = yaml.safe_load(content)
     except yaml.YAMLError as e:
@@ -190,7 +193,7 @@ def parse_crd_file(file_path):
                 field_schema = properties[field_name]
                 schema = field_schema.get('properties', {})
                 if 'description' in field_schema:
-                    crd_info['description'+field_name] = field_schema['description']
+                    crd_info['description' + field_name] = field_schema['description']
                 crd_info[field_name] = parse_schema_fields(schema)
     except (KeyError, IndexError) as e:
         print(f"Exception details: {e}")
@@ -199,12 +202,13 @@ def parse_crd_file(file_path):
         pass
     return crd_info
 
+
 def render_fields(fields, go_files, depth=0):
     md = ''
     indent = ''
 
     if depth > 0:
-        indent = "&nbsp;" * ((depth - 1) * 4) +"└>" + "&nbsp;" * 2
+        indent = "&nbsp;" * ((depth - 1) * 4) + "└>" + "&nbsp;" * 2
 
     for field in fields:
         if isinstance(field, str):
@@ -218,9 +222,10 @@ def render_fields(fields, go_files, depth=0):
         description = field.get('description', 'No description provided.').replace('\n', ' ')
         md += f"| {indent} **{field.get('name', 'N/A')}** | `{field.get('type', 'N/A')}` | {description} | {validations} |\n"
         if 'inline' in field and len(field['inline']) > 0:
-            md += render_fields(field['inline']['fields'], go_files, depth+1)
+            md += render_fields(field['inline']['fields'], go_files, depth + 1)
 
     return md
+
 
 def generate_markdown(crd_info, output_dir, go_files):
     kind = crd_info['kind']
@@ -239,6 +244,7 @@ def generate_markdown(crd_info, output_dir, go_files):
         f.write(render_fields(crd_info.get('status', []), go_files))
     return f"{kind.lower()}_api.md"
 
+
 def collect_go_type_files():
     go_type_files = []
     for root, _, files in os.walk(search_dir):
@@ -248,6 +254,7 @@ def collect_go_type_files():
             if file.endswith('.go') and not file.startswith('zz_generated') and not file.startswith('doc.go'):
                 go_type_files.append(os.path.join(root, file))
     return go_type_files
+
 
 def main():
     import sys
@@ -313,6 +320,7 @@ def main():
             f.write(f"[View a detailed API Reference for {entry['kind']}]({entry['link']}).\n\n")
             f.write("---\n\n")
     print(f"API documentation generated successfully in the '{api_docs_dir}' directory.")
+
 
 if __name__ == "__main__":
     main()

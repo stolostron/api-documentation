@@ -1,0 +1,53 @@
+name: Test on Pull Request
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on pull request events
+  pull_request:
+    branches: [ main, release-* ]
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Add permissions for the workflow
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # 1. Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Sets up Python environment for the make command
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' # Use a recent Python 3 version
+
+      # 3. Install system dependencies
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git curl
+
+      # 4. Run the make test command
+      - name: Run Tests
+        run: make test
+        
+      # 5. Optional: Upload test results as artifacts (if you have test reports)
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            api-docs/
+            *.log
+          retention-days: 7 
