@@ -15,7 +15,7 @@ This repository contains:
 The core API documentation, including all ACM CRDs and their detailed specifications, can be found in the [api-docs/README.md](./api-docs/README.md).
 <br>
 * [Release-2.14](https://github.com/stolostron/api-documentation/blob/release-2.14/api-docs/README.md)
-* [Release-2.15](https://github.com/stolostron/api-documentation/blob/release-2.15/api-docs/README.md)
+* [PRE-Release-2.15](https://github.com/stolostron/api-documentation/blob/release-2.15/api-docs/README.md)
 
 ## External ACM-Related API Documentation
 
