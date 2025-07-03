@@ -43,6 +43,8 @@ remove-core-crds:
 .PHONY: setup
 setup: deps
 	@mkdir -p api-docs
+	@printf "# This file ensures the .github directory is tracked by Git\n# Remove this file once you add workflow files to the directory" > api-docs/.gitkeep
+
 
 .PHONY: gen-api-docs
 gen-api-docs: setup
