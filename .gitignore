@@ -1,2 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+./multiclusterhub-operator
+./backplane-operator
+./ocm
+./acm-crds
+./mce-crds
