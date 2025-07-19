@@ -36,6 +36,24 @@ ACM integrates with and extends many open source projects. Below are links to AP
 
 > _If you have additional ACM-related API documentation to link here, please submit a pull request!_
 
+## Running make gen-api-docs-core
+
+To generate API documentation for the core ACM product (including multiclusterhub-operator, backplane-operator, and OCM), you can use the `gen-api-docs-core` target:
+
+```sh
+# Generate API docs for the core product using default branches (main)
+make gen-api-docs-core
+
+# Or specify specific release branches
+RELEASE_BRANCH=release-2.15.0 BACKPLANE_BRANCH=backplane-2.10.0 make gen-api-docs-core
+```
+
+This command will:
+1. Clone the required repositories (multiclusterhub-operator, backplane-operator, ocm)
+2. Extract CRDs from the cloned repositories
+3. Generate API documentation from the CRDs
+4. Clean up the cloned repositories
+
 ## Contributing
 
 Contributions to this documentation are welcome! Please open issues or pull requests for corrections, improvements, or to add links to additional ACM-related API documentation.
