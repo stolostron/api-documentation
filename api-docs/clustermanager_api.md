@@ -42,6 +42,13 @@ Spec represents a desired deployment configuration of controllers that govern re
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **tags** | `array` | List of tags to be added to AWS resources created by hub while processing awsirsa registration request Example - "product:v1:tenant:app-name=My-App" | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **csr** | `object` | CSR represents the configuration for csr driver. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **autoApprovedIdentities** | `array` | AutoApprovedIdentities represent a list of approved users | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **grpc** | `object` | GRPC represents the configuration for gRPC driver. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **autoApprovedIdentities** | `array` | AutoApprovedIdentities represent a list of approved arn patterns | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **endpointExposure** | `object` | EndpointExposure represents the configuration for endpoint exposure. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **hostname** | `object` | Hostname points to a fixed hostname for serving agents' handshakes. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **value** | `string` | No description provided. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **type** | `string` | Type specifies how the gRPC endpoint is exposed. You may need to apply an object to expose the gRPC endpoint, for example: a route. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **imagePullSpec** | `string` | ImagePullSpec represents the desired image of the gRPC broker installed on hub. | N/A |
 |  **registrationImagePullSpec** | `string` | RegistrationImagePullSpec represents the desired image of registration controller/webhook installed on hub. | N/A |
 |  **resourceRequirement** | `object` | ResourceRequirement specify QoS classes of deployments managed by clustermanager. It applies to all the containers in the deployments. | N/A |
 | └>&nbsp;&nbsp; **resourceRequirements** | `object` | ResourceRequirements defines resource requests and limits when Type is ResourceQosClassResourceRequirement | N/A |
