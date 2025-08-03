@@ -35,6 +35,12 @@ AgentStatus defines the observed state of Agent
 | └>&nbsp;&nbsp; **reason** | `string` | No description provided. | N/A |
 | └>&nbsp;&nbsp; **status** | `string` | No description provided. | N/A |
 | └>&nbsp;&nbsp; **type** | `string` | ConditionType is the state of the operator's reconciliation functionality. | N/A |
+|  **csrStatus** | `object` | CSRStatus tracks the status of CSR approvals for the agent | N/A |
+| └>&nbsp;&nbsp; **approvedCSRs** | `array` | CSRs that have been approved for the agent by the assisted-service | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **approvedAt** | `string` | No description provided. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | No description provided. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **type** | `string` | CSRType represents the type of CSR | N/A |
+| └>&nbsp;&nbsp; **lastApprovalAttempt** | `string` | Last time we attempted a CSR approval | N/A |
 |  **debugInfo** | `object` | DebugInfo includes information for debugging the installation process. | N/A |
 | └>&nbsp;&nbsp; **eventsURL** | `string` | EventsURL specifies an HTTP/S URL that contains events which occured during the cluster installation process | N/A |
 | └>&nbsp;&nbsp; **logsURL** | `string` | LogsURL specifies a url for download controller logs tar file. | N/A |

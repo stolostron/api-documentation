@@ -113,3 +113,4 @@ AgentServiceConfigStatus defines the observed state of AgentServiceConfig
 | └>&nbsp;&nbsp; **reason** | `string` | No description provided. | N/A |
 | └>&nbsp;&nbsp; **status** | `string` | No description provided. | N/A |
 | └>&nbsp;&nbsp; **type** | `string` | ConditionType is the state of the operator's reconciliation functionality. | N/A |
+|  **immutableAnnotations** | `object` | No description provided. | N/A |
