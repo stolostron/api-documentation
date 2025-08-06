@@ -2,7 +2,7 @@
 
 ## Spec Fields
 
-ClusterResourceSetBindingSpec defines the desired state of ClusterResourceSetBinding.
+spec is the desired state of ClusterResourceSetBinding.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
