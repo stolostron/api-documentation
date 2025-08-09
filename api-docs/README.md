@@ -2,11 +2,235 @@
 
 This document provides an overview of the Custom Resource Definitions (CRDs) used in this project.
 
-## ImageClusterInstall
+## Restore
 
 Description not found in CRD.
 
-[View a detailed API Reference for ImageClusterInstall](imageclusterinstall_api.md).
+[View a detailed API Reference for Restore](restore_api.md).
+
+---
+
+## BackupSchedule
+
+Description not found in CRD.
+
+[View a detailed API Reference for BackupSchedule](backupschedule_api.md).
+
+---
+
+## InternalHubComponent
+
+Description not found in CRD.
+
+[View a detailed API Reference for InternalHubComponent](internalhubcomponent_api.md).
+
+---
+
+## Subscription
+
+Description not found in CRD.
+
+[View a detailed API Reference for Subscription](subscription_api.md).
+
+---
+
+## SubscriptionReport
+
+Description not found in CRD.
+
+[View a detailed API Reference for SubscriptionReport](subscriptionreport_api.md).
+
+---
+
+## Application
+
+Description not found in CRD.
+
+[View a detailed API Reference for Application](application_api.md).
+
+---
+
+## HelmRelease
+
+Description not found in CRD.
+
+[View a detailed API Reference for HelmRelease](helmrelease_api.md).
+
+---
+
+## SubscriptionStatus
+
+Description not found in CRD.
+
+[View a detailed API Reference for SubscriptionStatus](subscriptionstatus_api.md).
+
+---
+
+## Deployable
+
+Description not found in CRD.
+
+[View a detailed API Reference for Deployable](deployable_api.md).
+
+---
+
+## Channel
+
+Description not found in CRD.
+
+[View a detailed API Reference for Channel](channel_api.md).
+
+---
+
+## MulticlusterApplicationSetReport
+
+Description not found in CRD.
+
+[View a detailed API Reference for MulticlusterApplicationSetReport](multiclusterapplicationsetreport_api.md).
+
+---
+
+## PlacementRule
+
+Description not found in CRD.
+
+[View a detailed API Reference for PlacementRule](placementrule_api.md).
+
+---
+
+## GitOpsCluster
+
+Description not found in CRD.
+
+[View a detailed API Reference for GitOpsCluster](gitopscluster_api.md).
+
+---
+
+## SubmarinerDiagnoseConfig
+
+Description not found in CRD.
+
+[View a detailed API Reference for SubmarinerDiagnoseConfig](submarinerdiagnoseconfig_api.md).
+
+---
+
+## SubmarinerConfig
+
+Description not found in CRD.
+
+[View a detailed API Reference for SubmarinerConfig](submarinerconfig_api.md).
+
+---
+
+## UserPreference
+
+Description not found in CRD.
+
+[View a detailed API Reference for UserPreference](userpreference_api.md).
+
+---
+
+## Search
+
+Description not found in CRD.
+
+[View a detailed API Reference for Search](search_api.md).
+
+---
+
+## KlusterletAddonConfig
+
+Description not found in CRD.
+
+[View a detailed API Reference for KlusterletAddonConfig](klusterletaddonconfig_api.md).
+
+---
+
+## ClusterInstance
+
+Description not found in CRD.
+
+[View a detailed API Reference for ClusterInstance](clusterinstance_api.md).
+
+---
+
+## MultiClusterObservability
+
+Description not found in CRD.
+
+[View a detailed API Reference for MultiClusterObservability](multiclusterobservability_api.md).
+
+---
+
+## ObservabilityAddon
+
+Description not found in CRD.
+
+[View a detailed API Reference for ObservabilityAddon](observabilityaddon_api.md).
+
+---
+
+## Observatorium
+
+Description not found in CRD.
+
+[View a detailed API Reference for Observatorium](observatorium_api.md).
+
+---
+
+## PolicyReport
+
+Description not found in CRD.
+
+[View a detailed API Reference for PolicyReport](policyreport_api.md).
+
+---
+
+## PlacementBinding
+
+Description not found in CRD.
+
+[View a detailed API Reference for PlacementBinding](placementbinding_api.md).
+
+---
+
+## PolicyAutomation
+
+Description not found in CRD.
+
+[View a detailed API Reference for PolicyAutomation](policyautomation_api.md).
+
+---
+
+## Policy
+
+Description not found in CRD.
+
+[View a detailed API Reference for Policy](policy_api.md).
+
+---
+
+## PolicySet
+
+Description not found in CRD.
+
+[View a detailed API Reference for PolicySet](policyset_api.md).
+
+---
+
+## ClusterPermission
+
+Description not found in CRD.
+
+[View a detailed API Reference for ClusterPermission](clusterpermission_api.md).
+
+---
+
+## InternalEngineComponent
+
+Description not found in CRD.
+
+[View a detailed API Reference for InternalEngineComponent](internalenginecomponent_api.md).
 
 ---
 
@@ -26,307 +250,179 @@ Description not found in CRD.
 
 ---
 
-## ROSACluster
+## ExtensionConfig
 
 Description not found in CRD.
 
-[View a detailed API Reference for ROSACluster](rosacluster_api.md).
+[View a detailed API Reference for ExtensionConfig](extensionconfig_api.md).
 
 ---
 
-## AWSMachineTemplate
+## Cluster
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSMachineTemplate](awsmachinetemplate_api.md).
+[View a detailed API Reference for Cluster](cluster_api.md).
 
 ---
 
-## AWSMachinePool
+## MachineHealthCheck
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSMachinePool](awsmachinepool_api.md).
+[View a detailed API Reference for MachineHealthCheck](machinehealthcheck_api.md).
 
 ---
 
-## AWSCluster
+## ClusterResourceSet
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSCluster](awscluster_api.md).
+[View a detailed API Reference for ClusterResourceSet](clusterresourceset_api.md).
 
 ---
 
-## AWSClusterTemplate
+## MachineDeployment
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSClusterTemplate](awsclustertemplate_api.md).
+[View a detailed API Reference for MachineDeployment](machinedeployment_api.md).
 
 ---
 
-## AWSManagedControlPlane
+## MachineSet
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSManagedControlPlane](awsmanagedcontrolplane_api.md).
+[View a detailed API Reference for MachineSet](machineset_api.md).
 
 ---
 
-## AWSClusterControllerIdentity
+## ClusterClass
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSClusterControllerIdentity](awsclustercontrolleridentity_api.md).
+[View a detailed API Reference for ClusterClass](clusterclass_api.md).
 
 ---
 
-## AWSFargateProfile
+## MachineDrainRule
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSFargateProfile](awsfargateprofile_api.md).
+[View a detailed API Reference for MachineDrainRule](machinedrainrule_api.md).
 
 ---
 
-## ROSAControlPlane
+## Machine
 
 Description not found in CRD.
 
-[View a detailed API Reference for ROSAControlPlane](rosacontrolplane_api.md).
+[View a detailed API Reference for Machine](machine_api.md).
 
 ---
 
-## AWSClusterRoleIdentity
+## ClusterResourceSetBinding
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSClusterRoleIdentity](awsclusterroleidentity_api.md).
+[View a detailed API Reference for ClusterResourceSetBinding](clusterresourcesetbinding_api.md).
 
 ---
 
-## ROSAMachinePool
+## Metal3Machine
 
 Description not found in CRD.
 
-[View a detailed API Reference for ROSAMachinePool](rosamachinepool_api.md).
+[View a detailed API Reference for Metal3Machine](metal3machine_api.md).
 
 ---
 
-## EKSConfigTemplate
+## Metal3RemediationTemplate
 
 Description not found in CRD.
 
-[View a detailed API Reference for EKSConfigTemplate](eksconfigtemplate_api.md).
+[View a detailed API Reference for Metal3RemediationTemplate](metal3remediationtemplate_api.md).
 
 ---
 
-## AWSClusterStaticIdentity
+## Metal3MachineTemplate
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSClusterStaticIdentity](awsclusterstaticidentity_api.md).
+[View a detailed API Reference for Metal3MachineTemplate](metal3machinetemplate_api.md).
 
 ---
 
-## AWSManagedMachinePool
+## IPClaim
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSManagedMachinePool](awsmanagedmachinepool_api.md).
+[View a detailed API Reference for IPClaim](ipclaim_api.md).
 
 ---
 
-## AWSMachine
+## Metal3Data
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSMachine](awsmachine_api.md).
+[View a detailed API Reference for Metal3Data](metal3data_api.md).
 
 ---
 
-## AWSManagedCluster
+## IPPool
 
 Description not found in CRD.
 
-[View a detailed API Reference for AWSManagedCluster](awsmanagedcluster_api.md).
+[View a detailed API Reference for IPPool](ippool_api.md).
 
 ---
 
-## EKSConfig
+## Metal3DataClaim
 
 Description not found in CRD.
 
-[View a detailed API Reference for EKSConfig](eksconfig_api.md).
+[View a detailed API Reference for Metal3DataClaim](metal3dataclaim_api.md).
 
 ---
 
-## ClusterCurator
+## Metal3Cluster
 
 Description not found in CRD.
 
-[View a detailed API Reference for ClusterCurator](clustercurator_api.md).
+[View a detailed API Reference for Metal3Cluster](metal3cluster_api.md).
 
 ---
 
-## ClusterRelocate
+## Metal3DataTemplate
 
 Description not found in CRD.
 
-[View a detailed API Reference for ClusterRelocate](clusterrelocate_api.md).
+[View a detailed API Reference for Metal3DataTemplate](metal3datatemplate_api.md).
 
 ---
 
-## SelectorSyncSet
+## Metal3ClusterTemplate
 
 Description not found in CRD.
 
-[View a detailed API Reference for SelectorSyncSet](selectorsyncset_api.md).
+[View a detailed API Reference for Metal3ClusterTemplate](metal3clustertemplate_api.md).
 
 ---
 
-## ClusterState
+## Metal3Remediation
 
 Description not found in CRD.
 
-[View a detailed API Reference for ClusterState](clusterstate_api.md).
+[View a detailed API Reference for Metal3Remediation](metal3remediation_api.md).
 
 ---
 
-## ClusterDeploymentCustomization
+## IPAddress
 
 Description not found in CRD.
 
-[View a detailed API Reference for ClusterDeploymentCustomization](clusterdeploymentcustomization_api.md).
-
----
-
-## MachinePoolNameLease
-
-Description not found in CRD.
-
-[View a detailed API Reference for MachinePoolNameLease](machinepoolnamelease_api.md).
-
----
-
-## SyncIdentityProvider
-
-Description not found in CRD.
-
-[View a detailed API Reference for SyncIdentityProvider](syncidentityprovider_api.md).
-
----
-
-## SyncSet
-
-Description not found in CRD.
-
-[View a detailed API Reference for SyncSet](syncset_api.md).
-
----
-
-## ClusterProvision
-
-Description not found in CRD.
-
-[View a detailed API Reference for ClusterProvision](clusterprovision_api.md).
-
----
-
-## ClusterDeployment
-
-Description not found in CRD.
-
-[View a detailed API Reference for ClusterDeployment](clusterdeployment_api.md).
-
----
-
-## FakeClusterInstall
-
-Description not found in CRD.
-
-[View a detailed API Reference for FakeClusterInstall](fakeclusterinstall_api.md).
-
----
-
-## ClusterImageSet
-
-Description not found in CRD.
-
-[View a detailed API Reference for ClusterImageSet](clusterimageset_api.md).
-
----
-
-## ClusterPool
-
-Description not found in CRD.
-
-[View a detailed API Reference for ClusterPool](clusterpool_api.md).
-
----
-
-## ClusterSyncLease
-
-Description not found in CRD.
-
-[View a detailed API Reference for ClusterSyncLease](clustersynclease_api.md).
-
----
-
-## DNSZone
-
-Description not found in CRD.
-
-[View a detailed API Reference for DNSZone](dnszone_api.md).
-
----
-
-## Checkpoint
-
-Description not found in CRD.
-
-[View a detailed API Reference for Checkpoint](checkpoint_api.md).
-
----
-
-## ClusterClaim
-
-Description not found in CRD.
-
-[View a detailed API Reference for ClusterClaim](clusterclaim_api.md).
-
----
-
-## SelectorSyncIdentityProvider
-
-Description not found in CRD.
-
-[View a detailed API Reference for SelectorSyncIdentityProvider](selectorsyncidentityprovider_api.md).
-
----
-
-## ClusterSync
-
-Description not found in CRD.
-
-[View a detailed API Reference for ClusterSync](clustersync_api.md).
-
----
-
-## ClusterDeprovision
-
-Description not found in CRD.
-
-[View a detailed API Reference for ClusterDeprovision](clusterdeprovision_api.md).
-
----
-
-## HiveConfig
-
-Description not found in CRD.
-
-[View a detailed API Reference for HiveConfig](hiveconfig_api.md).
+[View a detailed API Reference for IPAddress](ipaddress_api.md).
 
 ---
 
@@ -335,22 +431,6 @@ Description not found in CRD.
 Description not found in CRD.
 
 [View a detailed API Reference for ManagedServiceAccount](managedserviceaccount_api.md).
-
----
-
-## ManagedProxyConfiguration
-
-Description not found in CRD.
-
-[View a detailed API Reference for ManagedProxyConfiguration](managedproxyconfiguration_api.md).
-
----
-
-## ManagedProxyServiceResolver
-
-Description not found in CRD.
-
-[View a detailed API Reference for ManagedProxyServiceResolver](managedproxyserviceresolver_api.md).
 
 ---
 
@@ -378,115 +458,203 @@ Description not found in CRD.
 
 ---
 
-## Metal3MachineTemplate
+## AWSCluster
 
 Description not found in CRD.
 
-[View a detailed API Reference for Metal3MachineTemplate](metal3machinetemplate_api.md).
+[View a detailed API Reference for AWSCluster](awscluster_api.md).
 
 ---
 
-## Metal3ClusterTemplate
+## EKSConfig
 
 Description not found in CRD.
 
-[View a detailed API Reference for Metal3ClusterTemplate](metal3clustertemplate_api.md).
+[View a detailed API Reference for EKSConfig](eksconfig_api.md).
 
 ---
 
-## Metal3Cluster
+## AWSManagedCluster
 
 Description not found in CRD.
 
-[View a detailed API Reference for Metal3Cluster](metal3cluster_api.md).
+[View a detailed API Reference for AWSManagedCluster](awsmanagedcluster_api.md).
 
 ---
 
-## Metal3DataTemplate
+## AWSManagedMachinePool
 
 Description not found in CRD.
 
-[View a detailed API Reference for Metal3DataTemplate](metal3datatemplate_api.md).
+[View a detailed API Reference for AWSManagedMachinePool](awsmanagedmachinepool_api.md).
 
 ---
 
-## Metal3RemediationTemplate
+## EKSConfigTemplate
 
 Description not found in CRD.
 
-[View a detailed API Reference for Metal3RemediationTemplate](metal3remediationtemplate_api.md).
+[View a detailed API Reference for EKSConfigTemplate](eksconfigtemplate_api.md).
 
 ---
 
-## Metal3Remediation
+## AWSMachinePool
 
 Description not found in CRD.
 
-[View a detailed API Reference for Metal3Remediation](metal3remediation_api.md).
+[View a detailed API Reference for AWSMachinePool](awsmachinepool_api.md).
 
 ---
 
-## Metal3Data
+## ROSACluster
 
 Description not found in CRD.
 
-[View a detailed API Reference for Metal3Data](metal3data_api.md).
+[View a detailed API Reference for ROSACluster](rosacluster_api.md).
 
 ---
 
-## Metal3Machine
+## AWSFargateProfile
 
 Description not found in CRD.
 
-[View a detailed API Reference for Metal3Machine](metal3machine_api.md).
+[View a detailed API Reference for AWSFargateProfile](awsfargateprofile_api.md).
 
 ---
 
-## IPPool
+## AWSClusterControllerIdentity
 
 Description not found in CRD.
 
-[View a detailed API Reference for IPPool](ippool_api.md).
+[View a detailed API Reference for AWSClusterControllerIdentity](awsclustercontrolleridentity_api.md).
 
 ---
 
-## IPClaim
+## ROSAMachinePool
 
 Description not found in CRD.
 
-[View a detailed API Reference for IPClaim](ipclaim_api.md).
+[View a detailed API Reference for ROSAMachinePool](rosamachinepool_api.md).
 
 ---
 
-## IPAddress
+## ROSAControlPlane
 
 Description not found in CRD.
 
-[View a detailed API Reference for IPAddress](ipaddress_api.md).
+[View a detailed API Reference for ROSAControlPlane](rosacontrolplane_api.md).
 
 ---
 
-## Metal3DataClaim
+## AWSMachineTemplate
 
 Description not found in CRD.
 
-[View a detailed API Reference for Metal3DataClaim](metal3dataclaim_api.md).
+[View a detailed API Reference for AWSMachineTemplate](awsmachinetemplate_api.md).
 
 ---
 
-## AgentServiceConfig
+## AWSClusterRoleIdentity
 
 Description not found in CRD.
 
-[View a detailed API Reference for AgentServiceConfig](agentserviceconfig_api.md).
+[View a detailed API Reference for AWSClusterRoleIdentity](awsclusterroleidentity_api.md).
 
 ---
 
-## AgentClusterInstall
+## AWSManagedControlPlane
 
 Description not found in CRD.
 
-[View a detailed API Reference for AgentClusterInstall](agentclusterinstall_api.md).
+[View a detailed API Reference for AWSManagedControlPlane](awsmanagedcontrolplane_api.md).
+
+---
+
+## AWSMachine
+
+Description not found in CRD.
+
+[View a detailed API Reference for AWSMachine](awsmachine_api.md).
+
+---
+
+## AWSClusterStaticIdentity
+
+Description not found in CRD.
+
+[View a detailed API Reference for AWSClusterStaticIdentity](awsclusterstaticidentity_api.md).
+
+---
+
+## AWSClusterTemplate
+
+Description not found in CRD.
+
+[View a detailed API Reference for AWSClusterTemplate](awsclustertemplate_api.md).
+
+---
+
+## ManagedClusterAction
+
+Description not found in CRD.
+
+[View a detailed API Reference for ManagedClusterAction](managedclusteraction_api.md).
+
+---
+
+## ManagedClusterView
+
+Description not found in CRD.
+
+[View a detailed API Reference for ManagedClusterView](managedclusterview_api.md).
+
+---
+
+## ManagedClusterImageRegistry
+
+Description not found in CRD.
+
+[View a detailed API Reference for ManagedClusterImageRegistry](managedclusterimageregistry_api.md).
+
+---
+
+## ManagedClusterInfo
+
+Description not found in CRD.
+
+[View a detailed API Reference for ManagedClusterInfo](managedclusterinfo_api.md).
+
+---
+
+## KlusterletConfig
+
+Description not found in CRD.
+
+[View a detailed API Reference for KlusterletConfig](klusterletconfig_api.md).
+
+---
+
+## ClusterCurator
+
+Description not found in CRD.
+
+[View a detailed API Reference for ClusterCurator](clustercurator_api.md).
+
+---
+
+## ClusterManager
+
+Description not found in CRD.
+
+[View a detailed API Reference for ClusterManager](clustermanager_api.md).
+
+---
+
+## ImageClusterInstall
+
+Description not found in CRD.
+
+[View a detailed API Reference for ImageClusterInstall](imageclusterinstall_api.md).
 
 ---
 
@@ -495,22 +663,6 @@ Description not found in CRD.
 Description not found in CRD.
 
 [View a detailed API Reference for AgentClassification](agentclassification_api.md).
-
----
-
-## NMStateConfig
-
-Description not found in CRD.
-
-[View a detailed API Reference for NMStateConfig](nmstateconfig_api.md).
-
----
-
-## Agent
-
-Description not found in CRD.
-
-[View a detailed API Reference for Agent](agent_api.md).
 
 ---
 
@@ -530,115 +682,139 @@ Description not found in CRD.
 
 ---
 
-## ManagedClusterAction
+## AgentServiceConfig
 
 Description not found in CRD.
 
-[View a detailed API Reference for ManagedClusterAction](managedclusteraction_api.md).
+[View a detailed API Reference for AgentServiceConfig](agentserviceconfig_api.md).
 
 ---
 
-## ManagedClusterInfo
+## NMStateConfig
 
 Description not found in CRD.
 
-[View a detailed API Reference for ManagedClusterInfo](managedclusterinfo_api.md).
+[View a detailed API Reference for NMStateConfig](nmstateconfig_api.md).
 
 ---
 
-## ManagedClusterImageRegistry
+## AgentClusterInstall
 
 Description not found in CRD.
 
-[View a detailed API Reference for ManagedClusterImageRegistry](managedclusterimageregistry_api.md).
+[View a detailed API Reference for AgentClusterInstall](agentclusterinstall_api.md).
 
 ---
 
-## ManagedClusterView
+## Agent
 
 Description not found in CRD.
 
-[View a detailed API Reference for ManagedClusterView](managedclusterview_api.md).
+[View a detailed API Reference for Agent](agent_api.md).
 
 ---
 
-## KlusterletConfig
+## ManagedProxyServiceResolver
 
 Description not found in CRD.
 
-[View a detailed API Reference for KlusterletConfig](klusterletconfig_api.md).
+[View a detailed API Reference for ManagedProxyServiceResolver](managedproxyserviceresolver_api.md).
 
 ---
 
-## ClusterManager
+## ManagedProxyConfiguration
 
 Description not found in CRD.
 
-[View a detailed API Reference for ClusterManager](clustermanager_api.md).
+[View a detailed API Reference for ManagedProxyConfiguration](managedproxyconfiguration_api.md).
 
 ---
 
-## ClusterClass
+## SyncSet
 
 Description not found in CRD.
 
-[View a detailed API Reference for ClusterClass](clusterclass_api.md).
+[View a detailed API Reference for SyncSet](syncset_api.md).
 
 ---
 
-## ClusterResourceSet
+## SelectorSyncSet
 
 Description not found in CRD.
 
-[View a detailed API Reference for ClusterResourceSet](clusterresourceset_api.md).
+[View a detailed API Reference for SelectorSyncSet](selectorsyncset_api.md).
 
 ---
 
-## Machine
+## SyncIdentityProvider
 
 Description not found in CRD.
 
-[View a detailed API Reference for Machine](machine_api.md).
+[View a detailed API Reference for SyncIdentityProvider](syncidentityprovider_api.md).
 
 ---
 
-## ExtensionConfig
+## ClusterSyncLease
 
 Description not found in CRD.
 
-[View a detailed API Reference for ExtensionConfig](extensionconfig_api.md).
+[View a detailed API Reference for ClusterSyncLease](clustersynclease_api.md).
 
 ---
 
-## MachineDrainRule
+## ClusterClaim
 
 Description not found in CRD.
 
-[View a detailed API Reference for MachineDrainRule](machinedrainrule_api.md).
+[View a detailed API Reference for ClusterClaim](clusterclaim_api.md).
 
 ---
 
-## Cluster
+## ClusterSync
 
 Description not found in CRD.
 
-[View a detailed API Reference for Cluster](cluster_api.md).
+[View a detailed API Reference for ClusterSync](clustersync_api.md).
 
 ---
 
-## MachineDeployment
+## HiveConfig
 
 Description not found in CRD.
 
-[View a detailed API Reference for MachineDeployment](machinedeployment_api.md).
+[View a detailed API Reference for HiveConfig](hiveconfig_api.md).
 
 ---
 
-## MachineHealthCheck
+## DNSZone
 
 Description not found in CRD.
 
-[View a detailed API Reference for MachineHealthCheck](machinehealthcheck_api.md).
+[View a detailed API Reference for DNSZone](dnszone_api.md).
+
+---
+
+## ClusterDeploymentCustomization
+
+Description not found in CRD.
+
+[View a detailed API Reference for ClusterDeploymentCustomization](clusterdeploymentcustomization_api.md).
+
+---
+
+## MachinePoolNameLease
+
+Description not found in CRD.
+
+[View a detailed API Reference for MachinePoolNameLease](machinepoolnamelease_api.md).
+
+---
+
+## ClusterProvision
+
+Description not found in CRD.
+
+[View a detailed API Reference for ClusterProvision](clusterprovision_api.md).
 
 ---
 
@@ -650,251 +826,75 @@ Description not found in CRD.
 
 ---
 
-## ClusterResourceSetBinding
+## SelectorSyncIdentityProvider
 
 Description not found in CRD.
 
-[View a detailed API Reference for ClusterResourceSetBinding](clusterresourcesetbinding_api.md).
+[View a detailed API Reference for SelectorSyncIdentityProvider](selectorsyncidentityprovider_api.md).
 
 ---
 
-## MachineSet
+## Checkpoint
 
 Description not found in CRD.
 
-[View a detailed API Reference for MachineSet](machineset_api.md).
+[View a detailed API Reference for Checkpoint](checkpoint_api.md).
 
 ---
 
-## InternalEngineComponent
+## ClusterDeployment
 
 Description not found in CRD.
 
-[View a detailed API Reference for InternalEngineComponent](internalenginecomponent_api.md).
+[View a detailed API Reference for ClusterDeployment](clusterdeployment_api.md).
 
 ---
 
-## Search
+## ClusterState
 
 Description not found in CRD.
 
-[View a detailed API Reference for Search](search_api.md).
+[View a detailed API Reference for ClusterState](clusterstate_api.md).
 
 ---
 
-## UserPreference
+## FakeClusterInstall
 
 Description not found in CRD.
 
-[View a detailed API Reference for UserPreference](userpreference_api.md).
+[View a detailed API Reference for FakeClusterInstall](fakeclusterinstall_api.md).
 
 ---
 
-## Observatorium
+## ClusterRelocate
 
 Description not found in CRD.
 
-[View a detailed API Reference for Observatorium](observatorium_api.md).
+[View a detailed API Reference for ClusterRelocate](clusterrelocate_api.md).
 
 ---
 
-## MultiClusterObservability
+## ClusterPool
 
 Description not found in CRD.
 
-[View a detailed API Reference for MultiClusterObservability](multiclusterobservability_api.md).
+[View a detailed API Reference for ClusterPool](clusterpool_api.md).
 
 ---
 
-## ObservabilityAddon
+## ClusterImageSet
 
 Description not found in CRD.
 
-[View a detailed API Reference for ObservabilityAddon](observabilityaddon_api.md).
+[View a detailed API Reference for ClusterImageSet](clusterimageset_api.md).
 
 ---
 
-## PolicyReport
+## ClusterDeprovision
 
 Description not found in CRD.
 
-[View a detailed API Reference for PolicyReport](policyreport_api.md).
-
----
-
-## KlusterletAddonConfig
-
-Description not found in CRD.
-
-[View a detailed API Reference for KlusterletAddonConfig](klusterletaddonconfig_api.md).
-
----
-
-## ClusterInstance
-
-Description not found in CRD.
-
-[View a detailed API Reference for ClusterInstance](clusterinstance_api.md).
-
----
-
-## SubmarinerDiagnoseConfig
-
-Description not found in CRD.
-
-[View a detailed API Reference for SubmarinerDiagnoseConfig](submarinerdiagnoseconfig_api.md).
-
----
-
-## SubmarinerConfig
-
-Description not found in CRD.
-
-[View a detailed API Reference for SubmarinerConfig](submarinerconfig_api.md).
-
----
-
-## BackupSchedule
-
-Description not found in CRD.
-
-[View a detailed API Reference for BackupSchedule](backupschedule_api.md).
-
----
-
-## Restore
-
-Description not found in CRD.
-
-[View a detailed API Reference for Restore](restore_api.md).
-
----
-
-## PlacementBinding
-
-Description not found in CRD.
-
-[View a detailed API Reference for PlacementBinding](placementbinding_api.md).
-
----
-
-## PolicyAutomation
-
-Description not found in CRD.
-
-[View a detailed API Reference for PolicyAutomation](policyautomation_api.md).
-
----
-
-## PolicySet
-
-Description not found in CRD.
-
-[View a detailed API Reference for PolicySet](policyset_api.md).
-
----
-
-## Policy
-
-Description not found in CRD.
-
-[View a detailed API Reference for Policy](policy_api.md).
-
----
-
-## InternalHubComponent
-
-Description not found in CRD.
-
-[View a detailed API Reference for InternalHubComponent](internalhubcomponent_api.md).
-
----
-
-## ClusterPermission
-
-Description not found in CRD.
-
-[View a detailed API Reference for ClusterPermission](clusterpermission_api.md).
-
----
-
-## Application
-
-Description not found in CRD.
-
-[View a detailed API Reference for Application](application_api.md).
-
----
-
-## Channel
-
-Description not found in CRD.
-
-[View a detailed API Reference for Channel](channel_api.md).
-
----
-
-## Subscription
-
-Description not found in CRD.
-
-[View a detailed API Reference for Subscription](subscription_api.md).
-
----
-
-## PlacementRule
-
-Description not found in CRD.
-
-[View a detailed API Reference for PlacementRule](placementrule_api.md).
-
----
-
-## SubscriptionReport
-
-Description not found in CRD.
-
-[View a detailed API Reference for SubscriptionReport](subscriptionreport_api.md).
-
----
-
-## GitOpsCluster
-
-Description not found in CRD.
-
-[View a detailed API Reference for GitOpsCluster](gitopscluster_api.md).
-
----
-
-## Deployable
-
-Description not found in CRD.
-
-[View a detailed API Reference for Deployable](deployable_api.md).
-
----
-
-## HelmRelease
-
-Description not found in CRD.
-
-[View a detailed API Reference for HelmRelease](helmrelease_api.md).
-
----
-
-## MulticlusterApplicationSetReport
-
-Description not found in CRD.
-
-[View a detailed API Reference for MulticlusterApplicationSetReport](multiclusterapplicationsetreport_api.md).
-
----
-
-## SubscriptionStatus
-
-Description not found in CRD.
-
-[View a detailed API Reference for SubscriptionStatus](subscriptionstatus_api.md).
+[View a detailed API Reference for ClusterDeprovision](clusterdeprovision_api.md).
 
 ---
 
