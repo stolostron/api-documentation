@@ -43,7 +43,7 @@ Spec represents a desired deployment configuration of controllers that govern re
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **csr** | `object` | CSR represents the configuration for csr driver. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **autoApprovedIdentities** | `array` | AutoApprovedIdentities represent a list of approved users | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **grpc** | `object` | GRPC represents the configuration for gRPC driver. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **autoApprovedIdentities** | `array` | AutoApprovedIdentities represent a list of approved arn patterns | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **autoApprovedIdentities** | `array` | AutoApprovedIdentities represent a list of approved users | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **endpointExposure** | `object` | EndpointExposure represents the configuration for endpoint exposure. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **hostname** | `object` | Hostname points to a fixed hostname for serving agents' handshakes. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **value** | `string` | No description provided. | N/A |
