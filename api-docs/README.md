@@ -250,6 +250,22 @@ Description not found in CRD.
 
 ---
 
+## ClusterProperty
+
+Description not found in CRD.
+
+[View a detailed API Reference for ClusterProperty](clusterproperty_api.md).
+
+---
+
+## AppliedManifestWork
+
+Description not found in CRD.
+
+[View a detailed API Reference for AppliedManifestWork](appliedmanifestwork_api.md).
+
+---
+
 ## ExtensionConfig
 
 Description not found in CRD.
@@ -647,6 +663,110 @@ Description not found in CRD.
 Description not found in CRD.
 
 [View a detailed API Reference for ClusterManager](clustermanager_api.md).
+
+---
+
+## PlacementDecision
+
+Description not found in CRD.
+
+[View a detailed API Reference for PlacementDecision](placementdecision_api.md).
+
+---
+
+## AddOnPlacementScore
+
+Description not found in CRD.
+
+[View a detailed API Reference for AddOnPlacementScore](addonplacementscore_api.md).
+
+---
+
+## ManagedClusterAddOn
+
+Description not found in CRD.
+
+[View a detailed API Reference for ManagedClusterAddOn](managedclusteraddon_api.md).
+
+---
+
+## ManifestWork
+
+Description not found in CRD.
+
+[View a detailed API Reference for ManifestWork](manifestwork_api.md).
+
+---
+
+## ManifestWorkReplicaSet
+
+Description not found in CRD.
+
+[View a detailed API Reference for ManifestWorkReplicaSet](manifestworkreplicaset_api.md).
+
+---
+
+## Placement
+
+Description not found in CRD.
+
+[View a detailed API Reference for Placement](placement_api.md).
+
+---
+
+## AddOnDeploymentConfig
+
+Description not found in CRD.
+
+[View a detailed API Reference for AddOnDeploymentConfig](addondeploymentconfig_api.md).
+
+---
+
+## ManagedCluster
+
+Description not found in CRD.
+
+[View a detailed API Reference for ManagedCluster](managedcluster_api.md).
+
+---
+
+## ManagedClusterSetBinding
+
+Description not found in CRD.
+
+[View a detailed API Reference for ManagedClusterSetBinding](managedclustersetbinding_api.md).
+
+---
+
+## ManagedClusterSet
+
+Description not found in CRD.
+
+[View a detailed API Reference for ManagedClusterSet](managedclusterset_api.md).
+
+---
+
+## ClusterManagementAddOn
+
+Description not found in CRD.
+
+[View a detailed API Reference for ClusterManagementAddOn](clustermanagementaddon_api.md).
+
+---
+
+## ClusterProfile
+
+Description not found in CRD.
+
+[View a detailed API Reference for ClusterProfile](clusterprofile_api.md).
+
+---
+
+## AddOnTemplate
+
+Description not found in CRD.
+
+[View a detailed API Reference for AddOnTemplate](addontemplate_api.md).
 
 ---
 
