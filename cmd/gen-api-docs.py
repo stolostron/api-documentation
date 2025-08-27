@@ -186,6 +186,8 @@ def parse_crd_file(file_path):
             'fields': []
         }
         openapi_schema = spec['versions'][0]['schema']['openAPIV3Schema']
+        if 'description' in openapi_schema:
+            crd_info['description'] = openapi_schema['description']
         properties = openapi_schema.get('properties', {})
 
         for field_name in properties:
@@ -232,6 +234,7 @@ def generate_markdown(crd_info, output_dir, go_files):
     file_path = os.path.join(output_dir, f"{kind.lower()}_api.md")
     with open(file_path, 'w') as f:
         f.write(f"# {kind} API\n\n")
+        f.write(f"{crd_info.get('description', 'No description available.')}\n\n")
         f.write("## Spec Fields\n\n")
         f.write(f"{crd_info.get('descriptionspec', 'No description available.')}\n\n")
         f.write("| Field | Type | Description | Validations |\n")
