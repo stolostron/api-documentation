@@ -73,7 +73,7 @@ jobs:
           contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.review.author_association)
         )
       )
-    timeout-minutes: 5
+    timeout-minutes: 10
     runs-on: 'ubuntu-latest'
     steps:
       - name: 'Checkout PR code'
@@ -448,6 +448,9 @@ jobs:
                 - Mention overall patterns or architectural decisions
                 - Highlight positive aspects of the implementation
                 - Note any recurring themes across files
+
+              3.2 Include a looks goo to me::
+                If there were not medium, high, critical or unclear severity comments, then include "lgtm" at the end of the review comment.
 
             ## Final Instructions
 
