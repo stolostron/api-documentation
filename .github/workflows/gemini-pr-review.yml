@@ -174,7 +174,7 @@ jobs:
           settings: |-
             {
               "debug": ${{ fromJSON(env.DEBUG || env.ACTIONS_STEP_DEBUG || false) }},
-              "maxSessionTurns": 20,
+              "maxSessionTurns": 30,
               "mcpServers": {
                 "github": {
                   "command": "docker",
