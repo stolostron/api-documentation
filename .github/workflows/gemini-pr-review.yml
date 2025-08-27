@@ -449,6 +449,9 @@ jobs:
                 - Highlight positive aspects of the implementation
                 - Note any recurring themes across files
 
+              3.2 Include a looks goo to me::
+                If there were not medium, high, critical or unclear severity comments, then include "lgtm" at the end of the review comment.
+
             ## Final Instructions
 
             Remember, you are running in a VM and no one reviewing your output. Your review must be posted to GitHub using the MCP tools to create a pending review, add comments to the pending review, and submit the pending review.
