@@ -1,5 +1,7 @@
 # AWSManagedMachinePool API
 
+AWSManagedMachinePool is the Schema for the awsmanagedmachinepools API.
+
 ## Spec Fields
 
 AWSManagedMachinePoolSpec defines the desired state of AWSManagedMachinePool.

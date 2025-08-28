@@ -1,5 +1,7 @@
 # AWSFargateProfile API
 
+AWSFargateProfile is the Schema for the awsfargateprofiles API.
+
 ## Spec Fields
 
 FargateProfileSpec defines the desired state of FargateProfile.

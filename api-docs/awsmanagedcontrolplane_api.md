@@ -1,5 +1,7 @@
 # AWSManagedControlPlane API
 
+AWSManagedControlPlane is the schema for the Amazon EKS Managed Control Plane API.
+
 ## Spec Fields
 
 AWSManagedControlPlaneSpec defines the desired state of an Amazon EKS Cluster.

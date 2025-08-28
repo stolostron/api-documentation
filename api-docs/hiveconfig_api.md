@@ -1,5 +1,7 @@
 # HiveConfig API
 
+HiveConfig is the Schema for the hives API
+
 ## Spec Fields
 
 HiveConfigSpec defines the desired state of Hive

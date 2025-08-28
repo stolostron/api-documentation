@@ -1,5 +1,7 @@
 # ClusterDeployment API
 
+ClusterDeployment is the Schema for the clusterdeployments API
+
 ## Spec Fields
 
 ClusterDeploymentSpec defines the desired state of ClusterDeployment

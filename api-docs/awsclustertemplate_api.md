@@ -1,5 +1,7 @@
 # AWSClusterTemplate API
 
+AWSClusterTemplate is the schema for Amazon EC2 based Kubernetes Cluster Templates.
+
 ## Spec Fields
 
 AWSClusterTemplateSpec defines the desired state of AWSClusterTemplate.

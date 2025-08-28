@@ -1,5 +1,7 @@
 # IPClaim API
 
+IPClaim is the Schema for the ipclaims API.
+
 ## Spec Fields
 
 IPClaimSpec defines the desired state of IPClaim.

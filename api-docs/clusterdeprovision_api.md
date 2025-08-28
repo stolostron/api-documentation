@@ -1,5 +1,7 @@
 # ClusterDeprovision API
 
+ClusterDeprovision is the Schema for the clusterdeprovisions API
+
 ## Spec Fields
 
 ClusterDeprovisionSpec defines the desired state of ClusterDeprovision

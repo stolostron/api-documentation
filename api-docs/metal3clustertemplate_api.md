@@ -1,5 +1,7 @@
 # Metal3ClusterTemplate API
 
+Metal3ClusterTemplate is the Schema for the metal3clustertemplates API.
+
 ## Spec Fields
 
 Metal3ClusterTemplateSpec defines the desired state of Metal3ClusterTemplate.

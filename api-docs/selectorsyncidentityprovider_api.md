@@ -1,5 +1,7 @@
 # SelectorSyncIdentityProvider API
 
+SelectorSyncIdentityProvider is the Schema for the SelectorSyncSet API
+
 ## Spec Fields
 
 SelectorSyncIdentityProviderSpec defines the SyncIdentityProviderCommonSpec to sync to

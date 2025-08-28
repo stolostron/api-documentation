@@ -1,5 +1,13 @@
 # AppliedManifestWork API
 
+AppliedManifestWork represents an applied manifestwork on managed cluster that is placed
+on a managed cluster. An AppliedManifestWork links to a manifestwork on a hub recording resources
+deployed in the managed cluster.
+When the agent is removed from managed cluster, cluster-admin on managed cluster
+can delete appliedmanifestwork to remove resources deployed by the agent.
+The name of the appliedmanifestwork must be in the format of
+{hash of hub's first kube-apiserver url}-{manifestwork name}
+
 ## Spec Fields
 
 Spec represents the desired configuration of AppliedManifestWork.

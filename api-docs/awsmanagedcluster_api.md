@@ -1,5 +1,7 @@
 # AWSManagedCluster API
 
+AWSManagedCluster is the Schema for the awsmanagedclusters API
+
 ## Spec Fields
 
 AWSManagedClusterSpec defines the desired state of AWSManagedCluster

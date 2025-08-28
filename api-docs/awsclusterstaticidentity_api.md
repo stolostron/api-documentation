@@ -1,5 +1,8 @@
 # AWSClusterStaticIdentity API
 
+AWSClusterStaticIdentity is the Schema for the awsclusterstaticidentities API
+It represents a reference to an AWS access key ID and secret access key, stored in a secret.
+
 ## Spec Fields
 
 Spec for this AWSClusterStaticIdentity

@@ -1,5 +1,7 @@
 # AgentClusterInstall API
 
+AgentClusterInstall represents a request to provision an agent based cluster.
+
 ## Spec Fields
 
 AgentClusterInstallSpec defines the desired state of the AgentClusterInstall.

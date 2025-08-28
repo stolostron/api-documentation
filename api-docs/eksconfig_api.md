@@ -1,5 +1,7 @@
 # EKSConfig API
 
+EKSConfig is the schema for the Amazon EKS Machine Bootstrap Configuration API.
+
 ## Spec Fields
 
 EKSConfigSpec defines the desired state of Amazon EKS Bootstrap Configuration.

@@ -1,5 +1,7 @@
 # AWSMachine API
 
+AWSMachine is the schema for Amazon EC2 machines.
+
 ## Spec Fields
 
 AWSMachineSpec defines the desired state of an Amazon EC2 instance.

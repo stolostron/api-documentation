@@ -1,5 +1,7 @@
 # Search API
 
+Search is the schema for the searches API.
+
 ## Spec Fields
 
 SearchSpec defines the desired state of Search.

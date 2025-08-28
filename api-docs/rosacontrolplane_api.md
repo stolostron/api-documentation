@@ -1,5 +1,7 @@
 # ROSAControlPlane API
 
+ROSAControlPlane is the Schema for the ROSAControlPlanes API.
+
 ## Spec Fields
 
 RosaControlPlaneSpec defines the desired state of ROSAControlPlane.

@@ -1,5 +1,7 @@
 # ObservabilityAddon API
 
+ObservabilityAddon is the Schema for the observabilityaddon API
+
 ## Spec Fields
 
 ObservabilityAddonSpec is the spec of observability addon.

@@ -1,5 +1,7 @@
 # Application API
 
+Application is the Schema for the applications API
+
 ## Spec Fields
 
 ApplicationSpec defines the specification for an Application.

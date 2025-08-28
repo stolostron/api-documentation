@@ -1,5 +1,7 @@
 # Subscription API
 
+Subscription is the Schema for the subscriptions API
+
 ## Spec Fields
 
 SubscriptionSpec defines the desired state of Subscription

@@ -1,5 +1,11 @@
 # ClusterManagementAddOn API
 
+ClusterManagementAddOn represents the registration of an add-on to the cluster manager.
+This resource allows you to discover which add-ons are available for the cluster manager
+and provides metadata information about the add-ons. The ClusterManagementAddOn name is used
+for the namespace-scoped ManagedClusterAddOn resource.
+ClusterManagementAddOn is a cluster-scoped resource.
+
 ## Spec Fields
 
 spec represents a desired configuration for the agent on the cluster management add-on.

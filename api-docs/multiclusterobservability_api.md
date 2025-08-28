@@ -1,5 +1,8 @@
 # MultiClusterObservability API
 
+MultiClusterObservability defines the configuration for the Observability installation on
+Hub and Managed Clusters all through this one custom resource.
+
 ## Spec Fields
 
 MultiClusterObservabilitySpec defines the desired state of MultiClusterObservability.

@@ -1,5 +1,7 @@
 # ManagedClusterImageRegistry API
 
+ManagedClusterImageRegistry represents the image overridden configuration information.
+
 ## Spec Fields
 
 Spec defines the information of the ManagedClusterImageRegistry.

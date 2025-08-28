@@ -1,5 +1,7 @@
 # DiscoveryConfig API
 
+DiscoveryConfig is the Schema for the discoveryconfigs API
+
 ## Spec Fields
 
 DiscoveryConfigSpec defines the desired state of DiscoveryConfig

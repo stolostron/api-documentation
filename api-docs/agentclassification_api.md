@@ -1,5 +1,7 @@
 # AgentClassification API
 
+AgentClassification is the Schema for the AgentClassifications API
+
 ## Spec Fields
 
 AgentClassificationSpec defines the desired state of AgentClassification

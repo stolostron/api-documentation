@@ -1,5 +1,8 @@
 # AddOnPlacementScore API
 
+AddOnPlacementScore represents a bundle of scores of one managed cluster, which could be used by placement.
+AddOnPlacementScore is a namespace scoped resource. The namespace of the resource is the cluster namespace.
+
 ## Spec Fields
 
 No description available.

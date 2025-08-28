@@ -1,5 +1,7 @@
 # Metal3Data API
 
+Metal3Data is the Schema for the metal3datas API.
+
 ## Spec Fields
 
 Metal3DataSpec defines the desired state of Metal3Data.

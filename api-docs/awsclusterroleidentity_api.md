@@ -1,5 +1,8 @@
 # AWSClusterRoleIdentity API
 
+AWSClusterRoleIdentity is the Schema for the awsclusterroleidentities API
+It is used to assume a role using the provided sourceRef.
+
 ## Spec Fields
 
 Spec for this AWSClusterRoleIdentity.

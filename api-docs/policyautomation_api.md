@@ -1,5 +1,7 @@
 # PolicyAutomation API
 
+PolicyAutomation is the schema for the policyautomations API. PolicyAutomation configures creation of an AnsibleJob, from the tower.ansible.com API group, to initiate Ansible to run upon noncompliant events of the attached policy, or when you manually initiate the run with the "policy.open-cluster-management.io/rerun=true" annotation.
+
 ## Spec Fields
 
 PolicyAutomationSpec defines how and when automation is initiated for the referenced policy.

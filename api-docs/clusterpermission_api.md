@@ -1,5 +1,7 @@
 # ClusterPermission API
 
+ClusterPermission is the Schema for the clusterpermissions API
+
 ## Spec Fields
 
 ClusterPermissionSpec defines the desired state of ClusterPermission

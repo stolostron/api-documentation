@@ -1,5 +1,7 @@
 # ClusterImageSet API
 
+ClusterImageSet is the Schema for the clusterimagesets API
+
 ## Spec Fields
 
 ClusterImageSetSpec defines the desired state of ClusterImageSet

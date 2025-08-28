@@ -1,5 +1,7 @@
 # Metal3MachineTemplate API
 
+Metal3MachineTemplate is the Schema for the metal3machinetemplates API.
+
 ## Spec Fields
 
 Metal3MachineTemplateSpec defines the desired state of Metal3MachineTemplate.

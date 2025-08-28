@@ -1,5 +1,7 @@
 # Observatorium API
 
+Observatorium is the Schema for the observatoria API
+
 ## Spec Fields
 
 ObservatoriumSpec defines the desired state of Observatorium

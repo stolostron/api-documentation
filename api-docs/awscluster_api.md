@@ -1,5 +1,7 @@
 # AWSCluster API
 
+AWSCluster is the schema for Amazon EC2 based Kubernetes Cluster API.
+
 ## Spec Fields
 
 AWSClusterSpec defines the desired state of an EC2-based Kubernetes cluster.

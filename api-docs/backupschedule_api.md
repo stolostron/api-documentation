@@ -1,5 +1,9 @@
 # BackupSchedule API
 
+BackupSchedule is an ACM resource that you can use to schedule cluster backups at specified intervals.
+The backupschedule resource creates a set of schedule.velero.io resources to periodically generate backups for
+resources on your ACM hub cluster.
+
 ## Spec Fields
 
 BackupScheduleSpec defines the desired state of BackupSchedule

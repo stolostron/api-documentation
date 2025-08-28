@@ -1,5 +1,7 @@
 # ClusterCurator API
 
+ClusterCurator is the custom resource for the clustercurators API. This kind allows you to run Ansible prehook and posthook jobs before provisioning Hive or HyperShift and importing a cluster. Additionally, cluster upgrade and destroy operations are supported as well.
+
 ## Spec Fields
 
 ClusterCuratorSpec defines the desired state of ClusterCurator

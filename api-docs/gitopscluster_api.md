@@ -1,5 +1,7 @@
 # GitOpsCluster API
 
+The GitOpsCluster uses placement to import selected managed clusters into the Argo CD.
+
 ## Spec Fields
 
 GitOpsClusterSpec defines the desired state of GitOpsCluster.

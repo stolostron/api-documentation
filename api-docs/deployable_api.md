@@ -1,5 +1,7 @@
 # Deployable API
 
+Deployable is the Schema for the deployables API
+
 ## Spec Fields
 
 DeployableSpec defines the desired state of Deployable.

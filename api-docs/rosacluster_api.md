@@ -1,5 +1,7 @@
 # ROSACluster API
 
+ROSACluster is the Schema for the ROSAClusters API.
+
 ## Spec Fields
 
 ROSAClusterSpec defines the desired state of ROSACluster.

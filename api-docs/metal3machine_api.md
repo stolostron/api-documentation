@@ -1,5 +1,7 @@
 # Metal3Machine API
 
+Metal3Machine is the Schema for the metal3machines API.
+
 ## Spec Fields
 
 Metal3MachineSpec defines the desired state of Metal3Machine.

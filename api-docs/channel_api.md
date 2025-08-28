@@ -1,5 +1,7 @@
 # Channel API
 
+Channel provides a repository containing application resources which can be deployed to clusters by subscriptions. The following 3 types of channels are supported: Git repository, Helm release registry, and Object storage repository.
+
 ## Spec Fields
 
 ChannelSpec defines the desired state of Channel

@@ -1,5 +1,7 @@
 # Metal3Cluster API
 
+Metal3Cluster is the Schema for the metal3clusters API.
+
 ## Spec Fields
 
 Metal3ClusterSpec defines the desired state of Metal3Cluster.

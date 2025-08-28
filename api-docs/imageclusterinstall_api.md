@@ -1,5 +1,7 @@
 # ImageClusterInstall API
 
+ImageClusterInstall is the Schema for the imageclusterinstall API
+
 ## Spec Fields
 
 ImageClusterInstallSpec defines the desired state of ImageClusterInstall

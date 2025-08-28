@@ -1,5 +1,7 @@
 # DiscoveredCluster API
 
+DiscoveredCluster is the Schema for the discoveredclusters API
+
 ## Spec Fields
 
 DiscoveredClusterSpec defines the desired state of DiscoveredCluster

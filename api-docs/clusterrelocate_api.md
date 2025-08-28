@@ -1,5 +1,7 @@
 # ClusterRelocate API
 
+ClusterRelocate is the Schema for the ClusterRelocates API
+
 ## Spec Fields
 
 ClusterRelocateSpec defines the relocation of clusters from one Hive instance to another.

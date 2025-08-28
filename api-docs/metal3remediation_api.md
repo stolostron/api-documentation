@@ -1,5 +1,7 @@
 # Metal3Remediation API
 
+Metal3Remediation is the Schema for the metal3remediations API.
+
 ## Spec Fields
 
 Metal3RemediationSpec defines the desired state of Metal3Remediation.

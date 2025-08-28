@@ -1,5 +1,7 @@
 # Metal3DataTemplate API
 
+Metal3DataTemplate is the Schema for the metal3datatemplates API.
+
 ## Spec Fields
 
 Metal3DataTemplateSpec defines the desired state of Metal3DataTemplate.

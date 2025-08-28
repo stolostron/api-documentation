@@ -1,5 +1,7 @@
 # ROSAMachinePool API
 
+ROSAMachinePool is the Schema for the rosamachinepools API.
+
 ## Spec Fields
 
 RosaMachinePoolSpec defines the desired state of RosaMachinePool.

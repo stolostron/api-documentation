@@ -1,5 +1,7 @@
 # ClusterProfile API
 
+ClusterProfile represents a single cluster in a multi-cluster deployment.
+
 ## Spec Fields
 
 ClusterProfileSpec defines the desired state of ClusterProfile.

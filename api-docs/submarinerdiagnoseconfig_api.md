@@ -1,5 +1,7 @@
 # SubmarinerDiagnoseConfig API
 
+SubmarinerDiagnoseConfig represents the configuration to run SubmarinerDiagnose Job.
+
 ## Spec Fields
 
 Spec defines the configuration of the Submariner

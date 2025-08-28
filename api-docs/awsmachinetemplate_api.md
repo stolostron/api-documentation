@@ -1,5 +1,7 @@
 # AWSMachineTemplate API
 
+AWSMachineTemplate is the schema for the Amazon EC2 Machine Templates API.
+
 ## Spec Fields
 
 AWSMachineTemplateSpec defines the desired state of AWSMachineTemplate.

@@ -1,5 +1,8 @@
 # ClusterPool API
 
+ClusterPool represents a pool of clusters that should be kept ready to be given out to users. Clusters are removed
+from the pool once claimed and then automatically replaced with a new one.
+
 ## Spec Fields
 
 ClusterPoolSpec defines the desired state of the ClusterPool.

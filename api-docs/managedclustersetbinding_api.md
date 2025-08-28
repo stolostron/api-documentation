@@ -1,5 +1,11 @@
 # ManagedClusterSetBinding API
 
+ManagedClusterSetBinding projects a ManagedClusterSet into a certain namespace.
+You can create a ManagedClusterSetBinding in a namespace and bind it to a
+ManagedClusterSet if both have a RBAC rules to CREATE on the virtual subresource of managedclustersets/bind.
+Workloads that you create in the same namespace can only be distributed to ManagedClusters
+in ManagedClusterSets that are bound in this namespace by higher-level controllers.
+
 ## Spec Fields
 
 Spec defines the attributes of ManagedClusterSetBinding.

@@ -1,5 +1,9 @@
 # ManagedClusterAddOn API
 
+ManagedClusterAddOn is the Custom Resource object which holds the current state
+of an add-on. This object is used by add-on operators to convey their state.
+This resource should be created in the ManagedCluster namespace.
+
 ## Spec Fields
 
 spec holds configuration that could apply to any operator.

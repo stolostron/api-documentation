@@ -1,5 +1,7 @@
 # DNSZone API
 
+DNSZone is the Schema for the dnszones API
+
 ## Spec Fields
 
 DNSZoneSpec defines the desired state of DNSZone

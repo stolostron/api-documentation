@@ -1,5 +1,7 @@
 # AWSMachinePool API
 
+AWSMachinePool is the Schema for the awsmachinepools API.
+
 ## Spec Fields
 
 AWSMachinePoolSpec defines the desired state of AWSMachinePool.

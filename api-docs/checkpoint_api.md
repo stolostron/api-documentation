@@ -1,5 +1,7 @@
 # Checkpoint API
 
+Checkpoint is the Schema for the backup of Hive objects.
+
 ## Spec Fields
 
 CheckpointSpec defines the metadata around the Hive objects state in the namespace at the time of the last backup.

@@ -1,5 +1,7 @@
 # FakeClusterInstall API
 
+FakeClusterInstall represents a fake request to provision an agent based cluster.
+
 ## Spec Fields
 
 FakeClusterInstallSpec defines the desired state of the FakeClusterInstall.

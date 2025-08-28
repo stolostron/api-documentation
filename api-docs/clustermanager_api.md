@@ -1,5 +1,9 @@
 # ClusterManager API
 
+ClusterManager configures the controllers on the hub that govern registration and work distribution for attached Klusterlets.
+In Default mode, ClusterManager will only be deployed in open-cluster-management-hub namespace.
+In Hosted mode, ClusterManager will be deployed in the namespace with the same name as cluster manager.
+
 ## Spec Fields
 
 Spec represents a desired deployment configuration of controllers that govern registration and work distribution for attached Klusterlets.

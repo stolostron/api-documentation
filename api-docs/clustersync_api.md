@@ -1,5 +1,7 @@
 # ClusterSync API
 
+ClusterSync is the status of all of the SelectorSyncSets and SyncSets that apply to a ClusterDeployment.
+
 ## Spec Fields
 
 ClusterSyncSpec defines the desired state of ClusterSync

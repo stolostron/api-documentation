@@ -1,5 +1,8 @@
 # AddOnDeploymentConfig API
 
+AddOnDeploymentConfig represents a configuration to customize the deployments of an add-on.
+For example, you can specify the NodePlacement to control the scheduling of the add-on agents.
+
 ## Spec Fields
 
 spec represents a desired configuration for an add-on.

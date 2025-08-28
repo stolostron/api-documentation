@@ -1,5 +1,7 @@
 # ClusterClaim API
 
+ClusterClaim represents a claim to a cluster from a cluster pool.
+
 ## Spec Fields
 
 ClusterClaimSpec defines the desired state of the ClusterClaim.

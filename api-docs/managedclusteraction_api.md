@@ -1,5 +1,7 @@
 # ManagedClusterAction API
 
+ManagedClusterAction is the action that will be done on a cluster
+
 ## Spec Fields
 
 Spec defines the desired behavior of the action.
