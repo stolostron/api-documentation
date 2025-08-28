@@ -1,5 +1,8 @@
 # ClusterResourceSetBinding API
 
+ClusterResourceSetBinding lists all matching ClusterResourceSets with the cluster it belongs to.
+Deprecated: This type will be removed in one of the next releases.
+
 ## Spec Fields
 
 spec is the desired state of ClusterResourceSetBinding.

@@ -1,5 +1,7 @@
 # OpenshiftAssistedControlPlane API
 
+OpenshiftAssistedControlPlane is the Schema for the openshiftassistedcontrolplane API
+
 ## Spec Fields
 
 OpenshiftAssistedControlPlaneSpec defines the desired state of OpenshiftAssistedControlPlane

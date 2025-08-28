@@ -1,5 +1,7 @@
 # Metal3DataClaim API
 
+Metal3DataClaim is the Schema for the metal3datas API.
+
 ## Spec Fields
 
 Metal3DataClaimSpec defines the desired state of Metal3DataClaim.

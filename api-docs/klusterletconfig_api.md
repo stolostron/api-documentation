@@ -1,5 +1,7 @@
 # KlusterletConfig API
 
+KlusterletConfig contains the configuration of a klusterlet including the upgrade strategy, config overrides, proxy configurations etc.
+
 ## Spec Fields
 
 Spec defines the desired state of KlusterletConfig

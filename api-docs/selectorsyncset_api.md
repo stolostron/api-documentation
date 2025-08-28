@@ -1,5 +1,7 @@
 # SelectorSyncSet API
 
+SelectorSyncSet is the Schema for the SelectorSyncSet API
+
 ## Spec Fields
 
 SelectorSyncSetSpec defines the SyncSetCommonSpec resources and patches to sync along

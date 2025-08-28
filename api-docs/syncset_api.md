@@ -1,5 +1,7 @@
 # SyncSet API
 
+SyncSet is the Schema for the SyncSet API
+
 ## Spec Fields
 
 SyncSetSpec defines the SyncSetCommonSpec resources and patches to sync along with

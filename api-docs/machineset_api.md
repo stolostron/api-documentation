@@ -1,5 +1,8 @@
 # MachineSet API
 
+MachineSet is the Schema for the machinesets API.
+Deprecated: This type will be removed in one of the next releases.
+
 ## Spec Fields
 
 spec is the desired state of MachineSet.

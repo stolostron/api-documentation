@@ -1,5 +1,7 @@
 # ROSAControlPlane API
 
+ROSAControlPlane is the Schema for the ROSAControlPlanes API.
+
 ## Spec Fields
 
 RosaControlPlaneSpec defines the desired state of ROSAControlPlane.
@@ -21,8 +23,8 @@ RosaControlPlaneSpec defines the desired state of ROSAControlPlane.
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **blockedRegistries** | `array` | BlockedRegistries are the registries for which image pull and push actions are denied. To specify all subdomains, add the asterisk (*) wildcard character as a prefix to the domain name, For example, *.example.com. You can specify an individual repository within a registry, For example: reg1.io/myrepo/myapp:latest. All other registries are allowed. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **insecureRegistries** | `array` | InsecureRegistries are registries which do not have a valid TLS certificate or only support HTTP connections. To specify all subdomains, add the asterisk (*) wildcard character as a prefix to the domain name, For example, *.example.com. You can specify an individual repository within a registry, For example: reg1.io/myrepo/myapp:latest. | N/A |
 |  **controlPlaneEndpoint** | `object` | ControlPlaneEndpoint represents the endpoint used to communicate with the control plane. | N/A |
-| └>&nbsp;&nbsp; **host** | `string` | The hostname on which the API server is serving. | N/A |
-| └>&nbsp;&nbsp; **port** | `integer` | The port on which the API server is serving. | N/A |
+| └>&nbsp;&nbsp; **host** | `string` | host is the hostname on which the API server is serving. | N/A |
+| └>&nbsp;&nbsp; **port** | `integer` | port is the port on which the API server is serving. | N/A |
 |  **credentialsSecretRef** | `object` | CredentialsSecretRef references a secret with necessary credentials to connect to the OCM API. The secret should contain the following data keys: - ocmToken: eyJhbGciOiJIUzI1NiIsI.... - ocmApiUrl: Optional, defaults to 'https://api.openshift.com' | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
 |  **defaultMachinePoolSpec** | `object` | DefaultMachinePoolSpec defines the configuration for the default machinepool(s) provisioned as part of the cluster creation. One MachinePool will be created with this configuration per AvailabilityZone. Those default machinepools are required for openshift cluster operators to work properly. As these machinepool not created using ROSAMachinePool CR, they will not be visible/managed by ROSA CAPI provider. `rosa list machinepools -c <rosaClusterName>` can be used to view those machinepools. This field will be removed in the future once the current limitation is resolved. | N/A |
@@ -98,9 +100,9 @@ RosaControlPlaneStatus defines the observed state of ROSAControlPlane.
 |:---|---|---|---|
 |  **availableUpgrades** | `array` | Available upgrades for the ROSA hosted control plane. | N/A |
 |  **conditions** | `array` | Conditions specifies the conditions for the managed control plane | N/A |
-| └>&nbsp;&nbsp; **lastTransitionTime** | `string` | Last time the condition transitioned from one status to another. This should be when the underlying condition changed. If that is not known, then using the time when the API field changed is acceptable. | N/A |
-| └>&nbsp;&nbsp; **message** | `string` | A human readable message indicating details about the transition. This field may be empty. | N/A |
-| └>&nbsp;&nbsp; **reason** | `string` | The reason for the condition's last transition in CamelCase. The specific API may choose whether or not this field is considered a guaranteed API. This field may be empty. | N/A |
+| └>&nbsp;&nbsp; **lastTransitionTime** | `string` | lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed. If that is not known, then using the time when the API field changed is acceptable. | N/A |
+| └>&nbsp;&nbsp; **message** | `string` | message is a human readable message indicating details about the transition. This field may be empty. | N/A |
+| └>&nbsp;&nbsp; **reason** | `string` | reason is the reason for the condition's last transition in CamelCase. The specific API may choose whether or not this field is considered a guaranteed API. This field may be empty. | N/A |
 | └>&nbsp;&nbsp; **severity** | `string` | severity provides an explicit classification of Reason code, so the users or machines can immediately understand the current situation and act accordingly. The Severity field MUST be set only when Status=False. | N/A |
 | └>&nbsp;&nbsp; **status** | `string` | status of the condition, one of True, False, Unknown. | N/A |
 | └>&nbsp;&nbsp; **type** | `string` | type of condition in CamelCase or in foo.example.com/CamelCase. Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be useful (see .node.status.conditions), the ability to deconflict is important. | N/A |
@@ -111,3 +113,4 @@ RosaControlPlaneStatus defines the observed state of ROSAControlPlane.
 |  **initialized** | `boolean` | Initialized denotes whether or not the control plane has the uploaded kubernetes config-map. | N/A |
 |  **oidcEndpointURL** | `string` | OIDCEndpointURL is the endpoint url for the managed OIDC provider. | N/A |
 |  **ready** | `boolean` | Ready denotes that the ROSAControlPlane API Server is ready to receive requests. | N/A |
+|  **version** | `string` | OpenShift semantic version, for example "4.14.5". | N/A |

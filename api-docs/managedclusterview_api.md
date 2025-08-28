@@ -1,5 +1,7 @@
 # ManagedClusterView API
 
+ManagedClusterView is the view of resources on a managed cluster
+
 ## Spec Fields
 
 Spec defines the desired configuration of a view

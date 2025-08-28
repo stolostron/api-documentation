@@ -1,5 +1,7 @@
 # Metal3Data API
 
+Metal3Data is the Schema for the metal3datas API.
+
 ## Spec Fields
 
 Metal3DataSpec defines the desired state of Metal3Data.
@@ -29,7 +31,7 @@ Metal3DataSpec defines the desired state of Metal3Data.
 | └>&nbsp;&nbsp; **namespace** | `string` | Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/ | N/A |
 | └>&nbsp;&nbsp; **resourceVersion** | `string` | Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency | N/A |
 | └>&nbsp;&nbsp; **uid** | `string` | UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids | N/A |
-|  **templateReference** | `string` | TemplateReference refers to the Template the Metal3MachineTemplate refers to. It can be matched against the key or it may also point to the name of the template Metal3Data refers to | N/A |
+|  **templateReference** | `string` | TemplateReference refers to the Template the Metal3MachineTemplate refers to. It can be matched against the key or it may also point to the name of the template Metal3Data refers to. Deprecated: This field is deprecated and will be removed in a future release. | N/A |
 ## Status Fields
 
 Metal3DataStatus defines the observed state of Metal3Data.

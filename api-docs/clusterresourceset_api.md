@@ -1,5 +1,8 @@
 # ClusterResourceSet API
 
+ClusterResourceSet is the Schema for the clusterresourcesets API.
+Deprecated: This type will be removed in one of the next releases.
+
 ## Spec Fields
 
 spec is the desired state of ClusterResourceSet.

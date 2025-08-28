@@ -1,5 +1,8 @@
 # SubmarinerConfig API
 
+SubmarinerConfig represents the configuration for Submariner, the submariner-addon will use it
+to configure the Submariner.
+
 ## Spec Fields
 
 Spec defines the configuration of the Submariner

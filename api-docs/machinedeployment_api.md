@@ -1,5 +1,8 @@
 # MachineDeployment API
 
+MachineDeployment is the Schema for the machinedeployments API.
+Deprecated: This type will be removed in one of the next releases.
+
 ## Spec Fields
 
 spec is the desired state of MachineDeployment.

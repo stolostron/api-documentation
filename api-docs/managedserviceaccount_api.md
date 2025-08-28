@@ -1,5 +1,7 @@
 # ManagedServiceAccount API
 
+ManagedServiceAccount is the Schema for the managedserviceaccounts API
+
 ## Spec Fields
 
 ManagedServiceAccountSpec defines the desired state of ManagedServiceAccount

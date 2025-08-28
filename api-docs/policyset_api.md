@@ -1,5 +1,7 @@
 # PolicySet API
 
+PolicySet is the schema for the policysets API. A policy set is a logical grouping of policies from the same namespace. The policy set is bound to a placement resource and applies the placement to all policies within the set. The status reports the overall compliance of the set.
+
 ## Spec Fields
 
 PolicySetSpec defines the group of policies to be included in the policy set.

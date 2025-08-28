@@ -1,5 +1,7 @@
 # OpenshiftAssistedConfig API
 
+OpenshiftAssistedConfig is the Schema for the openshiftassistedconfig API
+
 ## Spec Fields
 
 OpenshiftAssistedConfigSpec defines the desired state of OpenshiftAssistedConfig

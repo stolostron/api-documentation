@@ -1,5 +1,10 @@
 # ManifestWorkReplicaSet API
 
+ManifestWorkReplicaSet is the Schema for the ManifestWorkReplicaSet API. This custom resource is able to apply
+ManifestWork using Placement for 0..n ManagedCluster(in their namespaces). It will also remove the ManifestWork custom resources
+when deleted. Lastly the specific ManifestWork custom resources created per ManagedCluster namespace will be adjusted based on PlacementDecision
+changes.
+
 ## Spec Fields
 
 Spec reperesents the desired ManifestWork payload and Placement reference to be reconciled

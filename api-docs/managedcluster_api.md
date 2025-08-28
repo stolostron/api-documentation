@@ -1,5 +1,17 @@
 # ManagedCluster API
 
+ManagedCluster represents the desired state and current status
+of a managed cluster. ManagedCluster is a cluster-scoped resource. The name
+is the cluster UID.
+The cluster join process is a double opt-in process. See the following join process steps:
+1. The agent on the managed cluster creates a CSR on the hub with the cluster UID and agent name.
+2. The agent on the managed cluster creates a ManagedCluster on the hub.
+3. The cluster admin on the hub cluster approves the CSR for the UID and agent name of the ManagedCluster.
+4. The cluster admin sets the spec.acceptClient of the ManagedCluster to true.
+5. The cluster admin on the managed cluster creates a credential of the kubeconfig for the hub cluster.
+After the hub cluster creates the cluster namespace, the klusterlet agent on the ManagedCluster pushes
+the credential to the hub cluster to use against the kube-apiserver of the ManagedCluster.
+
 ## Spec Fields
 
 Spec represents a desired configuration for the agent on the managed cluster.

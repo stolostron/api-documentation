@@ -1,5 +1,7 @@
 # ClusterProperty API
 
+ClusterProperty is the Schema for the clusterproperties API
+
 ## Spec Fields
 
 ClusterPropertySpec defines the desired state of ClusterProperty

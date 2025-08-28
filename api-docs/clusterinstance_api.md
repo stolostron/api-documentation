@@ -1,5 +1,7 @@
 # ClusterInstance API
 
+ClusterInstance is the Schema for the clusterinstances API
+
 ## Spec Fields
 
 ClusterInstanceSpec defines the desired state of ClusterInstance

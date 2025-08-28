@@ -1,5 +1,11 @@
 # ManifestWork API
 
+ManifestWork represents a manifests workload that hub wants to deploy on the managed cluster.
+A manifest workload is defined as a set of Kubernetes resources.
+ManifestWork must be created in the cluster namespace on the hub, so that agent on the
+corresponding managed cluster can access this resource and deploy on the managed
+cluster.
+
 ## Spec Fields
 
 Spec represents a desired configuration of work to be deployed on the managed cluster.

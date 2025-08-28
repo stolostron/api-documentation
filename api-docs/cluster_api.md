@@ -1,5 +1,7 @@
 # Cluster API
 
+Cluster is the Schema for the clusters API.
+
 ## Spec Fields
 
 spec is the desired state of Cluster.

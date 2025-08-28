@@ -1,5 +1,9 @@
 # HypershiftAgentServiceConfig API
 
+HypershiftAgentServiceConfig represents an Assisted Service deployment over zero-worker
+hypershift cluster. Each resource represents a deployment scheme over hosted cluster
+that runs in that namespace.
+
 ## Spec Fields
 
 HypershiftAgentServiceConfigSpec defines the desired state of HypershiftAgentServiceConfig.

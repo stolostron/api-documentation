@@ -1,5 +1,7 @@
 # ClusterSyncLease API
 
+ClusterSyncLease is a record of the last time that SyncSets and SelectorSyncSets were applied to a cluster.
+
 ## Spec Fields
 
 ClusterSyncLeaseSpec is the specification of a ClusterSyncLease.

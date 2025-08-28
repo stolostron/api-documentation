@@ -1,5 +1,7 @@
 # Policy API
 
+Policy is the schema for the policies API. Policy wraps other policy engine resources in its "policy-templates" array in order to deliver the resources to managed clusters.
+
 ## Spec Fields
 
 PolicySpec defines the configurations of the policy engine resources to deliver to the managed clusters.

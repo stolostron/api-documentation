@@ -1,5 +1,7 @@
 # ClusterState API
 
+ClusterState is the Schema for the clusterstates API
+
 ## Spec Fields
 
 ClusterStateSpec defines the desired state of ClusterState

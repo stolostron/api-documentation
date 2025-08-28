@@ -1,5 +1,7 @@
 # OpenshiftAssistedConfigTemplate API
 
+OpenshiftAssistedConfigTemplate is the Schema for the openshiftassistedconfigtemplates API
+
 ## Spec Fields
 
 OpenshiftAssistedConfigTemplateSpec defines the desired state of OpenshiftAssistedConfigTemplate

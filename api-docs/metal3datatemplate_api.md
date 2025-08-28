@@ -1,5 +1,7 @@
 # Metal3DataTemplate API
 
+Metal3DataTemplate is the Schema for the metal3datatemplates API.
+
 ## Spec Fields
 
 Metal3DataTemplateSpec defines the desired state of Metal3DataTemplate.
@@ -67,6 +69,7 @@ Metal3DataTemplateSpec defines the desired state of Metal3DataTemplate.
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **fromHostInterface** | `string` | FromHostInterface contains the name of the interface in the BareMetalHost Introspection details from which to fetch the MAC address | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **string** | `string` | String contains the MAC address given as a string | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **mtu** | `integer` | MTU is the MTU of the interface | `Maximum=9000` |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **parameters** | `object` | params blob passed without any validation/modifications into cloud-init config | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **ethernets** | `array` | Ethernets contains a list of Ethernet links | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **id** | `string` | Id is the ID of the interface (used for naming) | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **macAddress** | `object` | MACAddress is the MAC address of the interface, containing the object used to render it. | N/A |
@@ -162,7 +165,7 @@ Metal3DataTemplateSpec defines the desired state of Metal3DataTemplate.
 | └>&nbsp;&nbsp; **services** | `object` | Services  is a structure containing lists of different types objects | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **dns** | `array` | DNS is a list of DNS services | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **dnsFromIPPool** | `string` | DNSFromIPPool is the name of the IPPool from which to get the DNS servers | N/A |
-|  **templateReference** | `string` | TemplateReference refers to the Template the Metal3MachineTemplate refers to. It can be matched against the key or it may also point to the name of the template Metal3Data refers to | N/A |
+|  **templateReference** | `string` | TemplateReference refers to the Template the Metal3MachineTemplate refers to. It can be matched against the key or it may also point to the name of the template Metal3Data refers to. Deprecated: This field is deprecated and will be removed in a future release. | N/A |
 ## Status Fields
 
 Metal3DataTemplateStatus defines the observed state of Metal3DataTemplate.

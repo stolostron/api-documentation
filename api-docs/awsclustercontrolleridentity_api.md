@@ -1,5 +1,8 @@
 # AWSClusterControllerIdentity API
 
+AWSClusterControllerIdentity is the Schema for the awsclustercontrolleridentities API
+It is used to grant access to use Cluster API Provider AWS Controller credentials.
+
 ## Spec Fields
 
 Spec for this AWSClusterControllerIdentity.

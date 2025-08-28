@@ -1,5 +1,9 @@
 # AgentServiceConfig API
 
+AgentServiceConfig represents an Assisted Service deployment.
+Only an AgentServiceConfig with name="agent" will be reconciled. All other
+names will be rejected.
+
 ## Spec Fields
 
 AgentServiceConfigSpec defines the desired state of AgentServiceConfig.

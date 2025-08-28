@@ -1,5 +1,7 @@
 # MachineDrainRule API
 
+MachineDrainRule is the Schema for the MachineDrainRule API.
+
 ## Spec Fields
 
 spec defines the spec of a MachineDrainRule.

@@ -1,5 +1,7 @@
 # Agent API
 
+Agent is the Schema for the hosts API
+
 ## Spec Fields
 
 AgentSpec defines the desired state of Agent

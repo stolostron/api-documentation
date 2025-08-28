@@ -1,5 +1,7 @@
 # Metal3Machine API
 
+Metal3Machine is the Schema for the metal3machines API.
+
 ## Spec Fields
 
 Metal3MachineSpec defines the desired state of Metal3Machine.
@@ -45,12 +47,12 @@ Metal3MachineStatus defines the observed state of Metal3Machine.
 | Field | Type | Description | Validations |
 |:---|---|---|---|
 |  **addresses** | `array` | Addresses is a list of addresses assigned to the machine. This field is copied from the infrastructure provider reference. | N/A |
-| └>&nbsp;&nbsp; **address** | `string` | The machine address. | N/A |
-| └>&nbsp;&nbsp; **type** | `string` | Machine address type, one of Hostname, ExternalIP, InternalIP, ExternalDNS or InternalDNS. | N/A |
+| └>&nbsp;&nbsp; **address** | `string` | address is the machine address. | N/A |
+| └>&nbsp;&nbsp; **type** | `string` | type is the machine address type, one of Hostname, ExternalIP, InternalIP, ExternalDNS or InternalDNS. | N/A |
 |  **conditions** | `array` | Conditions defines current service state of the Metal3Machine. | N/A |
-| └>&nbsp;&nbsp; **lastTransitionTime** | `string` | Last time the condition transitioned from one status to another. This should be when the underlying condition changed. If that is not known, then using the time when the API field changed is acceptable. | N/A |
-| └>&nbsp;&nbsp; **message** | `string` | A human readable message indicating details about the transition. This field may be empty. | N/A |
-| └>&nbsp;&nbsp; **reason** | `string` | The reason for the condition's last transition in CamelCase. The specific API may choose whether or not this field is considered a guaranteed API. This field may be empty. | N/A |
+| └>&nbsp;&nbsp; **lastTransitionTime** | `string` | lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed. If that is not known, then using the time when the API field changed is acceptable. | N/A |
+| └>&nbsp;&nbsp; **message** | `string` | message is a human readable message indicating details about the transition. This field may be empty. | N/A |
+| └>&nbsp;&nbsp; **reason** | `string` | reason is the reason for the condition's last transition in CamelCase. The specific API may choose whether or not this field is considered a guaranteed API. This field may be empty. | N/A |
 | └>&nbsp;&nbsp; **severity** | `string` | severity provides an explicit classification of Reason code, so the users or machines can immediately understand the current situation and act accordingly. The Severity field MUST be set only when Status=False. | N/A |
 | └>&nbsp;&nbsp; **status** | `string` | status of the condition, one of True, False, Unknown. | N/A |
 | └>&nbsp;&nbsp; **type** | `string` | type of condition in CamelCase or in foo.example.com/CamelCase. Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be useful (see .node.status.conditions), the ability to deconflict is important. | N/A |

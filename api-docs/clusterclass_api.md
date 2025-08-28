@@ -1,5 +1,8 @@
 # ClusterClass API
 
+ClusterClass is a template which can be used to create managed topologies.
+Deprecated: This type will be removed in one of the next releases.
+
 ## Spec Fields
 
 spec is the desired state of ClusterClass.

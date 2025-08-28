@@ -1,5 +1,10 @@
 # AddOnTemplate API
 
+AddOnTemplate is the Custom Resource object, it is used to describe
+how to deploy the addon agent and how to register the addon.
+AddOnTemplate is a cluster-scoped resource, and will only be used
+on the hub cluster.
+
 ## Spec Fields
 
 spec holds the registration configuration for the addon and the

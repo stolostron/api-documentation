@@ -1,5 +1,7 @@
 # AWSCluster API
 
+AWSCluster is the schema for Amazon EC2 based Kubernetes Cluster API.
+
 ## Spec Fields
 
 AWSClusterSpec defines the desired state of an EC2-based Kubernetes cluster.
@@ -14,8 +16,8 @@ AWSClusterSpec defines the desired state of an EC2-based Kubernetes cluster.
 | └>&nbsp;&nbsp; **enabled** | `boolean` | Enabled allows this provider to create a bastion host instance with a public ip to access the VPC private network. | N/A |
 | └>&nbsp;&nbsp; **instanceType** | `string` | InstanceType will use the specified instance type for the bastion. If not specified, Cluster API Provider AWS will use t3.micro for all regions except us-east-1, where t2.micro will be the default. | N/A |
 |  **controlPlaneEndpoint** | `object` | ControlPlaneEndpoint represents the endpoint used to communicate with the control plane. | N/A |
-| └>&nbsp;&nbsp; **host** | `string` | The hostname on which the API server is serving. | N/A |
-| └>&nbsp;&nbsp; **port** | `integer` | The port on which the API server is serving. | N/A |
+| └>&nbsp;&nbsp; **host** | `string` | host is the hostname on which the API server is serving. | N/A |
+| └>&nbsp;&nbsp; **port** | `integer` | port is the port on which the API server is serving. | N/A |
 |  **controlPlaneLoadBalancer** | `object` | ControlPlaneLoadBalancer is optional configuration for customizing control plane behavior. | N/A |
 | └>&nbsp;&nbsp; **additionalSecurityGroups** | `array` | AdditionalSecurityGroups sets the security groups used by the load balancer. Expected to be security group IDs This is optional - if not provided new security groups will be created for the load balancer | N/A |
 | └>&nbsp;&nbsp; **crossZoneLoadBalancing** | `boolean` | CrossZoneLoadBalancing enables the classic ELB cross availability zone balancing. With cross-zone load balancing, each load balancer node for your Classic Load Balancer distributes requests evenly across the registered instances in all enabled Availability Zones. If cross-zone load balancing is disabled, each load balancer node distributes requests evenly across the registered instances in its Availability Zone only. Defaults to false. | N/A |
@@ -72,8 +74,8 @@ AWSClusterStatus defines the observed state of AWSCluster.
 |:---|---|---|---|
 |  **bastion** | `object` | Instance describes an AWS instance. | N/A |
 | └>&nbsp;&nbsp; **addresses** | `array` | Addresses contains the AWS instance associated addresses. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **address** | `string` | The machine address. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **type** | `string` | Machine address type, one of Hostname, ExternalIP, InternalIP, ExternalDNS or InternalDNS. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **address** | `string` | address is the machine address. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **type** | `string` | type is the machine address type, one of Hostname, ExternalIP, InternalIP, ExternalDNS or InternalDNS. | N/A |
 | └>&nbsp;&nbsp; **availabilityZone** | `string` | Availability zone of instance | N/A |
 | └>&nbsp;&nbsp; **ebsOptimized** | `boolean` | Indicates whether the instance is optimized for Amazon EBS I/O. | N/A |
 | └>&nbsp;&nbsp; **enaSupport** | `boolean` | Specifies whether enhanced networking with ENA is enabled. | N/A |
@@ -111,9 +113,9 @@ AWSClusterStatus defines the observed state of AWSCluster.
 | └>&nbsp;&nbsp; **userData** | `string` | UserData is the raw data script passed to the instance which is run upon bootstrap. This field must not be base64 encoded and should only be used when running a new instance. | N/A |
 | └>&nbsp;&nbsp; **volumeIDs** | `array` | IDs of the instance's volumes | N/A |
 |  **conditions** | `array` | Conditions provide observations of the operational state of a Cluster API resource. | N/A |
-| └>&nbsp;&nbsp; **lastTransitionTime** | `string` | Last time the condition transitioned from one status to another. This should be when the underlying condition changed. If that is not known, then using the time when the API field changed is acceptable. | N/A |
-| └>&nbsp;&nbsp; **message** | `string` | A human readable message indicating details about the transition. This field may be empty. | N/A |
-| └>&nbsp;&nbsp; **reason** | `string` | The reason for the condition's last transition in CamelCase. The specific API may choose whether or not this field is considered a guaranteed API. This field may be empty. | N/A |
+| └>&nbsp;&nbsp; **lastTransitionTime** | `string` | lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed. If that is not known, then using the time when the API field changed is acceptable. | N/A |
+| └>&nbsp;&nbsp; **message** | `string` | message is a human readable message indicating details about the transition. This field may be empty. | N/A |
+| └>&nbsp;&nbsp; **reason** | `string` | reason is the reason for the condition's last transition in CamelCase. The specific API may choose whether or not this field is considered a guaranteed API. This field may be empty. | N/A |
 | └>&nbsp;&nbsp; **severity** | `string` | severity provides an explicit classification of Reason code, so the users or machines can immediately understand the current situation and act accordingly. The Severity field MUST be set only when Status=False. | N/A |
 | └>&nbsp;&nbsp; **status** | `string` | status of the condition, one of True, False, Unknown. | N/A |
 | └>&nbsp;&nbsp; **type** | `string` | type of condition in CamelCase or in foo.example.com/CamelCase. Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be useful (see .node.status.conditions), the ability to deconflict is important. | N/A |

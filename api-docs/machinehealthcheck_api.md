@@ -1,5 +1,8 @@
 # MachineHealthCheck API
 
+MachineHealthCheck is the Schema for the machinehealthchecks API.
+Deprecated: This type will be removed in one of the next releases.
+
 ## Spec Fields
 
 spec is the specification of machine health check policy

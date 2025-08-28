@@ -1,5 +1,7 @@
 # SyncIdentityProvider API
 
+SyncIdentityProvider is the Schema for the SyncIdentityProvider API
+
 ## Spec Fields
 
 SyncIdentityProviderSpec defines the SyncIdentityProviderCommonSpec identity providers to sync along with

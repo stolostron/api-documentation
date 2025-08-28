@@ -1,5 +1,7 @@
 # AWSMachineTemplate API
 
+AWSMachineTemplate is the schema for the Amazon EC2 Machine Templates API.
+
 ## Spec Fields
 
 AWSMachineTemplateSpec defines the desired state of AWSMachineTemplate.
@@ -9,7 +11,7 @@ AWSMachineTemplateSpec defines the desired state of AWSMachineTemplate.
 |  **template** | `object` | AWSMachineTemplateResource describes the data needed to create am AWSMachine from a template. | N/A |
 | └>&nbsp;&nbsp; **metadata** | `object` | Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **annotations** | `object` | annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **labels** | `object` | Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **labels** | `object` | labels is a map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels | N/A |
 | └>&nbsp;&nbsp; **spec** | `object` | Spec is the specification of the desired behavior of the machine. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **additionalSecurityGroups** | `array` | AdditionalSecurityGroups is an array of references to security groups that should be applied to the instance. These security groups would be set in addition to any security groups defined at the cluster level or in the actuator. It is possible to specify either IDs of Filters. Using Filters will cause additional requests to AWS API and if tags change the attached security groups might change too. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **arn** | `string` | ARN of resource. Deprecated: This field has no function and is going to be removed in the next release. | N/A |

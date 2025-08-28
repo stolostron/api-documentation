@@ -1,5 +1,7 @@
 # ClusterProvision API
 
+ClusterProvision is the Schema for the clusterprovisions API
+
 ## Spec Fields
 
 ClusterProvisionSpec defines the results of provisioning a cluster.

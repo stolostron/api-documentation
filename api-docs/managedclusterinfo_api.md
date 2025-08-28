@@ -1,5 +1,7 @@
 # ManagedClusterInfo API
 
+ManagedClusterInfo represents the information of managed cluster that acm hub needs to know
+
 ## Spec Fields
 
 Spec defines the information of the Cluster.

@@ -1,5 +1,7 @@
 # ManagedProxyConfiguration API
 
+ManagedProxyConfiguration is the Schema for the managedproxyconfigurations API
+
 ## Spec Fields
 
 ManagedProxyConfigurationSpec is the prescription of ManagedProxyConfiguration

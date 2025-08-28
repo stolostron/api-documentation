@@ -1,5 +1,7 @@
 # ManagedProxyServiceResolver API
 
+ManagedProxyServiceResolver defines a target service that need to expose from a set of managed clusters to the hub. To access a target service on a managed cluster from hub. First, users need to apply a proper ManagedProxyServiceResolver. The managed cluster should match the ManagedClusterSet in the ManagedProxyServiceResolver.Spec. The serviceNamespace and serviceName should also match the target service. A usage example: /examples/access-other-services/main.go
+
 ## Spec Fields
 
 ManagedProxyServiceResolverSpec defines the desired state of ManagedProxyServiceResolver.

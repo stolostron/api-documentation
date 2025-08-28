@@ -1,5 +1,7 @@
 # PlacementRule API
 
+PlacementRule is the Schema for the placementrules API
+
 ## Spec Fields
 
 PlacementRuleSpec defines the desired state of PlacementRule

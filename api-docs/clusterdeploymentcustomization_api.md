@@ -1,5 +1,7 @@
 # ClusterDeploymentCustomization API
 
+ClusterDeploymentCustomization is the Schema for clusterdeploymentcustomizations API.
+
 ## Spec Fields
 
 ClusterDeploymentCustomizationSpec defines the desired state of ClusterDeploymentCustomization.

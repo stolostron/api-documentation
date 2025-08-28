@@ -1,5 +1,7 @@
 # EKSConfigTemplate API
 
+EKSConfigTemplate is the Amazon EKS Bootstrap Configuration Template API.
+
 ## Spec Fields
 
 EKSConfigTemplateSpec defines the desired state of templated EKSConfig Amazon EKS Bootstrap Configuration resources.

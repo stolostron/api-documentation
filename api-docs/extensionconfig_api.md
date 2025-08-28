@@ -1,5 +1,7 @@
 # ExtensionConfig API
 
+ExtensionConfig is the Schema for the ExtensionConfig API.
+
 ## Spec Fields
 
 spec is the desired state of the ExtensionConfig.

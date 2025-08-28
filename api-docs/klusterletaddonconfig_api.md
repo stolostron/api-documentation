@@ -1,5 +1,7 @@
 # KlusterletAddonConfig API
 
+KlusterletAddonConfig is the Schema for the klusterletaddonconfigs API
+
 ## Spec Fields
 
 KlusterletAddonConfigSpec defines the desired state of KlusterletAddonConfig

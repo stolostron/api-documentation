@@ -1,5 +1,7 @@
 # HelmRelease API
 
+HelmRelease is the Schema for the subscriptionreleases API
+
 ## Spec Fields
 
 No description available.

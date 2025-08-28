@@ -1,5 +1,7 @@
 # Metal3RemediationTemplate API
 
+Metal3RemediationTemplate is the Schema for the metal3remediationtemplates API.
+
 ## Spec Fields
 
 Metal3RemediationTemplateSpec defines the desired state of Metal3RemediationTemplate.

@@ -1,5 +1,7 @@
 # MachinePool API
 
+MachinePool is the Schema for the machinepools API
+
 ## Spec Fields
 
 MachinePoolSpec defines the desired state of MachinePool
