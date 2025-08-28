@@ -3,6 +3,7 @@ approvers:
 - bjoydeep
 - gparvin
 - qiujian16
+- github-actions[bot]
 
 reviewers:
 - jnpacker
@@ -10,3 +11,4 @@ reviewers:
 - gparvin
 - qiujian16
 - github-actions[bot]
+- github-actions
