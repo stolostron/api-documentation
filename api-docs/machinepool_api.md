@@ -136,6 +136,7 @@ MachinePoolSpec defines the desired state of MachinePool
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **osDisk** | `object` | OSDisk defines the storage for instance. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **diskSizeGB** | `integer` | DiskSizeGB defines the size of disk in GB. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **resourcePool** | `string` | ResourcePool is the name of the resource pool that will be used for virtual machines. If it is not present, a default value will be used. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **tagIDs** | `array` | TagIDs is a list of up to 10 tags to add to the VMs that this machine set provisions in vSphere. | N/A |
 |  **replicas** | `integer` | Replicas is the count of machines for this machine pool. Replicas and autoscaling cannot be used together. Default is 1, if autoscaling is not used. | N/A |
 |  **taints** | `array` | List of taints that will be applied to the created MachineSet's MachineSpec. This list will overwrite any modifications made to Node taints on an ongoing basis. In case of duplicate entries, first encountered taint Value will be preserved, and the rest collapsed on the corresponding MachineSets. Note that taints are uniquely identified based on key+effect, not just key. | N/A |
 | └>&nbsp;&nbsp; **effect** | `string` | Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute. | N/A |
