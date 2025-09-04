@@ -10,6 +10,9 @@ AgentClusterInstallSpec defines the desired state of the AgentClusterInstall.
 |:---|---|---|---|
 |  **apiVIP** | `string` | APIVIP is the virtual IP used to reach the OpenShift cluster's API. | N/A |
 |  **apiVIPs** | `array` | APIVIPs are the virtual IPs used to reach the OpenShift cluster's API. Enter one IP address for single-stack clusters, or up to two for dual-stack clusters (at most one IP address per IP stack used). The order of stacks should be the same as order of subnets in Cluster Networks, Service Networks, and Machine Networks. | N/A |
+|  **arbiter** | `object` | Arbiter is the configuration for the machines that have the arbiter role. | N/A |
+| └>&nbsp;&nbsp; **hyperthreading** | `string` | Hyperthreading determines the mode of hyperthreading that machines in the pool will utilize. Default is for hyperthreading to be enabled. | N/A |
+| └>&nbsp;&nbsp; **name** | `string` | Name is the name of the machine pool. For the control plane machine pool, the name will always be "master". For the compute machine pools, the only valid name is "worker". | N/A |
 |  **clusterDeploymentRef** | `object` | ClusterDeploymentRef is a reference to the ClusterDeployment associated with this AgentClusterInstall. | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid? | N/A |
 |  **clusterMetadata** | `object` | ClusterMetadata contains metadata information about the installed cluster. It should be populated once the cluster install is completed. (it can be populated sooner if desired, but Hive will not copy back to ClusterDeployment until the Installed condition goes True. | N/A |
@@ -70,6 +73,7 @@ AgentClusterInstallSpec defines the desired state of the AgentClusterInstall.
 | └>&nbsp;&nbsp; **userManagedNetworking** | `boolean` | UserManagedNetworking indicates if the networking is managed by the user. For single-node installations (none or external platform), set to true or leave empty. | N/A |
 |  **platformType** | `string` | PlatformType is the name for the specific platform upon which to perform the installation. | N/A |
 |  **provisionRequirements** | `object` | ProvisionRequirements defines configuration for when the installation is ready to be launched automatically. | N/A |
+| └>&nbsp;&nbsp; **arbiterAgents** | `integer` | ArbiterAgents is the minimum number of matching approved and ready Agents with the arbiter role required to launch the install. | `Minimum=0` |
 | └>&nbsp;&nbsp; **controlPlaneAgents** | `integer` | ControlPlaneAgents is the number of matching approved and ready Agents with the control plane role required to launch the install. Must be either 1 or 3-5. | N/A |
 | └>&nbsp;&nbsp; **workerAgents** | `integer` | WorkerAgents is the minimum number of matching approved and ready Agents with the worker role required to launch the install. | `Minimum=0` |
 |  **proxy** | `object` | Proxy defines the proxy settings used for the install config | N/A |
