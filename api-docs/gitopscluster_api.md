@@ -8,6 +8,8 @@ GitOpsClusterSpec defines the desired state of GitOpsCluster.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
+|  **argoCDAgent** | `object` | ArgoCDAgent defines the configuration for the ArgoCD agent. | N/A |
+| └>&nbsp;&nbsp; **enabled** | `boolean` | Enabled indicates whether the ArgoCD agent is enabled. Default is false. | N/A |
 |  **argoServer** | `object` | ArgoServerSpec specifies the location of the Argo CD server. | N/A |
 | └>&nbsp;&nbsp; **argoNamespace** | `string` | ArgoNamespace is the namespace in which the Argo CD server is installed. | N/A |
 | └>&nbsp;&nbsp; **cluster** | `string` | Not used and reserved for defining a managed cluster name. | N/A |
