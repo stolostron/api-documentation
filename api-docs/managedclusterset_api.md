@@ -26,6 +26,8 @@ Spec defines the attributes of the ManagedClusterSet
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **values** | `array` | values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **matchLabels** | `object` | matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed. | N/A |
 | └>&nbsp;&nbsp; **selectorType** | `string` | SelectorType could only be "ExclusiveClusterSetLabel" or "LabelSelector" "ExclusiveClusterSetLabel" means to use label "cluster.open-cluster-management.io/clusterset:<ManagedClusterSet Name>"" to select target clusters. "LabelSelector" means use labelSelector to select target managedClusters | N/A |
+|  **managedNamespaces** | `array` | managedNamespaces defines the list of namespace on the managedclusters across the clusterset to be managed. | N/A |
+| └>&nbsp;&nbsp; **name** | `string` | name is the name of the namespace. | `Pattern=^[a-z0-9]([-a-z0-9]*[a-z0-9])?$` |
 ## Status Fields
 
 Status represents the current status of the ManagedClusterSet
