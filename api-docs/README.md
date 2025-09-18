@@ -975,6 +975,14 @@ Description not found in CRD.
 
 ---
 
+## MulticlusterRoleAssignment
+
+MulticlusterRoleAssignment is the Schema for the multiclusterroleassignments API.
+
+[View a detailed API Reference for MulticlusterRoleAssignment](multiclusterroleassignment_api.md).
+
+---
+
 ## SubmarinerDiagnoseConfig
 
 SubmarinerDiagnoseConfig represents the configuration to run SubmarinerDiagnose Job.
