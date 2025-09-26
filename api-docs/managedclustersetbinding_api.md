@@ -12,7 +12,7 @@ Spec defines the attributes of ManagedClusterSetBinding.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
-|  **clusterSet** | `string` | ClusterSet is the name of the ManagedClusterSet to bind. It must match the instance name of the ManagedClusterSetBinding and cannot change once created. User is allowed to set this field if they have an RBAC rule to CREATE on the virtual subresource of managedclustersets/bind. | N/A |
+|  **clusterSet** | `string` | clusterSet is the name of the ManagedClusterSet to bind. It must match the instance name of the ManagedClusterSetBinding and cannot change once created. User is allowed to set this field if they have an RBAC rule to CREATE on the virtual subresource of managedclustersets/bind. | N/A |
 ## Status Fields
 
 Status represents the current status of the ManagedClusterSetBinding

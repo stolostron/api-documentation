@@ -10,10 +10,10 @@ spec represents a desired configuration for an add-on.
 | Field | Type | Description | Validations |
 |:---|---|---|---|
 |  **agentInstallNamespace** | `string` | AgentInstallNamespace is the namespace where the add-on agent should be installed on the managed cluster. | `Pattern=^[a-z0-9]([-a-z0-9]*[a-z0-9])?$` |
-|  **customizedVariables** | `array` | CustomizedVariables is a list of name-value variables for the current add-on deployment. The add-on implementation can use these variables to render its add-on deployment. The default is an empty list. | N/A |
+|  **customizedVariables** | `array` | customizedVariables is a list of name-value variables for the current add-on deployment. The add-on implementation can use these variables to render its add-on deployment. The default is an empty list. | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name of this variable. | `Pattern=^[a-zA-Z_][_a-zA-Z0-9]*$` |
 | └>&nbsp;&nbsp; **value** | `string` | Value of this variable. | N/A |
-|  **nodePlacement** | `object` | NodePlacement enables explicit control over the scheduling of the add-on agents on the managed cluster. All add-on agent pods are expected to comply with this node placement. If the placement is nil, the placement is not specified, it will be omitted. If the placement is an empty object, the placement will match all nodes and tolerate nothing. | N/A |
+|  **nodePlacement** | `object` | nodePlacement enables explicit control over the scheduling of the add-on agents on the managed cluster. All add-on agent pods are expected to comply with this node placement. If the placement is nil, the placement is not specified, it will be omitted. If the placement is an empty object, the placement will match all nodes and tolerate nothing. | N/A |
 | └>&nbsp;&nbsp; **nodeSelector** | `object` | NodeSelector defines which Nodes the Pods are scheduled on. If the selector is an empty list, it will match all nodes. The default is an empty list. | N/A |
 | └>&nbsp;&nbsp; **tolerations** | `array` | Tolerations is attached by pods to tolerate any taint that matches the triple <key,value,effect> using the matching operator <operator>. If the tolerations is an empty list, it will tolerate nothing. The default is an empty list. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **effect** | `string` | Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute. | N/A |
@@ -26,7 +26,7 @@ spec represents a desired configuration for an add-on.
 | └>&nbsp;&nbsp; **httpProxy** | `string` | HTTPProxy is the URL of the proxy for HTTP requests | N/A |
 | └>&nbsp;&nbsp; **httpsProxy** | `string` | HTTPSProxy is the URL of the proxy for HTTPS requests | N/A |
 | └>&nbsp;&nbsp; **noProxy** | `string` | NoProxy is a comma-separated list of hostnames and/or CIDRs and/or IPs for which the proxy should not be used. | N/A |
-|  **registries** | `array` | Registries describes how to override images used by the addon agent on the managed cluster. the following example will override image "quay.io/open-cluster-management/addon-agent" to "quay.io/ocm/addon-agent" when deploying the addon agent registries:   - source: quay.io/open-cluster-management/addon-agent     mirror: quay.io/ocm/addon-agent | N/A |
+|  **registries** | `array` | registries describes how to override images used by the addon agent on the managed cluster. the following example will override image "quay.io/open-cluster-management/addon-agent" to "quay.io/ocm/addon-agent" when deploying the addon agent registries:   - source: quay.io/open-cluster-management/addon-agent     mirror: quay.io/ocm/addon-agent | N/A |
 | └>&nbsp;&nbsp; **mirror** | `string` | Mirror is the mirrored registry of the Source. Will be ignored if Mirror is empty. | N/A |
 | └>&nbsp;&nbsp; **source** | `string` | Source is the source registry. All image registries will be replaced by Mirror if Source is empty. | N/A |
 |  **resourceRequirements** | `array` | ResourceRequirements specify the resources required by add-on agents. If a container matches multiple ContainerResourceRequirements, the last matched configuration in the array will take precedence. | N/A |

@@ -12,7 +12,7 @@ Spec represents a desired configuration of work to be deployed on the managed cl
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
-|  **deleteOption** | `object` | DeleteOption represents deletion strategy when the manifestwork is deleted. Foreground deletion strategy is applied to all the resource in this manifestwork if it is not set. | N/A |
+|  **deleteOption** | `object` | deleteOption represents deletion strategy when the manifestwork is deleted. Foreground deletion strategy is applied to all the resource in this manifestwork if it is not set. | N/A |
 | └>&nbsp;&nbsp; **propagationPolicy** | `string` | propagationPolicy can be Foreground, Orphan or SelectivelyOrphan SelectivelyOrphan should be rarely used.  It is provided for cases where particular resources is transfering ownership from one ManifestWork to another or another management unit. Setting this value will allow a flow like 1. create manifestwork/2 to manage foo 2. update manifestwork/1 to selectively orphan foo 3. remove foo from manifestwork/1 without impacting continuity because manifestwork/2 adopts it. | N/A |
 | └>&nbsp;&nbsp; **selectivelyOrphans** | `object` | selectivelyOrphan represents a list of resources following orphan deletion stratecy | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **orphaningRules** | `array` | orphaningRules defines a slice of orphaningrule. Each orphaningrule identifies a single resource included in this manifestwork | N/A |
@@ -27,7 +27,7 @@ Spec represents a desired configuration of work to be deployed on the managed cl
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name is the name of the service account. | `Pattern=^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)$` |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **namespace** | `string` | Namespace is the namespace of the service account. | `Pattern=^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)$` |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **type** | `string` | Type is the type of the subject identity. Supported types are: "ServiceAccount". | N/A |
-|  **manifestConfigs** | `array` | ManifestConfigs represents the configurations of manifests defined in workload field. | N/A |
+|  **manifestConfigs** | `array` | manifestConfigs represents the configurations of manifests defined in workload field. | N/A |
 | └>&nbsp;&nbsp; **conditionRules** | `array` | ConditionRules defines how to set manifestwork conditions for a specific manifest. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **celExpressions** | `array` | CelExpressions defines the CEL expressions to be evaluated for the condition. Final result is the logical AND of all expressions. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **condition** | `string` | Condition is the type of condition that is set based on this rule. Any condition is supported, but certain special conditions can be used to to control higher level behaviors of the manifestwork. If the condition is Complete, the manifest will no longer be updated once completed. | N/A |
@@ -53,8 +53,8 @@ Spec represents a desired configuration of work to be deployed on the managed cl
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **condition** | `string` | Condition defines the condition that the fields should be ignored when apply the resource. Fields in JSONPaths are all ignored when condition is met, otherwise no fields is ignored in the apply operation. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **jsonPaths** | `array` | JSONPaths defines the list of json path in the resource to be ignored | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **type** | `string` | type defines the strategy to update this manifest, default value is Update. Update type means to update resource by an update call. CreateOnly type means do not update resource based on current manifest. ServerSideApply type means to update resource using server side apply with work-controller as the field manager. If there is conflict, the related Applied condition of manifest will be in the status of False with the reason of ApplyConflict. ReadOnly type means the agent will only check the existence of the resource based on its metadata, statusFeedBackRules can still be used to get feedbackResults. | N/A |
-|  **workload** | `object` | Workload represents the manifest workload to be deployed on a managed cluster. | N/A |
-| └>&nbsp;&nbsp; **manifests** | `array` | Manifests represents a list of kuberenetes resources to be deployed on a managed cluster. | N/A |
+|  **workload** | `object` | workload represents the manifest workload to be deployed on a managed cluster. | N/A |
+| └>&nbsp;&nbsp; **manifests** | `array` | manifests represents a list of kubernetes resources to be deployed on a managed cluster. | N/A |
 ## Status Fields
 
 Status represents the current status of work.

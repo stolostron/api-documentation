@@ -23,6 +23,6 @@ Status represents the status of the AddOnPlacementScore.
 | └>&nbsp;&nbsp; **status** | `string` | status of the condition, one of True, False, Unknown. | N/A |
 | └>&nbsp;&nbsp; **type** | `string` | type of condition in CamelCase or in foo.example.com/CamelCase. | `Pattern=^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$` |
 |  **scores** | `array` | Scores contain a list of score name and value of this managed cluster. | N/A |
-| └>&nbsp;&nbsp; **name** | `string` | Name is the name of the score | N/A |
-| └>&nbsp;&nbsp; **value** | `integer` | Value is the value of the score. The score range is from -100 to 100. | `Minimum=-100`<br>`Maximum=100` |
-|  **validUntil** | `string` | ValidUntil defines the valid time of the scores. After this time, the scores are considered to be invalid by placement. nil means never expire. The controller owning this resource should keep the scores up-to-date. | N/A |
+| └>&nbsp;&nbsp; **name** | `string` | name is the name of the score | N/A |
+| └>&nbsp;&nbsp; **value** | `integer` | value is the value of the score. The score range is from -100 to 100. | `Minimum=-100`<br>`Maximum=100` |
+|  **validUntil** | `string` | validUntil defines the valid time of the scores. After this time, the scores are considered to be invalid by placement. nil means never expire. The controller owning this resource should keep the scores up-to-date. | N/A |
