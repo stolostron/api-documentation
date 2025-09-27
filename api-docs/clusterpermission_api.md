@@ -31,22 +31,6 @@ ClusterPermissionSpec defines the desired state of ClusterPermission
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **kind** | `string` | Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name of the object being referenced. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **namespace** | `string` | Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error. | N/A |
-|  **clusterRoleBindings** | `array` | ClusterRoleBindings represents multiple ClusterRoleBindings that are being created on the managed cluster | N/A |
-| └>&nbsp;&nbsp; **name** | `string` | Name of the ClusterRoleBinding if a name different than the ClusterPermission name is used | N/A |
-| └>&nbsp;&nbsp; **roleRef** | `object` | RoleRef contains information that points to the ClusterRole being used | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **apiGroup** | `string` | APIGroup is the group for the resource being referenced | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **kind** | `string` | Kind is the type of resource being referenced | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name is the name of resource being referenced | N/A |
-| └>&nbsp;&nbsp; **subject** | `object` | Subject contains a reference to the object or user identities a ClusterPermission binding applies to. Besides the typical subject for a binding, a ManagedServiceAccount can be used as a subject as well. If both subject and subjects exist then only subjects will be used. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **apiGroup** | `string` | APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **kind** | `string` | Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name of the object being referenced. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **namespace** | `string` | Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error. | N/A |
-| └>&nbsp;&nbsp; **subjects** | `array` | Subjects contains an array of references to objects or user identities a ClusterPermission binding applies to. Besides the typical subject for a binding, a ManagedServiceAccount can be used as a subject as well. If both subject and subjects exist then only subjects will be used. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **apiGroup** | `string` | APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **kind** | `string` | Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name of the object being referenced. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **namespace** | `string` | Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error. | N/A |
 |  **roleBindings** | `array` | RoleBindings represents RoleBindings that are being created on the managed cluster | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name of the RoleBinding if a name different than the ClusterPermission name is used | N/A |
 | └>&nbsp;&nbsp; **namespace** | `string` | Namespace of the Role for that is being created on the managed cluster | N/A |
@@ -84,7 +68,6 @@ ClusterPermissionSpec defines the desired state of ClusterPermission
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **resourceNames** | `array` | ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **resources** | `array` | Resources is a list of resources this rule applies to. '*' represents all resources. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **verbs** | `array` | Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs. | N/A |
-|  **validate** | `boolean` | Validate enables validation of roles and clusterroles on the managed cluster using ManifestWork When enabled, the controller will create a validation ManifestWork to check if the referenced roles and clusterroles exist on the managed cluster | N/A |
 ## Status Fields
 
 ClusterPermissionStatus defines the observed state of ClusterPermission
