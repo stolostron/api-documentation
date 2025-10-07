@@ -506,6 +506,22 @@ Metal3Cluster is the Schema for the metal3clusters API.
 
 ---
 
+## IPClaim
+
+IPClaim is the Schema for the ipclaims API.
+
+[View a detailed API Reference for IPClaim](ipclaim_api.md).
+
+---
+
+## IPAddress
+
+IPAddress is the Schema for the ipaddresses API.
+
+[View a detailed API Reference for IPAddress](ipaddress_api.md).
+
+---
+
 ## Metal3DataTemplate
 
 Metal3DataTemplate is the Schema for the metal3datatemplates API.
@@ -559,6 +575,14 @@ Metal3MachineTemplate is the Schema for the metal3machinetemplates API.
 Metal3Data is the Schema for the metal3datas API.
 
 [View a detailed API Reference for Metal3Data](metal3data_api.md).
+
+---
+
+## IPPool
+
+IPPool is the Schema for the ippools API.
+
+[View a detailed API Reference for IPPool](ippool_api.md).
 
 ---
 

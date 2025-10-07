@@ -1,5 +1,7 @@
 # IPPool API
 
+IPPool is the Schema for the ippools API.
+
 ## Spec Fields
 
 IPPoolSpec defines the desired state of IPPool.

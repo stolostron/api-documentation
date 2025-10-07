@@ -1,5 +1,7 @@
 # IPAddress API
 
+IPAddress is the Schema for the ipaddresses API.
+
 ## Spec Fields
 
 IPAddressSpec defines the desired state of IPAddress.
