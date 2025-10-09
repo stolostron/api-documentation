@@ -15,6 +15,7 @@ RosaMachinePoolSpec defines the desired state of RosaMachinePool.
 | └>&nbsp;&nbsp; **maxReplicas** | `integer` | No description provided. | `Minimum=1` |
 | └>&nbsp;&nbsp; **minReplicas** | `integer` | No description provided. | `Minimum=1` |
 |  **availabilityZone** | `string` | AvailabilityZone is an optinal field specifying the availability zone where instances of this machine pool should run For Multi-AZ clusters, you can create a machine pool in a Single-AZ of your choice. | N/A |
+|  **capacityReservationID** | `string` | CapacityReservationID specifies the ID of an AWS On-Demand Capacity Reservation and Capacity Blocks for ML. The CapacityReservationID must be pre-created in advance, before creating a NodePool. | N/A |
 |  **instanceType** | `string` | InstanceType specifies the AWS instance type | N/A |
 |  **labels** | `object` | Labels specifies labels for the Kubernetes node objects | N/A |
 |  **nodeDrainGracePeriod** | `string` | NodeDrainGracePeriod is grace period for how long Pod Disruption Budget-protected workloads will be respected during upgrades. After this grace period, any workloads protected by Pod Disruption Budgets that have not been successfully drained from a node will be forcibly evicted. Valid values are from 0 to 1 week(10080m|168h) . 0 or empty value means that the MachinePool can be drained without any time limitation. | N/A |

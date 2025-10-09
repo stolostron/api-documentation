@@ -269,6 +269,14 @@ AWSManagedControlPlaneTemplate is the Schema for the AWSManagedControlPlaneTempl
 
 ---
 
+## ROSARoleConfig
+
+ROSARoleConfig is the Schema for the rosaroleconfigs API
+
+[View a detailed API Reference for ROSARoleConfig](rosaroleconfig_api.md).
+
+---
+
 ## EKSConfigTemplate
 
 EKSConfigTemplate is the Amazon EKS Bootstrap Configuration Template API.
