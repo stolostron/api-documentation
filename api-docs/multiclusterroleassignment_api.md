@@ -34,6 +34,7 @@ status defines the observed state of MulticlusterRoleAssignment
 | └>&nbsp;&nbsp; **status** | `string` | status of the condition, one of True, False, Unknown. | N/A |
 | └>&nbsp;&nbsp; **type** | `string` | type of condition in CamelCase or in foo.example.com/CamelCase. | `Pattern=^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$` |
 |  **roleAssignments** | `array` | RoleAssignments provides the status of each role assignment. | N/A |
+| └>&nbsp;&nbsp; **createdAt** | `string` | CreatedAt defines the creation time of the roleAssignment. | N/A |
 | └>&nbsp;&nbsp; **message** | `string` | Message provides additional human readable details about the role assignment status. | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name defines the name of the role assignment. | N/A |
 | └>&nbsp;&nbsp; **reason** | `string` | Reason provides a programmatic identifier for the role assignment status. | N/A |
