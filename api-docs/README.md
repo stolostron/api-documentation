@@ -360,6 +360,14 @@ It is used to grant access to use Cluster API Provider AWS Controller credential
 
 ---
 
+## ROSANetwork
+
+ROSANetwork is the schema for the rosanetworks API
+
+[View a detailed API Reference for ROSANetwork](rosanetwork_api.md).
+
+---
+
 ## EKSConfig
 
 EKSConfig is the schema for the Amazon EKS Machine Bootstrap Configuration API.

@@ -15,7 +15,7 @@ spec holds configuration that could apply to any operator.
 | └>&nbsp;&nbsp; **name** | `string` | name of the add-on configuration. | N/A |
 | └>&nbsp;&nbsp; **namespace** | `string` | namespace of the add-on configuration. If this field is not set, the configuration is in the cluster scope. | N/A |
 | └>&nbsp;&nbsp; **resource** | `string` | resource of the add-on configuration. | N/A |
-|  **installNamespace** | `string` | installNamespace is the namespace on the managed cluster to install the addon agent. If it is not set, open-cluster-management-agent-addon namespace is used to install the addon agent. | `Pattern=^[a-z0-9]([-a-z0-9]*[a-z0-9])?$` |
+|  **installNamespace** | `string` | Deprecated: Use AddonDeploymentConfig instead. installNamespace is the namespace on the managed cluster to install the addon agent. If it is not set, open-cluster-management-agent-addon namespace is used to install the addon agent. | `Pattern=^[a-z0-9]([-a-z0-9]*[a-z0-9])?$` |
 ## Status Fields
 
 status holds the information about the state of an operator.  It is consistent with status information across

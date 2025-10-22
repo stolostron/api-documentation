@@ -9,7 +9,7 @@ spec represents a desired configuration for an add-on.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
-|  **agentInstallNamespace** | `string` | AgentInstallNamespace is the namespace where the add-on agent should be installed on the managed cluster. | `Pattern=^[a-z0-9]([-a-z0-9]*[a-z0-9])?$` |
+|  **agentInstallNamespace** | `string` | AgentInstallNamespace is the namespace where the add-on agent should be installed on the managed cluster. For template-type addons: set to empty string "" to use the namespace defined in the addonTemplate. For non-template addons: defaults to "open-cluster-management-agent-addon" if not specified. | `Pattern=^([a-z0-9]([-a-z0-9]*[a-z0-9])?)?$` |
 |  **customizedVariables** | `array` | customizedVariables is a list of name-value variables for the current add-on deployment. The add-on implementation can use these variables to render its add-on deployment. The default is an empty list. | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name of this variable. | `Pattern=^[a-zA-Z_][_a-zA-Z0-9]*$` |
 | └>&nbsp;&nbsp; **value** | `string` | Value of this variable. | N/A |

@@ -96,13 +96,13 @@ Status represent the current status of Placing ManifestWork resources
 | └>&nbsp;&nbsp; **availableDecisionGroups** | `string` | availableDecisionGroups shows number of decisionGroups that have all clusters manifestWorks in available state regards total number of decisionGroups. ex; 2/4 (2 out of 4) | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | PlacementRef Name | N/A |
 | └>&nbsp;&nbsp; **summary** | `object` | Summary totals of resulting ManifestWorks for the placement | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **Applied** | `integer` | Applied is the number of ManifestWorks with condition Applied: true | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **applied** | `integer` | Applied is the number of ManifestWorks with condition Applied: true | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **available** | `integer` | Available is the number of ManifestWorks with condition Available: true | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **degraded** | `integer` | No description provided. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **progressing** | `integer` | No description provided. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **total** | `integer` | Total number of ManifestWorks managed by the ManifestWorkReplicaSet | N/A |
 |  **summary** | `object` | Summary totals of resulting ManifestWorks for all placements | N/A |
-| └>&nbsp;&nbsp; **Applied** | `integer` | Applied is the number of ManifestWorks with condition Applied: true | N/A |
+| └>&nbsp;&nbsp; **applied** | `integer` | Applied is the number of ManifestWorks with condition Applied: true | N/A |
 | └>&nbsp;&nbsp; **available** | `integer` | Available is the number of ManifestWorks with condition Available: true | N/A |
 | └>&nbsp;&nbsp; **degraded** | `integer` | No description provided. | N/A |
 | └>&nbsp;&nbsp; **progressing** | `integer` | No description provided. | N/A |

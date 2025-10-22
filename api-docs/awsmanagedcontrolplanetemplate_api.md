@@ -10,15 +10,11 @@ AWSManagedControlPlaneTemplateSpec defines the desired state of AWSManagedContro
 |:---|---|---|---|
 |  **template** | `object` | AWSManagedControlPlaneTemplateResource describes the data needed to create an AWSManagedCluster from a template. | N/A |
 | └>&nbsp;&nbsp; **spec** | `object` | AWSManagedControlPlaneSpec defines the desired state of an Amazon EKS Cluster. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **accessConfig** | `object` | AccessConfig specifies the access configuration information for the cluster | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **authenticationMode** | `string` | AuthenticationMode specifies the desired authentication mode for the cluster Defaults to config_map | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **bootstrapClusterCreatorAdminPermissions** | `boolean` | BootstrapClusterCreatorAdminPermissions grants cluster admin permissions to the IAM identity creating the cluster. Only applied during creation, ignored when updating existing clusters. Defaults to true. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **additionalTags** | `object` | AdditionalTags is an optional set of tags to add to AWS resources managed by the AWS provider, in addition to the ones added by default. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **addons** | `array` | Addons defines the EKS addons to enable with the EKS cluster. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **configuration** | `string` | Configuration of the EKS addon | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **conflictResolution** | `string` | ConflictResolution is used to declare what should happen if there are parameter conflicts. Defaults to overwrite | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name is the name of the addon | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **preserveOnDelete** | `boolean` | PreserveOnDelete indicates that the addon resources should be preserved in the cluster on delete. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **serviceAccountRoleARN** | `string` | ServiceAccountRoleArn is the ARN of an IAM role to bind to the addons service account | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **version** | `string` | Version is the version of the addon to use | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **associateOIDCProvider** | `boolean` | AssociateOIDCProvider can be enabled to automatically create an identity provider for the controller for use with IAM roles for service accounts | N/A |
