@@ -514,14 +514,6 @@ that runs in that namespace.
 
 ---
 
-## Metal3Cluster
-
-Metal3Cluster is the Schema for the metal3clusters API.
-
-[View a detailed API Reference for Metal3Cluster](metal3cluster_api.md).
-
----
-
 ## IPClaim
 
 IPClaim is the Schema for the ipclaims API.
@@ -535,6 +527,70 @@ IPClaim is the Schema for the ipclaims API.
 IPAddress is the Schema for the ipaddresses API.
 
 [View a detailed API Reference for IPAddress](ipaddress_api.md).
+
+---
+
+## IPPool
+
+IPPool is the Schema for the ippools API.
+
+[View a detailed API Reference for IPPool](ippool_api.md).
+
+---
+
+## InternalEngineComponent
+
+Description not found in CRD.
+
+[View a detailed API Reference for InternalEngineComponent](internalenginecomponent_api.md).
+
+---
+
+## KlusterletConfig
+
+KlusterletConfig contains the configuration of a klusterlet including the upgrade strategy, config overrides, proxy configurations etc.
+
+[View a detailed API Reference for KlusterletConfig](klusterletconfig_api.md).
+
+---
+
+## ManagedClusterView
+
+ManagedClusterView is the view of resources on a managed cluster
+
+[View a detailed API Reference for ManagedClusterView](managedclusterview_api.md).
+
+---
+
+## ManagedClusterAction
+
+ManagedClusterAction is the action that will be done on a cluster
+
+[View a detailed API Reference for ManagedClusterAction](managedclusteraction_api.md).
+
+---
+
+## ManagedClusterImageRegistry
+
+ManagedClusterImageRegistry represents the image overridden configuration information.
+
+[View a detailed API Reference for ManagedClusterImageRegistry](managedclusterimageregistry_api.md).
+
+---
+
+## ManagedClusterInfo
+
+ManagedClusterInfo represents the information of managed cluster that acm hub needs to know
+
+[View a detailed API Reference for ManagedClusterInfo](managedclusterinfo_api.md).
+
+---
+
+## Metal3Cluster
+
+Metal3Cluster is the Schema for the metal3clusters API.
+
+[View a detailed API Reference for Metal3Cluster](metal3cluster_api.md).
 
 ---
 
@@ -594,67 +650,11 @@ Metal3Data is the Schema for the metal3datas API.
 
 ---
 
-## IPPool
-
-IPPool is the Schema for the ippools API.
-
-[View a detailed API Reference for IPPool](ippool_api.md).
-
----
-
 ## Metal3Machine
 
 Metal3Machine is the Schema for the metal3machines API.
 
 [View a detailed API Reference for Metal3Machine](metal3machine_api.md).
-
----
-
-## InternalEngineComponent
-
-Description not found in CRD.
-
-[View a detailed API Reference for InternalEngineComponent](internalenginecomponent_api.md).
-
----
-
-## KlusterletConfig
-
-KlusterletConfig contains the configuration of a klusterlet including the upgrade strategy, config overrides, proxy configurations etc.
-
-[View a detailed API Reference for KlusterletConfig](klusterletconfig_api.md).
-
----
-
-## ManagedClusterView
-
-ManagedClusterView is the view of resources on a managed cluster
-
-[View a detailed API Reference for ManagedClusterView](managedclusterview_api.md).
-
----
-
-## ManagedClusterAction
-
-ManagedClusterAction is the action that will be done on a cluster
-
-[View a detailed API Reference for ManagedClusterAction](managedclusteraction_api.md).
-
----
-
-## ManagedClusterImageRegistry
-
-ManagedClusterImageRegistry represents the image overridden configuration information.
-
-[View a detailed API Reference for ManagedClusterImageRegistry](managedclusterimageregistry_api.md).
-
----
-
-## ManagedClusterInfo
-
-ManagedClusterInfo represents the information of managed cluster that acm hub needs to know
-
-[View a detailed API Reference for ManagedClusterInfo](managedclusterinfo_api.md).
 
 ---
 
