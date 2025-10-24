@@ -12,6 +12,7 @@ AgentSpec defines the desired state of Agent
 |  **clusterDeploymentName** | `object` | ClusterReference represents a Cluster Reference. It has enough information to retrieve cluster in any namespace | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name is unique within a namespace to reference a cluster resource. | N/A |
 | └>&nbsp;&nbsp; **namespace** | `string` | Namespace defines the space within which the cluster name must be unique. | N/A |
+|  **fencingCredentialsSecretRef** | `string` | FencingCredentialsSecretRef is a name of a secret in the Agent's namespace that contains fencing credentials | N/A |
 |  **hostname** | `string` | No description provided. | N/A |
 |  **ignitionConfigOverrides** | `string` | Json formatted string containing the user overrides for the host's ignition config | N/A |
 |  **ignitionEndpointHTTPHeaders** | `object` | IgnitionEndpointHTTPHeaders are the additional HTTP headers used when fetching the ignition. | N/A |

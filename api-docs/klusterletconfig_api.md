@@ -57,9 +57,15 @@ Spec defines the desired state of KlusterletConfig
 | └>&nbsp;&nbsp; **namespace** | `string` | Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/ | N/A |
 | └>&nbsp;&nbsp; **resourceVersion** | `string` | Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency | N/A |
 | └>&nbsp;&nbsp; **uid** | `string` | UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids | N/A |
+|  **registrationDriver** | `object` | This provides driver details required to register with hub | N/A |
+| └>&nbsp;&nbsp; **authType** | `string` | Type of the authentication used by managedcluster to register as well as pull work from hub. Possible values are csr and awsirsa. | N/A |
+| └>&nbsp;&nbsp; **awsIrsa** | `object` | Contain the details required for registering with hub cluster (ie: an EKS cluster) using AWS IAM roles for service account. This is required only when the authType is awsirsa. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **hubClusterArn** | `string` | The arn of the hub cluster (ie: an EKS cluster). This will be required to pass information to hub, which hub will use to create IAM identities for this klusterlet. Example - arn:eks:us-west-2:12345678910:cluster/hub-cluster1. | `Pattern=^arn:aws:eks:([a-zA-Z0-9-]+):(\d{12}):cluster/([a-zA-Z0-9-]+)$` |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **managedClusterArn** | `string` | The arn of the managed cluster (ie: an EKS cluster). This will be required to generate the md5hash which will be used as a suffix to create IAM role on hub as well as used by kluslerlet-agent, to assume role suffixed with the md5hash, on startup. Example - arn:eks:us-west-2:12345678910:cluster/managed-cluster1. | `Pattern=^arn:aws:eks:([a-zA-Z0-9-]+):(\d{12}):cluster/([a-zA-Z0-9-]+)$` |
 |  **registries** | `array` | Registries includes the mirror and source registries. The source registry will be replaced by the Mirror. | N/A |
 | └>&nbsp;&nbsp; **mirror** | `string` | Mirror is the mirrored registry of the Source. Will be ignored if Mirror is empty. | N/A |
 | └>&nbsp;&nbsp; **source** | `string` | Source is the source registry. All image registries will be replaced by Mirror if Source is empty. | N/A |
+|  **workStatusSyncInterval** | `string` | WorkStatusSyncInterval is the interval for the work agent to check the status of ManifestWorks. Larger value means less frequent status sync and less api calls to the managed cluster, vice versa. The value(x) should be: 5s <= x <= 1h. | `Pattern=^([0-9]+(s\|m\|h))+$` |
 ## Status Fields
 
 Status defines the observed state of KlusterletConfig
