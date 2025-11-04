@@ -19,6 +19,7 @@ AgentSpec defines the desired state of Agent
 | └>&nbsp;&nbsp; **name** | `string` | Name is the name of the secret containing the ignition endpoint token. | N/A |
 | └>&nbsp;&nbsp; **namespace** | `string` | Namespace is the namespace of the secret containing the ignition endpoint token. | N/A |
 |  **installation_disk_id** | `string` | InstallationDiskID defines the installation destination disk (must be equal to the inventory disk id). | N/A |
+|  **installation_disk_path** | `string` | InstallationDiskPath defines the installation destination disk using either its by-id or by-path value. | N/A |
 |  **installerArgs** | `string` | Json formatted string containing the user overrides for the host's coreos installer args | N/A |
 |  **machineConfigPool** | `string` | No description provided. | N/A |
 |  **nodeLabels** | `object` | NodeLabels are the labels to be applied on the node associated with this agent | N/A |
