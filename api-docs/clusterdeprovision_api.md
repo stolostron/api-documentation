@@ -12,6 +12,8 @@ ClusterDeprovisionSpec defines the desired state of ClusterDeprovision
 |  **clusterID** | `string` | ClusterID is a globally unique identifier for the cluster to deprovision. It will be used if specified. | N/A |
 |  **clusterName** | `string` | ClusterName is the friendly name of the cluster. It is used for subdomains, some resource tagging, and other instances where a friendly name for the cluster is useful. | N/A |
 |  **infraID** | `string` | InfraID is the identifier generated during installation for a cluster. It is used for tagging/naming resources in cloud providers. | N/A |
+|  **metadataJSONSecretRef** | `object` | MetadataJSONSecretRef references the secret containing the metadata.json emitted by the installer, potentially scrubbed for sensitive data. | N/A |
+| └>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
 |  **platform** | `object` | Platform contains platform-specific configuration for a ClusterDeprovision | N/A |
 | └>&nbsp;&nbsp; **aws** | `object` | AWS contains AWS-specific deprovision settings | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **credentialsAssumeRole** | `object` | CredentialsAssumeRole refers to the IAM role that must be assumed to obtain AWS account access for deprovisioning the cluster. | N/A |

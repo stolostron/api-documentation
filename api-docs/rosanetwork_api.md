@@ -8,8 +8,8 @@ ROSANetworkSpec defines the desired state of ROSANetwork
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
-|  **availabilityZoneCount** | `integer` | The number of availability zones to be used for creation of the network infrastructure. You can specify anything between one and four, depending on the chosen AWS region. | N/A |
-|  **availabilityZones** | `array` | The list of availability zones to be used for creation of the network infrastructure. You can specify anything between one and four valid availability zones from a given region. Should you specify both the availabilityZoneCount and availabilityZones, the list of availability zones takes preference. | N/A |
+|  **availabilityZoneCount** | `integer` | The number of availability zones to be used for creation of the network infrastructure. You can specify anything between one and four, depending on the chosen AWS region. Either AvailabilityZoneCount OR AvailabilityZones must be set. | `Minimum=1` |
+|  **availabilityZones** | `array` | The list of availability zones to be used for creation of the network infrastructure. You can specify anything between one and four valid availability zones from a given region. Either AvailabilityZones OR AvailabilityZoneCount must be set. | N/A |
 |  **cidrBlock** | `string` | CIDR block to be used for the VPC | N/A |
 |  **identityRef** | `object` | IdentityRef is a reference to an identity to be used when reconciling rosa network. If no identity is specified, the default identity for this controller will be used. | N/A |
 | └>&nbsp;&nbsp; **kind** | `string` | Kind of the identity. | N/A |
