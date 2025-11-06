@@ -17,13 +17,15 @@ FakeClusterInstallSpec defines the desired state of the FakeClusterInstall.
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
 | └>&nbsp;&nbsp; **clusterID** | `string` | ClusterID is a globally unique identifier for this cluster generated during installation. Used for reporting metrics among other places. | N/A |
 | └>&nbsp;&nbsp; **infraID** | `string` | InfraID is an identifier for this cluster generated during installation and used for tagging/naming resources in cloud providers. | N/A |
-| └>&nbsp;&nbsp; **platform** | `object` | Platform holds platform-specific cluster metadata | N/A |
+| └>&nbsp;&nbsp; **metadataJSONSecretRef** | `object` | MetadataJSONSecretRef references the secret containing the metadata.json emitted by the installer, potentially scrubbed for sensitive data. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
+| └>&nbsp;&nbsp; **platform** | `object` | Platform holds platform-specific cluster metadata. Deprecated. Use the Secret referenced by MetadataJSONSecretRef instead. We may stop populating this section in the future. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **aws** | `object` | AWS holds AWS-specific cluster metadata | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **hostedZoneRole** | `string` | HostedZoneRole is the role to assume when performing operations on a hosted zone owned by another account. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **hostedZoneRole** | `string` | HostedZoneRole is the role to assume when performing operations on a hosted zone owned by another account. Deprecated. Use the Secret referenced by ClusterMetadata.MetadataJSONSecretRef instead. We may stop populating this section in the future. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **azure** | `object` | Azure holds azure-specific cluster metadata | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **resourceGroupName** | `string` | ResourceGroupName is the name of the resource group in which the cluster resources were created. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **resourceGroupName** | `string` | ResourceGroupName is the name of the resource group in which the cluster resources were created. Deprecated. Use the Secret referenced by ClusterMetadata.MetadataJSONSecretRef instead. We may stop populating this section in the future. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **gcp** | `object` | GCP holds GCP-specific cluster metadata | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **networkProjectID** | `string` | NetworkProjectID is used for shared VPC setups | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **networkProjectID** | `string` | NetworkProjectID is used for shared VPC setups Deprecated. Use the Secret referenced by ClusterMetadata.MetadataJSONSecretRef instead. We may stop populating this section in the future. | N/A |
 |  **imageSetRef** | `object` | ImageSetRef is a reference to a ClusterImageSet. The release image specified in the ClusterImageSet will be used to install the cluster. | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name is the name of the ClusterImageSet that this refers to | N/A |
 ## Status Fields
