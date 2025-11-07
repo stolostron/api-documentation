@@ -21,7 +21,6 @@ GitOpsClusterSpec defines the desired state of GitOpsCluster.
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **propagateHubCA** | `boolean` | PropagateHubCA indicates whether to propagate the hub CA certificate to managed clusters via ManifestWork. Default is true. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **serverAddress** | `string` | ServerAddress specifies the ArgoCD server address for the agent. Default is empty. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **serverPort** | `string` | ServerPort specifies the ArgoCD server port for the agent. Default is empty. | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **uninstall** | `boolean` | Uninstall indicates whether to uninstall only the ArgoCD agent component. Default is false. When set to true, only the agent component is uninstalled while keeping the gitopsAddon. This is different from GitOpsAddonSpec.Uninstall which removes everything. | N/A |
 | └>&nbsp;&nbsp; **enabled** | `boolean` | Enabled indicates whether the GitOps addon is enabled. Default is false. When enabled, creates AddonDeploymentConfigs/ManagedClusterAddon resources. | N/A |
 | └>&nbsp;&nbsp; **gitOpsImage** | `string` | GitOpsImage specifies the GitOps (ArgoCD) container image. Default is empty. | N/A |
 | └>&nbsp;&nbsp; **gitOpsNamespace** | `string` | GitOpsNamespace specifies the GitOps namespace. Default is empty. | N/A |
@@ -30,7 +29,6 @@ GitOpsClusterSpec defines the desired state of GitOpsCluster.
 | └>&nbsp;&nbsp; **overrideExistingConfigs** | `boolean` | OverrideExistingConfigs indicates whether to override existing configuration values in AddOnDeploymentConfig. When false (default), existing config values are preserved and only new ones are added. When true, config values from GitOpsCluster spec will override existing values. | N/A |
 | └>&nbsp;&nbsp; **reconcileScope** | `string` | ReconcileScope specifies the reconcile scope for the GitOps operator. Default is empty. | N/A |
 | └>&nbsp;&nbsp; **redisImage** | `string` | RedisImage specifies the Redis container image. Default is empty. | N/A |
-| └>&nbsp;&nbsp; **uninstall** | `boolean` | Uninstall indicates whether to uninstall the gitopsaddon. Default is false. When set to true, performs uninstall operations instead of install. When uninstall is true, OverrideExistingConfigs is automatically set to true. | N/A |
 |  **managedServiceAccountRef** | `string` | ManagedServiceAccountRef defines managed service account in the managed cluster namespace used to create the ArgoCD cluster secret. | N/A |
 |  **placementRef** | `object` | ObjectReference contains enough information to let you inspect or modify the referred object. | N/A |
 | └>&nbsp;&nbsp; **apiVersion** | `string` | API version of the referent. | N/A |
