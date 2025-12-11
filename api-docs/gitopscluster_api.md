@@ -26,6 +26,14 @@ GitOpsClusterSpec defines the desired state of GitOpsCluster.
 | └>&nbsp;&nbsp; **gitOpsNamespace** | `string` | GitOpsNamespace specifies the GitOps namespace. Default is empty. | N/A |
 | └>&nbsp;&nbsp; **gitOpsOperatorImage** | `string` | GitOpsOperatorImage specifies the GitOps operator container image. Default is empty. | N/A |
 | └>&nbsp;&nbsp; **gitOpsOperatorNamespace** | `string` | GitOpsOperatorNamespace specifies the GitOps operator namespace. Default is empty. | N/A |
+| └>&nbsp;&nbsp; **olmSubscription** | `object` | OLMSubscription defines the configuration for deploying the full OLM-managed OpenShift GitOps operator instead of the lightweight helm-based deployment. This is only supported on OpenShift ManagedClusters with OLM installed. When enabled, this takes precedence over the helm-based deployment. Requires gitopsAddon.enabled to be true. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **channel** | `string` | Channel is the OLM channel. Default is "stable". | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **enabled** | `boolean` | Enabled indicates whether to deploy via OLM Subscription. Default is false. When enabled, the full OLM-managed OpenShift GitOps operator is deployed instead of the lightweight helm-based operator. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **installPlanApproval** | `string` | InstallPlanApproval determines if InstallPlans should be automatically approved. Default is "Automatic". | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name is the name of the Subscription. Default is "openshift-gitops-operator". | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **namespace** | `string` | Namespace is the namespace for the Subscription. Default is "openshift-operators". | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **source** | `string` | Source is the CatalogSource name. Default is "redhat-operators". | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **sourceNamespace** | `string` | SourceNamespace is the CatalogSource namespace. Default is "openshift-marketplace". | N/A |
 | └>&nbsp;&nbsp; **overrideExistingConfigs** | `boolean` | OverrideExistingConfigs indicates whether to override existing configuration values in AddOnDeploymentConfig. When false (default), existing config values are preserved and only new ones are added. When true, config values from GitOpsCluster spec will override existing values. | N/A |
 | └>&nbsp;&nbsp; **reconcileScope** | `string` | ReconcileScope specifies the reconcile scope for the GitOps operator. Default is empty. | N/A |
 | └>&nbsp;&nbsp; **redisImage** | `string` | RedisImage specifies the Redis container image. Default is empty. | N/A |
