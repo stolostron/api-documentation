@@ -89,6 +89,12 @@ AgentStatus defines the observed state of Agent
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **smart** | `string` | No description provided. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **vendor** | `string` | No description provided. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **wwn** | `string` | No description provided. | N/A |
+| └>&nbsp;&nbsp; **gpus** | `array` | No description provided. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **address** | `string` | Device address (for example "0000:00:02.0") | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **deviceID** | `string` | ID of the device (for example "3ea0") | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Product name of the device (for example "UHD Graphics 620 (Whiskey Lake)") | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **vendor** | `string` | The name of the device vendor (for example "Intel Corporation") | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **vendorID** | `string` | ID of the vendor (for example "8086") | N/A |
 | └>&nbsp;&nbsp; **hostname** | `string` | No description provided. | N/A |
 | └>&nbsp;&nbsp; **interfaces** | `array` | No description provided. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **biosDevName** | `string` | No description provided. | N/A |
