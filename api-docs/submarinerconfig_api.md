@@ -10,6 +10,7 @@ Spec defines the configuration of the Submariner
 | Field | Type | Description | Validations |
 |:---|---|---|---|
 |  **Debug** | `boolean` | Debug enables Submariner debugging (in the logs). | N/A |
+|  **IPSecCertAuthMode** | `boolean` | IPSecCertAuthMode enables certificate-based authentication mode for IPSec instead of PSK. | N/A |
 |  **IPSecDebug** | `boolean` | IPSecDebug enables IPSec debugging. | N/A |
 |  **IPSecIKEPort** | `integer` | IPSecIKEPort represents IPsec IKE port (default 500). | N/A |
 |  **IPSecNATTPort** | `integer` | IPSecNATTPort represents IPsec NAT-T port (default 4500). | N/A |
