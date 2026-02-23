@@ -53,6 +53,4 @@ jobs:
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
           commit_author: "GitHub Actions Bot <github-actions[bot]@users.noreply.github.com>"
           file_pattern: "api-docs/**"
-          add_options: "-A"
-          status_options: "--porcelain"
           branch: ${{ env.RELEASE_BRANCH }}
