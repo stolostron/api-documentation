@@ -117,7 +117,7 @@ generate:
 	fi; \
 	if [ -z "$${BACKPLANE_BRANCH}" ]; then \
 		read -p "Enter backplane release number (e.g. 2.10.0): backplane-" backplane_num; \
-		export BACKPLANE_BRANCH="release-$$backplane_num"; \
+		export BACKPLANE_BRANCH="backplane-$$backplane_num"; \
 	fi; \
 	echo "Using RELEASE_BRANCH=$$RELEASE_BRANCH BACKPLANE_BRANCH=$$BACKPLANE_BRANCH"; \
 	$(MAKE) RELEASE_BRANCH=$$RELEASE_BRANCH BACKPLANE_BRANCH=$$BACKPLANE_BRANCH gen-api-docs-core
@@ -132,6 +132,8 @@ gen-api-docs-core: setup-core gen-api-docs
 	echo "API docs generated successfully"
 
 # Release management targets
+WORKFLOW_TEMPLATE := workflows/generate-api-docs-release.yml.template
+
 .PHONY: init-release
 init-release:
 	@read -p "Enter release version (e.g. 2.16): release-" release_ver; \
@@ -140,7 +142,7 @@ init-release:
 	BACKPLANE_BRANCH="backplane-$$backplane_ver"; \
 	WORKFLOW_FILE=".github/workflows/generate-api-docs-$${RELEASE_BRANCH}.yml"; \
 	echo ""; \
-	echo "  Release branch:  $$RELEASE_BRANCH"; \
+	echo "  Release branch:   $$RELEASE_BRANCH"; \
 	echo "  Backplane branch: $$BACKPLANE_BRANCH"; \
 	echo "  Workflow file:    $$WORKFLOW_FILE"; \
 	echo ""; \
@@ -151,52 +153,9 @@ init-release:
 	fi; \
 	echo ""; \
 	mkdir -p .github/workflows; \
-	printf '%s\n' \
-		"# .github/workflows/generate-api-docs-$${RELEASE_BRANCH}.yml" \
-		"name: $${RELEASE_BRANCH}, Generate and Commit API Docs" \
-		"" \
-		"on:" \
-		"  schedule:" \
-		"    - cron: '0 0 * * *'" \
-		"  workflow_dispatch:" \
-		"" \
-		"permissions:" \
-		"  contents: write" \
-		"  pull-requests: write" \
-		"" \
-		"jobs:" \
-		"  generate-docs:" \
-		"    runs-on: ubuntu-latest" \
-		"" \
-		"    env:" \
-		"      RELEASE_BRANCH: '$$RELEASE_BRANCH'" \
-		"      BACKPLANE_BRANCH: '$$BACKPLANE_BRANCH'" \
-		"      FORCE_DOWNLOAD: 'true'" \
-		"" \
-		"    steps:" \
-		"      - name: Checkout Repository" \
-		"        uses: actions/checkout@v4" \
-		"        with:" \
-		'          ref: $${{ env.RELEASE_BRANCH }}' \
-		"" \
-		"      - name: Set up Python" \
-		"        uses: actions/setup-python@v4" \
-		"        with:" \
-		"          python-version: '3.11'" \
-		"" \
-		"      - name: Generate API Documentation" \
-		'        run: RELEASE_BRANCH=$${{ env.RELEASE_BRANCH }} BACKPLANE_BRANCH=$${{ env.BACKPLANE_BRANCH }} FORCE_DOWNLOAD=$${{ env.FORCE_DOWNLOAD }} make gen-api-docs-core' \
-		"" \
-		"      - name: Commit Documentation Changes" \
-		"        uses: stefanzweifel/git-auto-commit-action@v5" \
-		"        with:" \
-		'          commit_message: "docs(api): Auto-generate API documentation for $${{ env.RELEASE_BRANCH }}"' \
-		'          commit_user_name: "GitHub Actions Bot"' \
-		'          commit_user_email: "github-actions[bot]@users.noreply.github.com"' \
-		'          commit_author: "GitHub Actions Bot <github-actions[bot]@users.noreply.github.com>"' \
-		"          file_pattern: api-docs/**" \
-		'          branch: $${{ env.RELEASE_BRANCH }}' \
-		> "$$WORKFLOW_FILE"; \
+	sed -e "s|__RELEASE_BRANCH__|$$RELEASE_BRANCH|g" \
+	    -e "s|__BACKPLANE_BRANCH__|$$BACKPLANE_BRANCH|g" \
+	    $(WORKFLOW_TEMPLATE) > "$$WORKFLOW_FILE"; \
 	echo "Created $$WORKFLOW_FILE"; \
 	echo ""; \
 	echo "Commit to main with:"; \

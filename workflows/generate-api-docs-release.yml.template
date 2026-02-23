@@ -1,12 +1,12 @@
-# .github/workflows/generate-api-docs.yml
-name: release-2.14, Generate and Commit API Docs
+# .github/workflows/generate-api-docs-__RELEASE_BRANCH__.yml
+name: __RELEASE_BRANCH__, Generate and Commit API Docs
 
 # Controls when the action will run.
 on:
   # Triggers the workflow at 00:00 UTC every day.
   schedule:
     - cron: '0 0 * * *'
-  
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -22,8 +22,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      RELEASE_BRANCH: 'release-2.14'
-      SEARCH_DIR: '.'
+      RELEASE_BRANCH: '__RELEASE_BRANCH__'
+      BACKPLANE_BRANCH: '__BACKPLANE_BRANCH__'
       FORCE_DOWNLOAD: 'true'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -38,26 +38,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11' # Use a recent Python 3 version
+          python-version: '3.11'
 
       # 3. Runs the make command to install dependencies and generate the docs
       - name: Generate API Documentation
-        run: SEARCH_DIR=${{ env.SEARCH_DIR }} FORCE_DOWNLOAD=${{ env.FORCE_DOWNLOAD }} make gen-api-docs
-        
-      # 4. Debug: Check state after generation
-      - name: Debug - Check state after generation
-        run: |
-          echo "Current branch: $(git branch --show-current)"
-          echo "Files in api-docs after generation:"
-          ls -la api-docs/ || echo "api-docs directory still doesn't exist"
-          echo "Git status after generation:"
-          git status
-          echo "Git diff:"
-          git diff --name-only || echo "No changes detected"
-          echo "Git diff with content:"
-          git diff || echo "No diff content"
+        run: RELEASE_BRANCH=${{ env.RELEASE_BRANCH }} BACKPLANE_BRANCH=${{ env.BACKPLANE_BRANCH }} FORCE_DOWNLOAD=${{ env.FORCE_DOWNLOAD }} make gen-api-docs-core
 
-      # 5. Commits the changed files in the 'api-docs' directory
+      # 4. Commits the changed files in the 'api-docs' directory
       - name: Commit Documentation Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -66,6 +53,4 @@ jobs:
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
           commit_author: "GitHub Actions Bot <github-actions[bot]@users.noreply.github.com>"
           file_pattern: "api-docs/**"
-          add_options: "-A"
-          status_options: "--porcelain"
           branch: ${{ env.RELEASE_BRANCH }}
