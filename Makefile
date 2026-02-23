@@ -116,7 +116,7 @@ generate:
 		export RELEASE_BRANCH="release-$$release_num"; \
 	fi; \
 	if [ -z "$${BACKPLANE_BRANCH}" ]; then \
-		read -p "Enter backplane release number (e.g. 2.10.0): release-" backplane_num; \
+		read -p "Enter backplane release number (e.g. 2.10.0): backplane-" backplane_num; \
 		export BACKPLANE_BRANCH="release-$$backplane_num"; \
 	fi; \
 	echo "Using RELEASE_BRANCH=$$RELEASE_BRANCH BACKPLANE_BRANCH=$$BACKPLANE_BRANCH"; \
