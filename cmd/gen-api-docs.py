@@ -5,6 +5,7 @@
 import os
 import re
 import yaml
+import json
 
 # List of folder names to ignore during file search
 IGNORED_FOLDERS = ['vendor', '.github', '.git', 'hack', 'tests']
@@ -379,7 +380,6 @@ def generate_example_yaml(crd_info):
 
 def generate_json_schema(crd_info, output_dir):
     """Write per-CRD structured JSON schema with example YAML."""
-    import json
     kind = crd_info['kind']
     group = crd_info.get('group', '')
     version = crd_info.get('version', '')
