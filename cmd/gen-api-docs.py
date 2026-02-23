@@ -319,7 +319,6 @@ def fields_to_json_dict(fields):
 
 def generate_example_yaml(crd_info):
     """Build minimal valid YAML example using required fields or first few fields."""
-    import io
     group = crd_info.get('group', 'example.com')
     version = crd_info.get('version', 'v1alpha1')
     kind = crd_info.get('kind', 'Unknown')
@@ -605,9 +604,9 @@ def main():
             f.write(f"- **CRD schemas**: `{raw_base}/{{Kind}}.json`\n\n")
         f.write("### Claude\n\n")
         if raw_base:
-            f.write(f"1. Provide Claude with the AI instructions URL:\n")
+            f.write("1. Provide Claude with the AI instructions URL:\n")
             f.write(f"   `{raw_base}/PROMPT.md`\n")
-            f.write(f"2. Claude can discover all available CRDs from the index:\n")
+            f.write("2. Claude can discover all available CRDs from the index:\n")
             f.write(f"   `{raw_base}/index.json`\n")
         else:
             f.write("1. Add this repository as context in your Claude conversation or Claude Code session.\n")
@@ -617,9 +616,9 @@ def main():
         f.write("4. If you have Kubernetes MCP tools installed, Claude can apply resources directly.\n\n")
         f.write("### Gemini\n\n")
         if raw_base:
-            f.write(f"1. Provide Gemini with the index URL:\n")
+            f.write("1. Provide Gemini with the index URL:\n")
             f.write(f"   `{raw_base}/index.json`\n")
-            f.write(f"2. Gemini can fetch the instructions from:\n")
+            f.write("2. Gemini can fetch the instructions from:\n")
             f.write(f"   `{raw_base}/PROMPT.md`\n")
         else:
             f.write("1. Upload or link the `ai/` directory contents to your Gemini session.\n")
