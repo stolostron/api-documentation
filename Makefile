@@ -23,17 +23,22 @@ help:
 	@echo "  setup-core                  - Clone repositories and set up core CRDs for ACM/MCE"
 	@echo ""
 	@echo "API Documentation Generation:"
+	@echo "  generate                    - Generate API docs (prompts for release numbers if not set)"
 	@echo "  gen-api-docs                - Generate API documentation from CRDs in current directory"
 	@echo "  gen-api-docs-core           - Generate API documentation with core ACM/MCE CRDs"
 	@echo ""
 	@echo "Testing:"
-	@echo "  test                        - Run all tests (CRD import, Helm template removal, and cleanup)"
+	@echo "  test                        - Run all tests (CRD import, Helm template removal, AI output, and cleanup)"
 	@echo "  lint                        - Run Python linting with flake8"
 	@echo "  test-crd-import             - Test CRD import functionality"
 	@echo "  test-helm-template-removal  - Test Helm template removal"
+	@echo "  test-ai-output              - Test AI-consumable output (JSON schemas, example YAML, index)"
 	@echo "  test-integration            - Run integration tests"
 	@echo "  test-verbose                - Run all tests with verbose output"
 	@echo "  test-clean                  - Clean up test artifacts (Python cache files and api-docs)"
+	@echo ""
+	@echo "Release Management:"
+	@echo "  init-release                - Generate a new release workflow for GitHub Actions"
 	@echo ""
 	@echo "Development:"
 	@echo "  dev-test                    - Complete development test cycle (clean + test)"
@@ -104,6 +109,19 @@ setup: deps
 	@printf "# This file ensures the .github directory is tracked by Git\n# Remove this file once you add workflow files to the directory" > api-docs/.gitkeep
 
 
+.PHONY: generate
+generate:
+	@if [ -z "$${RELEASE_BRANCH}" ]; then \
+		read -p "Enter release number (e.g. 2.14.0): release-" release_num; \
+		export RELEASE_BRANCH="release-$$release_num"; \
+	fi; \
+	if [ -z "$${BACKPLANE_BRANCH}" ]; then \
+		read -p "Enter backplane release number (e.g. 2.10.0): release-" backplane_num; \
+		export BACKPLANE_BRANCH="release-$$backplane_num"; \
+	fi; \
+	echo "Using RELEASE_BRANCH=$$RELEASE_BRANCH BACKPLANE_BRANCH=$$BACKPLANE_BRANCH"; \
+	$(MAKE) RELEASE_BRANCH=$$RELEASE_BRANCH BACKPLANE_BRANCH=$$BACKPLANE_BRANCH gen-api-docs-core
+
 .PHONY: gen-api-docs
 gen-api-docs: setup
 	python3 cmd/gen-api-docs.py $(SEARCH_DIR)
@@ -113,10 +131,84 @@ gen-api-docs-core: setup-core gen-api-docs
 	@make remove-core-crds
 	echo "API docs generated successfully"
 
+# Release management targets
+.PHONY: init-release
+init-release:
+	@read -p "Enter release version (e.g. 2.16): release-" release_ver; \
+	read -p "Enter backplane version (e.g. 2.11): backplane-" backplane_ver; \
+	RELEASE_BRANCH="release-$$release_ver"; \
+	BACKPLANE_BRANCH="backplane-$$backplane_ver"; \
+	WORKFLOW_FILE=".github/workflows/generate-api-docs-$${RELEASE_BRANCH}.yml"; \
+	echo ""; \
+	echo "  Release branch:  $$RELEASE_BRANCH"; \
+	echo "  Backplane branch: $$BACKPLANE_BRANCH"; \
+	echo "  Workflow file:    $$WORKFLOW_FILE"; \
+	echo ""; \
+	read -p "Proceed? [y/N] " confirm; \
+	if [ "$$confirm" != "y" ] && [ "$$confirm" != "Y" ]; then \
+		echo "Aborted."; \
+		exit 1; \
+	fi; \
+	echo ""; \
+	mkdir -p .github/workflows; \
+	printf '%s\n' \
+		"# .github/workflows/generate-api-docs-$${RELEASE_BRANCH}.yml" \
+		"name: $${RELEASE_BRANCH}, Generate and Commit API Docs" \
+		"" \
+		"on:" \
+		"  schedule:" \
+		"    - cron: '0 0 * * *'" \
+		"  workflow_dispatch:" \
+		"" \
+		"permissions:" \
+		"  contents: write" \
+		"  pull-requests: write" \
+		"" \
+		"jobs:" \
+		"  generate-docs:" \
+		"    runs-on: ubuntu-latest" \
+		"" \
+		"    env:" \
+		"      RELEASE_BRANCH: '$$RELEASE_BRANCH'" \
+		"      BACKPLANE_BRANCH: '$$BACKPLANE_BRANCH'" \
+		"      FORCE_DOWNLOAD: 'true'" \
+		"" \
+		"    steps:" \
+		"      - name: Checkout Repository" \
+		"        uses: actions/checkout@v4" \
+		"        with:" \
+		'          ref: $${{ env.RELEASE_BRANCH }}' \
+		"" \
+		"      - name: Set up Python" \
+		"        uses: actions/setup-python@v4" \
+		"        with:" \
+		"          python-version: '3.11'" \
+		"" \
+		"      - name: Generate API Documentation" \
+		'        run: RELEASE_BRANCH=$${{ env.RELEASE_BRANCH }} BACKPLANE_BRANCH=$${{ env.BACKPLANE_BRANCH }} FORCE_DOWNLOAD=$${{ env.FORCE_DOWNLOAD }} make gen-api-docs-core' \
+		"" \
+		"      - name: Commit Documentation Changes" \
+		"        uses: stefanzweifel/git-auto-commit-action@v5" \
+		"        with:" \
+		'          commit_message: "docs(api): Auto-generate API documentation for $${{ env.RELEASE_BRANCH }}"' \
+		'          commit_user_name: "GitHub Actions Bot"' \
+		'          commit_user_email: "github-actions[bot]@users.noreply.github.com"' \
+		'          commit_author: "GitHub Actions Bot <github-actions[bot]@users.noreply.github.com>"' \
+		"          file_pattern: api-docs/**" \
+		'          branch: $${{ env.RELEASE_BRANCH }}' \
+		> "$$WORKFLOW_FILE"; \
+	echo "Created $$WORKFLOW_FILE"; \
+	echo ""; \
+	echo "Commit to main with:"; \
+	echo "  git commit -m \"chore: add API docs generation workflow for $$RELEASE_BRANCH\""; \
+	echo ""; \
+	echo "Create the release branch with:"; \
+	echo "  git branch $$RELEASE_BRANCH main && git push origin $$RELEASE_BRANCH"
+
 # Test targets
 .PHONY: test
 #test: test-crd-import test-helm-template-removal test-integration
-test: test-crd-import test-helm-template-removal test-clean
+test: test-crd-import test-helm-template-removal test-ai-output test-clean
 	@echo "✅ All tests passed!"
 
 .PHONY: lint
@@ -133,6 +225,11 @@ test-crd-import: deps
 test-helm-template-removal: deps
 	@echo "Running Helm template removal tests..."
 	@python3 tests/run_tests.py --pattern test_helm_template_removal.py
+
+.PHONY: test-ai-output
+test-ai-output: deps
+	@echo "Running AI output tests..."
+	@python3 tests/run_tests.py --pattern test_ai_output.py
 
 .PHONY: test-integration
 test-integration: deps

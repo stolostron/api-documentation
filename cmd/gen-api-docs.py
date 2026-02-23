@@ -147,7 +147,9 @@ def parse_crd_file(file_path):
     if not crd or crd.get('kind') != 'CustomResourceDefinition':
         return None
 
-    def parse_schema_fields(schema):
+    def parse_schema_fields(schema, required_fields=None):
+        if required_fields is None:
+            required_fields = []
         fields = []
         for field, properties in schema.items():
             field_info = {
@@ -156,6 +158,12 @@ def parse_crd_file(file_path):
                 'description': properties.get('description', 'No description provided.'),
                 'validations': []
             }
+            if field in required_fields:
+                field_info['required'] = True
+            if 'enum' in properties:
+                field_info['enum'] = properties['enum']
+            if 'default' in properties:
+                field_info['default'] = properties['default']
             if field != '':
                 if 'minimum' in properties:
                     field_info['validations'].append(f"Minimum={properties['minimum']}")
@@ -164,7 +172,8 @@ def parse_crd_file(file_path):
                 if 'pattern' in properties:
                     field_info['validations'].append(f"Pattern={properties['pattern']}")
             if 'properties' in properties and properties.get('type').lower() == 'object':
-                field_info['inline'] = {'fields': parse_schema_fields(properties['properties'])}
+                nested_required = properties.get('required', [])
+                field_info['inline'] = {'fields': parse_schema_fields(properties['properties'], nested_required)}
             if 'items' in properties:
                 inline = parse_schema_fields({'': properties['items']})
                 if inline and 'inline' in inline[0]:
@@ -180,8 +189,15 @@ def parse_crd_file(file_path):
         kind = names.get('kind')
         if not kind:
             return None
+        group = spec.get('group', '')
+        version = spec['versions'][0]['name'] if spec.get('versions') else ''
         crd_info = {
             'kind': kind,
+            'group': group,
+            'version': version,
+            'plural': names.get('plural', ''),
+            'singular': names.get('singular', ''),
+            'scope': spec.get('scope', ''),
             'description': "Description not found in CRD.",
             'fields': []
         }
@@ -194,9 +210,10 @@ def parse_crd_file(file_path):
             if field_name in ['spec', 'status']:
                 field_schema = properties[field_name]
                 schema = field_schema.get('properties', {})
+                required_fields = field_schema.get('required', [])
                 if 'description' in field_schema:
                     crd_info['description' + field_name] = field_schema['description']
-                crd_info[field_name] = parse_schema_fields(schema)
+                crd_info[field_name] = parse_schema_fields(schema, required_fields)
     except (KeyError, IndexError) as e:
         print(f"Exception details: {e}")
         import traceback
@@ -259,6 +276,251 @@ def collect_go_type_files():
     return go_type_files
 
 
+def fields_to_json_dict(fields):
+    """Convert flat field list to nested dict for JSON schema output."""
+    result = {}
+    for field in fields:
+        if not isinstance(field, dict):
+            continue
+        name = field.get('name', '')
+        if not name:
+            continue
+        entry = {
+            'type': field.get('type', 'N/A'),
+            'description': field.get('description', ''),
+        }
+        if field.get('required'):
+            entry['required'] = True
+        if 'enum' in field:
+            entry['enum'] = field['enum']
+        if 'default' in field:
+            entry['default'] = field['default']
+        validations = {}
+        for v in field.get('validations', []):
+            if '=' in v:
+                k, val = v.split('=', 1)
+                try:
+                    val = int(val)
+                except ValueError:
+                    try:
+                        val = float(val)
+                    except ValueError:
+                        pass
+                validations[k.lower()] = val
+        if validations:
+            entry['validations'] = validations
+        if 'inline' in field and isinstance(field['inline'], dict):
+            nested = field['inline'].get('fields', [])
+            if nested:
+                entry['fields'] = fields_to_json_dict(nested)
+        result[name] = entry
+    return result
+
+
+def generate_example_yaml(crd_info):
+    """Build minimal valid YAML example using required fields or first few fields."""
+    import io
+    group = crd_info.get('group', 'example.com')
+    version = crd_info.get('version', 'v1alpha1')
+    kind = crd_info.get('kind', 'Unknown')
+    scope = crd_info.get('scope', 'Namespaced')
+
+    lines = [
+        f"apiVersion: {group}/{version}",
+        f"kind: {kind}",
+        "metadata:",
+        f"  name: example-{kind.lower()}",
+    ]
+    if scope == 'Namespaced':
+        lines.append("  namespace: default")
+
+    spec_fields = crd_info.get('spec', [])
+    if spec_fields:
+        lines.append("spec:")
+        # Prefer required fields; fall back to first 5
+        required = [f for f in spec_fields if isinstance(f, dict) and f.get('required')]
+        chosen = required if required else [f for f in spec_fields if isinstance(f, dict)][:5]
+        for field in chosen:
+            name = field.get('name', '')
+            if not name:
+                continue
+            ftype = field.get('type', 'string')
+            default = field.get('default')
+            enum = field.get('enum')
+            if default is not None:
+                val = default
+            elif enum:
+                val = enum[0]
+            elif ftype == 'string':
+                val = f'"example-{name}"'
+            elif ftype in ('integer', 'number'):
+                # Use minimum from validations if available
+                val = None
+                for v in field.get('validations', []):
+                    if v.startswith('Minimum='):
+                        try:
+                            val = int(v.split('=')[1])
+                        except ValueError:
+                            pass
+                        break
+                if val is None:
+                    val = 1
+            elif ftype == 'boolean':
+                val = 'true'
+            elif ftype == 'object':
+                val = '{}'
+            elif ftype == 'array':
+                val = '[]'
+            else:
+                val = f'"example-{name}"'
+            lines.append(f"  {name}: {val}")
+
+    return '\n'.join(lines) + '\n'
+
+
+def generate_json_schema(crd_info, output_dir):
+    """Write per-CRD structured JSON schema with example YAML."""
+    import json
+    kind = crd_info['kind']
+    group = crd_info.get('group', '')
+    version = crd_info.get('version', '')
+    api_version = f"{group}/{version}" if group and version else ''
+
+    schema = {
+        'kind': kind,
+        'apiVersion': api_version,
+        'metadata': {
+            'group': group,
+            'version': version,
+            'plural': crd_info.get('plural', ''),
+            'singular': crd_info.get('singular', ''),
+            'scope': crd_info.get('scope', ''),
+        },
+    }
+
+    spec_fields = crd_info.get('spec', [])
+    schema['spec'] = {
+        'description': crd_info.get('descriptionspec', ''),
+        'fields': fields_to_json_dict(spec_fields),
+    }
+
+    status_fields = crd_info.get('status', [])
+    schema['status'] = {
+        'description': crd_info.get('descriptionstatus', ''),
+        'fields': fields_to_json_dict(status_fields),
+    }
+
+    schema['exampleYAML'] = generate_example_yaml(crd_info)
+
+    file_path = os.path.join(output_dir, f"{kind}.json")
+    with open(file_path, 'w') as f:
+        json.dump(schema, f, indent=2)
+    return f"{kind}.json"
+
+
+def generate_index(crd_definitions, output_dir):
+    """Write ai/index.json listing all CRDs."""
+    import json
+    entries = []
+    for crd_info in crd_definitions:
+        group = crd_info.get('group', '')
+        version = crd_info.get('version', '')
+        entries.append({
+            'kind': crd_info['kind'],
+            'apiVersion': f"{group}/{version}" if group and version else '',
+            'group': group,
+            'version': version,
+            'plural': crd_info.get('plural', ''),
+            'scope': crd_info.get('scope', ''),
+            'description': crd_info.get('description', ''),
+            'schemaFile': f"{crd_info['kind']}.json",
+        })
+    index = {
+        'generatedAt': '',
+        'crds': entries,
+    }
+    try:
+        from datetime import datetime, timezone
+        index['generatedAt'] = datetime.now(timezone.utc).isoformat()
+    except Exception:
+        pass
+    file_path = os.path.join(output_dir, 'index.json')
+    with open(file_path, 'w') as f:
+        json.dump(index, f, indent=2)
+
+
+def generate_prompt(output_dir):
+    """Write ai/PROMPT.md with instructions for AI systems."""
+    content = """\
+# AI Instructions for CRD Usage
+
+This directory contains machine-readable schemas for Kubernetes Custom Resource
+Definitions (CRDs) used in Advanced Cluster Management (ACM) and Multicluster
+Engine (MCE).
+
+## Quick Start
+
+1. Read `index.json` to discover available CRDs.
+2. Load the `{Kind}.json` file for the CRD you need.
+3. Use the `exampleYAML` field as a starting template.
+4. Refer to `spec.fields` for available fields, types, and constraints.
+
+## Generating Valid YAML
+
+- Always set `apiVersion` and `kind` exactly as shown in the schema.
+- Use the `metadata.scope` field to determine whether to include `namespace`.
+- For `Namespaced` resources, always include `metadata.namespace`.
+- For `Cluster` scoped resources, omit `metadata.namespace`.
+- Check `required: true` fields — these must be present.
+- Respect `enum` values — only use listed values.
+- Respect `validations` (minimum, maximum, pattern) constraints.
+
+## Field Structure
+
+Each field in the schema has:
+- `type`: The data type (string, integer, boolean, object, array)
+- `description`: What the field does
+- `required`: Whether the field must be present (when true)
+- `enum`: Allowed values (when present)
+- `default`: Default value if not specified (when present)
+- `validations`: Constraints like minimum, maximum, pattern (when present)
+- `fields`: Nested fields for object types (when present)
+
+## Kubernetes MCP Tools (Preferred)
+
+If you have Kubernetes MCP tools installed (e.g., `mcp-server-kubernetes`),
+prefer using them over generating shell commands. MCP tools provide direct
+API access with structured input/output and better error handling.
+
+- **Use MCP tools to apply resources** by passing the generated YAML directly.
+- **Use MCP tools to list/get resources** using the `plural` name and `group`
+  from the schema metadata.
+- **Use MCP tools to watch or describe resources** for status monitoring.
+
+MCP tools eliminate the need to shell out to `kubectl` and give you structured
+responses you can parse programmatically. Fall back to `kubectl` only when MCP
+tools are unavailable.
+
+## Using with kubectl
+
+When MCP tools are not available, use `kubectl` directly:
+
+```bash
+# Apply a resource
+kubectl apply -f resource.yaml
+
+# Get resources (use plural name from schema)
+kubectl get <plural> -n <namespace>
+
+# Describe a resource
+kubectl describe <singular>/<name> -n <namespace>
+```
+"""
+    file_path = os.path.join(output_dir, 'PROMPT.md')
+    with open(file_path, 'w') as f:
+        f.write(content)
+
+
 def main():
     import sys
     global search_dir
@@ -314,9 +576,57 @@ def main():
             'description': crd_info.get('description', 'No description available.'),
             'link': md_file
         })
+    # Generate AI-consumable output
+    ai_dir = os.path.join(api_docs_dir, 'ai')
+    if not os.path.exists(ai_dir):
+        os.makedirs(ai_dir)
+    for crd_info in crd_definitions:
+        generate_json_schema(crd_info, ai_dir)
+    generate_index(crd_definitions, ai_dir)
+    generate_prompt(ai_dir)
+
+    # Build raw GitHub URLs from RELEASE_BRANCH if available
+    release_branch = os.environ.get('RELEASE_BRANCH', '')
+    raw_base = ''
+    if release_branch:
+        raw_base = f"https://raw.githubusercontent.com/stolostron/api-documentation/{release_branch}/api-docs/ai"
+
     with open(os.path.join(api_docs_dir, 'README.md'), 'w') as f:
         f.write("# Advanced Cluster Management Custom Resource API Documentation\n\n")
         f.write("This document provides an overview of the Custom Resource Definitions (CRDs) used in this project.\n\n")
+        f.write("## Using This Repository with AI Assistants\n\n")
+        f.write("This repository includes machine-readable CRD schemas in the `ai/` directory\n")
+        f.write("that AI assistants can use to generate valid Kubernetes YAML manifests.\n\n")
+        if raw_base:
+            f.write("### Raw URLs\n\n")
+            f.write(f"These URLs can be used directly by AI assistants to fetch the schemas for `{release_branch}`:\n\n")
+            f.write(f"- **Instructions**: [{raw_base}/PROMPT.md]({raw_base}/PROMPT.md)\n")
+            f.write(f"- **Index**: [{raw_base}/index.json]({raw_base}/index.json)\n")
+            f.write(f"- **CRD schemas**: `{raw_base}/{{Kind}}.json`\n\n")
+        f.write("### Claude\n\n")
+        if raw_base:
+            f.write(f"1. Provide Claude with the AI instructions URL:\n")
+            f.write(f"   `{raw_base}/PROMPT.md`\n")
+            f.write(f"2. Claude can discover all available CRDs from the index:\n")
+            f.write(f"   `{raw_base}/index.json`\n")
+        else:
+            f.write("1. Add this repository as context in your Claude conversation or Claude Code session.\n")
+            f.write("2. Point Claude at the `ai/index.json` file to discover available CRDs.\n")
+        f.write("3. Claude will use the instructions and per-CRD schema files\n")
+        f.write("   to generate valid YAML with correct `apiVersion`, field constraints, and examples.\n")
+        f.write("4. If you have Kubernetes MCP tools installed, Claude can apply resources directly.\n\n")
+        f.write("### Gemini\n\n")
+        if raw_base:
+            f.write(f"1. Provide Gemini with the index URL:\n")
+            f.write(f"   `{raw_base}/index.json`\n")
+            f.write(f"2. Gemini can fetch the instructions from:\n")
+            f.write(f"   `{raw_base}/PROMPT.md`\n")
+        else:
+            f.write("1. Upload or link the `ai/` directory contents to your Gemini session.\n")
+            f.write("2. Reference `ai/index.json` to let Gemini discover the CRD schemas.\n")
+        f.write("3. Gemini will use the structured JSON schemas to generate\n")
+        f.write("   valid manifests respecting required fields, enums, and validation constraints.\n\n")
+        f.write("---\n\n")
         for entry in index_entries:
             f.write(f"## {entry['kind']}\n\n")
             f.write(f"{entry['description']}\n\n")

@@ -19,6 +19,23 @@ Tests for Helm template code removal:
 - Mixed content handling
 - Empty line cleanup
 
+### `test_types_go_import.py`
+Tests for Go struct (`_types.go`) parsing:
+- Struct field extraction
+- JSON tag parsing
+- Kubebuilder validation tags
+- Embedded struct handling
+
+### `test_ai_output.py`
+Tests for AI-consumable output generation:
+- CRD metadata capture (group, version, plural, singular, scope)
+- Required, enum, and default field extraction
+- JSON schema structure and parseability
+- Example YAML generation and parseability
+- Index generation with multiple CRDs
+- PROMPT.md content validation
+- Regression: existing markdown output unchanged
+
 ### `test_integration.py`
 Integration tests for the complete workflow:
 - CRD priority over `_types.go`
@@ -49,6 +66,7 @@ make test
 ```bash
 make test-crd-import
 make test-helm-template-removal
+make test-ai-output
 make test-integration
 ```
 
@@ -68,13 +86,26 @@ The tests cover:
    - Array and object property handling
    - Validation rule extraction (minimum, maximum, pattern, enum)
 
+2. **Go Types Import Validation**:
+   - Struct field extraction and JSON tag parsing
+   - Kubebuilder validation tag extraction
+   - Embedded struct inlining
+
 3. **Helm Template Removal Validation**:
    - All Helm template syntax patterns
    - Conditional blocks (`{{- if }}`, `{{- else }}`, `{{- end }}`)
    - Mixed template and YAML content
    - Empty line cleanup after template removal
 
-4. **Integration Testing**:
+4. **AI Output Validation**:
+   - CRD metadata (group, version, plural, scope) captured correctly
+   - Required, enum, and default field attributes extracted
+   - Per-CRD JSON schema is valid and complete
+   - Example YAML is parseable and uses correct apiVersion/kind
+   - Index lists all CRDs with schema file references
+   - Existing markdown output unchanged by new metadata
+
+5. **Integration Testing**:
    - Complete workflow validation
    - CRD vs `_types.go` priority handling
    - Multiple resource processing
@@ -85,7 +116,9 @@ The tests cover:
 
 All tests should pass and validate that:
 - CRD files are properly parsed and their schemas extracted
+- Go type files are properly parsed with validations and embedded structs
 - Helm templates are completely removed while preserving valid YAML
+- AI-consumable JSON schemas, example YAML, and index are correctly generated
 - The integration workflow works correctly end-to-end
 - Generated markdown has the correct format and content
 
