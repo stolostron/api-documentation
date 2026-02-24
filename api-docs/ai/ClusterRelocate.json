@@ -1,0 +1,69 @@
+{
+  "kind": "ClusterRelocate",
+  "apiVersion": "hive.openshift.io/v1",
+  "metadata": {
+    "group": "hive.openshift.io",
+    "version": "v1",
+    "plural": "clusterrelocates",
+    "singular": "clusterrelocate",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "ClusterRelocateSpec defines the relocation of clusters from one Hive instance to another.",
+    "fields": {
+      "clusterDeploymentSelector": {
+        "type": "object",
+        "description": "ClusterDeploymentSelector is a LabelSelector indicating which clusters will be relocated.",
+        "required": true,
+        "fields": {
+          "matchExpressions": {
+            "type": "array",
+            "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "key is the label key that the selector applies to.",
+                "required": true
+              },
+              "operator": {
+                "type": "string",
+                "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                "required": true
+              },
+              "values": {
+                "type": "array",
+                "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+              }
+            }
+          },
+          "matchLabels": {
+            "type": "object",
+            "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+          }
+        }
+      },
+      "kubeconfigSecretRef": {
+        "type": "object",
+        "description": "KubeconfigSecretRef is a reference to the secret containing the kubeconfig for the destination Hive instance.\nThe kubeconfig must be in a data field where the key is \"kubeconfig\".",
+        "required": true,
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the secret.",
+            "required": true
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace is the namespace where the secret lives.",
+            "required": true
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "ClusterRelocateStatus defines the observed state of ClusterRelocate.",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: hive.openshift.io/v1\nkind: ClusterRelocate\nmetadata:\n  name: example-clusterrelocate\n  namespace: default\nspec:\n  clusterDeploymentSelector: {}\n  kubeconfigSecretRef: {}\n"
+}

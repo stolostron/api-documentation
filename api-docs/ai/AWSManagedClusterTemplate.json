@@ -1,0 +1,51 @@
+{
+  "kind": "AWSManagedClusterTemplate",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta2",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1beta2",
+    "plural": "awsmanagedclustertemplates",
+    "singular": "awsmanagedclustertemplate",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AWSManagedClusterTemplateSpec defines the desired state of AWSManagedClusterTemplate.",
+    "fields": {
+      "template": {
+        "type": "object",
+        "description": "AWSManagedClusterTemplateResource describes the data needed to create an AWSManagedCluster from a template.",
+        "required": true,
+        "fields": {
+          "spec": {
+            "type": "object",
+            "description": "AWSManagedClusterSpec defines the desired state of AWSManagedCluster",
+            "required": true,
+            "fields": {
+              "controlPlaneEndpoint": {
+                "type": "object",
+                "description": "ControlPlaneEndpoint represents the endpoint used to communicate with the control plane.",
+                "fields": {
+                  "host": {
+                    "type": "string",
+                    "description": "host is the hostname on which the API server is serving.",
+                    "required": true
+                  },
+                  "port": {
+                    "type": "integer",
+                    "description": "port is the port on which the API server is serving.",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1beta2\nkind: AWSManagedClusterTemplate\nmetadata:\n  name: example-awsmanagedclustertemplate\n  namespace: default\nspec:\n  template: {}\n"
+}

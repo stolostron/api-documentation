@@ -1,0 +1,302 @@
+{
+  "kind": "Restore",
+  "apiVersion": "cluster.open-cluster-management.io/v1beta1",
+  "metadata": {
+    "group": "cluster.open-cluster-management.io",
+    "version": "v1beta1",
+    "plural": "restores",
+    "singular": "restore",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "RestoreSpec defines the desired state of Restore",
+    "fields": {
+      "cleanupBeforeRestore": {
+        "type": "string",
+        "description": "1. Use CleanupRestored if you want to delete all\nresources created by a previous restore operation, before restoring the new data\n2. Use None if you don't want to clean up any resources before restoring the new data.",
+        "required": true
+      },
+      "excludedNamespaces": {
+        "type": "array",
+        "description": "velero option - ExcludedNamespaces contains a list of namespaces that are not\nincluded in the restore."
+      },
+      "excludedResources": {
+        "type": "array",
+        "description": "velero option - ExcludedResources is a slice of resource names that are not\nincluded in the restore."
+      },
+      "hooks": {
+        "type": "object",
+        "description": "velero option -  Hooks represent custom behaviors that should be executed during or post restore.",
+        "fields": {
+          "resources": {
+            "type": "array",
+            "description": "No description provided.",
+            "fields": {
+              "excludedNamespaces": {
+                "type": "array",
+                "description": "ExcludedNamespaces specifies the namespaces to which this hook spec does not apply."
+              },
+              "excludedResources": {
+                "type": "array",
+                "description": "ExcludedResources specifies the resources to which this hook spec does not apply."
+              },
+              "includedNamespaces": {
+                "type": "array",
+                "description": "IncludedNamespaces specifies the namespaces to which this hook spec applies. If empty, it applies\nto all namespaces."
+              },
+              "includedResources": {
+                "type": "array",
+                "description": "IncludedResources specifies the resources to which this hook spec applies. If empty, it applies\nto all resources."
+              },
+              "labelSelector": {
+                "type": "object",
+                "description": "LabelSelector, if specified, filters the resources to which this hook spec applies.",
+                "fields": {
+                  "matchExpressions": {
+                    "type": "array",
+                    "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+                    "fields": {
+                      "key": {
+                        "type": "string",
+                        "description": "key is the label key that the selector applies to.",
+                        "required": true
+                      },
+                      "operator": {
+                        "type": "string",
+                        "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                        "required": true
+                      },
+                      "values": {
+                        "type": "array",
+                        "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+                      }
+                    }
+                  },
+                  "matchLabels": {
+                    "type": "object",
+                    "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+                  }
+                }
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of this hook.",
+                "required": true
+              },
+              "postHooks": {
+                "type": "array",
+                "description": "PostHooks is a list of RestoreResourceHooks to execute during and after restoring a resource.",
+                "fields": {
+                  "exec": {
+                    "type": "object",
+                    "description": "Exec defines an exec restore hook.",
+                    "fields": {
+                      "command": {
+                        "type": "array",
+                        "description": "Command is the command and arguments to execute from within a container after a pod has been restored.",
+                        "required": true
+                      },
+                      "container": {
+                        "type": "string",
+                        "description": "Container is the container in the pod where the command should be executed. If not specified,\nthe pod's first container is used."
+                      },
+                      "execTimeout": {
+                        "type": "string",
+                        "description": "ExecTimeout defines the maximum amount of time Velero should wait for the hook to complete before\nconsidering the execution a failure."
+                      },
+                      "onError": {
+                        "type": "string",
+                        "description": "OnError specifies how Velero should behave if it encounters an error executing this hook.",
+                        "enum": [
+                          "Continue",
+                          "Fail"
+                        ]
+                      },
+                      "waitForReady": {
+                        "type": "boolean",
+                        "description": "WaitForReady ensures command will be launched when container is Ready instead of Running."
+                      },
+                      "waitTimeout": {
+                        "type": "string",
+                        "description": "WaitTimeout defines the maximum amount of time Velero should wait for the container to be Ready\nbefore attempting to run the command."
+                      }
+                    }
+                  },
+                  "init": {
+                    "type": "object",
+                    "description": "Init defines an init restore hook.",
+                    "fields": {
+                      "initContainers": {
+                        "type": "array",
+                        "description": "InitContainers is list of init containers to be added to a pod during its restore."
+                      },
+                      "timeout": {
+                        "type": "string",
+                        "description": "Timeout defines the maximum amount of time Velero should wait for the initContainers to complete."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "includedNamespaces": {
+        "type": "array",
+        "description": "velero option - IncludedNamespaces is a slice of namespace names to include objects\nfrom. If empty, all namespaces are included."
+      },
+      "includedResources": {
+        "type": "array",
+        "description": "velero option - IncludedResources is a slice of resource names to include\nin the restore. If empty, all resources in the backup are included."
+      },
+      "labelSelector": {
+        "type": "object",
+        "description": "velero option - LabelSelector is a metav1.LabelSelector to filter with\nwhen restoring individual objects from the backup. If empty\nor nil, all objects are included. Optional.",
+        "fields": {
+          "matchExpressions": {
+            "type": "array",
+            "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "key is the label key that the selector applies to.",
+                "required": true
+              },
+              "operator": {
+                "type": "string",
+                "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                "required": true
+              },
+              "values": {
+                "type": "array",
+                "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+              }
+            }
+          },
+          "matchLabels": {
+            "type": "object",
+            "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+          }
+        }
+      },
+      "namespaceMapping": {
+        "type": "object",
+        "description": "velero option - NamespaceMapping is a map of source namespace names\nto target namespace names to restore into. Any source\nnamespaces not included in the map will be restored into\nnamespaces of the same name."
+      },
+      "orLabelSelectors": {
+        "type": "array",
+        "description": "velero option - OrLabelSelectors is list of metav1.LabelSelector to filter with\nwhen restoring individual objects from the backup. If multiple provided\nthey will be joined by the OR operator. LabelSelector as well as\nOrLabelSelectors cannot co-exist in restore request, only one of them\ncan be used",
+        "fields": {
+          "matchExpressions": {
+            "type": "array",
+            "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "key is the label key that the selector applies to.",
+                "required": true
+              },
+              "operator": {
+                "type": "string",
+                "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                "required": true
+              },
+              "values": {
+                "type": "array",
+                "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+              }
+            }
+          },
+          "matchLabels": {
+            "type": "object",
+            "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+          }
+        }
+      },
+      "preserveNodePorts": {
+        "type": "boolean",
+        "description": "velero option - PreserveNodePorts specifies whether to restore old nodePorts from backup."
+      },
+      "restorePVs": {
+        "type": "boolean",
+        "description": "velero option -  RestorePVs specifies whether to restore all included\nPVs from snapshot (via the cloudprovider)."
+      },
+      "restoreStatus": {
+        "type": "object",
+        "description": "velero option -  RestoreStatus specifies which resources we should restore the status\nfield. If nil, no objects are included. Optional.",
+        "fields": {
+          "excludedResources": {
+            "type": "array",
+            "description": "ExcludedResources specifies the resources to which will not restore the status."
+          },
+          "includedResources": {
+            "type": "array",
+            "description": "IncludedResources specifies the resources to which will restore the status.\nIf empty, it applies to all resources."
+          }
+        }
+      },
+      "restoreSyncInterval": {
+        "type": "string",
+        "description": "Used in combination with the SyncRestoreWithNewBackups property\nWhen SyncRestoreWithNewBackups is set to true, defines the duration for checking on new backups\nIf not defined and SyncRestoreWithNewBackups is set to true, it defaults to 30minutes"
+      },
+      "syncRestoreWithNewBackups": {
+        "type": "boolean",
+        "description": "Set this to true if you want to keep checking for new backups and restore if updates are available.\nIf not defined, the value is set to false.\nFor this option to work, you need to set VeleroResourcesBackupName and VeleroCredentialsBackupName\nto latest and VeleroManagedClustersBackupName to skip"
+      },
+      "veleroCredentialsBackupName": {
+        "type": "string",
+        "description": "VeleroCredentialsBackupName is the name of the velero back-up used to restore credentials.\nIs required, valid values are latest, skip or backup_name\nIf value is set to latest, the latest backup is used, skip will not restore this type of backup\nbackup_name points to the name of the backup to be restored",
+        "required": true
+      },
+      "veleroManagedClustersBackupName": {
+        "type": "string",
+        "description": "VeleroManagedClustersBackupName is the name of the velero back-up used to restore managed clusters.\nIs required, valid values are latest, skip or backup_name\nIf value is set to latest, the latest backup is used, skip will not restore this type of backup\nbackup_name points to the name of the backup to be restored",
+        "required": true
+      },
+      "veleroResourcesBackupName": {
+        "type": "string",
+        "description": "VeleroResourcesBackupName is the name of the velero back-up used to restore resources.\nIs required, valid values are latest, skip or backup_name\nIf value is set to latest, the latest backup is used, skip will not restore this type of backup\nbackup_name points to the name of the backup to be restored",
+        "required": true
+      }
+    }
+  },
+  "status": {
+    "description": "RestoreStatus defines the observed state of Restore",
+    "fields": {
+      "completionTimestamp": {
+        "type": "string",
+        "description": "CompletionTimestamp records the time the restore operation was completed."
+      },
+      "lastMessage": {
+        "type": "string",
+        "description": "Message on the last operation"
+      },
+      "messages": {
+        "type": "array",
+        "description": "Messages contains any messages that were encountered during the restore process."
+      },
+      "phase": {
+        "type": "string",
+        "description": "Phase is the current phase of the restore"
+      },
+      "veleroCredentialsRestoreName": {
+        "type": "string",
+        "description": "No description provided."
+      },
+      "veleroGenericResourcesRestoreName": {
+        "type": "string",
+        "description": "No description provided."
+      },
+      "veleroManagedClustersRestoreName": {
+        "type": "string",
+        "description": "No description provided."
+      },
+      "veleroResourcesRestoreName": {
+        "type": "string",
+        "description": "No description provided."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: cluster.open-cluster-management.io/v1beta1\nkind: Restore\nmetadata:\n  name: example-restore\n  namespace: default\nspec:\n  cleanupBeforeRestore: \"example-cleanupBeforeRestore\"\n  veleroCredentialsBackupName: \"example-veleroCredentialsBackupName\"\n  veleroManagedClustersBackupName: \"example-veleroManagedClustersBackupName\"\n  veleroResourcesBackupName: \"example-veleroResourcesBackupName\"\n"
+}

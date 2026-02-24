@@ -1,0 +1,175 @@
+{
+  "kind": "SubmarinerDiagnoseConfig",
+  "apiVersion": "submarineraddon.open-cluster-management.io/v1alpha1",
+  "metadata": {
+    "group": "submarineraddon.open-cluster-management.io",
+    "version": "v1alpha1",
+    "plural": "submarinerdiagnoseconfigs",
+    "singular": "submarinerdiagnoseconfig",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "Spec defines the configuration of the Submariner",
+    "fields": {
+      "CNI": {
+        "type": "boolean",
+        "description": "No description provided."
+      },
+      "all": {
+        "type": "boolean",
+        "description": "No description provided."
+      },
+      "connections": {
+        "type": "boolean",
+        "description": "No description provided."
+      },
+      "deployment": {
+        "type": "boolean",
+        "description": "No description provided."
+      },
+      "firewall": {
+        "type": "boolean",
+        "description": "No description provided."
+      },
+      "firewallOptions": {
+        "type": "object",
+        "description": "No description provided.",
+        "fields": {
+          "interCluster": {
+            "type": "boolean",
+            "description": "No description provided."
+          },
+          "intraCluster": {
+            "type": "boolean",
+            "description": "No description provided."
+          },
+          "metrics": {
+            "type": "boolean",
+            "description": "No description provided."
+          },
+          "remoteCluster": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "remoteK8sAPIServer": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "remoteK8sAPIServerToken": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "remoteK8sCA": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "remoteK8sRemoteNamespace": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "remoteK8sSecret": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "gatherLogs": {
+        "type": "boolean",
+        "description": "No description provided."
+      },
+      "k8sVersion": {
+        "type": "boolean",
+        "description": "No description provided."
+      },
+      "kubeProxyMode": {
+        "type": "boolean",
+        "description": "No description provided."
+      }
+    }
+  },
+  "status": {
+    "description": "Status represents the current status of SubmarinerDiagnose",
+    "fields": {
+      "cniType": {
+        "type": "string",
+        "description": "No description provided."
+      },
+      "conditions": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition.\nThis may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon.\nFor instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition.\nProducers of specific condition types may define expected values and meanings for this field,\nand whether the values are considered a guaranteed API.\nThe value should be a CamelCase string.\nThis field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      },
+      "firewallStatus": {
+        "type": "object",
+        "description": "No description provided.",
+        "fields": {
+          "IPSecTunnel": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "metricsStatus": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "vxlanTunnel": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "k8sVersion": {
+        "type": "string",
+        "description": "No description provided."
+      },
+      "kubeProxyMode": {
+        "type": "boolean",
+        "description": "No description provided."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: submarineraddon.open-cluster-management.io/v1alpha1\nkind: SubmarinerDiagnoseConfig\nmetadata:\n  name: example-submarinerdiagnoseconfig\n  namespace: default\nspec:\n  CNI: true\n  all: true\n  connections: true\n  deployment: true\n  firewall: true\n"
+}

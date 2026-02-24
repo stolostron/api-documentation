@@ -1,0 +1,1325 @@
+{
+  "generatedAt": "2026-02-24T05:32:59.225541+00:00",
+  "crds": [
+    {
+      "kind": "Subscription",
+      "apiVersion": "apps.open-cluster-management.io/v1",
+      "group": "apps.open-cluster-management.io",
+      "version": "v1",
+      "plural": "subscriptions",
+      "scope": "Namespaced",
+      "description": "Subscription is the Schema for the subscriptions API",
+      "schemaFile": "Subscription.json"
+    },
+    {
+      "kind": "GitOpsCluster",
+      "apiVersion": "apps.open-cluster-management.io/v1beta1",
+      "group": "apps.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "gitopsclusters",
+      "scope": "Namespaced",
+      "description": "The GitOpsCluster uses placement to import selected managed clusters into the Argo CD.",
+      "schemaFile": "GitOpsCluster.json"
+    },
+    {
+      "kind": "Application",
+      "apiVersion": "app.k8s.io/v1beta1",
+      "group": "app.k8s.io",
+      "version": "v1beta1",
+      "plural": "applications",
+      "scope": "Namespaced",
+      "description": "Application is the Schema for the applications API",
+      "schemaFile": "Application.json"
+    },
+    {
+      "kind": "HelmRelease",
+      "apiVersion": "apps.open-cluster-management.io/v1",
+      "group": "apps.open-cluster-management.io",
+      "version": "v1",
+      "plural": "helmreleases",
+      "scope": "Namespaced",
+      "description": "HelmRelease is the Schema for the subscriptionreleases API",
+      "schemaFile": "HelmRelease.json"
+    },
+    {
+      "kind": "SubscriptionStatus",
+      "apiVersion": "apps.open-cluster-management.io/v1alpha1",
+      "group": "apps.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "subscriptionstatuses",
+      "scope": "Namespaced",
+      "description": "SubscriptionStatus provides detailed status for all the resources that are deployed by the application in a cluster.",
+      "schemaFile": "SubscriptionStatus.json"
+    },
+    {
+      "kind": "MulticlusterApplicationSetReport",
+      "apiVersion": "apps.open-cluster-management.io/v1alpha1",
+      "group": "apps.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "multiclusterapplicationsetreports",
+      "scope": "Namespaced",
+      "description": "MulticlusterApplicationSetReport provides a report of the status of an application from all the managed clusters where the application is deployed on. It provides a summary of the number of clusters in the various states. If an error or warning occurred when installing the application on a managed cluster, the conditions, including the waring and error message, is captured in the report.",
+      "schemaFile": "MulticlusterApplicationSetReport.json"
+    },
+    {
+      "kind": "SubscriptionReport",
+      "apiVersion": "apps.open-cluster-management.io/v1alpha1",
+      "group": "apps.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "subscriptionreports",
+      "scope": "Namespaced",
+      "description": "SubscriptionReport provides a report of the status of the subscriptions on the managed clusters. There are two\ntypes of subscriptions reports: Application and Cluster. Application type reports provide the status of a particular\nsubscription on all the managed clusters. Cluster type reports provide the status of all the subscriptions on a\nparticular managed cluster.",
+      "schemaFile": "SubscriptionReport.json"
+    },
+    {
+      "kind": "PlacementRule",
+      "apiVersion": "apps.open-cluster-management.io/v1",
+      "group": "apps.open-cluster-management.io",
+      "version": "v1",
+      "plural": "placementrules",
+      "scope": "Namespaced",
+      "description": "PlacementRule is the Schema for the placementrules API",
+      "schemaFile": "PlacementRule.json"
+    },
+    {
+      "kind": "Deployable",
+      "apiVersion": "apps.open-cluster-management.io/v1",
+      "group": "apps.open-cluster-management.io",
+      "version": "v1",
+      "plural": "deployables",
+      "scope": "Namespaced",
+      "description": "Deployable is the Schema for the deployables API",
+      "schemaFile": "Deployable.json"
+    },
+    {
+      "kind": "Channel",
+      "apiVersion": "apps.open-cluster-management.io/v1",
+      "group": "apps.open-cluster-management.io",
+      "version": "v1",
+      "plural": "channels",
+      "scope": "Namespaced",
+      "description": "Channel provides a repository containing application resources which can be deployed to clusters by subscriptions. The following 3 types of channels are supported: Git repository, Helm release registry, and Object storage repository.",
+      "schemaFile": "Channel.json"
+    },
+    {
+      "kind": "Restore",
+      "apiVersion": "cluster.open-cluster-management.io/v1beta1",
+      "group": "cluster.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "restores",
+      "scope": "Namespaced",
+      "description": "Restore is an ACM resource that you can use to restore resources from a cluster backup to a target cluster.\nThe restore resource has properties that you can use to restore only passive data or to restore managed cluster\nactivation resources.\nAdditionally, it has a property that you can use to periodically check for new backups and automatically restore\nthem on the target cluster.",
+      "schemaFile": "Restore.json"
+    },
+    {
+      "kind": "BackupSchedule",
+      "apiVersion": "cluster.open-cluster-management.io/v1beta1",
+      "group": "cluster.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "backupschedules",
+      "scope": "Namespaced",
+      "description": "BackupSchedule is an ACM resource that you can use to schedule cluster backups at specified intervals.\nThe backupschedule resource creates a set of schedule.velero.io resources to periodically generate backups for\nresources on your ACM hub cluster.",
+      "schemaFile": "BackupSchedule.json"
+    },
+    {
+      "kind": "ObservabilityAddon",
+      "apiVersion": "observability.open-cluster-management.io/v1beta1",
+      "group": "observability.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "observabilityaddons",
+      "scope": "Namespaced",
+      "description": "ObservabilityAddon is the Schema for the observabilityaddon API",
+      "schemaFile": "ObservabilityAddon.json"
+    },
+    {
+      "kind": "MultiClusterObservability",
+      "apiVersion": "observability.open-cluster-management.io/v1beta1",
+      "group": "observability.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "multiclusterobservabilities",
+      "scope": "Cluster",
+      "description": "MultiClusterObservability defines the configuration for the Observability installation on\nHub and Managed Clusters all through this one custom resource.",
+      "schemaFile": "MultiClusterObservability.json"
+    },
+    {
+      "kind": "Observatorium",
+      "apiVersion": "core.observatorium.io/v1alpha1",
+      "group": "core.observatorium.io",
+      "version": "v1alpha1",
+      "plural": "observatoria",
+      "scope": "Namespaced",
+      "description": "Observatorium is the Schema for the observatoria API",
+      "schemaFile": "Observatorium.json"
+    },
+    {
+      "kind": "InternalHubComponent",
+      "apiVersion": "operator.open-cluster-management.io/v1",
+      "group": "operator.open-cluster-management.io",
+      "version": "v1",
+      "plural": "internalhubcomponents",
+      "scope": "Namespaced",
+      "description": "Description not found in CRD.",
+      "schemaFile": "InternalHubComponent.json"
+    },
+    {
+      "kind": "PolicyReport",
+      "apiVersion": "wgpolicyk8s.io/v1alpha1",
+      "group": "wgpolicyk8s.io",
+      "version": "v1alpha1",
+      "plural": "policyreports",
+      "scope": "Namespaced",
+      "description": "PolicyReport is the Schema for the policyreports API",
+      "schemaFile": "PolicyReport.json"
+    },
+    {
+      "kind": "ClusterInstance",
+      "apiVersion": "siteconfig.open-cluster-management.io/v1alpha1",
+      "group": "siteconfig.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "clusterinstances",
+      "scope": "Namespaced",
+      "description": "ClusterInstance is the Schema for the clusterinstances API",
+      "schemaFile": "ClusterInstance.json"
+    },
+    {
+      "kind": "SubmarinerDiagnoseConfig",
+      "apiVersion": "submarineraddon.open-cluster-management.io/v1alpha1",
+      "group": "submarineraddon.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "submarinerdiagnoseconfigs",
+      "scope": "Namespaced",
+      "description": "SubmarinerDiagnoseConfig represents the configuration to run SubmarinerDiagnose Job.",
+      "schemaFile": "SubmarinerDiagnoseConfig.json"
+    },
+    {
+      "kind": "SubmarinerConfig",
+      "apiVersion": "submarineraddon.open-cluster-management.io/v1alpha1",
+      "group": "submarineraddon.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "submarinerconfigs",
+      "scope": "Namespaced",
+      "description": "SubmarinerConfig represents the configuration for Submariner, the submariner-addon will use it\nto configure the Submariner.",
+      "schemaFile": "SubmarinerConfig.json"
+    },
+    {
+      "kind": "KlusterletAddonConfig",
+      "apiVersion": "agent.open-cluster-management.io/v1",
+      "group": "agent.open-cluster-management.io",
+      "version": "v1",
+      "plural": "klusterletaddonconfigs",
+      "scope": "Namespaced",
+      "description": "KlusterletAddonConfig is the Schema for the klusterletaddonconfigs API",
+      "schemaFile": "KlusterletAddonConfig.json"
+    },
+    {
+      "kind": "ClusterPermission",
+      "apiVersion": "rbac.open-cluster-management.io/v1alpha1",
+      "group": "rbac.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "clusterpermissions",
+      "scope": "Namespaced",
+      "description": "ClusterPermission is the Schema for the clusterpermissions API",
+      "schemaFile": "ClusterPermission.json"
+    },
+    {
+      "kind": "UserPreference",
+      "apiVersion": "console.open-cluster-management.io/v1",
+      "group": "console.open-cluster-management.io",
+      "version": "v1",
+      "plural": "userpreferences",
+      "scope": "Cluster",
+      "description": "Description not found in CRD.",
+      "schemaFile": "UserPreference.json"
+    },
+    {
+      "kind": "Policy",
+      "apiVersion": "policy.open-cluster-management.io/v1",
+      "group": "policy.open-cluster-management.io",
+      "version": "v1",
+      "plural": "policies",
+      "scope": "Namespaced",
+      "description": "Policy is the schema for the policies API. Policy wraps other policy engine resources in its \"policy-templates\" array in order to deliver the resources to managed clusters.",
+      "schemaFile": "Policy.json"
+    },
+    {
+      "kind": "PlacementBinding",
+      "apiVersion": "policy.open-cluster-management.io/v1",
+      "group": "policy.open-cluster-management.io",
+      "version": "v1",
+      "plural": "placementbindings",
+      "scope": "Namespaced",
+      "description": "PlacementBinding is the schema for the placementbindings API. A PlacementBinding resource binds a managed cluster placement resource to a policy or policy set, along with configurable overrides.",
+      "schemaFile": "PlacementBinding.json"
+    },
+    {
+      "kind": "PolicyAutomation",
+      "apiVersion": "policy.open-cluster-management.io/v1beta1",
+      "group": "policy.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "policyautomations",
+      "scope": "Namespaced",
+      "description": "PolicyAutomation is the schema for the policyautomations API. PolicyAutomation configures creation of an AnsibleJob, from the tower.ansible.com API group, to initiate Ansible to run upon noncompliant events of the attached policy, or when you manually initiate the run with the \"policy.open-cluster-management.io/rerun=true\" annotation.",
+      "schemaFile": "PolicyAutomation.json"
+    },
+    {
+      "kind": "PolicySet",
+      "apiVersion": "policy.open-cluster-management.io/v1beta1",
+      "group": "policy.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "policysets",
+      "scope": "Namespaced",
+      "description": "PolicySet is the schema for the policysets API. A policy set is a logical grouping of policies from the same namespace. The policy set is bound to a placement resource and applies the placement to all policies within the set. The status reports the overall compliance of the set.",
+      "schemaFile": "PolicySet.json"
+    },
+    {
+      "kind": "Search",
+      "apiVersion": "search.open-cluster-management.io/v1alpha1",
+      "group": "search.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "searches",
+      "scope": "Namespaced",
+      "description": "Search is the schema for the searches API.",
+      "schemaFile": "Search.json"
+    },
+    {
+      "kind": "MulticlusterRoleAssignment",
+      "apiVersion": "rbac.open-cluster-management.io/v1alpha1",
+      "group": "rbac.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "multiclusterroleassignments",
+      "scope": "Namespaced",
+      "description": "MulticlusterRoleAssignment is the Schema for the multiclusterroleassignments API.",
+      "schemaFile": "MulticlusterRoleAssignment.json"
+    },
+    {
+      "kind": "AWSManagedControlPlane",
+      "apiVersion": "controlplane.cluster.x-k8s.io/v1beta1",
+      "group": "controlplane.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "awsmanagedcontrolplanes",
+      "scope": "Namespaced",
+      "description": "AWSManagedControlPlane is the schema for the Amazon EKS Managed Control Plane API.",
+      "schemaFile": "AWSManagedControlPlane.json"
+    },
+    {
+      "kind": "AWSManagedCluster",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta2",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta2",
+      "plural": "awsmanagedclusters",
+      "scope": "Namespaced",
+      "description": "AWSManagedCluster is the Schema for the awsmanagedclusters API",
+      "schemaFile": "AWSManagedCluster.json"
+    },
+    {
+      "kind": "AWSManagedControlPlaneTemplate",
+      "apiVersion": "controlplane.cluster.x-k8s.io/v1beta2",
+      "group": "controlplane.cluster.x-k8s.io",
+      "version": "v1beta2",
+      "plural": "awsmanagedcontrolplanetemplates",
+      "scope": "Namespaced",
+      "description": "AWSManagedControlPlaneTemplate is the Schema for the AWSManagedControlPlaneTemplates API.",
+      "schemaFile": "AWSManagedControlPlaneTemplate.json"
+    },
+    {
+      "kind": "ROSARoleConfig",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta2",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta2",
+      "plural": "rosaroleconfigs",
+      "scope": "Namespaced",
+      "description": "ROSARoleConfig is the Schema for the rosaroleconfigs API",
+      "schemaFile": "ROSARoleConfig.json"
+    },
+    {
+      "kind": "EKSConfigTemplate",
+      "apiVersion": "bootstrap.cluster.x-k8s.io/v1beta1",
+      "group": "bootstrap.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "eksconfigtemplates",
+      "scope": "Namespaced",
+      "description": "EKSConfigTemplate is the Amazon EKS Bootstrap Configuration Template API.",
+      "schemaFile": "EKSConfigTemplate.json"
+    },
+    {
+      "kind": "AWSClusterStaticIdentity",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "awsclusterstaticidentities",
+      "scope": "Cluster",
+      "description": "AWSClusterStaticIdentity is the Schema for the awsclusterstaticidentities API\nIt represents a reference to an AWS access key ID and secret access key, stored in a secret.",
+      "schemaFile": "AWSClusterStaticIdentity.json"
+    },
+    {
+      "kind": "ROSACluster",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta2",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta2",
+      "plural": "rosaclusters",
+      "scope": "Namespaced",
+      "description": "ROSACluster is the Schema for the ROSAClusters API.",
+      "schemaFile": "ROSACluster.json"
+    },
+    {
+      "kind": "ROSAMachinePool",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta2",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta2",
+      "plural": "rosamachinepools",
+      "scope": "Namespaced",
+      "description": "ROSAMachinePool is the Schema for the rosamachinepools API.",
+      "schemaFile": "ROSAMachinePool.json"
+    },
+    {
+      "kind": "AWSMachineTemplate",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "awsmachinetemplates",
+      "scope": "Namespaced",
+      "description": "AWSMachineTemplate is the schema for the Amazon EC2 Machine Templates API.",
+      "schemaFile": "AWSMachineTemplate.json"
+    },
+    {
+      "kind": "AWSClusterRoleIdentity",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "awsclusterroleidentities",
+      "scope": "Cluster",
+      "description": "AWSClusterRoleIdentity is the Schema for the awsclusterroleidentities API\nIt is used to assume a role using the provided sourceRef.",
+      "schemaFile": "AWSClusterRoleIdentity.json"
+    },
+    {
+      "kind": "AWSFargateProfile",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "awsfargateprofiles",
+      "scope": "Namespaced",
+      "description": "AWSFargateProfile is the Schema for the awsfargateprofiles API.",
+      "schemaFile": "AWSFargateProfile.json"
+    },
+    {
+      "kind": "AWSCluster",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "awsclusters",
+      "scope": "Namespaced",
+      "description": "AWSCluster is the schema for Amazon EC2 based Kubernetes Cluster API.",
+      "schemaFile": "AWSCluster.json"
+    },
+    {
+      "kind": "AWSManagedMachinePool",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "awsmanagedmachinepools",
+      "scope": "Namespaced",
+      "description": "AWSManagedMachinePool is the Schema for the awsmanagedmachinepools API.",
+      "schemaFile": "AWSManagedMachinePool.json"
+    },
+    {
+      "kind": "AWSClusterControllerIdentity",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "awsclustercontrolleridentities",
+      "scope": "Cluster",
+      "description": "AWSClusterControllerIdentity is the Schema for the awsclustercontrolleridentities API\nIt is used to grant access to use Cluster API Provider AWS Controller credentials.",
+      "schemaFile": "AWSClusterControllerIdentity.json"
+    },
+    {
+      "kind": "ROSANetwork",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta2",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta2",
+      "plural": "rosanetworks",
+      "scope": "Namespaced",
+      "description": "ROSANetwork is the schema for the rosanetworks API",
+      "schemaFile": "ROSANetwork.json"
+    },
+    {
+      "kind": "EKSConfig",
+      "apiVersion": "bootstrap.cluster.x-k8s.io/v1beta1",
+      "group": "bootstrap.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "eksconfigs",
+      "scope": "Namespaced",
+      "description": "EKSConfig is the schema for the Amazon EKS Machine Bootstrap Configuration API.",
+      "schemaFile": "EKSConfig.json"
+    },
+    {
+      "kind": "AWSClusterTemplate",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "awsclustertemplates",
+      "scope": "Namespaced",
+      "description": "AWSClusterTemplate is the schema for Amazon EC2 based Kubernetes Cluster Templates.",
+      "schemaFile": "AWSClusterTemplate.json"
+    },
+    {
+      "kind": "AWSMachinePool",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "awsmachinepools",
+      "scope": "Namespaced",
+      "description": "AWSMachinePool is the Schema for the awsmachinepools API.",
+      "schemaFile": "AWSMachinePool.json"
+    },
+    {
+      "kind": "AWSManagedClusterTemplate",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta2",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta2",
+      "plural": "awsmanagedclustertemplates",
+      "scope": "Namespaced",
+      "description": "AWSManagedClusterTemplate is the Schema for the AWSManagedClusterTemplates API.",
+      "schemaFile": "AWSManagedClusterTemplate.json"
+    },
+    {
+      "kind": "ROSAControlPlane",
+      "apiVersion": "controlplane.cluster.x-k8s.io/v1beta2",
+      "group": "controlplane.cluster.x-k8s.io",
+      "version": "v1beta2",
+      "plural": "rosacontrolplanes",
+      "scope": "Namespaced",
+      "description": "ROSAControlPlane is the Schema for the ROSAControlPlanes API.",
+      "schemaFile": "ROSAControlPlane.json"
+    },
+    {
+      "kind": "AWSMachine",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "awsmachines",
+      "scope": "Namespaced",
+      "description": "AWSMachine is the schema for Amazon EC2 machines.",
+      "schemaFile": "AWSMachine.json"
+    },
+    {
+      "kind": "AppliedManifestWork",
+      "apiVersion": "work.open-cluster-management.io/v1",
+      "group": "work.open-cluster-management.io",
+      "version": "v1",
+      "plural": "appliedmanifestworks",
+      "scope": "Cluster",
+      "description": "AppliedManifestWork represents an applied manifestwork on managed cluster that is placed\non a managed cluster. An AppliedManifestWork links to a manifestwork on a hub recording resources\ndeployed in the managed cluster.\nWhen the agent is removed from managed cluster, cluster-admin on managed cluster\ncan delete appliedmanifestwork to remove resources deployed by the agent.\nThe name of the appliedmanifestwork must be in the format of\n{hash of hub's first kube-apiserver url}-{manifestwork name}",
+      "schemaFile": "AppliedManifestWork.json"
+    },
+    {
+      "kind": "ClusterProperty",
+      "apiVersion": "about.k8s.io/v1alpha1",
+      "group": "about.k8s.io",
+      "version": "v1alpha1",
+      "plural": "clusterproperties",
+      "scope": "Cluster",
+      "description": "ClusterProperty is the Schema for the clusterproperties API",
+      "schemaFile": "ClusterProperty.json"
+    },
+    {
+      "kind": "DiscoveredCluster",
+      "apiVersion": "discovery.open-cluster-management.io/v1",
+      "group": "discovery.open-cluster-management.io",
+      "version": "v1",
+      "plural": "discoveredclusters",
+      "scope": "Namespaced",
+      "description": "DiscoveredCluster is the Schema for the discoveredclusters API",
+      "schemaFile": "DiscoveredCluster.json"
+    },
+    {
+      "kind": "DiscoveryConfig",
+      "apiVersion": "discovery.open-cluster-management.io/v1",
+      "group": "discovery.open-cluster-management.io",
+      "version": "v1",
+      "plural": "discoveryconfigs",
+      "scope": "Namespaced",
+      "description": "DiscoveryConfig is the Schema for the discoveryconfigs API",
+      "schemaFile": "DiscoveryConfig.json"
+    },
+    {
+      "kind": "Agent",
+      "apiVersion": "agent-install.openshift.io/v1beta1",
+      "group": "agent-install.openshift.io",
+      "version": "v1beta1",
+      "plural": "agents",
+      "scope": "Namespaced",
+      "description": "Agent is the Schema for the hosts API",
+      "schemaFile": "Agent.json"
+    },
+    {
+      "kind": "InfraEnv",
+      "apiVersion": "agent-install.openshift.io/v1beta1",
+      "group": "agent-install.openshift.io",
+      "version": "v1beta1",
+      "plural": "infraenvs",
+      "scope": "Namespaced",
+      "description": "Description not found in CRD.",
+      "schemaFile": "InfraEnv.json"
+    },
+    {
+      "kind": "AgentClusterInstall",
+      "apiVersion": "extensions.hive.openshift.io/v1beta1",
+      "group": "extensions.hive.openshift.io",
+      "version": "v1beta1",
+      "plural": "agentclusterinstalls",
+      "scope": "Namespaced",
+      "description": "AgentClusterInstall represents a request to provision an agent based cluster.",
+      "schemaFile": "AgentClusterInstall.json"
+    },
+    {
+      "kind": "NMStateConfig",
+      "apiVersion": "agent-install.openshift.io/v1beta1",
+      "group": "agent-install.openshift.io",
+      "version": "v1beta1",
+      "plural": "nmstateconfigs",
+      "scope": "Namespaced",
+      "description": "Description not found in CRD.",
+      "schemaFile": "NMStateConfig.json"
+    },
+    {
+      "kind": "AgentServiceConfig",
+      "apiVersion": "agent-install.openshift.io/v1beta1",
+      "group": "agent-install.openshift.io",
+      "version": "v1beta1",
+      "plural": "agentserviceconfigs",
+      "scope": "Cluster",
+      "description": "AgentServiceConfig represents an Assisted Service deployment.\nOnly an AgentServiceConfig with name=\"agent\" will be reconciled. All other\nnames will be rejected.",
+      "schemaFile": "AgentServiceConfig.json"
+    },
+    {
+      "kind": "AgentClassification",
+      "apiVersion": "agent-install.openshift.io/v1beta1",
+      "group": "agent-install.openshift.io",
+      "version": "v1beta1",
+      "plural": "agentclassifications",
+      "scope": "Namespaced",
+      "description": "AgentClassification is the Schema for the AgentClassifications API",
+      "schemaFile": "AgentClassification.json"
+    },
+    {
+      "kind": "HypershiftAgentServiceConfig",
+      "apiVersion": "agent-install.openshift.io/v1beta1",
+      "group": "agent-install.openshift.io",
+      "version": "v1beta1",
+      "plural": "hypershiftagentserviceconfigs",
+      "scope": "Namespaced",
+      "description": "HypershiftAgentServiceConfig represents an Assisted Service deployment over zero-worker\nhypershift cluster. Each resource represents a deployment scheme over hosted cluster\nthat runs in that namespace.",
+      "schemaFile": "HypershiftAgentServiceConfig.json"
+    },
+    {
+      "kind": "IPClaim",
+      "apiVersion": "ipam.metal3.io/v1alpha1",
+      "group": "ipam.metal3.io",
+      "version": "v1alpha1",
+      "plural": "ipclaims",
+      "scope": "Namespaced",
+      "description": "IPClaim is the Schema for the ipclaims API.",
+      "schemaFile": "IPClaim.json"
+    },
+    {
+      "kind": "IPAddress",
+      "apiVersion": "ipam.metal3.io/v1alpha1",
+      "group": "ipam.metal3.io",
+      "version": "v1alpha1",
+      "plural": "ipaddresses",
+      "scope": "Namespaced",
+      "description": "IPAddress is the Schema for the ipaddresses API.",
+      "schemaFile": "IPAddress.json"
+    },
+    {
+      "kind": "IPPool",
+      "apiVersion": "ipam.metal3.io/v1alpha1",
+      "group": "ipam.metal3.io",
+      "version": "v1alpha1",
+      "plural": "ippools",
+      "scope": "Namespaced",
+      "description": "IPPool is the Schema for the ippools API.",
+      "schemaFile": "IPPool.json"
+    },
+    {
+      "kind": "InternalEngineComponent",
+      "apiVersion": "multicluster.openshift.io/v1",
+      "group": "multicluster.openshift.io",
+      "version": "v1",
+      "plural": "internalenginecomponents",
+      "scope": "Namespaced",
+      "description": "Description not found in CRD.",
+      "schemaFile": "InternalEngineComponent.json"
+    },
+    {
+      "kind": "KlusterletConfig",
+      "apiVersion": "config.open-cluster-management.io/v1alpha1",
+      "group": "config.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "klusterletconfigs",
+      "scope": "Cluster",
+      "description": "KlusterletConfig contains the configuration of a klusterlet including the upgrade strategy, config overrides, proxy configurations etc.",
+      "schemaFile": "KlusterletConfig.json"
+    },
+    {
+      "kind": "ManagedClusterView",
+      "apiVersion": "view.open-cluster-management.io/v1beta1",
+      "group": "view.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "managedclusterviews",
+      "scope": "Namespaced",
+      "description": "ManagedClusterView is the view of resources on a managed cluster",
+      "schemaFile": "ManagedClusterView.json"
+    },
+    {
+      "kind": "ManagedClusterAction",
+      "apiVersion": "action.open-cluster-management.io/v1beta1",
+      "group": "action.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "managedclusteractions",
+      "scope": "Namespaced",
+      "description": "ManagedClusterAction is the action that will be done on a cluster",
+      "schemaFile": "ManagedClusterAction.json"
+    },
+    {
+      "kind": "ManagedClusterImageRegistry",
+      "apiVersion": "imageregistry.open-cluster-management.io/v1alpha1",
+      "group": "imageregistry.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "managedclusterimageregistries",
+      "scope": "Namespaced",
+      "description": "ManagedClusterImageRegistry represents the image overridden configuration information.",
+      "schemaFile": "ManagedClusterImageRegistry.json"
+    },
+    {
+      "kind": "ManagedClusterInfo",
+      "apiVersion": "internal.open-cluster-management.io/v1beta1",
+      "group": "internal.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "managedclusterinfos",
+      "scope": "Namespaced",
+      "description": "ManagedClusterInfo represents the information of managed cluster that acm hub needs to know",
+      "schemaFile": "ManagedClusterInfo.json"
+    },
+    {
+      "kind": "Metal3Cluster",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "metal3clusters",
+      "scope": "Namespaced",
+      "description": "Metal3Cluster is the Schema for the metal3clusters API.",
+      "schemaFile": "Metal3Cluster.json"
+    },
+    {
+      "kind": "Metal3DataTemplate",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "metal3datatemplates",
+      "scope": "Namespaced",
+      "description": "Metal3DataTemplate is the Schema for the metal3datatemplates API.",
+      "schemaFile": "Metal3DataTemplate.json"
+    },
+    {
+      "kind": "Metal3Remediation",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "metal3remediations",
+      "scope": "Namespaced",
+      "description": "Metal3Remediation is the Schema for the metal3remediations API.",
+      "schemaFile": "Metal3Remediation.json"
+    },
+    {
+      "kind": "Metal3ClusterTemplate",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "metal3clustertemplates",
+      "scope": "Namespaced",
+      "description": "Metal3ClusterTemplate is the Schema for the metal3clustertemplates API.",
+      "schemaFile": "Metal3ClusterTemplate.json"
+    },
+    {
+      "kind": "Metal3DataClaim",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "metal3dataclaims",
+      "scope": "Namespaced",
+      "description": "Metal3DataClaim is the Schema for the metal3datas API.",
+      "schemaFile": "Metal3DataClaim.json"
+    },
+    {
+      "kind": "Metal3RemediationTemplate",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "metal3remediationtemplates",
+      "scope": "Namespaced",
+      "description": "Metal3RemediationTemplate is the Schema for the metal3remediationtemplates API.",
+      "schemaFile": "Metal3RemediationTemplate.json"
+    },
+    {
+      "kind": "Metal3MachineTemplate",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "metal3machinetemplates",
+      "scope": "Namespaced",
+      "description": "Metal3MachineTemplate is the Schema for the metal3machinetemplates API.",
+      "schemaFile": "Metal3MachineTemplate.json"
+    },
+    {
+      "kind": "Metal3Data",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "metal3datas",
+      "scope": "Namespaced",
+      "description": "Metal3Data is the Schema for the metal3datas API.",
+      "schemaFile": "Metal3Data.json"
+    },
+    {
+      "kind": "Metal3Machine",
+      "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+      "group": "infrastructure.cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "metal3machines",
+      "scope": "Namespaced",
+      "description": "Metal3Machine is the Schema for the metal3machines API.",
+      "schemaFile": "Metal3Machine.json"
+    },
+    {
+      "kind": "ClusterCurator",
+      "apiVersion": "cluster.open-cluster-management.io/v1beta1",
+      "group": "cluster.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "clustercurators",
+      "scope": "Namespaced",
+      "description": "ClusterCurator is the custom resource for the clustercurators API. This kind allows you to run Ansible prehook and posthook jobs before provisioning Hive or HyperShift and importing a cluster. Additionally, cluster upgrade and destroy operations are supported as well.",
+      "schemaFile": "ClusterCurator.json"
+    },
+    {
+      "kind": "ManagedServiceAccount",
+      "apiVersion": "authentication.open-cluster-management.io/v1alpha1",
+      "group": "authentication.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "managedserviceaccounts",
+      "scope": "Namespaced",
+      "description": "ManagedServiceAccount is the Schema for the managedserviceaccounts API",
+      "schemaFile": "ManagedServiceAccount.json"
+    },
+    {
+      "kind": "ClusterSync",
+      "apiVersion": "hiveinternal.openshift.io/v1alpha1",
+      "group": "hiveinternal.openshift.io",
+      "version": "v1alpha1",
+      "plural": "clustersyncs",
+      "scope": "Namespaced",
+      "description": "ClusterSync is the status of all of the SelectorSyncSets and SyncSets that apply to a ClusterDeployment.",
+      "schemaFile": "ClusterSync.json"
+    },
+    {
+      "kind": "ClusterRelocate",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "clusterrelocates",
+      "scope": "Namespaced",
+      "description": "ClusterRelocate is the Schema for the ClusterRelocates API",
+      "schemaFile": "ClusterRelocate.json"
+    },
+    {
+      "kind": "ClusterClaim",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "clusterclaims",
+      "scope": "Namespaced",
+      "description": "ClusterClaim represents a claim to a cluster from a cluster pool.",
+      "schemaFile": "ClusterClaim.json"
+    },
+    {
+      "kind": "ClusterDeprovision",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "clusterdeprovisions",
+      "scope": "Namespaced",
+      "description": "ClusterDeprovision is the Schema for the clusterdeprovisions API",
+      "schemaFile": "ClusterDeprovision.json"
+    },
+    {
+      "kind": "FakeClusterInstall",
+      "apiVersion": "hiveinternal.openshift.io/v1alpha1",
+      "group": "hiveinternal.openshift.io",
+      "version": "v1alpha1",
+      "plural": "fakeclusterinstalls",
+      "scope": "Namespaced",
+      "description": "FakeClusterInstall represents a fake request to provision an agent based cluster.",
+      "schemaFile": "FakeClusterInstall.json"
+    },
+    {
+      "kind": "ClusterSyncLease",
+      "apiVersion": "hiveinternal.openshift.io/v1alpha1",
+      "group": "hiveinternal.openshift.io",
+      "version": "v1alpha1",
+      "plural": "clustersyncleases",
+      "scope": "Namespaced",
+      "description": "ClusterSyncLease is a record of the last time that SyncSets and SelectorSyncSets were applied to a cluster.",
+      "schemaFile": "ClusterSyncLease.json"
+    },
+    {
+      "kind": "HiveConfig",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "hiveconfigs",
+      "scope": "Cluster",
+      "description": "HiveConfig is the Schema for the hives API",
+      "schemaFile": "HiveConfig.json"
+    },
+    {
+      "kind": "DNSZone",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "dnszones",
+      "scope": "Namespaced",
+      "description": "DNSZone is the Schema for the dnszones API",
+      "schemaFile": "DNSZone.json"
+    },
+    {
+      "kind": "ClusterImageSet",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "clusterimagesets",
+      "scope": "Cluster",
+      "description": "ClusterImageSet is the Schema for the clusterimagesets API",
+      "schemaFile": "ClusterImageSet.json"
+    },
+    {
+      "kind": "ClusterDeployment",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "clusterdeployments",
+      "scope": "Namespaced",
+      "description": "ClusterDeployment is the Schema for the clusterdeployments API",
+      "schemaFile": "ClusterDeployment.json"
+    },
+    {
+      "kind": "ClusterPool",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "clusterpools",
+      "scope": "Namespaced",
+      "description": "ClusterPool represents a pool of clusters that should be kept ready to be given out to users. Clusters are removed\nfrom the pool once claimed and then automatically replaced with a new one.",
+      "schemaFile": "ClusterPool.json"
+    },
+    {
+      "kind": "ClusterProvision",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "clusterprovisions",
+      "scope": "Namespaced",
+      "description": "ClusterProvision is the Schema for the clusterprovisions API",
+      "schemaFile": "ClusterProvision.json"
+    },
+    {
+      "kind": "SyncIdentityProvider",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "syncidentityproviders",
+      "scope": "Namespaced",
+      "description": "SyncIdentityProvider is the Schema for the SyncIdentityProvider API",
+      "schemaFile": "SyncIdentityProvider.json"
+    },
+    {
+      "kind": "SelectorSyncSet",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "selectorsyncsets",
+      "scope": "Cluster",
+      "description": "SelectorSyncSet is the Schema for the SelectorSyncSet API",
+      "schemaFile": "SelectorSyncSet.json"
+    },
+    {
+      "kind": "SelectorSyncIdentityProvider",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "selectorsyncidentityproviders",
+      "scope": "Cluster",
+      "description": "SelectorSyncIdentityProvider is the Schema for the SelectorSyncSet API",
+      "schemaFile": "SelectorSyncIdentityProvider.json"
+    },
+    {
+      "kind": "MachinePoolNameLease",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "machinepoolnameleases",
+      "scope": "Namespaced",
+      "description": "MachinePoolNameLease is the Schema for the MachinePoolNameLeases API. This resource is mostly empty\nas we're primarily relying on the name to determine if a lease is available.\nNote that not all cloud providers require the use of a lease for naming, at present this\nis only required for GCP where we're extremely restricted on name lengths.",
+      "schemaFile": "MachinePoolNameLease.json"
+    },
+    {
+      "kind": "ClusterDeploymentCustomization",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "clusterdeploymentcustomizations",
+      "scope": "Namespaced",
+      "description": "ClusterDeploymentCustomization is the Schema for clusterdeploymentcustomizations API.",
+      "schemaFile": "ClusterDeploymentCustomization.json"
+    },
+    {
+      "kind": "ClusterState",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "clusterstates",
+      "scope": "Namespaced",
+      "description": "ClusterState is the Schema for the clusterstates API",
+      "schemaFile": "ClusterState.json"
+    },
+    {
+      "kind": "SyncSet",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "syncsets",
+      "scope": "Namespaced",
+      "description": "SyncSet is the Schema for the SyncSet API",
+      "schemaFile": "SyncSet.json"
+    },
+    {
+      "kind": "Checkpoint",
+      "apiVersion": "hive.openshift.io/v1",
+      "group": "hive.openshift.io",
+      "version": "v1",
+      "plural": "checkpoints",
+      "scope": "Namespaced",
+      "description": "Checkpoint is the Schema for the backup of Hive objects.",
+      "schemaFile": "Checkpoint.json"
+    },
+    {
+      "kind": "ImageClusterInstall",
+      "apiVersion": "extensions.hive.openshift.io/v1alpha1",
+      "group": "extensions.hive.openshift.io",
+      "version": "v1alpha1",
+      "plural": "imageclusterinstalls",
+      "scope": "Namespaced",
+      "description": "ImageClusterInstall is the Schema for the imageclusterinstall API",
+      "schemaFile": "ImageClusterInstall.json"
+    },
+    {
+      "kind": "OpenshiftAssistedControlPlane",
+      "apiVersion": "controlplane.cluster.x-k8s.io/v1alpha2",
+      "group": "controlplane.cluster.x-k8s.io",
+      "version": "v1alpha2",
+      "plural": "openshiftassistedcontrolplanes",
+      "scope": "Namespaced",
+      "description": "OpenshiftAssistedControlPlane is the Schema for the openshiftassistedcontrolplane API",
+      "schemaFile": "OpenshiftAssistedControlPlane.json"
+    },
+    {
+      "kind": "OpenshiftAssistedConfig",
+      "apiVersion": "bootstrap.cluster.x-k8s.io/v1alpha1",
+      "group": "bootstrap.cluster.x-k8s.io",
+      "version": "v1alpha1",
+      "plural": "openshiftassistedconfigs",
+      "scope": "Namespaced",
+      "description": "OpenshiftAssistedConfig is the Schema for the openshiftassistedconfig API",
+      "schemaFile": "OpenshiftAssistedConfig.json"
+    },
+    {
+      "kind": "OpenshiftAssistedConfigTemplate",
+      "apiVersion": "bootstrap.cluster.x-k8s.io/v1alpha1",
+      "group": "bootstrap.cluster.x-k8s.io",
+      "version": "v1alpha1",
+      "plural": "openshiftassistedconfigtemplates",
+      "scope": "Namespaced",
+      "description": "OpenshiftAssistedConfigTemplate is the Schema for the openshiftassistedconfigtemplates API",
+      "schemaFile": "OpenshiftAssistedConfigTemplate.json"
+    },
+    {
+      "kind": "Machine",
+      "apiVersion": "cluster.x-k8s.io/v1alpha3",
+      "group": "cluster.x-k8s.io",
+      "version": "v1alpha3",
+      "plural": "machines",
+      "scope": "Namespaced",
+      "description": "Machine is the Schema for the machines API.\nDeprecated: This type will be removed in one of the next releases.",
+      "schemaFile": "Machine.json"
+    },
+    {
+      "kind": "ClusterResourceSetBinding",
+      "apiVersion": "addons.cluster.x-k8s.io/v1alpha3",
+      "group": "addons.cluster.x-k8s.io",
+      "version": "v1alpha3",
+      "plural": "clusterresourcesetbindings",
+      "scope": "Namespaced",
+      "description": "ClusterResourceSetBinding lists all matching ClusterResourceSets with the cluster it belongs to.\nDeprecated: This type will be removed in one of the next releases.",
+      "schemaFile": "ClusterResourceSetBinding.json"
+    },
+    {
+      "kind": "ClusterResourceSet",
+      "apiVersion": "addons.cluster.x-k8s.io/v1alpha3",
+      "group": "addons.cluster.x-k8s.io",
+      "version": "v1alpha3",
+      "plural": "clusterresourcesets",
+      "scope": "Namespaced",
+      "description": "ClusterResourceSet is the Schema for the clusterresourcesets API.\nDeprecated: This type will be removed in one of the next releases.",
+      "schemaFile": "ClusterResourceSet.json"
+    },
+    {
+      "kind": "MachineDeployment",
+      "apiVersion": "cluster.x-k8s.io/v1alpha3",
+      "group": "cluster.x-k8s.io",
+      "version": "v1alpha3",
+      "plural": "machinedeployments",
+      "scope": "Namespaced",
+      "description": "MachineDeployment is the Schema for the machinedeployments API.\nDeprecated: This type will be removed in one of the next releases.",
+      "schemaFile": "MachineDeployment.json"
+    },
+    {
+      "kind": "MachineDrainRule",
+      "apiVersion": "cluster.x-k8s.io/v1beta1",
+      "group": "cluster.x-k8s.io",
+      "version": "v1beta1",
+      "plural": "machinedrainrules",
+      "scope": "Namespaced",
+      "description": "MachineDrainRule is the Schema for the MachineDrainRule API.",
+      "schemaFile": "MachineDrainRule.json"
+    },
+    {
+      "kind": "ClusterClass",
+      "apiVersion": "cluster.x-k8s.io/v1alpha4",
+      "group": "cluster.x-k8s.io",
+      "version": "v1alpha4",
+      "plural": "clusterclasses",
+      "scope": "Namespaced",
+      "description": "ClusterClass is a template which can be used to create managed topologies.\nDeprecated: This type will be removed in one of the next releases.",
+      "schemaFile": "ClusterClass.json"
+    },
+    {
+      "kind": "MachinePool",
+      "apiVersion": "cluster.x-k8s.io/v1alpha3",
+      "group": "cluster.x-k8s.io",
+      "version": "v1alpha3",
+      "plural": "machinepools",
+      "scope": "Namespaced",
+      "description": "MachinePool is the Schema for the machinepools API.\nDeprecated: This type will be removed in one of the next releases.",
+      "schemaFile": "MachinePool.json"
+    },
+    {
+      "kind": "MachineSet",
+      "apiVersion": "cluster.x-k8s.io/v1alpha3",
+      "group": "cluster.x-k8s.io",
+      "version": "v1alpha3",
+      "plural": "machinesets",
+      "scope": "Namespaced",
+      "description": "MachineSet is the Schema for the machinesets API.\nDeprecated: This type will be removed in one of the next releases.",
+      "schemaFile": "MachineSet.json"
+    },
+    {
+      "kind": "Cluster",
+      "apiVersion": "cluster.x-k8s.io/v1alpha3",
+      "group": "cluster.x-k8s.io",
+      "version": "v1alpha3",
+      "plural": "clusters",
+      "scope": "Namespaced",
+      "description": "Cluster is the Schema for the clusters API.",
+      "schemaFile": "Cluster.json"
+    },
+    {
+      "kind": "ExtensionConfig",
+      "apiVersion": "runtime.cluster.x-k8s.io/v1alpha1",
+      "group": "runtime.cluster.x-k8s.io",
+      "version": "v1alpha1",
+      "plural": "extensionconfigs",
+      "scope": "Cluster",
+      "description": "ExtensionConfig is the Schema for the ExtensionConfig API.",
+      "schemaFile": "ExtensionConfig.json"
+    },
+    {
+      "kind": "MachineHealthCheck",
+      "apiVersion": "cluster.x-k8s.io/v1alpha3",
+      "group": "cluster.x-k8s.io",
+      "version": "v1alpha3",
+      "plural": "machinehealthchecks",
+      "scope": "Namespaced",
+      "description": "MachineHealthCheck is the Schema for the machinehealthchecks API.\nDeprecated: This type will be removed in one of the next releases.",
+      "schemaFile": "MachineHealthCheck.json"
+    },
+    {
+      "kind": "ManagedProxyServiceResolver",
+      "apiVersion": "proxy.open-cluster-management.io/v1alpha1",
+      "group": "proxy.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "managedproxyserviceresolvers",
+      "scope": "Cluster",
+      "description": "ManagedProxyServiceResolver defines a target service that need to expose from a set of managed clusters to the hub. To access a target service on a managed cluster from hub. First, users need to apply a proper ManagedProxyServiceResolver. The managed cluster should match the ManagedClusterSet in the ManagedProxyServiceResolver.Spec. The serviceNamespace and serviceName should also match the target service. A usage example: /examples/access-other-services/main.go",
+      "schemaFile": "ManagedProxyServiceResolver.json"
+    },
+    {
+      "kind": "ManagedProxyConfiguration",
+      "apiVersion": "proxy.open-cluster-management.io/v1alpha1",
+      "group": "proxy.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "managedproxyconfigurations",
+      "scope": "Cluster",
+      "description": "ManagedProxyConfiguration is the Schema for the managedproxyconfigurations API",
+      "schemaFile": "ManagedProxyConfiguration.json"
+    },
+    {
+      "kind": "ClusterManager",
+      "apiVersion": "operator.open-cluster-management.io/v1",
+      "group": "operator.open-cluster-management.io",
+      "version": "v1",
+      "plural": "clustermanagers",
+      "scope": "Cluster",
+      "description": "ClusterManager configures the controllers on the hub that govern registration and work distribution for attached Klusterlets.\nIn Default mode, ClusterManager will only be deployed in open-cluster-management-hub namespace.\nIn Hosted mode, ClusterManager will be deployed in the namespace with the same name as cluster manager.",
+      "schemaFile": "ClusterManager.json"
+    },
+    {
+      "kind": "AddOnPlacementScore",
+      "apiVersion": "cluster.open-cluster-management.io/v1alpha1",
+      "group": "cluster.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "addonplacementscores",
+      "scope": "Namespaced",
+      "description": "AddOnPlacementScore represents a bundle of scores of one managed cluster, which could be used by placement.\nAddOnPlacementScore is a namespace scoped resource. The namespace of the resource is the cluster namespace.",
+      "schemaFile": "AddOnPlacementScore.json"
+    },
+    {
+      "kind": "ClusterProfile",
+      "apiVersion": "multicluster.x-k8s.io/v1alpha1",
+      "group": "multicluster.x-k8s.io",
+      "version": "v1alpha1",
+      "plural": "clusterprofiles",
+      "scope": "Namespaced",
+      "description": "ClusterProfile represents a single cluster in a multi-cluster deployment.",
+      "schemaFile": "ClusterProfile.json"
+    },
+    {
+      "kind": "AddOnTemplate",
+      "apiVersion": "addon.open-cluster-management.io/v1alpha1",
+      "group": "addon.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "addontemplates",
+      "scope": "Cluster",
+      "description": "AddOnTemplate is the Custom Resource object, it is used to describe\nhow to deploy the addon agent and how to register the addon.\nAddOnTemplate is a cluster-scoped resource, and will only be used\non the hub cluster.",
+      "schemaFile": "AddOnTemplate.json"
+    },
+    {
+      "kind": "ManagedClusterSet",
+      "apiVersion": "cluster.open-cluster-management.io/v1beta2",
+      "group": "cluster.open-cluster-management.io",
+      "version": "v1beta2",
+      "plural": "managedclustersets",
+      "scope": "Cluster",
+      "description": "ManagedClusterSet defines a group of ManagedClusters that you can run\nworkloads on. You can define a workload to be deployed on a ManagedClusterSet. See the following options  for the workload:\n- The workload can run on any ManagedCluster in the ManagedClusterSet\n- The workload cannot run on any ManagedCluster outside the ManagedClusterSet\n- The service exposed by the workload can be shared in any ManagedCluster in the ManagedClusterSet\nTo assign a ManagedCluster to a certain ManagedClusterSet, add a label with the name cluster.open-cluster-management.io/clusterset\non the ManagedCluster to refer to the ManagedClusterSet. You are not\nallowed to add or remove this label on a ManagedCluster unless you have an\nRBAC rule to CREATE on a virtual subresource of managedclustersets/join.\nTo update this label, you must have the permission on both\nthe old and new ManagedClusterSet.",
+      "schemaFile": "ManagedClusterSet.json"
+    },
+    {
+      "kind": "AddOnDeploymentConfig",
+      "apiVersion": "addon.open-cluster-management.io/v1alpha1",
+      "group": "addon.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "addondeploymentconfigs",
+      "scope": "Namespaced",
+      "description": "AddOnDeploymentConfig represents a configuration to customize the deployments of an add-on.\nFor example, you can specify the NodePlacement to control the scheduling of the add-on agents.",
+      "schemaFile": "AddOnDeploymentConfig.json"
+    },
+    {
+      "kind": "PlacementDecision",
+      "apiVersion": "cluster.open-cluster-management.io/v1beta1",
+      "group": "cluster.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "placementdecisions",
+      "scope": "Namespaced",
+      "description": "PlacementDecision indicates a decision from a placement.\nPlacementDecision must have a cluster.open-cluster-management.io/placement={placement name} label to reference a certain placement.\nIf a placement has spec.numberOfClusters specified, the total number of decisions contained in\nthe status.decisions of PlacementDecisions must be the same as NumberOfClusters. Otherwise, the\ntotal number of decisions must equal the number of ManagedClusters that\nmatch the placement requirements.\nSome of the decisions might be empty when there are not enough ManagedClusters to meet the placement requirements.",
+      "schemaFile": "PlacementDecision.json"
+    },
+    {
+      "kind": "Placement",
+      "apiVersion": "cluster.open-cluster-management.io/v1beta1",
+      "group": "cluster.open-cluster-management.io",
+      "version": "v1beta1",
+      "plural": "placements",
+      "scope": "Namespaced",
+      "description": "Placement defines a rule to select a set of ManagedClusters from the ManagedClusterSets bound\nto the placement namespace.\nHere is how the placement policy combines with other selection methods to determine a matching\nlist of ManagedClusters:\n 1. Kubernetes clusters are registered with hub as cluster-scoped ManagedClusters;\n 2. ManagedClusters are organized into cluster-scoped ManagedClusterSets;\n 3. ManagedClusterSets are bound to workload namespaces;\n 4. Namespace-scoped Placements specify a slice of ManagedClusterSets which select a working set\n    of potential ManagedClusters;\n 5. Then Placements subselect from that working set using label/claim selection.\nA ManagedCluster will not be selected if no ManagedClusterSet is bound to the placement\nnamespace. A user is able to bind a ManagedClusterSet to a namespace by creating a\nManagedClusterSetBinding in that namespace if they have an RBAC rule to CREATE on the virtual\nsubresource of `managedclustersets/bind`.\nA slice of PlacementDecisions with the label cluster.open-cluster-management.io/placement={placement name}\nwill be created to represent the ManagedClusters selected by this placement.\nIf a ManagedCluster is selected and added into the PlacementDecisions, other components may\napply workload on it; once it is removed from the PlacementDecisions, the workload applied on\nthis ManagedCluster should be evicted accordingly.",
+      "schemaFile": "Placement.json"
+    },
+    {
+      "kind": "ManifestWorkReplicaSet",
+      "apiVersion": "work.open-cluster-management.io/v1alpha1",
+      "group": "work.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "manifestworkreplicasets",
+      "scope": "Namespaced",
+      "description": "ManifestWorkReplicaSet is the Schema for the ManifestWorkReplicaSet API. This custom resource is able to apply\nManifestWork using Placement for 0..n ManagedCluster(in their namespaces). It will also remove the ManifestWork custom resources\nwhen deleted. Lastly the specific ManifestWork custom resources created per ManagedCluster namespace will be adjusted based on PlacementDecision\nchanges.",
+      "schemaFile": "ManifestWorkReplicaSet.json"
+    },
+    {
+      "kind": "ManagedCluster",
+      "apiVersion": "cluster.open-cluster-management.io/v1",
+      "group": "cluster.open-cluster-management.io",
+      "version": "v1",
+      "plural": "managedclusters",
+      "scope": "Cluster",
+      "description": "ManagedCluster represents the desired state and current status\nof a managed cluster. ManagedCluster is a cluster-scoped resource. The name\nis the cluster UID.\nThe cluster join process is a double opt-in process. See the following join process steps:\n1. The agent on the managed cluster creates a CSR on the hub with the cluster UID and agent name.\n2. The agent on the managed cluster creates a ManagedCluster on the hub.\n3. The cluster admin on the hub cluster approves the CSR for the UID and agent name of the ManagedCluster.\n4. The cluster admin sets the spec.acceptClient of the ManagedCluster to true.\n5. The cluster admin on the managed cluster creates a credential of the kubeconfig for the hub cluster.\nAfter the hub cluster creates the cluster namespace, the klusterlet agent on the ManagedCluster pushes\nthe credential to the hub cluster to use against the kube-apiserver of the ManagedCluster.",
+      "schemaFile": "ManagedCluster.json"
+    },
+    {
+      "kind": "ManagedClusterAddOn",
+      "apiVersion": "addon.open-cluster-management.io/v1alpha1",
+      "group": "addon.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "managedclusteraddons",
+      "scope": "Namespaced",
+      "description": "ManagedClusterAddOn is the Custom Resource object which holds the current state\nof an add-on. This object is used by add-on operators to convey their state.\nThis resource should be created in the ManagedCluster namespace.",
+      "schemaFile": "ManagedClusterAddOn.json"
+    },
+    {
+      "kind": "ManifestWork",
+      "apiVersion": "work.open-cluster-management.io/v1",
+      "group": "work.open-cluster-management.io",
+      "version": "v1",
+      "plural": "manifestworks",
+      "scope": "Namespaced",
+      "description": "ManifestWork represents a manifests workload that hub wants to deploy on the managed cluster.\nA manifest workload is defined as a set of Kubernetes resources.\nManifestWork must be created in the cluster namespace on the hub, so that agent on the\ncorresponding managed cluster can access this resource and deploy on the managed\ncluster.",
+      "schemaFile": "ManifestWork.json"
+    },
+    {
+      "kind": "ClusterManagementAddOn",
+      "apiVersion": "addon.open-cluster-management.io/v1alpha1",
+      "group": "addon.open-cluster-management.io",
+      "version": "v1alpha1",
+      "plural": "clustermanagementaddons",
+      "scope": "Cluster",
+      "description": "ClusterManagementAddOn represents the registration of an add-on to the cluster manager.\nThis resource allows you to discover which add-ons are available for the cluster manager\nand provides metadata information about the add-ons. The ClusterManagementAddOn name is used\nfor the namespace-scoped ManagedClusterAddOn resource.\nClusterManagementAddOn is a cluster-scoped resource.",
+      "schemaFile": "ClusterManagementAddOn.json"
+    },
+    {
+      "kind": "ManagedClusterSetBinding",
+      "apiVersion": "cluster.open-cluster-management.io/v1beta2",
+      "group": "cluster.open-cluster-management.io",
+      "version": "v1beta2",
+      "plural": "managedclustersetbindings",
+      "scope": "Namespaced",
+      "description": "ManagedClusterSetBinding projects a ManagedClusterSet into a certain namespace.\nYou can create a ManagedClusterSetBinding in a namespace and bind it to a\nManagedClusterSet if both have a RBAC rules to CREATE on the virtual subresource of managedclustersets/bind.\nWorkloads that you create in the same namespace can only be distributed to ManagedClusters\nin ManagedClusterSets that are bound in this namespace by higher-level controllers.",
+      "schemaFile": "ManagedClusterSetBinding.json"
+    }
+  ]
+}

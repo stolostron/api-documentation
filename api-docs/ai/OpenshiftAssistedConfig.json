@@ -1,0 +1,236 @@
+{
+  "kind": "OpenshiftAssistedConfig",
+  "apiVersion": "bootstrap.cluster.x-k8s.io/v1alpha1",
+  "metadata": {
+    "group": "bootstrap.cluster.x-k8s.io",
+    "version": "v1alpha1",
+    "plural": "openshiftassistedconfigs",
+    "singular": "openshiftassistedconfig",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "OpenshiftAssistedConfigSpec defines the desired state of OpenshiftAssistedConfig",
+    "fields": {
+      "additionalNTPSources": {
+        "type": "array",
+        "description": "AdditionalNTPSources is a list of NTP sources (hostname or IP) to be added to all cluster\nhosts. They are added to any NTP sources that were configured through other means."
+      },
+      "additionalTrustBundle": {
+        "type": "string",
+        "description": "PEM-encoded X.509 certificate bundle. Hosts discovered by this\ninfra-env will trust the certificates in this bundle. Clusters formed\nfrom the hosts discovered by this infra-env will also trust the\ncertificates in this bundle."
+      },
+      "cpuArchitecture": {
+        "type": "string",
+        "description": "CpuArchitecture specifies the target CPU architecture. Default is x86_64",
+        "default": "x86_64"
+      },
+      "kernelArguments": {
+        "type": "array",
+        "description": "KernelArguments is the additional kernel arguments to be passed during boot time of the discovery image.\nApplicable for both iPXE, and ISO streaming from Image Service.",
+        "fields": {
+          "operation": {
+            "type": "string",
+            "description": "Operation is the operation to apply on the kernel argument.",
+            "enum": [
+              "append",
+              "replace",
+              "delete"
+            ]
+          },
+          "value": {
+            "type": "string",
+            "description": "Value can have the form <parameter> or <parameter>=<value>. The following examples should be supported:\nrd.net.timeout.carrier=60\nisolcpus=1,2,10-20,100-2000:2/25\nquiet",
+            "validations": {
+              "pattern": "^(?:(?:[^ \\t\\n\\r\"]+)|(?:\"[^\"]*\"))+$"
+            }
+          }
+        }
+      },
+      "nmStateConfigLabelSelector": {
+        "type": "object",
+        "description": "NmstateConfigLabelSelector associates NMStateConfigs for hosts that are considered part\nof this installation environment.",
+        "fields": {
+          "matchExpressions": {
+            "type": "array",
+            "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "key is the label key that the selector applies to.",
+                "required": true
+              },
+              "operator": {
+                "type": "string",
+                "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                "required": true
+              },
+              "values": {
+                "type": "array",
+                "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+              }
+            }
+          },
+          "matchLabels": {
+            "type": "object",
+            "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+          }
+        }
+      },
+      "nodeRegistration": {
+        "type": "object",
+        "description": "NodeRegistrationOption holds fields related to registering nodes to the cluster",
+        "fields": {
+          "kubeletExtraLabels": {
+            "type": "array",
+            "description": "KubeletExtraLabels passes extra labels to kubelet."
+          },
+          "name": {
+            "type": "string",
+            "description": "Defaults to the hostname of the node if not provided."
+          }
+        }
+      },
+      "osImageVersion": {
+        "type": "string",
+        "description": "OSImageVersion is the version of OS image to use when generating the InfraEnv.\nThe version should refer to an OSImage specified in the AgentServiceConfig\n(i.e. OSImageVersion should equal to an OpenshiftVersion in OSImages list).\nNote: OSImageVersion can't be specified along with ClusterRef."
+      },
+      "proxy": {
+        "type": "object",
+        "description": "Proxy defines the proxy settings for agents and clusters that use the InfraEnv. If\nunset, the agents and clusters will not be configured to use a proxy.",
+        "fields": {
+          "httpProxy": {
+            "type": "string",
+            "description": "HTTPProxy is the URL of the proxy for HTTP requests."
+          },
+          "httpsProxy": {
+            "type": "string",
+            "description": "HTTPSProxy is the URL of the proxy for HTTPS requests."
+          },
+          "noProxy": {
+            "type": "string",
+            "description": "NoProxy is a comma-separated list of domains and CIDRs for which the proxy should not be\nused."
+          }
+        }
+      },
+      "pullSecretRef": {
+        "type": "object",
+        "description": "PullSecretRef is the reference to the secret to use when pulling images.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+            "default": ""
+          }
+        }
+      },
+      "sshAuthorizedKey": {
+        "type": "string",
+        "description": "SSHAuthorizedKey is a SSH public keys that will be added to all agents for use in debugging."
+      }
+    }
+  },
+  "status": {
+    "description": "OpenshiftAssistedConfigStatus defines the observed state of OpenshiftAssistedConfig",
+    "fields": {
+      "agentRef": {
+        "type": "object",
+        "description": "AgentRef references the agent this agent bootstrap config has booted",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+            "default": ""
+          }
+        }
+      },
+      "conditions": {
+        "type": "array",
+        "description": "Conditions defines current service state of the OpenshiftAssistedConfig.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "Last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed. If that is not known, then using the time when\nthe API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "A human readable message indicating details about the transition.\nThis field may be empty."
+          },
+          "reason": {
+            "type": "string",
+            "description": "The reason for the condition's last transition in CamelCase.\nThe specific API may choose whether or not this field is considered a guaranteed API.\nThis field may be empty."
+          },
+          "severity": {
+            "type": "string",
+            "description": "severity provides an explicit classification of Reason code, so the users or machines can immediately\nunderstand the current situation and act accordingly.\nThe Severity field MUST be set only when Status=False."
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.\nMany .condition.type values are consistent across resources like Available, but because arbitrary conditions\ncan be useful (see .node.status.conditions), the ability to deconflict is important.",
+            "required": true
+          }
+        }
+      },
+      "dataSecretName": {
+        "type": "string",
+        "description": "DataSecretName is the name of the secret that stores the bootstrap data script."
+      },
+      "failureMessage": {
+        "type": "string",
+        "description": "FailureMessage will be set on non-retryable errors"
+      },
+      "failureReason": {
+        "type": "string",
+        "description": "FailureReason will be set on non-retryable errors"
+      },
+      "infraEnvRef": {
+        "type": "object",
+        "description": "INSERT ADDITIONAL STATUS FIELD - define observed state of cluster\nImportant: Run \"make\" to regenerate code after modifying this file\nInfraEnvRef references the infra env to generate the ISO",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "observedGeneration": {
+        "type": "integer",
+        "description": "ObservedGeneration is the latest generation observed by the controller."
+      },
+      "ready": {
+        "type": "boolean",
+        "description": "Ready indicates the BootstrapData field is ready to be consumed"
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: bootstrap.cluster.x-k8s.io/v1alpha1\nkind: OpenshiftAssistedConfig\nmetadata:\n  name: example-openshiftassistedconfig\n  namespace: default\nspec:\n  additionalNTPSources: []\n  additionalTrustBundle: \"example-additionalTrustBundle\"\n  cpuArchitecture: x86_64\n  kernelArguments: []\n  nmStateConfigLabelSelector: {}\n"
+}

@@ -1,0 +1,727 @@
+{
+  "kind": "ClusterManager",
+  "apiVersion": "operator.open-cluster-management.io/v1",
+  "metadata": {
+    "group": "operator.open-cluster-management.io",
+    "version": "v1",
+    "plural": "clustermanagers",
+    "singular": "clustermanager",
+    "scope": "Cluster"
+  },
+  "spec": {
+    "description": "Spec represents a desired deployment configuration of controllers that govern registration and work distribution for attached Klusterlets.",
+    "fields": {
+      "addOnManagerConfiguration": {
+        "type": "object",
+        "description": "addOnManagerConfiguration contains the configuration of addon manager",
+        "fields": {
+          "featureGates": {
+            "type": "array",
+            "description": "FeatureGates represents the list of feature gates for addon manager\nIf it is set empty, default feature gates will be used.\nIf it is set, featuregate/Foo is an example of one item in FeatureGates:\n  1. If featuregate/Foo does not exist, registration-operator will discard it\n  2. If featuregate/Foo exists and is false by default. It is now possible to set featuregate/Foo=[false|true]\n  3. If featuregate/Foo exists and is true by default. If a cluster-admin upgrading from 1 to 2 wants to continue having featuregate/Foo=false,\n \the can set featuregate/Foo=false before upgrading. Let's say the cluster-admin wants featuregate/Foo=false.",
+            "fields": {
+              "feature": {
+                "type": "string",
+                "description": "Feature is the key of feature gate. e.g. featuregate/Foo.",
+                "required": true
+              },
+              "mode": {
+                "type": "string",
+                "description": "Mode is either Enable, Disable, \"\" where \"\" is Disable by default.\nIn Enable mode, a valid feature gate `featuregate/Foo` will be set to \"--featuregate/Foo=true\".\nIn Disable mode, a valid feature gate `featuregate/Foo` will be set to \"--featuregate/Foo=false\".",
+                "enum": [
+                  "Enable",
+                  "Disable"
+                ],
+                "default": "Disable"
+              }
+            }
+          }
+        }
+      },
+      "addOnManagerImagePullSpec": {
+        "type": "string",
+        "description": "addOnManagerImagePullSpec represents the desired image configuration of addon manager controller/webhook installed on hub.",
+        "default": "quay.io/open-cluster-management/addon-manager"
+      },
+      "deployOption": {
+        "type": "object",
+        "description": "deployOption contains the options of deploying a cluster-manager\nDefault mode is used if DeployOption is not set.",
+        "default": {
+          "mode": "Default"
+        },
+        "fields": {
+          "default": {
+            "type": "object",
+            "description": "Default includes optional configurations for clustermanager in the Default mode.",
+            "fields": {
+              "registrationWebhookConfiguration": {
+                "type": "object",
+                "description": "RegistrationWebhookConfiguration represents the customized webhook-server configuration of registration.",
+                "fields": {
+                  "bindConfiguration": {
+                    "type": "object",
+                    "description": "BindConfiguration represents server bind configuration for the webhook server",
+                    "fields": {
+                      "healthProbePort": {
+                        "type": "integer",
+                        "description": "HealthProbePort represents the bind port of a webhook-server's healthcheck endpoint. The default value is 8000.\nHealthchecks may be disabled by setting a value less than or equal to 0.",
+                        "default": 8000,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      },
+                      "hostNetwork": {
+                        "type": "boolean",
+                        "description": "HostNetwork enables running webhook pods in host networking mode.\nThis may be required in some installations, such as EKS with Calico CNI,\nto allow the API Server to communicate with the webhook pods."
+                      },
+                      "metricsPort": {
+                        "type": "integer",
+                        "description": "MetricsPort represents the bind port for a webhook-server's metric endpoint. The default value is 8080.\nMetrics may be disabled by setting a value less than or equal to 0.",
+                        "default": 8080,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      },
+                      "port": {
+                        "type": "integer",
+                        "description": "Port represents the primary bind port of a server. The default value is 9443.",
+                        "default": 9443,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "workWebhookConfiguration": {
+                "type": "object",
+                "description": "WorkWebhookConfiguration represents the customized webhook-server configuration of work.",
+                "fields": {
+                  "bindConfiguration": {
+                    "type": "object",
+                    "description": "BindConfiguration represents server bind configuration for the webhook server",
+                    "fields": {
+                      "healthProbePort": {
+                        "type": "integer",
+                        "description": "HealthProbePort represents the bind port of a webhook-server's healthcheck endpoint. The default value is 8000.\nHealthchecks may be disabled by setting a value less than or equal to 0.",
+                        "default": 8000,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      },
+                      "hostNetwork": {
+                        "type": "boolean",
+                        "description": "HostNetwork enables running webhook pods in host networking mode.\nThis may be required in some installations, such as EKS with Calico CNI,\nto allow the API Server to communicate with the webhook pods."
+                      },
+                      "metricsPort": {
+                        "type": "integer",
+                        "description": "MetricsPort represents the bind port for a webhook-server's metric endpoint. The default value is 8080.\nMetrics may be disabled by setting a value less than or equal to 0.",
+                        "default": 8080,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      },
+                      "port": {
+                        "type": "integer",
+                        "description": "Port represents the primary bind port of a server. The default value is 9443.",
+                        "default": 9443,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "hosted": {
+            "type": "object",
+            "description": "Hosted includes configurations we need for clustermanager in the Hosted mode.",
+            "fields": {
+              "registrationWebhookConfiguration": {
+                "type": "object",
+                "description": "RegistrationWebhookConfiguration represents the customized webhook-server configuration of registration.",
+                "fields": {
+                  "address": {
+                    "type": "string",
+                    "description": "Address represents the address of a webhook-server.\nIt could be in IP format or fqdn format.\nThe Address must be reachable by apiserver of the hub cluster.",
+                    "required": true,
+                    "validations": {
+                      "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$"
+                    }
+                  },
+                  "bindConfiguration": {
+                    "type": "object",
+                    "description": "BindConfiguration represents server bind configuration for the webhook server",
+                    "fields": {
+                      "healthProbePort": {
+                        "type": "integer",
+                        "description": "HealthProbePort represents the bind port of a webhook-server's healthcheck endpoint. The default value is 8000.\nHealthchecks may be disabled by setting a value less than or equal to 0.",
+                        "default": 8000,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      },
+                      "hostNetwork": {
+                        "type": "boolean",
+                        "description": "HostNetwork enables running webhook pods in host networking mode.\nThis may be required in some installations, such as EKS with Calico CNI,\nto allow the API Server to communicate with the webhook pods."
+                      },
+                      "metricsPort": {
+                        "type": "integer",
+                        "description": "MetricsPort represents the bind port for a webhook-server's metric endpoint. The default value is 8080.\nMetrics may be disabled by setting a value less than or equal to 0.",
+                        "default": 8080,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      },
+                      "port": {
+                        "type": "integer",
+                        "description": "Port represents the primary bind port of a server. The default value is 9443.",
+                        "default": 9443,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      }
+                    }
+                  },
+                  "port": {
+                    "type": "integer",
+                    "description": "Port represents the external port of a webhook-server. The default value of Port is 443.",
+                    "default": 443,
+                    "validations": {
+                      "maximum": 65535
+                    }
+                  }
+                }
+              },
+              "workWebhookConfiguration": {
+                "type": "object",
+                "description": "WorkWebhookConfiguration represents the customized webhook-server configuration of work.",
+                "fields": {
+                  "address": {
+                    "type": "string",
+                    "description": "Address represents the address of a webhook-server.\nIt could be in IP format or fqdn format.\nThe Address must be reachable by apiserver of the hub cluster.",
+                    "required": true,
+                    "validations": {
+                      "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$"
+                    }
+                  },
+                  "bindConfiguration": {
+                    "type": "object",
+                    "description": "BindConfiguration represents server bind configuration for the webhook server",
+                    "fields": {
+                      "healthProbePort": {
+                        "type": "integer",
+                        "description": "HealthProbePort represents the bind port of a webhook-server's healthcheck endpoint. The default value is 8000.\nHealthchecks may be disabled by setting a value less than or equal to 0.",
+                        "default": 8000,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      },
+                      "hostNetwork": {
+                        "type": "boolean",
+                        "description": "HostNetwork enables running webhook pods in host networking mode.\nThis may be required in some installations, such as EKS with Calico CNI,\nto allow the API Server to communicate with the webhook pods."
+                      },
+                      "metricsPort": {
+                        "type": "integer",
+                        "description": "MetricsPort represents the bind port for a webhook-server's metric endpoint. The default value is 8080.\nMetrics may be disabled by setting a value less than or equal to 0.",
+                        "default": 8080,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      },
+                      "port": {
+                        "type": "integer",
+                        "description": "Port represents the primary bind port of a server. The default value is 9443.",
+                        "default": 9443,
+                        "validations": {
+                          "maximum": 65535
+                        }
+                      }
+                    }
+                  },
+                  "port": {
+                    "type": "integer",
+                    "description": "Port represents the external port of a webhook-server. The default value of Port is 443.",
+                    "default": 443,
+                    "validations": {
+                      "maximum": 65535
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "mode": {
+            "type": "string",
+            "description": "Mode can be Default or Hosted.\nIn Default mode, the Hub is installed as a whole and all parts of Hub are deployed in the same cluster.\nIn Hosted mode, only crd and configurations are installed on one cluster(defined as hub-cluster). Controllers run in another\ncluster (defined as management-cluster) and connect to the hub with the kubeconfig in secret of \"external-hub-kubeconfig\"(a kubeconfig\nof hub-cluster with cluster-admin permission).\nNote: Do not modify the Mode field once it's applied.",
+            "required": true,
+            "enum": [
+              "Default",
+              "Hosted"
+            ],
+            "default": "Default"
+          }
+        }
+      },
+      "nodePlacement": {
+        "type": "object",
+        "description": "nodePlacement enables explicit control over the scheduling of the deployed pods.",
+        "fields": {
+          "nodeSelector": {
+            "type": "object",
+            "description": "NodeSelector defines which Nodes the Pods are scheduled on. The default is an empty list."
+          },
+          "tolerations": {
+            "type": "array",
+            "description": "Tolerations are attached by pods to tolerate any taint that matches\nthe triple <key,value,effect> using the matching operator <operator>.\nThe default is an empty list.",
+            "fields": {
+              "effect": {
+                "type": "string",
+                "description": "Effect indicates the taint effect to match. Empty means match all taint effects.\nWhen specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute."
+              },
+              "key": {
+                "type": "string",
+                "description": "Key is the taint key that the toleration applies to. Empty means match all taint keys.\nIf the key is empty, operator must be Exists; this combination means to match all values and all keys."
+              },
+              "operator": {
+                "type": "string",
+                "description": "Operator represents a key's relationship to the value.\nValid operators are Exists and Equal. Defaults to Equal.\nExists is equivalent to wildcard for value, so that a pod can\ntolerate all taints of a particular category."
+              },
+              "tolerationSeconds": {
+                "type": "integer",
+                "description": "TolerationSeconds represents the period of time the toleration (which must be\nof effect NoExecute, otherwise this field is ignored) tolerates the taint. By default,\nit is not set, which means tolerate the taint forever (do not evict). Zero and\nnegative values will be treated as 0 (evict immediately) by the system."
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is the taint value the toleration matches to.\nIf the operator is Exists, the value should be empty, otherwise just a regular string."
+              }
+            }
+          }
+        }
+      },
+      "placementImagePullSpec": {
+        "type": "string",
+        "description": "placementImagePullSpec represents the desired image configuration of placement controller/webhook installed on hub.",
+        "default": "quay.io/open-cluster-management/placement"
+      },
+      "registrationConfiguration": {
+        "type": "object",
+        "description": "registrationConfiguration contains the configuration of registration",
+        "fields": {
+          "autoApproveUsers": {
+            "type": "array",
+            "description": "AutoApproveUser represents a list of users that can auto approve CSR and accept client. If the credential of the\nbootstrap-hub-kubeconfig matches to the users, the cluster created by the bootstrap-hub-kubeconfig will\nbe auto-registered into the hub cluster. This takes effect only when ManagedClusterAutoApproval feature gate\nis enabled."
+          },
+          "featureGates": {
+            "type": "array",
+            "description": "FeatureGates represents the list of feature gates for registration\nIf it is set empty, default feature gates will be used.\nIf it is set, featuregate/Foo is an example of one item in FeatureGates:\n  1. If featuregate/Foo does not exist, registration-operator will discard it\n  2. If featuregate/Foo exists and is false by default. It is now possible to set featuregate/Foo=[false|true]\n  3. If featuregate/Foo exists and is true by default. If a cluster-admin upgrading from 1 to 2 wants to continue having featuregate/Foo=false,\n \the can set featuregate/Foo=false before upgrading. Let's say the cluster-admin wants featuregate/Foo=false.",
+            "fields": {
+              "feature": {
+                "type": "string",
+                "description": "Feature is the key of feature gate. e.g. featuregate/Foo.",
+                "required": true
+              },
+              "mode": {
+                "type": "string",
+                "description": "Mode is either Enable, Disable, \"\" where \"\" is Disable by default.\nIn Enable mode, a valid feature gate `featuregate/Foo` will be set to \"--featuregate/Foo=true\".\nIn Disable mode, a valid feature gate `featuregate/Foo` will be set to \"--featuregate/Foo=false\".",
+                "enum": [
+                  "Enable",
+                  "Disable"
+                ],
+                "default": "Disable"
+              }
+            }
+          },
+          "registrationDrivers": {
+            "type": "array",
+            "description": "RegistrationDrivers represent the list of hub registration drivers that contain information used by hub to initialize the hub cluster\nA RegistrationDriverHub contains details of authentication type and the hub cluster ARN",
+            "fields": {
+              "authType": {
+                "type": "string",
+                "description": "authType is the type of the authentication used by hub to initialize the Hub cluster.\nPossible values are csr, awsirsa and grpc.",
+                "required": true,
+                "enum": [
+                  "csr",
+                  "awsirsa",
+                  "grpc"
+                ],
+                "default": "csr"
+              },
+              "awsirsa": {
+                "type": "object",
+                "description": "awsirsa represents the configuration for awsirsa driver.",
+                "fields": {
+                  "autoApprovedIdentities": {
+                    "type": "array",
+                    "description": "AutoApprovedIdentities represent a list of approved arn patterns"
+                  },
+                  "hubClusterArn": {
+                    "type": "string",
+                    "description": "This represents the hub cluster ARN\nExample - arn:eks:us-west-2:12345678910:cluster/hub-cluster1",
+                    "validations": {
+                      "pattern": "^arn:aws:eks:([a-zA-Z0-9-]+):(\\d{12}):cluster/([a-zA-Z0-9-]+)$"
+                    }
+                  },
+                  "tags": {
+                    "type": "array",
+                    "description": "List of tags to be added to AWS resources created by hub while processing awsirsa registration request\nExample - \"product:v1:tenant:app-name=My-App\""
+                  }
+                }
+              },
+              "csr": {
+                "type": "object",
+                "description": "csr represents the configuration for csr driver.",
+                "fields": {
+                  "autoApprovedIdentities": {
+                    "type": "array",
+                    "description": "AutoApprovedIdentities represent a list of approved users"
+                  }
+                }
+              },
+              "grpc": {
+                "type": "object",
+                "description": "grpc represents the configuration for gRPC driver.",
+                "fields": {
+                  "autoApprovedIdentities": {
+                    "type": "array",
+                    "description": "AutoApprovedIdentities represent a list of approved users"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "registrationImagePullSpec": {
+        "type": "string",
+        "description": "registrationImagePullSpec represents the desired image of registration controller/webhook installed on hub.",
+        "default": "quay.io/open-cluster-management/registration"
+      },
+      "resourceRequirement": {
+        "type": "object",
+        "description": "ResourceRequirement specify QoS classes of deployments managed by clustermanager.\nIt applies to all the containers in the deployments.",
+        "fields": {
+          "resourceRequirements": {
+            "type": "object",
+            "description": "ResourceRequirements defines resource requests and limits when Type is ResourceQosClassResourceRequirement",
+            "fields": {
+              "claims": {
+                "type": "array",
+                "description": "Claims lists the names of resources, defined in spec.resourceClaims,\nthat are used by this container.\nThis is an alpha field and requires enabling the\nDynamicResourceAllocation feature gate.\nThis field is immutable. It can only be set for containers.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name must match the name of one entry in pod.spec.resourceClaims of\nthe Pod where this field is used. It makes that resource available\ninside a container.",
+                    "required": true
+                  },
+                  "request": {
+                    "type": "string",
+                    "description": "Request is the name chosen for a request in the referenced claim.\nIf empty, everything from the claim is made available, otherwise\nonly the result of this request."
+                  }
+                }
+              },
+              "limits": {
+                "type": "object",
+                "description": "Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+              },
+              "requests": {
+                "type": "object",
+                "description": "Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "No description provided.",
+            "enum": [
+              "Default",
+              "BestEffort",
+              "ResourceRequirement"
+            ],
+            "default": "Default"
+          }
+        }
+      },
+      "serverConfiguration": {
+        "type": "object",
+        "description": "serverConfiguration contains the configuration for http/grpc server.",
+        "fields": {
+          "endpointsExposure": {
+            "type": "array",
+            "description": "endpointsExposure represents the configuration for endpoints exposure of the server.",
+            "fields": {
+              "grpc": {
+                "type": "object",
+                "description": "grpc represents the configuration for grpc endpoint.",
+                "fields": {
+                  "hostname": {
+                    "type": "object",
+                    "description": "hostname points to a fixed hostname for serving agents' handshakes.",
+                    "fields": {
+                      "caBundle": {
+                        "type": "string",
+                        "description": "caBundle of the endpoint."
+                      },
+                      "host": {
+                        "type": "string",
+                        "description": "host is the host name of the endpoint.",
+                        "required": true
+                      }
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "type specifies how the endpoint is exposed.\nYou may need to apply an object to expose the endpoint, for example: a route.",
+                    "required": true,
+                    "enum": [
+                      "hostname"
+                    ],
+                    "default": "hostname"
+                  }
+                }
+              },
+              "https": {
+                "type": "object",
+                "description": "https represents the configuration for https endpoint.",
+                "fields": {
+                  "hostname": {
+                    "type": "object",
+                    "description": "hostname points to a fixed hostname for serving agents' handshakes.",
+                    "fields": {
+                      "caBundle": {
+                        "type": "string",
+                        "description": "caBundle of the endpoint."
+                      },
+                      "host": {
+                        "type": "string",
+                        "description": "host is the host name of the endpoint.",
+                        "required": true
+                      }
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "type specifies how the endpoint is exposed.\nYou may need to apply an object to expose the endpoint, for example: a route.",
+                    "required": true,
+                    "enum": [
+                      "hostname"
+                    ],
+                    "default": "hostname"
+                  }
+                }
+              },
+              "protocol": {
+                "type": "string",
+                "description": "protocol is the protocol used for the endpoint, could be https or grpc.",
+                "required": true,
+                "enum": [
+                  "grpc",
+                  "https"
+                ],
+                "default": "grpc"
+              },
+              "usage": {
+                "type": "string",
+                "description": "usage defines the usage of the endpoint. It could be \"agentToHub\" indicating the endpoint is used\nfor communication between agent and hub, or \"consumer\" indicating the endpoint is used for external consumer."
+              }
+            }
+          },
+          "featureGates": {
+            "type": "array",
+            "description": "featureGates represents the features enabled for the server",
+            "fields": {
+              "feature": {
+                "type": "string",
+                "description": "Feature is the key of feature gate. e.g. featuregate/Foo.",
+                "required": true
+              },
+              "mode": {
+                "type": "string",
+                "description": "Mode is either Enable, Disable, \"\" where \"\" is Disable by default.\nIn Enable mode, a valid feature gate `featuregate/Foo` will be set to \"--featuregate/Foo=true\".\nIn Disable mode, a valid feature gate `featuregate/Foo` will be set to \"--featuregate/Foo=false\".",
+                "enum": [
+                  "Enable",
+                  "Disable"
+                ],
+                "default": "Disable"
+              }
+            }
+          },
+          "imagePullSpec": {
+            "type": "string",
+            "description": "imagePullSpec is the image for the server"
+          }
+        }
+      },
+      "workConfiguration": {
+        "type": "object",
+        "description": "workConfiguration contains the configuration of work",
+        "default": {
+          "workDriver": "kube"
+        },
+        "fields": {
+          "featureGates": {
+            "type": "array",
+            "description": "FeatureGates represents the list of feature gates for work\nIf it is set empty, default feature gates will be used.\nIf it is set, featuregate/Foo is an example of one item in FeatureGates:\n  1. If featuregate/Foo does not exist, registration-operator will discard it\n  2. If featuregate/Foo exists and is false by default. It is now possible to set featuregate/Foo=[false|true]\n  3. If featuregate/Foo exists and is true by default. If a cluster-admin upgrading from 1 to 2 wants to continue having featuregate/Foo=false,\n \the can set featuregate/Foo=false before upgrading. Let's say the cluster-admin wants featuregate/Foo=false.",
+            "fields": {
+              "feature": {
+                "type": "string",
+                "description": "Feature is the key of feature gate. e.g. featuregate/Foo.",
+                "required": true
+              },
+              "mode": {
+                "type": "string",
+                "description": "Mode is either Enable, Disable, \"\" where \"\" is Disable by default.\nIn Enable mode, a valid feature gate `featuregate/Foo` will be set to \"--featuregate/Foo=true\".\nIn Disable mode, a valid feature gate `featuregate/Foo` will be set to \"--featuregate/Foo=false\".",
+                "enum": [
+                  "Enable",
+                  "Disable"
+                ],
+                "default": "Disable"
+              }
+            }
+          },
+          "workDriver": {
+            "type": "string",
+            "description": "WorkDriver represents the type of work driver. Possible values are \"kube\", \"mqtt\", or \"grpc\".\nIf not provided, the default value is \"kube\".\nIf set to non-\"kube\" drivers, the klusterlet need to use the same driver.\nand the driver configuration must be provided in a secret named \"work-driver-config\"\nin the namespace where the cluster manager is running, adhering to the following structure:\nconfig.yaml: |\n  <driver-config-in-yaml>\nFor detailed driver configuration, please refer to the sdk-go documentation: https://github.com/open-cluster-management-io/sdk-go/blob/main/pkg/cloudevents/README.md#supported-protocols-and-drivers",
+            "enum": [
+              "kube",
+              "mqtt",
+              "grpc"
+            ],
+            "default": "kube"
+          }
+        }
+      },
+      "workImagePullSpec": {
+        "type": "string",
+        "description": "workImagePullSpec represents the desired image configuration of work controller/webhook installed on hub.",
+        "default": "quay.io/open-cluster-management/work"
+      }
+    }
+  },
+  "status": {
+    "description": "Status represents the current status of controllers that govern the lifecycle of managed clusters.",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions contain the different condition statuses for this ClusterManager.\nValid condition types are:\nApplied: Components in hub are applied.\nAvailable: Components in hub are available and ready to serve.\nProgressing: Components in hub are in a transitioning state.\nDegraded: Components in hub do not match the desired configuration and only provide\ndegraded service.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition.\nThis may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon.\nFor instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition.\nProducers of specific condition types may define expected values and meanings for this field,\nand whether the values are considered a guaranteed API.\nThe value should be a CamelCase string.\nThis field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      },
+      "generations": {
+        "type": "array",
+        "description": "Generations are used to determine when an item needs to be reconciled or has changed in a way that needs a reaction.",
+        "fields": {
+          "group": {
+            "type": "string",
+            "description": "group is the group of the resource that you're tracking",
+            "required": true
+          },
+          "lastGeneration": {
+            "type": "integer",
+            "description": "lastGeneration is the last generation of the resource that controller applies",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "description": "name is the name of the resource that you're tracking",
+            "required": true
+          },
+          "namespace": {
+            "type": "string",
+            "description": "namespace is where the resource that you're tracking is"
+          },
+          "resource": {
+            "type": "string",
+            "description": "resource is the resource type of the resource that you're tracking",
+            "required": true
+          },
+          "version": {
+            "type": "string",
+            "description": "version is the version of the resource that you're tracking",
+            "required": true
+          }
+        }
+      },
+      "observedGeneration": {
+        "type": "integer",
+        "description": "ObservedGeneration is the last generation change you've dealt with"
+      },
+      "relatedResources": {
+        "type": "array",
+        "description": "RelatedResources are used to track the resources that are related to this ClusterManager.",
+        "fields": {
+          "group": {
+            "type": "string",
+            "description": "group is the group of the resource that you're tracking",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "description": "name is the name of the resource that you're tracking",
+            "required": true
+          },
+          "namespace": {
+            "type": "string",
+            "description": "namespace is where the thing you're tracking is"
+          },
+          "resource": {
+            "type": "string",
+            "description": "resource is the resource type of the resource that you're tracking",
+            "required": true
+          },
+          "version": {
+            "type": "string",
+            "description": "version is the version of the thing you're tracking",
+            "required": true
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: operator.open-cluster-management.io/v1\nkind: ClusterManager\nmetadata:\n  name: example-clustermanager\nspec:\n  addOnManagerConfiguration: {}\n  addOnManagerImagePullSpec: quay.io/open-cluster-management/addon-manager\n  deployOption: {'mode': 'Default'}\n  nodePlacement: {}\n  placementImagePullSpec: quay.io/open-cluster-management/placement\n"
+}

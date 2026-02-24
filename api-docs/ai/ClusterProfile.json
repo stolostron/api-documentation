@@ -1,0 +1,113 @@
+{
+  "kind": "ClusterProfile",
+  "apiVersion": "multicluster.x-k8s.io/v1alpha1",
+  "metadata": {
+    "group": "multicluster.x-k8s.io",
+    "version": "v1alpha1",
+    "plural": "clusterprofiles",
+    "singular": "clusterprofile",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "ClusterProfileSpec defines the desired state of ClusterProfile.",
+    "fields": {
+      "clusterManager": {
+        "type": "object",
+        "description": "ClusterManager defines which cluster manager owns this ClusterProfile resource",
+        "required": true,
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name defines the name of the cluster manager",
+            "required": true
+          }
+        }
+      },
+      "displayName": {
+        "type": "string",
+        "description": "DisplayName defines a human-readable name of the ClusterProfile"
+      }
+    }
+  },
+  "status": {
+    "description": "ClusterProfileStatus defines the observed state of ClusterProfile.",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions contains the different condition statuses for this cluster.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition.\nThis may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon.\nFor instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition.\nProducers of specific condition types may define expected values and meanings for this field,\nand whether the values are considered a guaranteed API.\nThe value should be a CamelCase string.\nThis field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.\n---\nMany .condition.type values are consistent across resources like Available, but because arbitrary conditions can be\nuseful (see .node.status.conditions), the ability to deconflict is important.\nThe regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      },
+      "properties": {
+        "type": "array",
+        "description": "Properties defines name/value pairs to represent properties of a cluster.\nIt could be a collection of ClusterProperty (KEP-2149) resources,\nbut could also be info based on other implementations.\nThe names of the properties can be predefined names from ClusterProperty resources\nand is allowed to be customized by different cluster managers.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name is the name of a property resource on cluster. It's a well-known\nor customized name to identify the property.",
+            "required": true
+          },
+          "value": {
+            "type": "string",
+            "description": "Value is a property-dependent string",
+            "required": true
+          }
+        }
+      },
+      "version": {
+        "type": "object",
+        "description": "Version defines the version information of the cluster.",
+        "fields": {
+          "kubernetes": {
+            "type": "string",
+            "description": "Kubernetes is the kubernetes version of the cluster."
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: multicluster.x-k8s.io/v1alpha1\nkind: ClusterProfile\nmetadata:\n  name: example-clusterprofile\n  namespace: default\nspec:\n  clusterManager: {}\n"
+}

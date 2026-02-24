@@ -1,0 +1,20 @@
+{
+  "kind": "InternalEngineComponent",
+  "apiVersion": "multicluster.openshift.io/v1",
+  "metadata": {
+    "group": "multicluster.openshift.io",
+    "version": "v1",
+    "plural": "internalenginecomponents",
+    "singular": "internalenginecomponent",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {}
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: multicluster.openshift.io/v1\nkind: InternalEngineComponent\nmetadata:\n  name: example-internalenginecomponent\n  namespace: default\n"
+}

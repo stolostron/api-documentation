@@ -1,0 +1,20 @@
+{
+  "kind": "SubscriptionStatus",
+  "apiVersion": "apps.open-cluster-management.io/v1alpha1",
+  "metadata": {
+    "group": "apps.open-cluster-management.io",
+    "version": "v1alpha1",
+    "plural": "subscriptionstatuses",
+    "singular": "subscriptionstatus",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {}
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: apps.open-cluster-management.io/v1alpha1\nkind: SubscriptionStatus\nmetadata:\n  name: example-subscriptionstatus\n  namespace: default\n"
+}

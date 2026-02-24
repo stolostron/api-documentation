@@ -1,0 +1,199 @@
+{
+  "kind": "Deployable",
+  "apiVersion": "apps.open-cluster-management.io/v1",
+  "metadata": {
+    "group": "apps.open-cluster-management.io",
+    "version": "v1",
+    "plural": "deployables",
+    "singular": "deployable",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "DeployableSpec defines the desired state of Deployable.",
+    "fields": {
+      "channels": {
+        "type": "array",
+        "description": "No description provided."
+      },
+      "dependencies": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "annotations": {
+            "type": "object",
+            "description": "No description provided."
+          },
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: \"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered the event) or if no container name is specified \"spec.containers[2]\" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object. TODO: this design is not final and this field is subject to change in the future."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "labels": {
+            "type": "object",
+            "description": "No description provided."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "overrides": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "clusterName": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          },
+          "clusterOverrides": {
+            "type": "array",
+            "description": "No description provided.",
+            "required": true
+          }
+        }
+      },
+      "placement": {
+        "type": "object",
+        "description": "Placement field to be referenced in specs, align with Fedv2, add placementref",
+        "fields": {
+          "clusterSelector": {
+            "type": "object",
+            "description": "A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.",
+            "fields": {
+              "matchExpressions": {
+                "type": "array",
+                "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the label key that the selector applies to.",
+                    "required": true
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.",
+                    "required": true
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch."
+                  }
+                }
+              },
+              "matchLabels": {
+                "type": "object",
+                "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is \"key\", the operator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+              }
+            }
+          },
+          "clusters": {
+            "type": "array",
+            "description": "No description provided.",
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              }
+            }
+          },
+          "local": {
+            "type": "boolean",
+            "description": "No description provided."
+          },
+          "placementRef": {
+            "type": "object",
+            "description": "ObjectReference contains enough information to let you inspect or modify the referred object. --- New uses of this type are discouraged because of difficulty describing its usage when embedded in APIs.  1. Ignored fields.  It includes many fields which are not generally honored.  For instance, ResourceVersion and FieldPath are both very rarely valid in actual usage.  2. Invalid usage help.  It is impossible to add specific help for individual usage.  In most embedded usages, there are particular     restrictions like, \"must refer only to types A and B\" or \"UID not honored\" or \"name must be restricted\".     Those cannot be well described when embedded.  3. Inconsistent validation.  Because the usages are different, the validation rules are different by usage, which makes it hard for users to predict what will happen.  4. The fields are both imprecise and overly precise.  Kind is not a precise mapping to a URL. This can produce ambiguity     during interpretation and require a REST mapping.  In most cases, the dependency is on the group,resource tuple     and the version of the actual struct is irrelevant.  5. We cannot easily change it.  Because this type is embedded in many locations, updates to this type     will affect numerous schemas.  Don't make new APIs embed an underspecified API type they do not control. Instead of using this type, create a locally provided and used type that is well-focused on your reference. For example, ServiceReferences for admission registration: https://github.com/kubernetes/api/blob/release-1.17/admissionregistration/v1/types.go#L533 .",
+            "fields": {
+              "apiVersion": {
+                "type": "string",
+                "description": "API version of the referent."
+              },
+              "fieldPath": {
+                "type": "string",
+                "description": "If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: \"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered the event) or if no container name is specified \"spec.containers[2]\" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object. TODO: this design is not final and this field is subject to change in the future."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+              },
+              "resourceVersion": {
+                "type": "string",
+                "description": "Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+              },
+              "uid": {
+                "type": "string",
+                "description": "UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+              }
+            }
+          }
+        }
+      },
+      "template": {
+        "type": "object",
+        "description": "No description provided.",
+        "required": true
+      }
+    }
+  },
+  "status": {
+    "description": "DeployableStatus defines the observed state of Deployable.",
+    "fields": {
+      "lastUpdateTime": {
+        "type": "string",
+        "description": "No description provided."
+      },
+      "message": {
+        "type": "string",
+        "description": "No description provided."
+      },
+      "phase": {
+        "type": "string",
+        "description": "DeployablePhase indicate the phase of a deployable.",
+        "required": true
+      },
+      "reason": {
+        "type": "string",
+        "description": "No description provided."
+      },
+      "resourceStatus": {
+        "type": "object",
+        "description": "No description provided."
+      },
+      "targetClusters": {
+        "type": "object",
+        "description": "No description provided."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: apps.open-cluster-management.io/v1\nkind: Deployable\nmetadata:\n  name: example-deployable\n  namespace: default\nspec:\n  template: {}\n"
+}

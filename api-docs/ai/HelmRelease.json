@@ -1,0 +1,64 @@
+{
+  "kind": "HelmRelease",
+  "apiVersion": "apps.open-cluster-management.io/v1",
+  "metadata": {
+    "group": "apps.open-cluster-management.io",
+    "version": "v1",
+    "plural": "helmreleases",
+    "singular": "helmrelease",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {}
+  },
+  "status": {
+    "description": "",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "No description provided.",
+        "required": true,
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "message": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "reason": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "status": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          }
+        }
+      },
+      "deployedRelease": {
+        "type": "object",
+        "description": "No description provided.",
+        "fields": {
+          "manifest": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "name": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: apps.open-cluster-management.io/v1\nkind: HelmRelease\nmetadata:\n  name: example-helmrelease\n  namespace: default\n"
+}

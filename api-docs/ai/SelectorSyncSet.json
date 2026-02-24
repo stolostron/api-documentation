@@ -1,0 +1,149 @@
+{
+  "kind": "SelectorSyncSet",
+  "apiVersion": "hive.openshift.io/v1",
+  "metadata": {
+    "group": "hive.openshift.io",
+    "version": "v1",
+    "plural": "selectorsyncsets",
+    "singular": "selectorsyncset",
+    "scope": "Cluster"
+  },
+  "spec": {
+    "description": "SelectorSyncSetSpec defines the SyncSetCommonSpec resources and patches to sync along\nwith a ClusterDeploymentSelector indicating which clusters the SelectorSyncSet applies\nto in any namespace.",
+    "fields": {
+      "applyBehavior": {
+        "type": "string",
+        "description": "ApplyBehavior indicates how resources in this syncset will be applied to the target\ncluster. The default value of \"Apply\" indicates that resources should be applied\nusing the 'oc apply' command. If no value is set, \"Apply\" is assumed.\nA value of \"CreateOnly\" indicates that the resource will only be created if it does\nnot already exist in the target cluster. Otherwise, it will be left alone.\nA value of \"CreateOrUpdate\" indicates that the resource will be created/updated without\nthe use of the 'oc apply' command, allowing larger resources to be synced, but losing\nsome functionality of the 'oc apply' command such as the ability to remove annotations,\nlabels, and other map entries in general.",
+        "enum": [
+          "",
+          "Apply",
+          "CreateOnly",
+          "CreateOrUpdate"
+        ]
+      },
+      "clusterDeploymentSelector": {
+        "type": "object",
+        "description": "ClusterDeploymentSelector is a LabelSelector indicating which clusters the SelectorSyncSet\napplies to in any namespace.",
+        "fields": {
+          "matchExpressions": {
+            "type": "array",
+            "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "key is the label key that the selector applies to.",
+                "required": true
+              },
+              "operator": {
+                "type": "string",
+                "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                "required": true
+              },
+              "values": {
+                "type": "array",
+                "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+              }
+            }
+          },
+          "matchLabels": {
+            "type": "object",
+            "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+          }
+        }
+      },
+      "enablePatchTemplates": {
+        "type": "boolean",
+        "description": "EnablePatchTemplates, if True, causes hive to honor golang text/templates in Patches[].Patch\nstrings. While the standard syntax is supported, it won't do you a whole lot of good as the\nparser does not pass a data object (i.e. there is no \"dot\" for you to use). This currently\nexists to expose a single function:  will be substituted\nwith the string value of ClusterDeployment.Labels[\"some.label/key\"]. The empty string is\ninterpolated if there are no labels, or if the indicated key does not exist. Note that the\npatch string must be valid JSON after interpolation. This may make for odd-looking quoting\nin the uninterpolated string."
+      },
+      "enableResourceTemplates": {
+        "type": "boolean",
+        "description": "EnableResourceTemplates, if True, causes hive to honor golang text/templates in Resources.\nWhile the standard syntax is supported, it won't do you a whole lot of good as the parser\ndoes not pass a data object (i.e. there is no \"dot\" for you to use). This currently exists\nto expose a single function:  will\nbe substituted with the string value of ClusterDeployment.Labels[\"some.label/key\"]. The\nempty string is interpolated if there are no labels, or if the indicated key does not exist.\nNote that this only works in values (not e.g. map keys) that are of type string."
+      },
+      "patches": {
+        "type": "array",
+        "description": "Patches is the list of patches to apply.",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "APIVersion is the Group and Version of the object to be patched.",
+            "required": true
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind is the Kind of the object to be patched.",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the object to be patched.",
+            "required": true
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace is the Namespace in which the object to patch exists.\nDefaults to the SyncSet's Namespace."
+          },
+          "patch": {
+            "type": "string",
+            "description": "Patch is the patch to apply.",
+            "required": true
+          },
+          "patchType": {
+            "type": "string",
+            "description": "PatchType indicates the PatchType as \"strategic\" (default), \"json\", or \"merge\"."
+          }
+        }
+      },
+      "resourceApplyMode": {
+        "type": "string",
+        "description": "ResourceApplyMode indicates if the Resource apply mode is \"Upsert\" (default) or \"Sync\".\nApplyMode \"Upsert\" indicates create and update.\nApplyMode \"Sync\" indicates create, update and delete."
+      },
+      "resources": {
+        "type": "array",
+        "description": "Resources is the list of objects to sync from RawExtension definitions."
+      },
+      "secretMappings": {
+        "type": "array",
+        "description": "Secrets is the list of secrets to sync along with their respective destinations.",
+        "fields": {
+          "sourceRef": {
+            "type": "object",
+            "description": "SourceRef specifies the name and namespace of a secret on the management cluster",
+            "required": true,
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the secret",
+                "required": true
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace is the namespace where the secret lives. If not present for the source\nsecret reference, it is assumed to be the same namespace as the syncset with the\nreference."
+              }
+            }
+          },
+          "targetRef": {
+            "type": "object",
+            "description": "TargetRef specifies the target name and namespace of the secret on the target cluster",
+            "required": true,
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the secret",
+                "required": true
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace is the namespace where the secret lives. If not present for the source\nsecret reference, it is assumed to be the same namespace as the syncset with the\nreference."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "SelectorSyncSetStatus defines the observed state of a SelectorSyncSet",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: hive.openshift.io/v1\nkind: SelectorSyncSet\nmetadata:\n  name: example-selectorsyncset\nspec:\n  applyBehavior: \n  clusterDeploymentSelector: {}\n  enablePatchTemplates: true\n  enableResourceTemplates: true\n  patches: []\n"
+}

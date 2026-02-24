@@ -1,0 +1,290 @@
+{
+  "kind": "ImageClusterInstall",
+  "apiVersion": "extensions.hive.openshift.io/v1alpha1",
+  "metadata": {
+    "group": "extensions.hive.openshift.io",
+    "version": "v1alpha1",
+    "plural": "imageclusterinstalls",
+    "singular": "imageclusterinstall",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "ImageClusterInstallSpec defines the desired state of ImageClusterInstall",
+    "fields": {
+      "additionalNTPSources": {
+        "type": "array",
+        "description": "AdditionalNTPSources is a list of NTP sources (hostname or IP) to be added to all cluster\nhosts. They are added to any NTP sources that were configured through other means."
+      },
+      "bareMetalHostRef": {
+        "type": "object",
+        "description": "BareMetalHostRef identifies a BareMetalHost object to be used to attach the configuration to the host.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name identifies the BareMetalHost within a namespace",
+            "required": true
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace identifies the namespace containing the referenced BareMetalHost",
+            "required": true
+          }
+        }
+      },
+      "caBundleRef": {
+        "type": "object",
+        "description": "CABundle is a reference to a config map containing the new bundle of trusted certificates for the host.\nThe tls-ca-bundle.pem entry in the config map will be written to /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+            "default": ""
+          }
+        }
+      },
+      "clusterDeploymentRef": {
+        "type": "object",
+        "description": "ClusterDeploymentRef is a reference to the ClusterDeployment.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+            "default": ""
+          }
+        }
+      },
+      "clusterMetadata": {
+        "type": "object",
+        "description": "ClusterMetadata contains metadata information about the installed cluster.\nThis must be set as soon as all the information is available.",
+        "fields": {
+          "adminKubeconfigSecretRef": {
+            "type": "object",
+            "description": "AdminKubeconfigSecretRef references the secret containing the admin kubeconfig for this cluster.",
+            "required": true,
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                "default": ""
+              }
+            }
+          },
+          "adminPasswordSecretRef": {
+            "type": "object",
+            "description": "AdminPasswordSecretRef references the secret containing the admin username/password which can be used to login to this cluster.",
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                "default": ""
+              }
+            }
+          },
+          "clusterID": {
+            "type": "string",
+            "description": "ClusterID is a globally unique identifier for this cluster generated during installation. Used for reporting metrics among other places.",
+            "required": true
+          },
+          "infraID": {
+            "type": "string",
+            "description": "InfraID is an identifier for this cluster generated during installation and used for tagging/naming resources in cloud providers.",
+            "required": true
+          },
+          "platform": {
+            "type": "object",
+            "description": "Platform holds platform-specific cluster metadata",
+            "fields": {
+              "aws": {
+                "type": "object",
+                "description": "AWS holds AWS-specific cluster metadata",
+                "fields": {
+                  "hostedZoneRole": {
+                    "type": "string",
+                    "description": "HostedZoneRole is the role to assume when performing operations\non a hosted zone owned by another account."
+                  }
+                }
+              },
+              "azure": {
+                "type": "object",
+                "description": "Azure holds azure-specific cluster metadata",
+                "fields": {
+                  "resourceGroupName": {
+                    "type": "string",
+                    "description": "ResourceGroupName is the name of the resource group in which the cluster resources were created.",
+                    "required": true
+                  }
+                }
+              },
+              "gcp": {
+                "type": "object",
+                "description": "GCP holds GCP-specific cluster metadata",
+                "fields": {
+                  "networkProjectID": {
+                    "type": "string",
+                    "description": "NetworkProjectID is used for shared VPC setups"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "extraManifestsRefs": {
+        "type": "array",
+        "description": "ExtraManifestsRefs is list of config map references containing additional manifests to be applied to the relocated cluster.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+            "default": ""
+          }
+        }
+      },
+      "hostname": {
+        "type": "string",
+        "description": "Hostname is the desired hostname for the host"
+      },
+      "imageDigestSources": {
+        "type": "array",
+        "description": "ImageDigestSources lists sources/repositories for the release-image content.",
+        "fields": {
+          "mirrorSourcePolicy": {
+            "type": "string",
+            "description": "mirrorSourcePolicy defines the fallback policy if fails to pull image from the mirrors.\nIf unset, the image will continue to be pulled from the the repository in the pull spec.\nsourcePolicy is valid configuration only when one or more mirrors are in the mirror list.",
+            "enum": [
+              "NeverContactSource",
+              "AllowContactingSource"
+            ]
+          },
+          "mirrors": {
+            "type": "array",
+            "description": "mirrors is zero or more locations that may also contain the same images. No mirror will be configured if not specified.\nImages can be pulled from these mirrors only if they are referenced by their digests.\nThe mirrored location is obtained by replacing the part of the input reference that\nmatches source by the mirrors entry, e.g. for registry.redhat.io/product/repo reference,\na (source, mirror) pair *.redhat.io, mirror.local/redhat causes a mirror.local/redhat/product/repo\nrepository to be used.\nThe order of mirrors in this list is treated as the user's desired priority, while source\nis by default considered lower priority than all mirrors.\nIf no mirror is specified or all image pulls from the mirror list fail, the image will continue to be\npulled from the repository in the pull spec unless explicitly prohibited by \"mirrorSourcePolicy\"\nOther cluster configuration, including (but not limited to) other imageDigestMirrors objects,\nmay impact the exact order mirrors are contacted in, or some mirrors may be contacted\nin parallel, so this should be considered a preference rather than a guarantee of ordering.\n\"mirrors\" uses one of the following formats:\nhost[:port]\nhost[:port]/namespace[/namespace\u2026]\nhost[:port]/namespace[/namespace\u2026]/repo\nfor more information about the format, see the document about the location field:\nhttps://github.com/containers/image/blob/main/docs/containers-registries.conf.5.md#choosing-a-registry-toml-table"
+          },
+          "source": {
+            "type": "string",
+            "description": "source matches the repository that users refer to, e.g. in image pull specifications. Setting source to a registry hostname\ne.g. docker.io. quay.io, or registry.redhat.io, will match the image pull specification of corressponding registry.\n\"source\" uses one of the following formats:\nhost[:port]\nhost[:port]/namespace[/namespace\u2026]\nhost[:port]/namespace[/namespace\u2026]/repo\n[*.]host\nfor more information about the format, see the document about the location field:\nhttps://github.com/containers/image/blob/main/docs/containers-registries.conf.5.md#choosing-a-registry-toml-table",
+            "required": true,
+            "validations": {
+              "pattern": "^\\*(?:\\.(?:[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]))+$|^((?:[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9])(?:(?:\\.(?:[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]))+)?(?::[0-9]+)?)(?:(?:/[a-z0-9]+(?:(?:(?:[._]|__|[-]*)[a-z0-9]+)+)?)+)?$"
+            }
+          }
+        }
+      },
+      "imageSetRef": {
+        "type": "object",
+        "description": "ImageSetRef is a reference to a ClusterImageSet.",
+        "required": true,
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the ClusterImageSet that this refers to",
+            "required": true
+          }
+        }
+      },
+      "machineNetwork": {
+        "type": "string",
+        "description": "MachineNetwork is the subnet provided by user for the ocp cluster.\nThis will be used to create the node network and choose ip address for the node.\nEquivalent to install-config.yaml's machineNetwork.\nDeprecated: Use MachineNetworks instead."
+      },
+      "machineNetworks": {
+        "type": "array",
+        "description": "MachineNetworks is the list of IP address pools for machines.\nThis enables dual-stack support by allowing multiple networks.\nIf both MachineNetwork and MachineNetworks are specified, MachineNetwork should match\nthe first element of MachineNetworks.\nUse instead of MachineNetwork.",
+        "fields": {
+          "cidr": {
+            "type": "string",
+            "description": "CIDR is the IP block address pool for machines within the cluster.",
+            "required": true
+          }
+        }
+      },
+      "nodeIP": {
+        "type": "string",
+        "description": "NodeIP is the desired IP for the host\nDeprecated: this field is ignored (will be removed in a future release)."
+      },
+      "proxy": {
+        "type": "object",
+        "description": "Proxy defines the proxy settings to be applied in relocated cluster",
+        "fields": {
+          "httpProxy": {
+            "type": "string",
+            "description": "HTTPProxy is the URL of the proxy for HTTP requests."
+          },
+          "httpsProxy": {
+            "type": "string",
+            "description": "HTTPSProxy is the URL of the proxy for HTTPS requests."
+          },
+          "noProxy": {
+            "type": "string",
+            "description": "NoProxy is a comma-separated list of domains and CIDRs for which the proxy should not be\nused."
+          }
+        }
+      },
+      "sshKey": {
+        "type": "string",
+        "description": "SSHKey is the public Secure Shell (SSH) key to provide access to\ninstances. Equivalent to install-config.yaml's sshKey.\nThis key will be added to the host to allow ssh access"
+      }
+    }
+  },
+  "status": {
+    "description": "ImageClusterInstallStatus defines the observed state of ImageClusterInstall",
+    "fields": {
+      "bareMetalHostRef": {
+        "type": "object",
+        "description": "No description provided.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name identifies the BareMetalHost within a namespace",
+            "required": true
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace identifies the namespace containing the referenced BareMetalHost",
+            "required": true
+          }
+        }
+      },
+      "bootTime": {
+        "type": "string",
+        "description": "BootTime indicates the time at which the host was requested to boot. Used to determine install timeouts."
+      },
+      "conditions": {
+        "type": "array",
+        "description": "Conditions is a list of conditions associated with syncing to the cluster.",
+        "fields": {
+          "lastProbeTime": {
+            "type": "string",
+            "description": "LastProbeTime is the last time we probed the condition."
+          },
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "LastTransitionTime is the last time the condition transitioned from one status to another."
+          },
+          "message": {
+            "type": "string",
+            "description": "Message is a human-readable message indicating details about last transition."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason is a unique, one-word, CamelCase reason for the condition's last transition."
+          },
+          "status": {
+            "type": "string",
+            "description": "Status is the status of the condition.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type is the type of the condition.",
+            "required": true
+          }
+        }
+      },
+      "installRestarts": {
+        "type": "integer",
+        "description": "InstallRestarts is the total count of container restarts on the clusters install job."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: extensions.hive.openshift.io/v1alpha1\nkind: ImageClusterInstall\nmetadata:\n  name: example-imageclusterinstall\n  namespace: default\nspec:\n  imageSetRef: {}\n"
+}

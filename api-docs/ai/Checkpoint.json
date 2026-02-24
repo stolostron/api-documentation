@@ -1,0 +1,48 @@
+{
+  "kind": "Checkpoint",
+  "apiVersion": "hive.openshift.io/v1",
+  "metadata": {
+    "group": "hive.openshift.io",
+    "version": "v1",
+    "plural": "checkpoints",
+    "singular": "checkpoint",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "CheckpointSpec defines the metadata around the Hive objects state in the namespace at the time of the last backup.",
+    "fields": {
+      "lastBackupChecksum": {
+        "type": "string",
+        "description": "LastBackupChecksum is the checksum of all Hive objects in the namespace at the time of the last backup.",
+        "required": true
+      },
+      "lastBackupRef": {
+        "type": "object",
+        "description": "LastBackupRef is a reference to last backup object created",
+        "required": true,
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          },
+          "namespace": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          }
+        }
+      },
+      "lastBackupTime": {
+        "type": "string",
+        "description": "LastBackupTime is the last time we performed a backup of the namespace",
+        "required": true
+      }
+    }
+  },
+  "status": {
+    "description": "CheckpointStatus defines the observed state of Checkpoint",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: hive.openshift.io/v1\nkind: Checkpoint\nmetadata:\n  name: example-checkpoint\n  namespace: default\nspec:\n  lastBackupChecksum: \"example-lastBackupChecksum\"\n  lastBackupRef: {}\n  lastBackupTime: \"example-lastBackupTime\"\n"
+}

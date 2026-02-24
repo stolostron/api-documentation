@@ -1,0 +1,521 @@
+{
+  "kind": "HypershiftAgentServiceConfig",
+  "apiVersion": "agent-install.openshift.io/v1beta1",
+  "metadata": {
+    "group": "agent-install.openshift.io",
+    "version": "v1beta1",
+    "plural": "hypershiftagentserviceconfigs",
+    "singular": "hypershiftagentserviceconfig",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "HypershiftAgentServiceConfigSpec defines the desired state of HypershiftAgentServiceConfig.",
+    "fields": {
+      "OSImageAdditionalParamsRef": {
+        "type": "object",
+        "description": "OSImageAdditionalParamsRef is a reference to a secret containing a headers and query parameters to be used during OS image fetch.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          }
+        }
+      },
+      "OSImageCACertRef": {
+        "type": "object",
+        "description": "OSImageCACertRef is a reference to a config map containing a certificate authority certificate\nthis is an optional certificate to allow a user to add a certificate authority for a HTTPS source of images\nthis certificate will be used by the assisted-image-service when pulling OS images.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          }
+        }
+      },
+      "databaseStorage": {
+        "type": "object",
+        "description": "DatabaseStorage defines the spec of the PersistentVolumeClaim to be\ncreated for the database's filesystem.\nWith respect to the resource requests, minimum 10GiB is recommended.",
+        "required": true,
+        "fields": {
+          "accessModes": {
+            "type": "array",
+            "description": "accessModes contains the desired access modes the volume should have.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1"
+          },
+          "dataSource": {
+            "type": "object",
+            "description": "dataSource field can be used to specify either:\n* An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)\n* An existing PVC (PersistentVolumeClaim)\nIf the provisioner or an external controller can support the specified data source,\nit will create a new volume based on the contents of the specified data source.\nWhen the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef,\nand dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified.\nIf the namespace is specified, then dataSourceRef will not be copied to dataSource.",
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup is the group for the resource being referenced.\nIf APIGroup is not specified, the specified Kind must be in the core API group.\nFor any other third-party types, APIGroup is required."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the type of resource being referenced",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of resource being referenced",
+                "required": true
+              }
+            }
+          },
+          "dataSourceRef": {
+            "type": "object",
+            "description": "dataSourceRef specifies the object from which to populate the volume with data, if a non-empty\nvolume is desired. This may be any object from a non-empty API group (non\ncore object) or a PersistentVolumeClaim object.\nWhen this field is specified, volume binding will only succeed if the type of\nthe specified object matches some installed volume populator or dynamic\nprovisioner.\nThis field will replace the functionality of the dataSource field and as such\nif both fields are non-empty, they must have the same value. For backwards\ncompatibility, when namespace isn't specified in dataSourceRef,\nboth fields (dataSource and dataSourceRef) will be set to the same\nvalue automatically if one of them is empty and the other is non-empty.\nWhen namespace is specified in dataSourceRef,\ndataSource isn't set to the same value and must be empty.\nThere are three important differences between dataSource and dataSourceRef:\n* While dataSource only allows two specific types of objects, dataSourceRef\n  allows any non-core object, as well as PersistentVolumeClaim objects.\n* While dataSource ignores disallowed values (dropping them), dataSourceRef\n  preserves all values, and generates an error if a disallowed value is\n  specified.\n* While dataSource only allows local objects, dataSourceRef allows objects\n  in any namespaces.\n(Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.\n(Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.",
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup is the group for the resource being referenced.\nIf APIGroup is not specified, the specified Kind must be in the core API group.\nFor any other third-party types, APIGroup is required."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the type of resource being referenced",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of resource being referenced",
+                "required": true
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace is the namespace of resource being referenced\nNote that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details.\n(Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled."
+              }
+            }
+          },
+          "resources": {
+            "type": "object",
+            "description": "resources represents the minimum resources the volume should have.\nIf RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements\nthat are lower than previous value but must still be higher than capacity recorded in the\nstatus field of the claim.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources",
+            "fields": {
+              "limits": {
+                "type": "object",
+                "description": "Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+              },
+              "requests": {
+                "type": "object",
+                "description": "Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+              }
+            }
+          },
+          "selector": {
+            "type": "object",
+            "description": "selector is a label query over volumes to consider for binding.",
+            "fields": {
+              "matchExpressions": {
+                "type": "array",
+                "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the label key that the selector applies to.",
+                    "required": true
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                    "required": true
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+                  }
+                }
+              },
+              "matchLabels": {
+                "type": "object",
+                "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+              }
+            }
+          },
+          "storageClassName": {
+            "type": "string",
+            "description": "storageClassName is the name of the StorageClass required by the claim.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1"
+          },
+          "volumeAttributesClassName": {
+            "type": "string",
+            "description": "volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.\nIf specified, the CSI driver will create or update the volume with the attributes defined\nin the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,\nit can be changed after the claim is created. An empty string value means that no VolumeAttributesClass\nwill be applied to the claim but it's not allowed to reset this field to empty string once it is set.\nIf unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass\nwill be set by the persistentvolume controller if it exists.\nIf the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be\nset to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource\nexists.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass\n(Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled."
+          },
+          "volumeMode": {
+            "type": "string",
+            "description": "volumeMode defines what type of volume is required by the claim.\nValue of Filesystem is implied when not included in claim spec."
+          },
+          "volumeName": {
+            "type": "string",
+            "description": "volumeName is the binding reference to the PersistentVolume backing this claim."
+          }
+        }
+      },
+      "filesystemStorage": {
+        "type": "object",
+        "description": "FileSystemStorage defines the spec of the PersistentVolumeClaim to be\ncreated for the assisted-service's filesystem (logs, etc).\nWith respect to the resource requests, the amount of filesystem storage\nconsumed will depend largely on the number of clusters created (~200MB\nper cluster and ~2-3GiB per supported OpenShift version). Minimum 100GiB\nrecommended.",
+        "required": true,
+        "fields": {
+          "accessModes": {
+            "type": "array",
+            "description": "accessModes contains the desired access modes the volume should have.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1"
+          },
+          "dataSource": {
+            "type": "object",
+            "description": "dataSource field can be used to specify either:\n* An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)\n* An existing PVC (PersistentVolumeClaim)\nIf the provisioner or an external controller can support the specified data source,\nit will create a new volume based on the contents of the specified data source.\nWhen the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef,\nand dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified.\nIf the namespace is specified, then dataSourceRef will not be copied to dataSource.",
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup is the group for the resource being referenced.\nIf APIGroup is not specified, the specified Kind must be in the core API group.\nFor any other third-party types, APIGroup is required."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the type of resource being referenced",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of resource being referenced",
+                "required": true
+              }
+            }
+          },
+          "dataSourceRef": {
+            "type": "object",
+            "description": "dataSourceRef specifies the object from which to populate the volume with data, if a non-empty\nvolume is desired. This may be any object from a non-empty API group (non\ncore object) or a PersistentVolumeClaim object.\nWhen this field is specified, volume binding will only succeed if the type of\nthe specified object matches some installed volume populator or dynamic\nprovisioner.\nThis field will replace the functionality of the dataSource field and as such\nif both fields are non-empty, they must have the same value. For backwards\ncompatibility, when namespace isn't specified in dataSourceRef,\nboth fields (dataSource and dataSourceRef) will be set to the same\nvalue automatically if one of them is empty and the other is non-empty.\nWhen namespace is specified in dataSourceRef,\ndataSource isn't set to the same value and must be empty.\nThere are three important differences between dataSource and dataSourceRef:\n* While dataSource only allows two specific types of objects, dataSourceRef\n  allows any non-core object, as well as PersistentVolumeClaim objects.\n* While dataSource ignores disallowed values (dropping them), dataSourceRef\n  preserves all values, and generates an error if a disallowed value is\n  specified.\n* While dataSource only allows local objects, dataSourceRef allows objects\n  in any namespaces.\n(Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.\n(Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.",
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup is the group for the resource being referenced.\nIf APIGroup is not specified, the specified Kind must be in the core API group.\nFor any other third-party types, APIGroup is required."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the type of resource being referenced",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of resource being referenced",
+                "required": true
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace is the namespace of resource being referenced\nNote that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details.\n(Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled."
+              }
+            }
+          },
+          "resources": {
+            "type": "object",
+            "description": "resources represents the minimum resources the volume should have.\nIf RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements\nthat are lower than previous value but must still be higher than capacity recorded in the\nstatus field of the claim.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources",
+            "fields": {
+              "limits": {
+                "type": "object",
+                "description": "Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+              },
+              "requests": {
+                "type": "object",
+                "description": "Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+              }
+            }
+          },
+          "selector": {
+            "type": "object",
+            "description": "selector is a label query over volumes to consider for binding.",
+            "fields": {
+              "matchExpressions": {
+                "type": "array",
+                "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the label key that the selector applies to.",
+                    "required": true
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                    "required": true
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+                  }
+                }
+              },
+              "matchLabels": {
+                "type": "object",
+                "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+              }
+            }
+          },
+          "storageClassName": {
+            "type": "string",
+            "description": "storageClassName is the name of the StorageClass required by the claim.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1"
+          },
+          "volumeAttributesClassName": {
+            "type": "string",
+            "description": "volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.\nIf specified, the CSI driver will create or update the volume with the attributes defined\nin the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,\nit can be changed after the claim is created. An empty string value means that no VolumeAttributesClass\nwill be applied to the claim but it's not allowed to reset this field to empty string once it is set.\nIf unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass\nwill be set by the persistentvolume controller if it exists.\nIf the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be\nset to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource\nexists.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass\n(Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled."
+          },
+          "volumeMode": {
+            "type": "string",
+            "description": "volumeMode defines what type of volume is required by the claim.\nValue of Filesystem is implied when not included in claim spec."
+          },
+          "volumeName": {
+            "type": "string",
+            "description": "volumeName is the binding reference to the PersistentVolume backing this claim."
+          }
+        }
+      },
+      "iPXEHTTPRoute": {
+        "type": "string",
+        "description": "IPXEHTTPRoute is controlling whether the operator is creating plain HTTP routes\niPXE hosts may not work with router cyphers and may access artifacts via HTTP only\nThis setting accepts \"enabled,disabled\", defaults to disabled. Empty value defaults to disabled\nThe following endpoints would be exposed via http:\n* api/assisted-installer/v2/infra-envs/<id>/downloads/files?file_name=ipxe-script in assisted-service\n* boot-artifacts/ and images/<infra-enf id>/pxe-initrd in -image-service",
+        "enum": [
+          "enabled",
+          "disabled"
+        ]
+      },
+      "imageStorage": {
+        "type": "object",
+        "description": "ImageStorage defines the spec of the PersistentVolumeClaim to be\ncreated for each replica of the image service.\nIf a PersistentVolumeClaim is provided 2GiB per OSImage entry is required",
+        "fields": {
+          "accessModes": {
+            "type": "array",
+            "description": "accessModes contains the desired access modes the volume should have.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1"
+          },
+          "dataSource": {
+            "type": "object",
+            "description": "dataSource field can be used to specify either:\n* An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)\n* An existing PVC (PersistentVolumeClaim)\nIf the provisioner or an external controller can support the specified data source,\nit will create a new volume based on the contents of the specified data source.\nWhen the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef,\nand dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified.\nIf the namespace is specified, then dataSourceRef will not be copied to dataSource.",
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup is the group for the resource being referenced.\nIf APIGroup is not specified, the specified Kind must be in the core API group.\nFor any other third-party types, APIGroup is required."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the type of resource being referenced",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of resource being referenced",
+                "required": true
+              }
+            }
+          },
+          "dataSourceRef": {
+            "type": "object",
+            "description": "dataSourceRef specifies the object from which to populate the volume with data, if a non-empty\nvolume is desired. This may be any object from a non-empty API group (non\ncore object) or a PersistentVolumeClaim object.\nWhen this field is specified, volume binding will only succeed if the type of\nthe specified object matches some installed volume populator or dynamic\nprovisioner.\nThis field will replace the functionality of the dataSource field and as such\nif both fields are non-empty, they must have the same value. For backwards\ncompatibility, when namespace isn't specified in dataSourceRef,\nboth fields (dataSource and dataSourceRef) will be set to the same\nvalue automatically if one of them is empty and the other is non-empty.\nWhen namespace is specified in dataSourceRef,\ndataSource isn't set to the same value and must be empty.\nThere are three important differences between dataSource and dataSourceRef:\n* While dataSource only allows two specific types of objects, dataSourceRef\n  allows any non-core object, as well as PersistentVolumeClaim objects.\n* While dataSource ignores disallowed values (dropping them), dataSourceRef\n  preserves all values, and generates an error if a disallowed value is\n  specified.\n* While dataSource only allows local objects, dataSourceRef allows objects\n  in any namespaces.\n(Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.\n(Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.",
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup is the group for the resource being referenced.\nIf APIGroup is not specified, the specified Kind must be in the core API group.\nFor any other third-party types, APIGroup is required."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the type of resource being referenced",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of resource being referenced",
+                "required": true
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace is the namespace of resource being referenced\nNote that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details.\n(Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled."
+              }
+            }
+          },
+          "resources": {
+            "type": "object",
+            "description": "resources represents the minimum resources the volume should have.\nIf RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements\nthat are lower than previous value but must still be higher than capacity recorded in the\nstatus field of the claim.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources",
+            "fields": {
+              "limits": {
+                "type": "object",
+                "description": "Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+              },
+              "requests": {
+                "type": "object",
+                "description": "Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+              }
+            }
+          },
+          "selector": {
+            "type": "object",
+            "description": "selector is a label query over volumes to consider for binding.",
+            "fields": {
+              "matchExpressions": {
+                "type": "array",
+                "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the label key that the selector applies to.",
+                    "required": true
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                    "required": true
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+                  }
+                }
+              },
+              "matchLabels": {
+                "type": "object",
+                "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+              }
+            }
+          },
+          "storageClassName": {
+            "type": "string",
+            "description": "storageClassName is the name of the StorageClass required by the claim.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1"
+          },
+          "volumeAttributesClassName": {
+            "type": "string",
+            "description": "volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.\nIf specified, the CSI driver will create or update the volume with the attributes defined\nin the corresponding VolumeAttributesClass. This has a different purpose than storageClassName,\nit can be changed after the claim is created. An empty string value means that no VolumeAttributesClass\nwill be applied to the claim but it's not allowed to reset this field to empty string once it is set.\nIf unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass\nwill be set by the persistentvolume controller if it exists.\nIf the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be\nset to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource\nexists.\nMore info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass\n(Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled."
+          },
+          "volumeMode": {
+            "type": "string",
+            "description": "volumeMode defines what type of volume is required by the claim.\nValue of Filesystem is implied when not included in claim spec."
+          },
+          "volumeName": {
+            "type": "string",
+            "description": "volumeName is the binding reference to the PersistentVolume backing this claim."
+          }
+        }
+      },
+      "ingress": {
+        "type": "object",
+        "description": "Ingress contains configuration for the ingress resources.\nHas no effect when running on an OpenShift cluster.",
+        "fields": {
+          "assistedServiceHostname": {
+            "type": "string",
+            "description": "AssistedServiceHostname is the hostname to be assigned to the assisted-service ingress.\nHas no effect when running on an OpenShift cluster.",
+            "required": true
+          },
+          "className": {
+            "type": "string",
+            "description": "ClassName is the name of the ingress class to be used when configuring ingress resources.\nHas no effect when running on an OpenShift cluster."
+          },
+          "imageServiceHostname": {
+            "type": "string",
+            "description": "ImageServiceHostname is the hostname to be assigned to the assisted-image-service ingress.\nHas no effect when running on an OpenShift cluster.",
+            "required": true
+          }
+        }
+      },
+      "kubeconfigSecretRef": {
+        "type": "object",
+        "description": "KubeconfigSecretRef is a reference to the secret containing the kubeconfig for the destination Hypershift instance.",
+        "required": true,
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          }
+        }
+      },
+      "mirrorRegistryRef": {
+        "type": "object",
+        "description": "MirrorRegistryRef is the reference to the configmap that contains mirror registry configuration\nIn case no configuration is need, this field will be nil. ConfigMap must contain to entries:\nca-bundle.crt - hold the contents of mirror registry certificate/s\nregistries.conf - holds the content of registries.conf file configured with mirror registries",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          }
+        }
+      },
+      "mustGatherImages": {
+        "type": "array",
+        "description": "MustGatherImages defines a collection of operator related must-gather images\nthat are used if one the operators fails to be successfully deployed",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name specifies the name of the component (e.g. operator)\nthat the image is used to collect information about.",
+            "required": true
+          },
+          "openshiftVersion": {
+            "type": "string",
+            "description": "OpenshiftVersion is the Major.Minor version of OpenShift that this image\nis to be associated with.",
+            "required": true
+          },
+          "url": {
+            "type": "string",
+            "description": "Url specifies the path to the Operating System image.",
+            "required": true
+          }
+        }
+      },
+      "osImages": {
+        "type": "array",
+        "description": "OSImages defines a collection of Operating System images (ie. RHCOS images)\nthat the assisted-service should use as the base when generating discovery ISOs.",
+        "fields": {
+          "cpuArchitecture": {
+            "type": "string",
+            "description": "The CPU architecture of the image (x86_64/arm64/etc)."
+          },
+          "openshiftVersion": {
+            "type": "string",
+            "description": "OpenshiftVersion is the Major.Minor version of OpenShift that this image\nis to be associated with.",
+            "required": true
+          },
+          "rootFSUrl": {
+            "type": "string",
+            "description": "rootFSUrl specifies the path to the root filesystem.\nDeprecated: this field is ignored (will be removed in a future release)."
+          },
+          "url": {
+            "type": "string",
+            "description": "Url specifies the path to the Operating System image.",
+            "required": true
+          },
+          "version": {
+            "type": "string",
+            "description": "Version is the Operating System version of the image.",
+            "required": true
+          }
+        }
+      },
+      "unauthenticatedRegistries": {
+        "type": "array",
+        "description": "UnauthenticatedRegistries is a list of registries from which container images can be pulled\nwithout authentication. They will be appended to the default list (quay.io,\nregistry.ci.openshift.org). Any registry on this list will not require credentials\nto be in the pull secret validated by the assisted-service."
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "lastHeartbeatTime": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "message": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "reason": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "status": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "ConditionType is the state of the operator's reconciliation functionality.",
+            "required": true
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: agent-install.openshift.io/v1beta1\nkind: HypershiftAgentServiceConfig\nmetadata:\n  name: example-hypershiftagentserviceconfig\n  namespace: default\nspec:\n  databaseStorage: {}\n  filesystemStorage: {}\n  kubeconfigSecretRef: {}\n"
+}
