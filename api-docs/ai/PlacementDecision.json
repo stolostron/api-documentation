@@ -1,0 +1,38 @@
+{
+  "kind": "PlacementDecision",
+  "apiVersion": "cluster.open-cluster-management.io/v1beta1",
+  "metadata": {
+    "group": "cluster.open-cluster-management.io",
+    "version": "v1beta1",
+    "plural": "placementdecisions",
+    "singular": "placementdecision",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {}
+  },
+  "status": {
+    "description": "Status represents the current status of the PlacementDecision",
+    "fields": {
+      "decisions": {
+        "type": "array",
+        "description": "Decisions is a slice of decisions according to a placement\nThe number of decisions should not be larger than 100",
+        "required": true,
+        "fields": {
+          "clusterName": {
+            "type": "string",
+            "description": "ClusterName is the name of the ManagedCluster. If it is not empty, its value should be unique cross all\nplacement decisions for the Placement.",
+            "required": true
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason represents the reason why the ManagedCluster is selected.",
+            "required": true
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: cluster.open-cluster-management.io/v1beta1\nkind: PlacementDecision\nmetadata:\n  name: example-placementdecision\n  namespace: default\n"
+}

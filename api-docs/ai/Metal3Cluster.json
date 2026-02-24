@@ -1,0 +1,95 @@
+{
+  "kind": "Metal3Cluster",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1beta1",
+    "plural": "metal3clusters",
+    "singular": "metal3cluster",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "Metal3ClusterSpec defines the desired state of Metal3Cluster.",
+    "fields": {
+      "cloudProviderEnabled": {
+        "type": "boolean",
+        "description": "Determines if the cluster is to be deployed with an external cloud provider.\nIf set to false, CAPM3 will use node labels to set providerID on the kubernetes nodes.\nIf set to true, providerID is set on nodes by other entities and CAPM3 uses the value of the providerID on the m3m resource.\nDefault value is true, it is set in the webhook."
+      },
+      "controlPlaneEndpoint": {
+        "type": "object",
+        "description": "ControlPlaneEndpoint represents the endpoint used to communicate with the control plane.",
+        "fields": {
+          "host": {
+            "type": "string",
+            "description": "Host is the hostname on which the API server is serving.",
+            "required": true
+          },
+          "port": {
+            "type": "integer",
+            "description": "Port is the port on which the API server is serving.",
+            "required": true
+          }
+        }
+      },
+      "noCloudProvider": {
+        "type": "boolean",
+        "description": "Determines if the cluster is not to be deployed with an external cloud provider.\nIf set to true, CAPM3 will use node labels to set providerID on the kubernetes nodes.\nIf set to false, providerID is set on nodes by other entities and CAPM3 uses the value of the providerID on the m3m resource.\nDeprecated: This field is deprecated, use cloudProviderEnabled instead"
+      }
+    }
+  },
+  "status": {
+    "description": "Metal3ClusterStatus defines the observed state of Metal3Cluster.",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions defines current service state of the Metal3Cluster.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "Last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed. If that is not known, then using the time when\nthe API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "A human readable message indicating details about the transition.\nThis field may be empty."
+          },
+          "reason": {
+            "type": "string",
+            "description": "The reason for the condition's last transition in CamelCase.\nThe specific API may choose whether or not this field is considered a guaranteed API.\nThis field may be empty."
+          },
+          "severity": {
+            "type": "string",
+            "description": "severity provides an explicit classification of Reason code, so the users or machines can immediately\nunderstand the current situation and act accordingly.\nThe Severity field MUST be set only when Status=False."
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.\nMany .condition.type values are consistent across resources like Available, but because arbitrary conditions\ncan be useful (see .node.status.conditions), the ability to deconflict is important.",
+            "required": true
+          }
+        }
+      },
+      "failureMessage": {
+        "type": "string",
+        "description": "FailureMessage indicates that there is a fatal problem reconciling the\nstate, and will be set to a descriptive error message."
+      },
+      "failureReason": {
+        "type": "string",
+        "description": "FailureReason indicates that there is a fatal problem reconciling the\nstate, and will be set to a token value suitable for\nprogrammatic interpretation."
+      },
+      "lastUpdated": {
+        "type": "string",
+        "description": "LastUpdated identifies when this status was last observed."
+      },
+      "ready": {
+        "type": "boolean",
+        "description": "Ready denotes that the Metal3 cluster (infrastructure) is ready. In\nBaremetal case, it does not mean anything for now as no infrastructure\nsteps need to be performed. Required by Cluster API. Set to True by the\nmetal3Cluster controller after creation."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1beta1\nkind: Metal3Cluster\nmetadata:\n  name: example-metal3cluster\n  namespace: default\nspec:\n  cloudProviderEnabled: true\n  controlPlaneEndpoint: {}\n  noCloudProvider: true\n"
+}

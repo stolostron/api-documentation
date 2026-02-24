@@ -1,0 +1,306 @@
+{
+  "kind": "SubmarinerConfig",
+  "apiVersion": "submarineraddon.open-cluster-management.io/v1alpha1",
+  "metadata": {
+    "group": "submarineraddon.open-cluster-management.io",
+    "version": "v1alpha1",
+    "plural": "submarinerconfigs",
+    "singular": "submarinerconfig",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "Spec defines the configuration of the Submariner",
+    "fields": {
+      "Debug": {
+        "type": "boolean",
+        "description": "Debug enables Submariner debugging (in the logs).",
+        "default": false
+      },
+      "IPSecDebug": {
+        "type": "boolean",
+        "description": "IPSecDebug enables IPSec debugging.",
+        "default": false
+      },
+      "IPSecIKEPort": {
+        "type": "integer",
+        "description": "IPSecIKEPort represents IPsec IKE port (default 500).",
+        "default": 500
+      },
+      "IPSecNATTPort": {
+        "type": "integer",
+        "description": "IPSecNATTPort represents IPsec NAT-T port (default 4500).",
+        "default": 4500
+      },
+      "NATTDiscoveryPort": {
+        "type": "integer",
+        "description": "NATTDiscoveryPort specifies the port used for NAT-T Discovery (default UDP/4900).",
+        "default": 4900
+      },
+      "NATTEnable": {
+        "type": "boolean",
+        "description": "NATTEnable represents IPsec NAT-T enabled (default true).",
+        "default": true
+      },
+      "airGappedDeployment": {
+        "type": "boolean",
+        "description": "AirGappedDeployment specifies that the cluster is in an air-gapped environment without access to external servers.",
+        "default": false
+      },
+      "cableDriver": {
+        "type": "string",
+        "description": "CableDriver represents the submariner cable driver implementation.\nAvailable options are libreswan (default) strongswan, wireguard, and vxlan.",
+        "default": "libreswan"
+      },
+      "credentialsSecret": {
+        "type": "object",
+        "description": "CredentialsSecret is a reference to the secret with a certain cloud platform\ncredentials, the supported platform includes AWS, GCP, Azure, ROKS and OSD.\nThe submariner-addon will use these credentials to prepare Submariner cluster\nenvironment. If the submariner cluster environment requires submariner-addon\npreparation, this field should be specified.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+            "default": ""
+          }
+        }
+      },
+      "forceUDPEncaps": {
+        "type": "boolean",
+        "description": "ForceUDPEncaps forces UDP Encapsulation for IPSec.",
+        "default": false
+      },
+      "gatewayConfig": {
+        "type": "object",
+        "description": "GatewayConfig represents the gateways configuration of the Submariner.",
+        "fields": {
+          "aws": {
+            "type": "object",
+            "description": "AWS represents the configuration for Amazon Web Services.\nIf the platform of managed cluster is not Amazon Web Services, this field will be ignored.",
+            "fields": {
+              "instanceType": {
+                "type": "string",
+                "description": "InstanceType represents the Amazon Web Services EC2 instance type of the gateway node that will be\ncreated on the managed cluster.\nThe default value is `m5n.large`.",
+                "default": "m5n.large"
+              }
+            }
+          },
+          "azure": {
+            "type": "object",
+            "description": "Azure represents the configuration for Azure Cloud Platform.\nIf the platform of managed cluster is not Azure Cloud Platform, this field will be ignored.",
+            "fields": {
+              "instanceType": {
+                "type": "string",
+                "description": "InstanceType represents the Azure Cloud Platform instance type of the gateway node that will be\ncreated on the managed cluster.\nThe default value is `Standard_F4s_v2`.",
+                "default": "Standard_F4s_v2"
+              }
+            }
+          },
+          "gateways": {
+            "type": "integer",
+            "description": "Gateways represents the count of worker nodes that will be used to deploy the Submariner gateway\ncomponent on the managed cluster. The default value is 1, if the value is greater than 1, the\nSubmariner gateway HA will be enabled automatically.",
+            "default": 1
+          },
+          "gcp": {
+            "type": "object",
+            "description": "GCP represents the configuration for Google Cloud Platform.\nIf the platform of managed cluster is not Google Cloud Platform, this field will be ignored.",
+            "fields": {
+              "instanceType": {
+                "type": "string",
+                "description": "InstanceType represents the Google Cloud Platform instance type of the gateway node that will be\ncreated on the managed cluster.\nThe default value is `n1-standard-4`.",
+                "default": "n1-standard-4"
+              }
+            }
+          },
+          "rhos": {
+            "type": "object",
+            "description": "RHOS represents the configuration for Redhat Openstack Platform.\nIf the platform of managed cluster is not Redhat Openstack Platform, this field will be ignored.",
+            "fields": {
+              "instanceType": {
+                "type": "string",
+                "description": "InstanceType represents the Redhat Openstack instance type of the gateway node that will be\ncreated on the managed cluster.\nThe default value is `PnTAE.CPU_4_Memory_8192_Disk_50`.",
+                "default": "PnTAE.CPU_4_Memory_8192_Disk_50"
+              }
+            }
+          }
+        }
+      },
+      "globalCIDR": {
+        "type": "string",
+        "description": "GlobalCIDR specifies the global CIDR used by the cluster."
+      },
+      "haltOnCertificateError": {
+        "type": "boolean",
+        "description": "HaltOnCertificateError halts pods on certificate errors (so they are restarted).",
+        "default": true
+      },
+      "hostedCluster": {
+        "type": "boolean",
+        "description": "HostedCluster enabled if the cluster is a hosted cluster.",
+        "default": false
+      },
+      "imagePullSpecs": {
+        "type": "object",
+        "description": "ImagePullSpecs represents the desired images of submariner components installed on the managed cluster.\nIf not specified, the default submariner images that was defined by submariner operator will be used.",
+        "fields": {
+          "lighthouseAgentImagePullSpec": {
+            "type": "string",
+            "description": "LighthouseAgentImagePullSpec represents the desired image of the lighthouse agent."
+          },
+          "lighthouseCoreDNSImagePullSpec": {
+            "type": "string",
+            "description": "LighthouseCoreDNSImagePullSpec represents the desired image of lighthouse coredns."
+          },
+          "metricsProxyImagePullSpec": {
+            "type": "string",
+            "description": "MetricsProxyImagePullSpec represents the desired image of the metrics proxy."
+          },
+          "nettestImagePullSpec": {
+            "type": "string",
+            "description": "NettestImagePullSpec represents the desired image of nettest."
+          },
+          "submarinerGlobalnetImagePullSpec": {
+            "type": "string",
+            "description": "SubmarinerGlobalnetImagePullSpec represents the desired image of the submariner globalnet."
+          },
+          "submarinerImagePullSpec": {
+            "type": "string",
+            "description": "SubmarinerImagePullSpec represents the desired image of submariner."
+          },
+          "submarinerNetworkPluginSyncerImagePullSpec": {
+            "type": "string",
+            "description": "SubmarinerNetworkPluginSyncerImagePullSpec represents the desired image of the submariner networkplugin syncer.\nDeprecated: The networkplugin syncer was removed in v0.16.0."
+          },
+          "submarinerRouteAgentImagePullSpec": {
+            "type": "string",
+            "description": "SubmarinerRouteAgentImagePullSpec represents the desired image of the submariner route agent."
+          }
+        }
+      },
+      "insecureBrokerConnection": {
+        "type": "boolean",
+        "description": "InsecureBrokerConnection disables certificate validation when contacting the broker.\nThis is useful for scenarios where the certificate chain isn't the same everywhere, e.g. with self-signed\ncertificates with a different trust chain in each cluster.",
+        "default": false
+      },
+      "loadBalancerEnable": {
+        "type": "boolean",
+        "description": "LoadBalancerEnable enables or disables load balancer mode. When enabled, a LoadBalancer is created in the\nsubmariner-operator namespace (default false).",
+        "default": false
+      },
+      "subscriptionConfig": {
+        "type": "object",
+        "description": "SubscriptionConfig represents a Submariner subscription. SubscriptionConfig\ncan be used to customize the Submariner subscription.",
+        "fields": {
+          "channel": {
+            "type": "string",
+            "description": "Channel represents the channel of a submariner subscription."
+          },
+          "installPlanApproval": {
+            "type": "string",
+            "description": "InstallPlanApproval determines whether subscription installation plans are applied automatically."
+          },
+          "source": {
+            "type": "string",
+            "description": "Source represents the catalog source of a submariner subscription.\nThe default value is redhat-operators",
+            "default": "redhat-operators"
+          },
+          "sourceNamespace": {
+            "type": "string",
+            "description": "SourceNamespace represents the catalog source namespace of a submariner subscription.\nThe default value is openshift-marketplace",
+            "default": "openshift-marketplace"
+          },
+          "startingCSV": {
+            "type": "string",
+            "description": "StartingCSV represents the startingCSV of a submariner subscription."
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "Status represents the current status of submariner configuration",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions contain the different condition statuses for this configuration.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition.\nThis may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon.\nFor instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition.\nProducers of specific condition types may define expected values and meanings for this field,\nand whether the values are considered a guaranteed API.\nThe value should be a CamelCase string.\nThis field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      },
+      "managedClusterInfo": {
+        "type": "object",
+        "description": "ManagedClusterInfo represents the information of a managed cluster.",
+        "fields": {
+          "clusterName": {
+            "type": "string",
+            "description": "ClusterName represents the name of the managed cluster."
+          },
+          "infraId": {
+            "type": "string",
+            "description": "InfraId represents the infrastructure id of the managed cluster."
+          },
+          "networkType": {
+            "type": "string",
+            "description": "NetworkType represents the network type (cni) of the managed cluster."
+          },
+          "platform": {
+            "type": "string",
+            "description": "Platform represents the cloud provider of the managed cluster."
+          },
+          "region": {
+            "type": "string",
+            "description": "Region represents the cloud region of the managed cluster."
+          },
+          "vendor": {
+            "type": "string",
+            "description": "Vendor represents the kubernetes vendor of the managed cluster."
+          },
+          "vendorVersion": {
+            "type": "string",
+            "description": "VendorVersion represents k8s vendor version of the managed cluster."
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: submarineraddon.open-cluster-management.io/v1alpha1\nkind: SubmarinerConfig\nmetadata:\n  name: example-submarinerconfig\n  namespace: default\nspec:\n  Debug: False\n  IPSecDebug: False\n  IPSecIKEPort: 500\n  IPSecNATTPort: 4500\n  NATTDiscoveryPort: 4900\n"
+}

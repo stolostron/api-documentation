@@ -1,0 +1,20 @@
+{
+  "kind": "InternalHubComponent",
+  "apiVersion": "operator.open-cluster-management.io/v1",
+  "metadata": {
+    "group": "operator.open-cluster-management.io",
+    "version": "v1",
+    "plural": "internalhubcomponents",
+    "singular": "internalhubcomponent",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {}
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: operator.open-cluster-management.io/v1\nkind: InternalHubComponent\nmetadata:\n  name: example-internalhubcomponent\n  namespace: default\n"
+}

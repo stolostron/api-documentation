@@ -1,0 +1,442 @@
+{
+  "kind": "ClusterCurator",
+  "apiVersion": "cluster.open-cluster-management.io/v1beta1",
+  "metadata": {
+    "group": "cluster.open-cluster-management.io",
+    "version": "v1beta1",
+    "plural": "clustercurators",
+    "singular": "clustercurator",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "ClusterCuratorSpec defines the desired state of ClusterCurator",
+    "fields": {
+      "curatorJob": {
+        "type": "string",
+        "description": "Kubernetes job resource created for curation of a cluster"
+      },
+      "desiredCuration": {
+        "type": "string",
+        "description": "This is the desired curation that will occur",
+        "enum": [
+          "install",
+          "scale",
+          "upgrade",
+          "destroy",
+          "delete-cluster-namespace"
+        ]
+      },
+      "destroy": {
+        "type": "object",
+        "description": "During an destroy curation run these **Pre hook ONLY**",
+        "fields": {
+          "jobMonitorTimeout": {
+            "type": "integer",
+            "description": "JobMonitorTimeout defines the timeout for finding a job, the unit of this is minute. If job is found, the curator controller waits until the job becomes active. By default, it is 5 minutes If its value is less than or equal to zero, the default value will be used.",
+            "default": 5
+          },
+          "overrideJob": {
+            "type": "object",
+            "description": "When provided, this is a Job specification and overrides the default flow"
+          },
+          "posthook": {
+            "type": "array",
+            "description": "Jobs to run after the cluster import",
+            "fields": {
+              "extra_vars": {
+                "type": "object",
+                "description": "Ansible job extra_vars is passed to the Ansible job at execution time and is a known Ansible entity."
+              },
+              "job_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should be run."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the Ansible Template to run in Tower as a job",
+                "required": true
+              },
+              "skip_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should not be run."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of the Hook. For Job type, Ansible job template will be used. For Workflow type, Ansible workflow template will be used. If omitted, default to Job type.",
+                "enum": [
+                  "Job",
+                  "Workflow"
+                ],
+                "default": "Job"
+              }
+            }
+          },
+          "prehook": {
+            "type": "array",
+            "description": "Jobs to run before the cluster deployment",
+            "fields": {
+              "extra_vars": {
+                "type": "object",
+                "description": "Ansible job extra_vars is passed to the Ansible job at execution time and is a known Ansible entity."
+              },
+              "job_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should be run."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the Ansible Template to run in Tower as a job",
+                "required": true
+              },
+              "skip_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should not be run."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of the Hook. For Job type, Ansible job template will be used. For Workflow type, Ansible workflow template will be used. If omitted, default to Job type.",
+                "enum": [
+                  "Job",
+                  "Workflow"
+                ],
+                "default": "Job"
+              }
+            }
+          },
+          "towerAuthSecret": {
+            "type": "string",
+            "description": "TowerAuthSecret is ansible secret used in template to run in tower"
+          }
+        }
+      },
+      "install": {
+        "type": "object",
+        "description": "During an install curation run these Pre/Post hooks",
+        "fields": {
+          "jobMonitorTimeout": {
+            "type": "integer",
+            "description": "JobMonitorTimeout defines the timeout for finding a job, the unit of this is minute. If job is found, the curator controller waits until the job becomes active. By default, it is 5 minutes If its value is less than or equal to zero, the default value will be used.",
+            "default": 5
+          },
+          "overrideJob": {
+            "type": "object",
+            "description": "When provided, this is a Job specification and overrides the default flow"
+          },
+          "posthook": {
+            "type": "array",
+            "description": "Jobs to run after the cluster import",
+            "fields": {
+              "extra_vars": {
+                "type": "object",
+                "description": "Ansible job extra_vars is passed to the Ansible job at execution time and is a known Ansible entity."
+              },
+              "job_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should be run."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the Ansible Template to run in Tower as a job",
+                "required": true
+              },
+              "skip_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should not be run."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of the Hook. For Job type, Ansible job template will be used. For Workflow type, Ansible workflow template will be used. If omitted, default to Job type.",
+                "enum": [
+                  "Job",
+                  "Workflow"
+                ],
+                "default": "Job"
+              }
+            }
+          },
+          "prehook": {
+            "type": "array",
+            "description": "Jobs to run before the cluster deployment",
+            "fields": {
+              "extra_vars": {
+                "type": "object",
+                "description": "Ansible job extra_vars is passed to the Ansible job at execution time and is a known Ansible entity."
+              },
+              "job_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should be run."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the Ansible Template to run in Tower as a job",
+                "required": true
+              },
+              "skip_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should not be run."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of the Hook. For Job type, Ansible job template will be used. For Workflow type, Ansible workflow template will be used. If omitted, default to Job type.",
+                "enum": [
+                  "Job",
+                  "Workflow"
+                ],
+                "default": "Job"
+              }
+            }
+          },
+          "towerAuthSecret": {
+            "type": "string",
+            "description": "TowerAuthSecret is ansible secret used in template to run in tower"
+          }
+        }
+      },
+      "inventory": {
+        "type": "string",
+        "description": "Inventory values are supplied for use with the pre/post jobs."
+      },
+      "providerCredentialPath": {
+        "type": "string",
+        "description": "Points to the Cloud Provider or Ansible Provider secret, format: namespace/secretName"
+      },
+      "scale": {
+        "type": "object",
+        "description": "During an scale curation run these Pre/Post hooks",
+        "fields": {
+          "jobMonitorTimeout": {
+            "type": "integer",
+            "description": "JobMonitorTimeout defines the timeout for finding a job, the unit of this is minute. If job is found, the curator controller waits until the job becomes active. By default, it is 5 minutes If its value is less than or equal to zero, the default value will be used.",
+            "default": 5
+          },
+          "overrideJob": {
+            "type": "object",
+            "description": "When provided, this is a Job specification and overrides the default flow"
+          },
+          "posthook": {
+            "type": "array",
+            "description": "Jobs to run after the cluster import",
+            "fields": {
+              "extra_vars": {
+                "type": "object",
+                "description": "Ansible job extra_vars is passed to the Ansible job at execution time and is a known Ansible entity."
+              },
+              "job_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should be run."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the Ansible Template to run in Tower as a job",
+                "required": true
+              },
+              "skip_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should not be run."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of the Hook. For Job type, Ansible job template will be used. For Workflow type, Ansible workflow template will be used. If omitted, default to Job type.",
+                "enum": [
+                  "Job",
+                  "Workflow"
+                ],
+                "default": "Job"
+              }
+            }
+          },
+          "prehook": {
+            "type": "array",
+            "description": "Jobs to run before the cluster deployment",
+            "fields": {
+              "extra_vars": {
+                "type": "object",
+                "description": "Ansible job extra_vars is passed to the Ansible job at execution time and is a known Ansible entity."
+              },
+              "job_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should be run."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the Ansible Template to run in Tower as a job",
+                "required": true
+              },
+              "skip_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should not be run."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of the Hook. For Job type, Ansible job template will be used. For Workflow type, Ansible workflow template will be used. If omitted, default to Job type.",
+                "enum": [
+                  "Job",
+                  "Workflow"
+                ],
+                "default": "Job"
+              }
+            }
+          },
+          "towerAuthSecret": {
+            "type": "string",
+            "description": "TowerAuthSecret is ansible secret used in template to run in tower"
+          }
+        }
+      },
+      "upgrade": {
+        "type": "object",
+        "description": "During an upgrade curation run these",
+        "fields": {
+          "channel": {
+            "type": "string",
+            "description": "Channel is an identifier for explicitly requesting that a non-default set of updates be applied to this cluster. The default channel will be contain stable updates that are appropriate for production clusters."
+          },
+          "desiredUpdate": {
+            "type": "string",
+            "description": "DesiredUpdate indicates the desired value of the cluster version. Setting this value will trigger an upgrade (if the current version does not match the desired version). During an EUS to EUS upgrade, this value becomes the final cluster version (the target version that ClusterCurator will upgrade the cluster to)."
+          },
+          "intermediateUpdate": {
+            "type": "string",
+            "description": "IntermediateUpdate indicates the desired value of the intermediate cluster version when performing EUS to EUS upgrades. Setting both this value and DesiredUpdate will trigger an EUS to EUS upgrade."
+          },
+          "monitorTimeout": {
+            "type": "integer",
+            "description": "MonitorTimeout defines the monitor process timeout, the unit of this is minute. By default, it is 120 minutes If its value is less than or equal to zero, the default value will be used.",
+            "default": 120
+          },
+          "overrideJob": {
+            "type": "object",
+            "description": "When provided, this is a Job specification and overrides the default flow"
+          },
+          "posthook": {
+            "type": "array",
+            "description": "Jobs to run after the cluster upgrade",
+            "fields": {
+              "extra_vars": {
+                "type": "object",
+                "description": "Ansible job extra_vars is passed to the Ansible job at execution time and is a known Ansible entity."
+              },
+              "job_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should be run."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the Ansible Template to run in Tower as a job",
+                "required": true
+              },
+              "skip_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should not be run."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of the Hook. For Job type, Ansible job template will be used. For Workflow type, Ansible workflow template will be used. If omitted, default to Job type.",
+                "enum": [
+                  "Job",
+                  "Workflow"
+                ],
+                "default": "Job"
+              }
+            }
+          },
+          "prehook": {
+            "type": "array",
+            "description": "Jobs to run before the cluster upgrade",
+            "fields": {
+              "extra_vars": {
+                "type": "object",
+                "description": "Ansible job extra_vars is passed to the Ansible job at execution time and is a known Ansible entity."
+              },
+              "job_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should be run."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the Ansible Template to run in Tower as a job",
+                "required": true
+              },
+              "skip_tags": {
+                "type": "string",
+                "description": "A comma-separated list of tags to specify which sets of ansible tasks in a job should not be run."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of the Hook. For Job type, Ansible job template will be used. For Workflow type, Ansible workflow template will be used. If omitted, default to Job type.",
+                "enum": [
+                  "Job",
+                  "Workflow"
+                ],
+                "default": "Job"
+              }
+            }
+          },
+          "towerAuthSecret": {
+            "type": "string",
+            "description": "TowerAuthSecret is ansible secret used in template to run in tower"
+          },
+          "upstream": {
+            "type": "string",
+            "description": "Upstream may be used to specify the preferred update server. By default it will use the appropriate update server for the cluster and region."
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "ClusterCuratorStatus defines the observed state of ClusterCurator work",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Track the conditions for each step in the desired curation that is being executed as a job",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition. This may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase. --- Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be useful (see .node.status.conditions), the ability to deconflict is important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: cluster.open-cluster-management.io/v1beta1\nkind: ClusterCurator\nmetadata:\n  name: example-clustercurator\n  namespace: default\nspec:\n  curatorJob: \"example-curatorJob\"\n  desiredCuration: install\n  destroy: {}\n  install: {}\n  inventory: \"example-inventory\"\n"
+}

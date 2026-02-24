@@ -1,0 +1,382 @@
+{
+  "kind": "AddOnTemplate",
+  "apiVersion": "addon.open-cluster-management.io/v1alpha1",
+  "metadata": {
+    "group": "addon.open-cluster-management.io",
+    "version": "v1alpha1",
+    "plural": "addontemplates",
+    "singular": "addontemplate",
+    "scope": "Cluster"
+  },
+  "spec": {
+    "description": "spec holds the registration configuration for the addon and the\naddon agent resources yaml description.",
+    "fields": {
+      "addonName": {
+        "type": "string",
+        "description": "AddonName represents the name of the addon which the template belongs to",
+        "required": true
+      },
+      "agentSpec": {
+        "type": "object",
+        "description": "AgentSpec describes what/how the kubernetes resources of the addon agent to be deployed on a managed cluster.",
+        "required": true,
+        "fields": {
+          "deleteOption": {
+            "type": "object",
+            "description": "DeleteOption represents deletion strategy when the manifestwork is deleted.\nForeground deletion strategy is applied to all the resource in this manifestwork if it is not set.",
+            "fields": {
+              "propagationPolicy": {
+                "type": "string",
+                "description": "propagationPolicy can be Foreground, Orphan or SelectivelyOrphan\nSelectivelyOrphan should be rarely used.  It is provided for cases where particular resources is transfering\nownership from one ManifestWork to another or another management unit.\nSetting this value will allow a flow like\n1. create manifestwork/2 to manage foo\n2. update manifestwork/1 to selectively orphan foo\n3. remove foo from manifestwork/1 without impacting continuity because manifestwork/2 adopts it.",
+                "enum": [
+                  "Foreground",
+                  "Orphan",
+                  "SelectivelyOrphan"
+                ],
+                "default": "Foreground"
+              },
+              "selectivelyOrphans": {
+                "type": "object",
+                "description": "selectivelyOrphan represents a list of resources following orphan deletion stratecy",
+                "fields": {
+                  "orphaningRules": {
+                    "type": "array",
+                    "description": "orphaningRules defines a slice of orphaningrule.\nEach orphaningrule identifies a single resource included in this manifestwork",
+                    "fields": {
+                      "group": {
+                        "type": "string",
+                        "description": "Group is the API Group of the Kubernetes resource,\nempty string indicates it is in core group."
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Name is the name of the Kubernetes resource.",
+                        "required": true
+                      },
+                      "namespace": {
+                        "type": "string",
+                        "description": "Name is the namespace of the Kubernetes resource, empty string indicates\nit is a cluster scoped resource."
+                      },
+                      "resource": {
+                        "type": "string",
+                        "description": "Resource is the resource name of the Kubernetes resource.",
+                        "required": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "executor": {
+            "type": "object",
+            "description": "Executor is the configuration that makes the work agent to perform some pre-request processing/checking.\ne.g. the executor identity tells the work agent to check the executor has sufficient permission to write\nthe workloads to the local managed cluster.\nNote that nil executor is still supported for backward-compatibility which indicates that the work agent\nwill not perform any additional actions before applying resources.",
+            "fields": {
+              "subject": {
+                "type": "object",
+                "description": "Subject is the subject identity which the work agent uses to talk to the\nlocal cluster when applying the resources.",
+                "fields": {
+                  "serviceAccount": {
+                    "type": "object",
+                    "description": "ServiceAccount is for identifying which service account to use by the work agent.\nOnly required if the type is \"ServiceAccount\".",
+                    "fields": {
+                      "name": {
+                        "type": "string",
+                        "description": "Name is the name of the service account.",
+                        "required": true,
+                        "validations": {
+                          "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)$"
+                        }
+                      },
+                      "namespace": {
+                        "type": "string",
+                        "description": "Namespace is the namespace of the service account.",
+                        "required": true,
+                        "validations": {
+                          "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)$"
+                        }
+                      }
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type is the type of the subject identity.\nSupported types are: \"ServiceAccount\".",
+                    "required": true,
+                    "enum": [
+                      "ServiceAccount"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "manifestConfigs": {
+            "type": "array",
+            "description": "ManifestConfigs represents the configurations of manifests defined in workload field.",
+            "fields": {
+              "feedbackRules": {
+                "type": "array",
+                "description": "FeedbackRules defines what resource status field should be returned. If it is not set or empty,\nno feedback rules will be honored.",
+                "fields": {
+                  "jsonPaths": {
+                    "type": "array",
+                    "description": "JsonPaths defines the json path under status field to be synced.",
+                    "fields": {
+                      "name": {
+                        "type": "string",
+                        "description": "Name represents the alias name for this field",
+                        "required": true
+                      },
+                      "path": {
+                        "type": "string",
+                        "description": "Path represents the json path of the field under status.\nThe path must point to a field with single value in the type of integer, bool or string.\nIf the path points to a non-existing field, no value will be returned.\nIf the path points to a structure, map or slice, no value will be returned and the status conddition\nof StatusFeedBackSynced will be set as false.\nRef to https://kubernetes.io/docs/reference/kubectl/jsonpath/ on how to write a jsonPath.",
+                        "required": true
+                      },
+                      "version": {
+                        "type": "string",
+                        "description": "Version is the version of the Kubernetes resource.\nIf it is not specified, the resource with the semantically latest version is\nused to resolve the path."
+                      }
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type defines the option of how status can be returned.\nIt can be jsonPaths or wellKnownStatus.\nIf the type is JSONPaths, user should specify the jsonPaths field\nIf the type is WellKnownStatus, certain common fields of status defined by a rule only\nfor types in in k8s.io/api and open-cluster-management/api will be reported,\nIf these status fields do not exist, no values will be reported.",
+                    "required": true,
+                    "enum": [
+                      "WellKnownStatus",
+                      "JSONPaths"
+                    ]
+                  }
+                }
+              },
+              "resourceIdentifier": {
+                "type": "object",
+                "description": "ResourceIdentifier represents the group, resource, name and namespace of a resoure.\niff this refers to a resource not created by this manifest work, the related rules will not be executed.",
+                "required": true,
+                "fields": {
+                  "group": {
+                    "type": "string",
+                    "description": "Group is the API Group of the Kubernetes resource,\nempty string indicates it is in core group."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name is the name of the Kubernetes resource.",
+                    "required": true
+                  },
+                  "namespace": {
+                    "type": "string",
+                    "description": "Name is the namespace of the Kubernetes resource, empty string indicates\nit is a cluster scoped resource."
+                  },
+                  "resource": {
+                    "type": "string",
+                    "description": "Resource is the resource name of the Kubernetes resource.",
+                    "required": true
+                  }
+                }
+              },
+              "updateStrategy": {
+                "type": "object",
+                "description": "UpdateStrategy defines the strategy to update this manifest. UpdateStrategy is Update\nif it is not set.",
+                "fields": {
+                  "serverSideApply": {
+                    "type": "object",
+                    "description": "serverSideApply defines the configuration for server side apply. It is honored only when the\ntype of the updateStrategy is ServerSideApply",
+                    "fields": {
+                      "fieldManager": {
+                        "type": "string",
+                        "description": "FieldManager is the manager to apply the resource. It is work-agent by default, but can be other name with work-agent\nas the prefix.",
+                        "default": "work-agent",
+                        "validations": {
+                          "pattern": "^work-agent"
+                        }
+                      },
+                      "force": {
+                        "type": "boolean",
+                        "description": "Force represents to force apply the manifest."
+                      },
+                      "ignoreFields": {
+                        "type": "array",
+                        "description": "IgnoreFields defines a list of json paths in the resource that will not be updated on the spoke.",
+                        "fields": {
+                          "condition": {
+                            "type": "string",
+                            "description": "Condition defines the condition that the fields should be ignored when apply the resource.\nFields in JSONPaths are all ignored when condition is met, otherwise no fields is ignored\nin the apply operation.",
+                            "required": true,
+                            "enum": [
+                              "OnSpokePresent",
+                              "OnSpokeChange"
+                            ],
+                            "default": "OnSpokePresent"
+                          },
+                          "jsonPaths": {
+                            "type": "array",
+                            "description": "JSONPaths defines the list of json path in the resource to be ignored",
+                            "required": true
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "type defines the strategy to update this manifest, default value is Update.\nUpdate type means to update resource by an update call.\nCreateOnly type means do not update resource based on current manifest.\nServerSideApply type means to update resource using server side apply with work-controller as the field manager.\nIf there is conflict, the related Applied condition of manifest will be in the status of False with the\nreason of ApplyConflict.\nReadOnly type means the agent will only check the existence of the resource based on its metadata,\nstatusFeedBackRules can still be used to get feedbackResults.",
+                    "required": true,
+                    "enum": [
+                      "Update",
+                      "CreateOnly",
+                      "ServerSideApply",
+                      "ReadOnly"
+                    ],
+                    "default": "Update"
+                  }
+                }
+              }
+            }
+          },
+          "workload": {
+            "type": "object",
+            "description": "Workload represents the manifest workload to be deployed on a managed cluster.",
+            "fields": {
+              "manifests": {
+                "type": "array",
+                "description": "Manifests represents a list of kuberenetes resources to be deployed on a managed cluster."
+              }
+            }
+          }
+        }
+      },
+      "registration": {
+        "type": "array",
+        "description": "Registration holds the registration configuration for the addon",
+        "fields": {
+          "customSigner": {
+            "type": "object",
+            "description": "CustomSigner holds the configuration of the CustomSigner type registration\nrequired when the Type is CustomSigner",
+            "fields": {
+              "signerName": {
+                "type": "string",
+                "description": "signerName is the name of signer that addon agent will use to create csr.",
+                "required": true,
+                "validations": {
+                  "pattern": "^([a-z0-9][a-z0-9-]*[a-z0-9]\\.)+[a-z]+\\/[a-z0-9-\\.]+$"
+                }
+              },
+              "signingCA": {
+                "type": "object",
+                "description": "SigningCA represents the reference of the secret on the hub cluster to sign the CSR\nthe secret type must be \"kubernetes.io/tls\"\nNote: The addon manager will not have permission to access the secret by default, so\nthe user must grant the permission to the addon manager(by creating rolebinding/clusterrolebinding\nfor the addon-manager serviceaccount \"addon-manager-controller-sa\").",
+                "required": true,
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the signing CA secret",
+                    "required": true
+                  },
+                  "namespace": {
+                    "type": "string",
+                    "description": "Namespace of the signing CA secret, the namespace of the addon-manager will be used if it is not set."
+                  }
+                }
+              },
+              "subject": {
+                "type": "object",
+                "description": "Subject is the user subject of the addon agent to be registered to the hub.\nIf it is not set, the addon agent will have the default subject\n\"subject\": {\n  \"user\": \"system:open-cluster-management:cluster:{clusterName}:addon:{addonName}:agent:{agentName}\",\n  \"groups: [\"system:open-cluster-management:cluster:{clusterName}:addon:{addonName}\",\n            \"system:open-cluster-management:addon:{addonName}\", \"system:authenticated\"]\n}",
+                "fields": {
+                  "groups": {
+                    "type": "array",
+                    "description": "groups is the user group of the addon agent."
+                  },
+                  "organizationUnit": {
+                    "type": "array",
+                    "description": "organizationUnit is the ou of the addon agent"
+                  },
+                  "user": {
+                    "type": "string",
+                    "description": "user is the user name of the addon agent."
+                  }
+                }
+              }
+            }
+          },
+          "kubeClient": {
+            "type": "object",
+            "description": "KubeClient holds the configuration of the KubeClient type registration",
+            "fields": {
+              "hubPermissions": {
+                "type": "array",
+                "description": "HubPermissions represent the permission configurations of the addon agent to access the hub cluster",
+                "fields": {
+                  "currentCluster": {
+                    "type": "object",
+                    "description": "CurrentCluster contains the configuration of CurrentCluster type binding.\nIt is required when the type is CurrentCluster.",
+                    "fields": {
+                      "clusterRoleName": {
+                        "type": "string",
+                        "description": "ClusterRoleName is the name of the clusterrole the addon agent is bound. A rolebinding\nwill be created referring to this cluster role in each cluster namespace.\nThe user must make sure the clusterrole exists on the hub cluster.",
+                        "required": true
+                      }
+                    }
+                  },
+                  "singleNamespace": {
+                    "type": "object",
+                    "description": "SingleNamespace contains the configuration of SingleNamespace type binding.\nIt is required when the type is SingleNamespace",
+                    "fields": {
+                      "namespace": {
+                        "type": "string",
+                        "description": "Namespace is the namespace the addon agent has permissions to bind to. A rolebinding\nwill be created in this namespace referring to the RoleRef.",
+                        "required": true
+                      },
+                      "roleRef": {
+                        "type": "object",
+                        "description": "RoleRef is an reference to the permission resource. it could be a role or a cluster role,\nthe user must make sure it exist on the hub cluster.",
+                        "required": true,
+                        "fields": {
+                          "apiGroup": {
+                            "type": "string",
+                            "description": "APIGroup is the group for the resource being referenced",
+                            "required": true
+                          },
+                          "kind": {
+                            "type": "string",
+                            "description": "Kind is the type of resource being referenced",
+                            "required": true
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name is the name of resource being referenced",
+                            "required": true
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type of the permissions setting. It defines how to bind the roleRef on the hub cluster. It can be:\n- CurrentCluster: Bind the roleRef to the namespace with the same name as the managedCluster.\n- SingleNamespace: Bind the roleRef to the namespace specified by SingleNamespaceBindingConfig.",
+                    "required": true,
+                    "enum": [
+                      "CurrentCluster",
+                      "SingleNamespace"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the registration configuration, it supports:\n- KubeClient: the addon agent can access the hub kube apiserver with kube style API.\n  the signer name should be \"kubernetes.io/kube-apiserver-client\". When this type is\n  used, the KubeClientRegistrationConfig can be used to define the permission of the\n  addon agent to access the hub cluster\n- CustomSigner: the addon agent can access the hub cluster through user-defined endpoints.\n  When this type is used, the CustomSignerRegistrationConfig can be used to define how\n  to issue the client certificate for the addon agent.",
+            "required": true,
+            "enum": [
+              "KubeClient",
+              "CustomSigner"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: addon.open-cluster-management.io/v1alpha1\nkind: AddOnTemplate\nmetadata:\n  name: example-addontemplate\nspec:\n  addonName: \"example-addonName\"\n  agentSpec: {}\n"
+}

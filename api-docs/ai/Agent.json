@@ -1,0 +1,512 @@
+{
+  "kind": "Agent",
+  "apiVersion": "agent-install.openshift.io/v1beta1",
+  "metadata": {
+    "group": "agent-install.openshift.io",
+    "version": "v1beta1",
+    "plural": "agents",
+    "singular": "agent",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AgentSpec defines the desired state of Agent",
+    "fields": {
+      "approved": {
+        "type": "boolean",
+        "description": "No description provided.",
+        "required": true
+      },
+      "clusterDeploymentName": {
+        "type": "object",
+        "description": "ClusterReference represents a Cluster Reference. It has enough information to retrieve cluster\nin any namespace",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name is unique within a namespace to reference a cluster resource."
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace defines the space within which the cluster name must be unique."
+          }
+        }
+      },
+      "hostname": {
+        "type": "string",
+        "description": "No description provided."
+      },
+      "ignitionConfigOverrides": {
+        "type": "string",
+        "description": "Json formatted string containing the user overrides for the host's ignition config"
+      },
+      "ignitionEndpointHTTPHeaders": {
+        "type": "object",
+        "description": "IgnitionEndpointHTTPHeaders are the additional HTTP headers used when fetching the ignition."
+      },
+      "ignitionEndpointTokenReference": {
+        "type": "object",
+        "description": "IgnitionEndpointTokenReference references a secret containing an Authorization Bearer token to fetch the ignition from ignition_endpoint_url.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the secret containing the ignition endpoint token.",
+            "required": true
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace is the namespace of the secret containing the ignition endpoint token.",
+            "required": true
+          }
+        }
+      },
+      "installation_disk_id": {
+        "type": "string",
+        "description": "InstallationDiskID defines the installation destination disk (must be equal to the inventory disk id)."
+      },
+      "installation_disk_path": {
+        "type": "string",
+        "description": "InstallationDiskPath defines the installation destination disk using either its by-id or by-path value."
+      },
+      "installerArgs": {
+        "type": "string",
+        "description": "Json formatted string containing the user overrides for the host's coreos installer args"
+      },
+      "machineConfigPool": {
+        "type": "string",
+        "description": "No description provided."
+      },
+      "nodeLabels": {
+        "type": "object",
+        "description": "NodeLabels are the labels to be applied on the node associated with this agent"
+      },
+      "role": {
+        "type": "string",
+        "description": "HostRole host role\nswagger:model host-role",
+        "required": true
+      }
+    }
+  },
+  "status": {
+    "description": "AgentStatus defines the observed state of Agent",
+    "fields": {
+      "bootstrap": {
+        "type": "boolean",
+        "description": "No description provided."
+      },
+      "conditions": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "lastHeartbeatTime": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "message": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "reason": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "status": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "ConditionType is the state of the operator's reconciliation functionality.",
+            "required": true
+          }
+        }
+      },
+      "csrStatus": {
+        "type": "object",
+        "description": "CSRStatus tracks the status of CSR approvals for the agent",
+        "fields": {
+          "approvedCSRs": {
+            "type": "array",
+            "description": "CSRs that have been approved for the agent by the assisted-service",
+            "fields": {
+              "approvedAt": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "type": {
+                "type": "string",
+                "description": "CSRType represents the type of CSR",
+                "required": true
+              }
+            }
+          },
+          "lastApprovalAttempt": {
+            "type": "string",
+            "description": "Last time we attempted a CSR approval"
+          }
+        }
+      },
+      "debugInfo": {
+        "type": "object",
+        "description": "DebugInfo includes information for debugging the installation process.",
+        "fields": {
+          "eventsURL": {
+            "type": "string",
+            "description": "EventsURL specifies an HTTP/S URL that contains events which occured during the cluster installation process"
+          },
+          "logsURL": {
+            "type": "string",
+            "description": "LogsURL specifies a url for download controller logs tar file."
+          },
+          "state": {
+            "type": "string",
+            "description": "Current state of the Agent"
+          },
+          "stateInfo": {
+            "type": "string",
+            "description": "Additional information pertaining to the status of the Agent"
+          }
+        }
+      },
+      "deprovision_info": {
+        "type": "object",
+        "description": "DeprovisionInfo stores data related to the agent's previous cluster binding in order to clean up when the agent re-registers",
+        "fields": {
+          "cluster_name": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "cluster_namespace": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "message": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "node_name": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "installation_disk_id": {
+        "type": "string",
+        "description": "InstallationDiskID is the disk that will be used for the installation."
+      },
+      "inventory": {
+        "type": "object",
+        "description": "No description provided.",
+        "fields": {
+          "bmcAddress": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "bmcV6Address": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "boot": {
+            "type": "object",
+            "description": "No description provided.",
+            "fields": {
+              "currentBootMode": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "deviceType": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "pxeInterface": {
+                "type": "string",
+                "description": "No description provided."
+              }
+            }
+          },
+          "cpu": {
+            "type": "object",
+            "description": "No description provided.",
+            "fields": {
+              "architecture": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "clockMegahertz": {
+                "type": "integer",
+                "description": "Name in REST API: frequency"
+              },
+              "count": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "flags": {
+                "type": "array",
+                "description": "No description provided."
+              },
+              "modelName": {
+                "type": "string",
+                "description": "No description provided."
+              }
+            }
+          },
+          "disks": {
+            "type": "array",
+            "description": "No description provided.",
+            "fields": {
+              "bootable": {
+                "type": "boolean",
+                "description": "No description provided."
+              },
+              "byID": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "byPath": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "driveType": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "hctl": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "id": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "installationEligibility": {
+                "type": "object",
+                "description": "No description provided.",
+                "fields": {
+                  "eligible": {
+                    "type": "boolean",
+                    "description": "No description provided."
+                  },
+                  "notEligibleReasons": {
+                    "type": "array",
+                    "description": "No description provided.",
+                    "required": true
+                  }
+                }
+              },
+              "ioPerf": {
+                "type": "object",
+                "description": "No description provided.",
+                "fields": {
+                  "syncDurationMilliseconds": {
+                    "type": "integer",
+                    "description": "99th percentile of fsync duration in milliseconds"
+                  }
+                }
+              },
+              "model": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "name": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "path": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "serial": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "sizeBytes": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "smart": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "vendor": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "wwn": {
+                "type": "string",
+                "description": "No description provided."
+              }
+            }
+          },
+          "hostname": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "interfaces": {
+            "type": "array",
+            "description": "No description provided.",
+            "fields": {
+              "biosDevName": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "clientID": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "flags": {
+                "type": "array",
+                "description": "No description provided.",
+                "required": true
+              },
+              "hasCarrier": {
+                "type": "boolean",
+                "description": "No description provided."
+              },
+              "ipV4Addresses": {
+                "type": "array",
+                "description": "No description provided.",
+                "required": true
+              },
+              "ipV6Addresses": {
+                "type": "array",
+                "description": "No description provided.",
+                "required": true
+              },
+              "macAddress": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "mtu": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "name": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "product": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "speedMbps": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "vendor": {
+                "type": "string",
+                "description": "No description provided."
+              }
+            }
+          },
+          "memory": {
+            "type": "object",
+            "description": "No description provided.",
+            "fields": {
+              "physicalBytes": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "usableBytes": {
+                "type": "integer",
+                "description": "No description provided."
+              }
+            }
+          },
+          "reportTime": {
+            "type": "string",
+            "description": "Name in REST API: timestamp"
+          },
+          "systemVendor": {
+            "type": "object",
+            "description": "No description provided.",
+            "fields": {
+              "manufacturer": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "productName": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "serialNumber": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "virtual": {
+                "type": "boolean",
+                "description": "No description provided."
+              }
+            }
+          }
+        }
+      },
+      "kind": {
+        "type": "string",
+        "description": "Kind corresponds to the same field in the model Host. It indicates the type of cluster the host is\nbeing installed to; either an existing cluster (day-2) or a new cluster (day-1).\nValue is one of: \"AddToExistingClusterHost\" (day-2) or \"Host\" (day-1)"
+      },
+      "ntpSources": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "sourceName": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "sourceState": {
+            "type": "string",
+            "description": "SourceState source state\nswagger:model source_state"
+          }
+        }
+      },
+      "progress": {
+        "type": "object",
+        "description": "No description provided.",
+        "fields": {
+          "currentStage": {
+            "type": "string",
+            "description": "current installation stage"
+          },
+          "installationPercentage": {
+            "type": "integer",
+            "description": "Estimate progress (percentage)"
+          },
+          "progressInfo": {
+            "type": "string",
+            "description": "Additional information for the current installation stage"
+          },
+          "progressStages": {
+            "type": "array",
+            "description": "All stages (ordered by their appearance) for this agent"
+          },
+          "stageStartTime": {
+            "type": "string",
+            "description": "host field: progress: stage_started_at"
+          },
+          "stageUpdateTime": {
+            "type": "string",
+            "description": "host field: progress: stage_updated_at"
+          }
+        }
+      },
+      "role": {
+        "type": "string",
+        "description": "HostRole host role\nswagger:model host-role"
+      },
+      "validationsInfo": {
+        "type": "object",
+        "description": "ValidationsInfo is a JSON-formatted string containing the validation results for each validation id grouped by category (network, hosts-data, etc.)"
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: agent-install.openshift.io/v1beta1\nkind: Agent\nmetadata:\n  name: example-agent\n  namespace: default\nspec:\n  approved: true\n  role: \"example-role\"\n"
+}

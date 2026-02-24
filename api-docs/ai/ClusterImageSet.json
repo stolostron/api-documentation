@@ -1,0 +1,26 @@
+{
+  "kind": "ClusterImageSet",
+  "apiVersion": "hive.openshift.io/v1",
+  "metadata": {
+    "group": "hive.openshift.io",
+    "version": "v1",
+    "plural": "clusterimagesets",
+    "singular": "clusterimageset",
+    "scope": "Cluster"
+  },
+  "spec": {
+    "description": "ClusterImageSetSpec defines the desired state of ClusterImageSet",
+    "fields": {
+      "releaseImage": {
+        "type": "string",
+        "description": "ReleaseImage is the image that contains the payload to use when installing\na cluster.",
+        "required": true
+      }
+    }
+  },
+  "status": {
+    "description": "ClusterImageSetStatus defines the observed state of ClusterImageSet",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: hive.openshift.io/v1\nkind: ClusterImageSet\nmetadata:\n  name: example-clusterimageset\nspec:\n  releaseImage: \"example-releaseImage\"\n"
+}

@@ -1,0 +1,541 @@
+{
+  "kind": "AgentClusterInstall",
+  "apiVersion": "extensions.hive.openshift.io/v1beta1",
+  "metadata": {
+    "group": "extensions.hive.openshift.io",
+    "version": "v1beta1",
+    "plural": "agentclusterinstalls",
+    "singular": "agentclusterinstall",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AgentClusterInstallSpec defines the desired state of the AgentClusterInstall.",
+    "fields": {
+      "apiVIP": {
+        "type": "string",
+        "description": "APIVIP is the virtual IP used to reach the OpenShift cluster's API."
+      },
+      "apiVIPs": {
+        "type": "array",
+        "description": "APIVIPs are the virtual IPs used to reach the OpenShift cluster's API.\nEnter one IP address for single-stack clusters, or up to two for dual-stack clusters (at\nmost one IP address per IP stack used). The order of stacks should be the same as order\nof subnets in Cluster Networks, Service Networks, and Machine Networks."
+      },
+      "clusterDeploymentRef": {
+        "type": "object",
+        "description": "ClusterDeploymentRef is a reference to the ClusterDeployment associated with this AgentClusterInstall.",
+        "required": true,
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          }
+        }
+      },
+      "clusterMetadata": {
+        "type": "object",
+        "description": "ClusterMetadata contains metadata information about the installed cluster. It should be populated once the cluster install is completed. (it can be populated sooner if desired, but Hive will not copy back to ClusterDeployment until the Installed condition goes True.",
+        "fields": {
+          "adminKubeconfigSecretRef": {
+            "type": "object",
+            "description": "AdminKubeconfigSecretRef references the secret containing the admin kubeconfig for this cluster.",
+            "required": true,
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+              }
+            }
+          },
+          "adminPasswordSecretRef": {
+            "type": "object",
+            "description": "AdminPasswordSecretRef references the secret containing the admin username/password which can be used to login to this cluster.",
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+              }
+            }
+          },
+          "clusterID": {
+            "type": "string",
+            "description": "ClusterID is a globally unique identifier for this cluster generated during installation. Used for reporting metrics among other places.",
+            "required": true
+          },
+          "infraID": {
+            "type": "string",
+            "description": "InfraID is an identifier for this cluster generated during installation and used for tagging/naming resources in cloud providers.",
+            "required": true
+          },
+          "platform": {
+            "type": "object",
+            "description": "Platform holds platform-specific cluster metadata",
+            "fields": {
+              "aws": {
+                "type": "object",
+                "description": "AWS holds AWS-specific cluster metadata",
+                "fields": {
+                  "hostedZoneRole": {
+                    "type": "string",
+                    "description": "HostedZoneRole is the role to assume when performing operations\non a hosted zone owned by another account."
+                  }
+                }
+              },
+              "azure": {
+                "type": "object",
+                "description": "Azure holds azure-specific cluster metadata",
+                "fields": {
+                  "resourceGroupName": {
+                    "type": "string",
+                    "description": "ResourceGroupName is the name of the resource group in which the cluster resources were created.",
+                    "required": true
+                  }
+                }
+              },
+              "gcp": {
+                "type": "object",
+                "description": "GCP holds GCP-specific cluster metadata",
+                "fields": {
+                  "networkProjectID": {
+                    "type": "string",
+                    "description": "NetworkProjectID is used for shared VPC setups"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "compute": {
+        "type": "array",
+        "description": "Compute is the configuration for the machines that comprise the\ncompute nodes.",
+        "fields": {
+          "hyperthreading": {
+            "type": "string",
+            "description": "Hyperthreading determines the mode of hyperthreading that machines in the\npool will utilize.\nDefault is for hyperthreading to be enabled.",
+            "enum": [
+              "",
+              "Enabled",
+              "Disabled"
+            ],
+            "default": "Enabled"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the machine pool.\nFor the control plane machine pool, the name will always be \"master\".\nFor the compute machine pools, the only valid name is \"worker\".",
+            "required": true
+          }
+        }
+      },
+      "controlPlane": {
+        "type": "object",
+        "description": "ControlPlane is the configuration for the machines that comprise the\ncontrol plane.",
+        "fields": {
+          "hyperthreading": {
+            "type": "string",
+            "description": "Hyperthreading determines the mode of hyperthreading that machines in the\npool will utilize.\nDefault is for hyperthreading to be enabled.",
+            "enum": [
+              "",
+              "Enabled",
+              "Disabled"
+            ],
+            "default": "Enabled"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the machine pool.\nFor the control plane machine pool, the name will always be \"master\".\nFor the compute machine pools, the only valid name is \"worker\".",
+            "required": true
+          }
+        }
+      },
+      "diskEncryption": {
+        "type": "object",
+        "description": "DiskEncryption is the configuration to enable/disable disk encryption for cluster nodes.",
+        "fields": {
+          "enableOn": {
+            "type": "string",
+            "description": "Enable/disable disk encryption on master nodes, worker nodes, or all nodes.",
+            "enum": [
+              "none",
+              "all",
+              "masters",
+              "workers"
+            ],
+            "default": "none"
+          },
+          "mode": {
+            "type": "string",
+            "description": "The disk encryption mode to use.",
+            "enum": [
+              "tpmv2",
+              "tang"
+            ]
+          },
+          "tangServers": {
+            "type": "string",
+            "description": "JSON-formatted string containing additional information regarding tang's configuration"
+          }
+        }
+      },
+      "external": {
+        "type": "object",
+        "description": "ExternalPlatformSpec represents generic infrastructure provider.\nPlatform-specific components should be supplemented separately.",
+        "fields": {
+          "cloudControllerManager": {
+            "type": "string",
+            "description": "CloudControllerManager when set to external, this property will enable an external cloud provider.",
+            "default": ""
+          },
+          "platformName": {
+            "type": "string",
+            "description": "PlatformName holds the arbitrary string representing the infrastructure provider name, expected to be set at the installation time.\nThis field is solely for informational and reporting purposes and is not expected to be used for decision-making.",
+            "default": "Unknown"
+          }
+        }
+      },
+      "holdInstallation": {
+        "type": "boolean",
+        "description": "HoldInstallation will prevent installation from happening when true.\nInspection and validation will proceed as usual, but once the RequirementsMet condition is true,\ninstallation will not begin until this field is set to false."
+      },
+      "ignitionEndpoint": {
+        "type": "object",
+        "description": "IgnitionEndpoint stores the data of the custom ignition endpoint.",
+        "fields": {
+          "caCertificateReference": {
+            "type": "object",
+            "description": "CaCertificateReference is a reference to the secret containing CA certificate to be used when contacting the URL via HTTPS.",
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the secret containing the CA certificate.",
+                "required": true
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace is the namespace of the secret containing the CA certificate base64 encoded.",
+                "required": true
+              }
+            }
+          },
+          "url": {
+            "type": "string",
+            "description": "Url stores the URL of the custom ignition endpoint."
+          }
+        }
+      },
+      "imageSetRef": {
+        "type": "object",
+        "description": "ImageSetRef is a reference to a ClusterImageSet. The release image specified in the ClusterImageSet will be used\nto install the cluster.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the ClusterImageSet that this refers to",
+            "required": true
+          }
+        }
+      },
+      "ingressVIP": {
+        "type": "string",
+        "description": "IngressVIP is the virtual IP used for cluster ingress traffic."
+      },
+      "ingressVIPs": {
+        "type": "array",
+        "description": "IngressVIPs are the virtual IPs used for cluster ingress traffic.\nEnter one IP address for single-stack clusters, or up to two for dual-stack clusters (at\nmost one IP address per IP stack used). The order of stacks should be the same as order\nof subnets in Cluster Networks, Service Networks, and Machine Networks."
+      },
+      "loadBalancer": {
+        "type": "object",
+        "description": "LoadBalancer defines the load balancer used by the cluster for ingress traffic.",
+        "fields": {
+          "type": {
+            "type": "string",
+            "description": "Type defines the type of load balancer used by the cluster, which can be managed by the user or by the\ncluster. The default value is ClusterManaged.",
+            "enum": [
+              "ClusterManaged",
+              "UserManaged"
+            ],
+            "default": "ClusterManaged"
+          }
+        }
+      },
+      "manifestsConfigMapRef": {
+        "type": "object",
+        "description": "ManifestsConfigMapRef is a reference to user-provided manifests to\nadd to or replace manifests that are generated by the installer.\nDeprecated: this field is ignored when ManifestsConfigMapRefs is set.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          }
+        }
+      },
+      "manifestsConfigMapRefs": {
+        "type": "array",
+        "description": "ManifestsConfigMapRefs is an array of references to user-provided manifests ConfigMaps to\nadd to or replace manifests that are generated by the installer.\nManifest names in each ConfigMap should be unique across all referenced ConfigMaps.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the ConfigMap that this refers to",
+            "required": true
+          }
+        }
+      },
+      "mastersSchedulable": {
+        "type": "boolean",
+        "description": "Set to true to allow control plane nodes to be schedulable"
+      },
+      "mirrorRegistryRef": {
+        "type": "object",
+        "description": "MirrorRegistryRef is a reference to ClusterMirrorRegistry ConfigMap that holds the registries toml\ndata\nSet per cluster mirror registry",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the ConfigMap that this refers to",
+            "required": true
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the ConfigMap",
+            "required": true
+          }
+        }
+      },
+      "networking": {
+        "type": "object",
+        "description": "Networking is the configuration for the pod network provider in\nthe cluster.",
+        "required": true,
+        "fields": {
+          "clusterNetwork": {
+            "type": "array",
+            "description": "ClusterNetwork is the list of IP address pools for pods.\nDefault is 10.128.0.0/14 and a host prefix of /23.",
+            "fields": {
+              "cidr": {
+                "type": "string",
+                "description": "CIDR is the IP block address pool.",
+                "required": true
+              },
+              "hostPrefix": {
+                "type": "integer",
+                "description": "HostPrefix is the prefix size to allocate to each node from the CIDR.\nFor example, 24 would allocate 2^8=256 adresses to each node. If this\nfield is not used by the plugin, it can be left unset."
+              }
+            }
+          },
+          "machineNetwork": {
+            "type": "array",
+            "description": "MachineNetwork is the list of IP address pools for machines.",
+            "fields": {
+              "cidr": {
+                "type": "string",
+                "description": "CIDR is the IP block address pool for machines within the cluster.",
+                "required": true
+              }
+            }
+          },
+          "networkType": {
+            "type": "string",
+            "description": "NetworkType is the Container Network Interface (CNI) plug-in to install\nThe default value is OpenShiftSDN for IPv4, and OVNKubernetes for IPv6 or SNO",
+            "enum": [
+              "OpenShiftSDN",
+              "OVNKubernetes"
+            ]
+          },
+          "serviceNetwork": {
+            "type": "array",
+            "description": "ServiceNetwork is the list of IP address pools for services.\nDefault is 172.30.0.0/16."
+          },
+          "userManagedNetworking": {
+            "type": "boolean",
+            "description": "UserManagedNetworking indicates if the networking is managed by the user.\nFor single-node installations (none or external platform), set to true or leave empty."
+          }
+        }
+      },
+      "platformType": {
+        "type": "string",
+        "description": "PlatformType is the name for the specific platform upon which to perform the installation.",
+        "enum": [
+          "",
+          "BareMetal",
+          "None",
+          "VSphere",
+          "Nutanix",
+          "External"
+        ]
+      },
+      "provisionRequirements": {
+        "type": "object",
+        "description": "ProvisionRequirements defines configuration for when the installation is ready to be launched automatically.",
+        "required": true,
+        "fields": {
+          "controlPlaneAgents": {
+            "type": "integer",
+            "description": "ControlPlaneAgents is the number of matching approved and ready Agents with the control plane role\nrequired to launch the install. Must be either 1 or 3-5.",
+            "required": true
+          },
+          "workerAgents": {
+            "type": "integer",
+            "description": "WorkerAgents is the minimum number of matching approved and ready Agents with the worker role\nrequired to launch the install.",
+            "validations": {
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "proxy": {
+        "type": "object",
+        "description": "Proxy defines the proxy settings used for the install config",
+        "fields": {
+          "httpProxy": {
+            "type": "string",
+            "description": "HTTPProxy is the URL of the proxy for HTTP requests."
+          },
+          "httpsProxy": {
+            "type": "string",
+            "description": "HTTPSProxy is the URL of the proxy for HTTPS requests."
+          },
+          "noProxy": {
+            "type": "string",
+            "description": "NoProxy is a comma-separated list of domains and CIDRs for which the proxy should not be\nused."
+          }
+        }
+      },
+      "sshPublicKey": {
+        "type": "string",
+        "description": "SSHPublicKey will be added to all cluster hosts for use in debugging."
+      }
+    }
+  },
+  "status": {
+    "description": "AgentClusterInstallStatus defines the observed state of the AgentClusterInstall.",
+    "fields": {
+      "apiVIP": {
+        "type": "string",
+        "description": "APIVIP is the virtual IP used to reach the OpenShift cluster's API."
+      },
+      "apiVIPs": {
+        "type": "array",
+        "description": "APIVIPs are the virtual IPs used to reach the OpenShift cluster's API."
+      },
+      "conditions": {
+        "type": "array",
+        "description": "Conditions includes more detailed status for the cluster install.",
+        "fields": {
+          "lastProbeTime": {
+            "type": "string",
+            "description": "LastProbeTime is the last time we probed the condition."
+          },
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "LastTransitionTime is the last time the condition transitioned from one status to another."
+          },
+          "message": {
+            "type": "string",
+            "description": "Message is a human-readable message indicating details about last transition."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason is a unique, one-word, CamelCase reason for the condition's last transition."
+          },
+          "status": {
+            "type": "string",
+            "description": "Status is the status of the condition.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type is the type of the condition.",
+            "required": true
+          }
+        }
+      },
+      "connectivityMajorityGroups": {
+        "type": "string",
+        "description": "No description provided."
+      },
+      "controlPlaneAgentsDiscovered": {
+        "type": "integer",
+        "description": "ControlPlaneAgentsDiscovered is the number of Agents currently linked to this ClusterDeployment."
+      },
+      "controlPlaneAgentsReady": {
+        "type": "integer",
+        "description": "ControlPlaneAgentsDiscovered is the number of Agents currently linked to this ClusterDeployment that are ready for use."
+      },
+      "debugInfo": {
+        "type": "object",
+        "description": "DebugInfo includes information for debugging the installation process.",
+        "fields": {
+          "eventsURL": {
+            "type": "string",
+            "description": "EventsURL specifies an HTTP/S URL that contains events which occurred during the cluster installation process"
+          },
+          "logsURL": {
+            "type": "string",
+            "description": "LogsURL specifies a url for download controller logs tar file."
+          },
+          "state": {
+            "type": "string",
+            "description": "Current state of the AgentClusterInstall"
+          },
+          "stateInfo": {
+            "type": "string",
+            "description": "Additional information pertaining to the status of the AgentClusterInstall"
+          }
+        }
+      },
+      "ingressVIP": {
+        "type": "string",
+        "description": "IngressVIP is the virtual IP used for cluster ingress traffic."
+      },
+      "ingressVIPs": {
+        "type": "array",
+        "description": "IngressVIPs are the virtual IPs used for cluster ingress traffic."
+      },
+      "machineNetwork": {
+        "type": "array",
+        "description": "MachineNetwork is the list of IP address pools for machines.",
+        "fields": {
+          "cidr": {
+            "type": "string",
+            "description": "CIDR is the IP block address pool for machines within the cluster.",
+            "required": true
+          }
+        }
+      },
+      "platformType": {
+        "type": "string",
+        "description": "PlatformType is the name for the specific platform upon which to perform the installation.",
+        "enum": [
+          "",
+          "BareMetal",
+          "None",
+          "VSphere",
+          "Nutanix",
+          "External"
+        ]
+      },
+      "progress": {
+        "type": "object",
+        "description": "Progress shows the installation progress of the cluster",
+        "fields": {
+          "totalPercentage": {
+            "type": "integer",
+            "description": "Estimated installation progress (in percentage)",
+            "required": true
+          }
+        }
+      },
+      "userManagedNetworking": {
+        "type": "boolean",
+        "description": "UserManagedNetworking indicates if the networking is managed by the user."
+      },
+      "validationsInfo": {
+        "type": "object",
+        "description": "ValidationsInfo is a JSON-formatted string containing the validation results for each validation id grouped by category (network, hosts-data, etc.)"
+      },
+      "workerAgentsDiscovered": {
+        "type": "integer",
+        "description": "WorkerAgentsDiscovered is the number of worker Agents currently linked to this ClusterDeployment."
+      },
+      "workerAgentsReady": {
+        "type": "integer",
+        "description": "WorkerAgentsDiscovered is the number of worker Agents currently linked to this ClusterDeployment that are ready for use."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: extensions.hive.openshift.io/v1beta1\nkind: AgentClusterInstall\nmetadata:\n  name: example-agentclusterinstall\n  namespace: default\nspec:\n  clusterDeploymentRef: {}\n  networking: {}\n  provisionRequirements: {}\n"
+}

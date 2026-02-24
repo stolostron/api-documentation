@@ -1,0 +1,164 @@
+{
+  "kind": "AddOnDeploymentConfig",
+  "apiVersion": "addon.open-cluster-management.io/v1alpha1",
+  "metadata": {
+    "group": "addon.open-cluster-management.io",
+    "version": "v1alpha1",
+    "plural": "addondeploymentconfigs",
+    "singular": "addondeploymentconfig",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "spec represents a desired configuration for an add-on.",
+    "fields": {
+      "agentInstallNamespace": {
+        "type": "string",
+        "description": "AgentInstallNamespace is the namespace where the add-on agent should be installed on the managed cluster.",
+        "default": "open-cluster-management-agent-addon",
+        "validations": {
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        }
+      },
+      "customizedVariables": {
+        "type": "array",
+        "description": "CustomizedVariables is a list of name-value variables for the current add-on deployment.\nThe add-on implementation can use these variables to render its add-on deployment.\nThe default is an empty list.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of this variable.",
+            "required": true,
+            "validations": {
+              "pattern": "^[a-zA-Z_][_a-zA-Z0-9]*$"
+            }
+          },
+          "value": {
+            "type": "string",
+            "description": "Value of this variable."
+          }
+        }
+      },
+      "nodePlacement": {
+        "type": "object",
+        "description": "NodePlacement enables explicit control over the scheduling of the add-on agents on the\nmanaged cluster.\nAll add-on agent pods are expected to comply with this node placement.\nIf the placement is nil, the placement is not specified, it will be omitted.\nIf the placement is an empty object, the placement will match all nodes and tolerate nothing.",
+        "fields": {
+          "nodeSelector": {
+            "type": "object",
+            "description": "NodeSelector defines which Nodes the Pods are scheduled on.\nIf the selector is an empty list, it will match all nodes.\nThe default is an empty list."
+          },
+          "tolerations": {
+            "type": "array",
+            "description": "Tolerations is attached by pods to tolerate any taint that matches\nthe triple <key,value,effect> using the matching operator <operator>.\nIf the tolerations is an empty list, it will tolerate nothing.\nThe default is an empty list.",
+            "fields": {
+              "effect": {
+                "type": "string",
+                "description": "Effect indicates the taint effect to match. Empty means match all taint effects.\nWhen specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute."
+              },
+              "key": {
+                "type": "string",
+                "description": "Key is the taint key that the toleration applies to. Empty means match all taint keys.\nIf the key is empty, operator must be Exists; this combination means to match all values and all keys."
+              },
+              "operator": {
+                "type": "string",
+                "description": "Operator represents a key's relationship to the value.\nValid operators are Exists and Equal. Defaults to Equal.\nExists is equivalent to wildcard for value, so that a pod can\ntolerate all taints of a particular category."
+              },
+              "tolerationSeconds": {
+                "type": "integer",
+                "description": "TolerationSeconds represents the period of time the toleration (which must be\nof effect NoExecute, otherwise this field is ignored) tolerates the taint. By default,\nit is not set, which means tolerate the taint forever (do not evict). Zero and\nnegative values will be treated as 0 (evict immediately) by the system."
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is the taint value the toleration matches to.\nIf the operator is Exists, the value should be empty, otherwise just a regular string."
+              }
+            }
+          }
+        }
+      },
+      "proxyConfig": {
+        "type": "object",
+        "description": "ProxyConfig holds proxy settings for add-on agent on the managed cluster.\nEmpty means no proxy settings is available.",
+        "fields": {
+          "caBundle": {
+            "type": "string",
+            "description": "CABundle is a CA certificate bundle to verify the proxy server.\nAnd it's only useful when HTTPSProxy is set and a HTTPS proxy server is specified."
+          },
+          "httpProxy": {
+            "type": "string",
+            "description": "HTTPProxy is the URL of the proxy for HTTP requests"
+          },
+          "httpsProxy": {
+            "type": "string",
+            "description": "HTTPSProxy is the URL of the proxy for HTTPS requests"
+          },
+          "noProxy": {
+            "type": "string",
+            "description": "NoProxy is a comma-separated list of hostnames and/or CIDRs and/or IPs for which the proxy\nshould not be used."
+          }
+        }
+      },
+      "registries": {
+        "type": "array",
+        "description": "Registries describes how to override images used by the addon agent on the managed cluster.\nthe following example will override image \"quay.io/open-cluster-management/addon-agent\" to\n\"quay.io/ocm/addon-agent\" when deploying the addon agent\nregistries:\n  - source: quay.io/open-cluster-management/addon-agent\n    mirror: quay.io/ocm/addon-agent",
+        "fields": {
+          "mirror": {
+            "type": "string",
+            "description": "Mirror is the mirrored registry of the Source. Will be ignored if Mirror is empty.",
+            "required": true
+          },
+          "source": {
+            "type": "string",
+            "description": "Source is the source registry. All image registries will be replaced by Mirror if Source is empty."
+          }
+        }
+      },
+      "resourceRequirements": {
+        "type": "array",
+        "description": "ResourceRequirements specify the resources required by add-on agents.\nIf a container matches multiple ContainerResourceRequirements, the last matched configuration in the\narray will take precedence.",
+        "fields": {
+          "containerID": {
+            "type": "string",
+            "description": "ContainerID is a unique identifier for an agent container. It consists of three parts: resource types,\nresource name, and container name, separated by ':'. The format follows\n'{resource_types}:{resource_name}:{container_name}' where\n  1). Supported resource types include deployments, daemonsets, statefulsets, replicasets, jobs,\n    cronjobs and pods;\n  2). Wildcards (*) can be used in any part to match multiple containers. For example, '*:*:*'\n    matches all containers of the agent.",
+            "required": true,
+            "validations": {
+              "pattern": "^(deployments|daemonsets|statefulsets|replicasets|jobs|cronjobs|pods|\\*):.+:.+$"
+            }
+          },
+          "resources": {
+            "type": "object",
+            "description": "Compute resources required by matched containers.",
+            "required": true,
+            "fields": {
+              "claims": {
+                "type": "array",
+                "description": "Claims lists the names of resources, defined in spec.resourceClaims,\nthat are used by this container.\nThis is an alpha field and requires enabling the\nDynamicResourceAllocation feature gate.\nThis field is immutable. It can only be set for containers.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name must match the name of one entry in pod.spec.resourceClaims of\nthe Pod where this field is used. It makes that resource available\ninside a container.",
+                    "required": true
+                  },
+                  "request": {
+                    "type": "string",
+                    "description": "Request is the name chosen for a request in the referenced claim.\nIf empty, everything from the claim is made available, otherwise\nonly the result of this request."
+                  }
+                }
+              },
+              "limits": {
+                "type": "object",
+                "description": "Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+              },
+              "requests": {
+                "type": "object",
+                "description": "Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: addon.open-cluster-management.io/v1alpha1\nkind: AddOnDeploymentConfig\nmetadata:\n  name: example-addondeploymentconfig\n  namespace: default\nspec:\n  agentInstallNamespace: open-cluster-management-agent-addon\n  customizedVariables: []\n  nodePlacement: {}\n  proxyConfig: {}\n  registries: []\n"
+}

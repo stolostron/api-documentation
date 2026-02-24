@@ -1,0 +1,328 @@
+{
+  "kind": "ManagedClusterInfo",
+  "apiVersion": "internal.open-cluster-management.io/v1beta1",
+  "metadata": {
+    "group": "internal.open-cluster-management.io",
+    "version": "v1beta1",
+    "plural": "managedclusterinfos",
+    "singular": "managedclusterinfo",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "Spec defines the information of the Cluster.",
+    "fields": {
+      "loggingCA": {
+        "type": "string",
+        "description": "LoggingCA is the ca data for logging server to authorize apiserver"
+      },
+      "masterEndpoint": {
+        "type": "string",
+        "description": "MasterEndpoint shows the apiserver endpoint of managed cluster"
+      }
+    }
+  },
+  "status": {
+    "description": "Status represents the desired status of the Cluster",
+    "fields": {
+      "cloudVendor": {
+        "type": "string",
+        "description": "CloudVendor describes the cloud provider for the managed cluster. Deprecated in release 2.3 and will be removed in the future. Use clusterClaim product.open-cluster-management.io instead."
+      },
+      "clusterID": {
+        "type": "string",
+        "description": "ClusterID is the identifier of managed cluster. Deprecated in release 2.3 and will be removed in the future. Use clusterClaim id.openshift.io instead."
+      },
+      "conditions": {
+        "type": "array",
+        "description": "Conditions contains condition information for a managed cluster",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition. This may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase. --- Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be useful (see .node.status.conditions), the ability to deconflict is important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      },
+      "consoleURL": {
+        "type": "string",
+        "description": "ConsoleURL shows the url of console in managed cluster. Deprecated in release 2.3 and will be removed in the future. Use clusterClaim consoleurl.cluster.open-cluster-management.io instead."
+      },
+      "distributionInfo": {
+        "type": "object",
+        "description": "DistributionInfo is the information about distribution of managed cluster",
+        "fields": {
+          "ocp": {
+            "type": "object",
+            "description": "OCP is the distribution information of OCP managed cluster, is matched when the Type is OCP.",
+            "fields": {
+              "availableUpdates": {
+                "type": "array",
+                "description": "AvailableUpdates contains the list of update versions that are appropriate for the manage cluster. Deprecated in release 2.3 and will be removed in the future. Use VersionAvailableUpdates instead."
+              },
+              "channel": {
+                "type": "string",
+                "description": "Channel is an identifier for explicitly requesting that a non-default set of updates be applied to this cluster. The default channel will be contain stable updates that are appropriate for production clusters."
+              },
+              "desired": {
+                "type": "object",
+                "description": "desired is the version that the cluster is reconciling towards. If the cluster is not yet fully initialized desired will be set with the information available, which may be an image or a tag.",
+                "fields": {
+                  "channels": {
+                    "type": "array",
+                    "description": "channels is the set of Cincinnati channels to which the release currently belongs."
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "image is a container image location that contains the update. When this field is part of spec, image is optional if version is specified and the availableUpdates field contains a matching version."
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "url contains information about this release. This URL is set by the 'url' metadata property on a release or the metadata returned by the update API and should be displayed as a link in user interfaces. The URL field may not be set for test or nightly releases."
+                  },
+                  "version": {
+                    "type": "string",
+                    "description": "version is a semantic versioning identifying the update version. When this field is part of spec, version is optional if image is specified."
+                  }
+                }
+              },
+              "desiredVersion": {
+                "type": "string",
+                "description": "DesiredVersion is the version that the cluster is reconciling towards. Deprecated in release 2.3 and will be removed in the future. User Desired instead."
+              },
+              "lastAppliedAPIServerURL": {
+                "type": "string",
+                "description": "LastAppliedAPIServerURL is a valid URI with scheme 'https', address and optionally a port (defaulting to 443). it can be used by components like the web console to tell users where to find the Kubernetes API. This is the api server url that has been applied to the managedcluster resource successfully"
+              },
+              "managedClusterClientConfig": {
+                "type": "object",
+                "description": "Controller will sync this field to managedcluster's ManagedClusterClientConfigs",
+                "fields": {
+                  "caBundle": {
+                    "type": "string",
+                    "description": "CABundle is the ca bundle to connect to apiserver of the managed cluster. System certs are used if it is not set."
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "URL is the URL of apiserver endpoint of the managed cluster."
+                  }
+                }
+              },
+              "upgradeFailed": {
+                "type": "boolean",
+                "description": "UpgradeFailed indicates whether upgrade of the manage cluster is failed. This is true if the status of Failing condition is True and the version is different with desiredVersion in clusterVersion"
+              },
+              "version": {
+                "type": "string",
+                "description": "Version is the current version of the OCP cluster. Deprecated in release 2.3 and will be removed in the future. Use clusterClaim version.openshift.io instead."
+              },
+              "versionAvailableUpdates": {
+                "type": "array",
+                "description": "VersionAvailableUpdates contains the list of updates that are appropriate for this cluster. This list may be empty if no updates are recommended, if the update service is unavailable, or if an invalid channel has been specified.",
+                "fields": {
+                  "channels": {
+                    "type": "array",
+                    "description": "channels is the set of Cincinnati channels to which the release currently belongs."
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "image is a container image location that contains the update. When this field is part of spec, image is optional if version is specified and the availableUpdates field contains a matching version."
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "url contains information about this release. This URL is set by the 'url' metadata property on a release or the metadata returned by the update API and should be displayed as a link in user interfaces. The URL field may not be set for test or nightly releases."
+                  },
+                  "version": {
+                    "type": "string",
+                    "description": "version is a semantic versioning identifying the update version. When this field is part of spec, version is optional if image is specified."
+                  }
+                }
+              },
+              "versionHistory": {
+                "type": "array",
+                "description": "VersionHistory contains a list of the most recent versions applied to the cluster. This value may be empty during cluster startup, and then will be updated when a new update is being applied. The newest update is first in the list and it is ordered by recency. Updates in the history have state Completed if the rollout completed - if an update was failing or halfway applied the state will be Partial. Only a limited amount of update history is preserved.",
+                "fields": {
+                  "image": {
+                    "type": "string",
+                    "description": "image is a container image location that contains the update. This value is always populated."
+                  },
+                  "state": {
+                    "type": "string",
+                    "description": "state reflects whether the update was fully applied. The Partial state indicates the update is not fully applied, while the Completed state indicates the update was successfully rolled out at least once (all parts of the update successfully applied)."
+                  },
+                  "verified": {
+                    "type": "boolean",
+                    "description": "verified indicates whether the provided update was properly verified before it was installed. If this is false the cluster may not be trusted."
+                  },
+                  "version": {
+                    "type": "string",
+                    "description": "version is a semantic versioning identifying the update version. If the requested image does not define a version, or if a failure occurs retrieving the image, this value may be empty."
+                  }
+                }
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "Type is the distribution type of managed cluster, is OCP currently"
+          }
+        }
+      },
+      "kubeVendor": {
+        "type": "string",
+        "description": "KubeVendor describes the kubernetes provider of the managed cluster. Deprecated in release 2.3 and will be removed in the future. Use clusterClaim platform.open-cluster-management.io instead."
+      },
+      "loggingEndpoint": {
+        "type": "object",
+        "description": "LoggingEndpoint shows the endpoint to connect to logging server of managed cluster",
+        "fields": {
+          "hostname": {
+            "type": "string",
+            "description": "The Hostname of this endpoint"
+          },
+          "ip": {
+            "type": "string",
+            "description": "The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready. TODO: This should allow hostname or IP, See #4447.",
+            "required": true
+          },
+          "nodeName": {
+            "type": "string",
+            "description": "Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node."
+          },
+          "targetRef": {
+            "type": "object",
+            "description": "Reference to object providing the endpoint.",
+            "fields": {
+              "apiVersion": {
+                "type": "string",
+                "description": "API version of the referent."
+              },
+              "fieldPath": {
+                "type": "string",
+                "description": "If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: \"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered the event) or if no container name is specified \"spec.containers[2]\" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object. TODO: this design is not final and this field is subject to change in the future."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+              },
+              "resourceVersion": {
+                "type": "string",
+                "description": "Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+              },
+              "uid": {
+                "type": "string",
+                "description": "UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+              }
+            }
+          }
+        }
+      },
+      "loggingPort": {
+        "type": "object",
+        "description": "LoggingPort shows the port to connect to logging server of managed cluster",
+        "fields": {
+          "appProtocol": {
+            "type": "string",
+            "description": "The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol."
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined."
+          },
+          "port": {
+            "type": "integer",
+            "description": "The port number of the endpoint.",
+            "required": true
+          },
+          "protocol": {
+            "type": "string",
+            "description": "The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.",
+            "default": "TCP"
+          }
+        }
+      },
+      "nodeList": {
+        "type": "array",
+        "description": "NodeList shows a list of the status of nodes",
+        "fields": {
+          "capacity": {
+            "type": "object",
+            "description": "Capacity represents the total resources of a node. only includes CPU and memory."
+          },
+          "conditions": {
+            "type": "array",
+            "description": "Conditions is an array of current node conditions. only includes NodeReady.",
+            "fields": {
+              "status": {
+                "type": "string",
+                "description": "Status of the condition, one of True, False, Unknown."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type of node condition."
+              }
+            }
+          },
+          "labels": {
+            "type": "object",
+            "description": "Labels of node."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of node"
+          }
+        }
+      },
+      "version": {
+        "type": "string",
+        "description": "Version is the kube version of managed cluster."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: internal.open-cluster-management.io/v1beta1\nkind: ManagedClusterInfo\nmetadata:\n  name: example-managedclusterinfo\n  namespace: default\nspec:\n  loggingCA: \"example-loggingCA\"\n  masterEndpoint: \"example-masterEndpoint\"\n"
+}

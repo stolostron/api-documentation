@@ -1,0 +1,147 @@
+{
+  "kind": "PlacementRule",
+  "apiVersion": "apps.open-cluster-management.io/v1",
+  "metadata": {
+    "group": "apps.open-cluster-management.io",
+    "version": "v1",
+    "plural": "placementrules",
+    "singular": "placementrule",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "PlacementRuleSpec defines the desired state of PlacementRule",
+    "fields": {
+      "clusterConditions": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "status": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "type": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "clusterReplicas": {
+        "type": "integer",
+        "description": "number of replicas Application wants to"
+      },
+      "clusterSelector": {
+        "type": "object",
+        "description": "A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.",
+        "fields": {
+          "matchExpressions": {
+            "type": "array",
+            "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "key is the label key that the selector applies to.",
+                "required": true
+              },
+              "operator": {
+                "type": "string",
+                "description": "operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.",
+                "required": true
+              },
+              "values": {
+                "type": "array",
+                "description": "values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch."
+              }
+            }
+          },
+          "matchLabels": {
+            "type": "object",
+            "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is \"key\", the operator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+          }
+        }
+      },
+      "clusters": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          }
+        }
+      },
+      "policies": {
+        "type": "array",
+        "description": "Set Policy Filters",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: \"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered the event) or if no container name is specified \"spec.containers[2]\" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object. TODO: this design is not final and this field is subject to change in the future."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "resourceHint": {
+        "type": "object",
+        "description": "Select Resource",
+        "fields": {
+          "order": {
+            "type": "string",
+            "description": "SelectionOrder is the type for Nodes"
+          },
+          "type": {
+            "type": "string",
+            "description": "ResourceType defines types can be sorted"
+          }
+        }
+      },
+      "schedulerName": {
+        "type": "string",
+        "description": "INSERT ADDITIONAL SPEC FIELDS - desired state of cluster Important: Run \"make\" to regenerate code after modifying this file schedulerName, default to use mcm controller"
+      }
+    }
+  },
+  "status": {
+    "description": "PlacementRuleStatus defines the observed state of PlacementRule",
+    "fields": {
+      "decisions": {
+        "type": "array",
+        "description": "INSERT ADDITIONAL STATUS FIELD - define observed state of cluster Important: Run \"make\" to regenerate code after modifying this file",
+        "fields": {
+          "clusterName": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "clusterNamespace": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: apps.open-cluster-management.io/v1\nkind: PlacementRule\nmetadata:\n  name: example-placementrule\n  namespace: default\nspec:\n  clusterConditions: []\n  clusterReplicas: 1\n  clusterSelector: {}\n  clusters: []\n  policies: []\n"
+}

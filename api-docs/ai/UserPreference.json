@@ -1,0 +1,43 @@
+{
+  "kind": "UserPreference",
+  "apiVersion": "console.open-cluster-management.io/v1",
+  "metadata": {
+    "group": "console.open-cluster-management.io",
+    "version": "v1",
+    "plural": "userpreferences",
+    "singular": "userpreference",
+    "scope": "Cluster"
+  },
+  "spec": {
+    "description": "",
+    "fields": {
+      "savedSearches": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "id": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "searchText": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "name": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "description": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: console.open-cluster-management.io/v1\nkind: UserPreference\nmetadata:\n  name: example-userpreference\nspec:\n  savedSearches: []\n"
+}

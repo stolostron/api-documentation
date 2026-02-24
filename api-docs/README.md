@@ -2,6 +2,40 @@
 
 This document provides an overview of the Custom Resource Definitions (CRDs) used in this project.
 
+## Using This Repository with AI Assistants
+
+This repository includes machine-readable CRD schemas in the `ai/` directory
+that AI assistants can use to generate valid Kubernetes YAML manifests.
+
+### Raw URLs
+
+These URLs can be used directly by AI assistants to fetch the schemas for `release-2.14`:
+
+- **Instructions**: [https://raw.githubusercontent.com/stolostron/api-documentation/release-2.14/api-docs/ai/PROMPT.md](https://raw.githubusercontent.com/stolostron/api-documentation/release-2.14/api-docs/ai/PROMPT.md)
+- **Index**: [https://raw.githubusercontent.com/stolostron/api-documentation/release-2.14/api-docs/ai/index.json](https://raw.githubusercontent.com/stolostron/api-documentation/release-2.14/api-docs/ai/index.json)
+- **CRD schemas**: `https://raw.githubusercontent.com/stolostron/api-documentation/release-2.14/api-docs/ai/{Kind}.json`
+
+### Claude
+
+1. Provide Claude with the AI instructions URL:
+   `https://raw.githubusercontent.com/stolostron/api-documentation/release-2.14/api-docs/ai/PROMPT.md`
+2. Claude can discover all available CRDs from the index:
+   `https://raw.githubusercontent.com/stolostron/api-documentation/release-2.14/api-docs/ai/index.json`
+3. Claude will use the instructions and per-CRD schema files
+   to generate valid YAML with correct `apiVersion`, field constraints, and examples.
+4. If you have Kubernetes MCP tools installed, Claude can apply resources directly.
+
+### Gemini
+
+1. Provide Gemini with the index URL:
+   `https://raw.githubusercontent.com/stolostron/api-documentation/release-2.14/api-docs/ai/index.json`
+2. Gemini can fetch the instructions from:
+   `https://raw.githubusercontent.com/stolostron/api-documentation/release-2.14/api-docs/ai/PROMPT.md`
+3. Gemini will use the structured JSON schemas to generate
+   valid manifests respecting required fields, enums, and validation constraints.
+
+---
+
 ## Subscription
 
 Subscription is the Schema for the subscriptions API

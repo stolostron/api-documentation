@@ -1,0 +1,280 @@
+{
+  "kind": "ClusterClass",
+  "apiVersion": "cluster.x-k8s.io/v1alpha4",
+  "metadata": {
+    "group": "cluster.x-k8s.io",
+    "version": "v1alpha4",
+    "plural": "clusterclasses",
+    "singular": "clusterclass",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "ClusterClassSpec describes the desired state of the ClusterClass.",
+    "fields": {
+      "controlPlane": {
+        "type": "object",
+        "description": "controlPlane is a reference to a local struct that holds the details\nfor provisioning the Control Plane for the Cluster.",
+        "fields": {
+          "machineInfrastructure": {
+            "type": "object",
+            "description": "MachineTemplate defines the metadata and infrastructure information\nfor control plane machines.\nThis field is supported if and only if the control plane provider template\nreferenced above is Machine based and supports setting replicas.",
+            "fields": {
+              "ref": {
+                "type": "object",
+                "description": "ref is a required reference to a custom resource\noffered by a provider.",
+                "required": true,
+                "fields": {
+                  "apiVersion": {
+                    "type": "string",
+                    "description": "API version of the referent."
+                  },
+                  "fieldPath": {
+                    "type": "string",
+                    "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+                  },
+                  "kind": {
+                    "type": "string",
+                    "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+                  },
+                  "namespace": {
+                    "type": "string",
+                    "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+                  },
+                  "resourceVersion": {
+                    "type": "string",
+                    "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+                  },
+                  "uid": {
+                    "type": "string",
+                    "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+                  }
+                }
+              }
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "description": "metadata is the metadata applied to the machines of the ControlPlane.\nAt runtime this metadata is merged with the corresponding metadata from the topology.\nThis field is supported if and only if the control plane provider template\nreferenced is Machine based.",
+            "fields": {
+              "annotations": {
+                "type": "object",
+                "description": "annotations is an unstructured key value map stored with a resource that may be\nset by external tools to store and retrieve arbitrary metadata. They are not\nqueryable and should be preserved when modifying objects.\nMore info: http://kubernetes.io/docs/user-guide/annotations"
+              },
+              "labels": {
+                "type": "object",
+                "description": "Map of string keys and values that can be used to organize and categorize\n(scope and select) objects. May match selectors of replication controllers\nand services.\nMore info: http://kubernetes.io/docs/user-guide/labels"
+              }
+            }
+          },
+          "ref": {
+            "type": "object",
+            "description": "ref is a required reference to a custom resource\noffered by a provider.",
+            "required": true,
+            "fields": {
+              "apiVersion": {
+                "type": "string",
+                "description": "API version of the referent."
+              },
+              "fieldPath": {
+                "type": "string",
+                "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+              },
+              "resourceVersion": {
+                "type": "string",
+                "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+              },
+              "uid": {
+                "type": "string",
+                "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+              }
+            }
+          }
+        }
+      },
+      "infrastructure": {
+        "type": "object",
+        "description": "infrastructure is a reference to a provider-specific template that holds\nthe details for provisioning infrastructure specific cluster\nfor the underlying provider.\nThe underlying provider is responsible for the implementation\nof the template to an infrastructure cluster.",
+        "fields": {
+          "ref": {
+            "type": "object",
+            "description": "ref is a required reference to a custom resource\noffered by a provider.",
+            "required": true,
+            "fields": {
+              "apiVersion": {
+                "type": "string",
+                "description": "API version of the referent."
+              },
+              "fieldPath": {
+                "type": "string",
+                "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+              },
+              "resourceVersion": {
+                "type": "string",
+                "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+              },
+              "uid": {
+                "type": "string",
+                "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+              }
+            }
+          }
+        }
+      },
+      "workers": {
+        "type": "object",
+        "description": "workers describes the worker nodes for the cluster.\nIt is a collection of node types which can be used to create\nthe worker nodes of the cluster.",
+        "fields": {
+          "machineDeployments": {
+            "type": "array",
+            "description": "machineDeployments is a list of machine deployment classes that can be used to create\na set of worker nodes.",
+            "fields": {
+              "class": {
+                "type": "string",
+                "description": "class denotes a type of worker node present in the cluster,\nthis name MUST be unique within a ClusterClass and can be referenced\nin the Cluster to create a managed MachineDeployment.",
+                "required": true
+              },
+              "template": {
+                "type": "object",
+                "description": "template is a local struct containing a collection of templates for creation of\nMachineDeployment objects representing a set of worker nodes.",
+                "required": true,
+                "fields": {
+                  "bootstrap": {
+                    "type": "object",
+                    "description": "bootstrap contains the bootstrap template reference to be used\nfor the creation of worker Machines.",
+                    "required": true,
+                    "fields": {
+                      "ref": {
+                        "type": "object",
+                        "description": "ref is a required reference to a custom resource\noffered by a provider.",
+                        "required": true,
+                        "fields": {
+                          "apiVersion": {
+                            "type": "string",
+                            "description": "API version of the referent."
+                          },
+                          "fieldPath": {
+                            "type": "string",
+                            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+                          },
+                          "kind": {
+                            "type": "string",
+                            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+                          },
+                          "namespace": {
+                            "type": "string",
+                            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+                          },
+                          "resourceVersion": {
+                            "type": "string",
+                            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+                          },
+                          "uid": {
+                            "type": "string",
+                            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "infrastructure": {
+                    "type": "object",
+                    "description": "infrastructure contains the infrastructure template reference to be used\nfor the creation of worker Machines.",
+                    "required": true,
+                    "fields": {
+                      "ref": {
+                        "type": "object",
+                        "description": "ref is a required reference to a custom resource\noffered by a provider.",
+                        "required": true,
+                        "fields": {
+                          "apiVersion": {
+                            "type": "string",
+                            "description": "API version of the referent."
+                          },
+                          "fieldPath": {
+                            "type": "string",
+                            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+                          },
+                          "kind": {
+                            "type": "string",
+                            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+                          },
+                          "namespace": {
+                            "type": "string",
+                            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+                          },
+                          "resourceVersion": {
+                            "type": "string",
+                            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+                          },
+                          "uid": {
+                            "type": "string",
+                            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "description": "metadata is the metadata applied to the machines of the MachineDeployment.\nAt runtime this metadata is merged with the corresponding metadata from the topology.",
+                    "fields": {
+                      "annotations": {
+                        "type": "object",
+                        "description": "annotations is an unstructured key value map stored with a resource that may be\nset by external tools to store and retrieve arbitrary metadata. They are not\nqueryable and should be preserved when modifying objects.\nMore info: http://kubernetes.io/docs/user-guide/annotations"
+                      },
+                      "labels": {
+                        "type": "object",
+                        "description": "Map of string keys and values that can be used to organize and categorize\n(scope and select) objects. May match selectors of replication controllers\nand services.\nMore info: http://kubernetes.io/docs/user-guide/labels"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: cluster.x-k8s.io/v1alpha4\nkind: ClusterClass\nmetadata:\n  name: example-clusterclass\n  namespace: default\nspec:\n  controlPlane: {}\n  infrastructure: {}\n  workers: {}\n"
+}

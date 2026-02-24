@@ -1,0 +1,75 @@
+{
+  "kind": "ManagedClusterSetBinding",
+  "apiVersion": "cluster.open-cluster-management.io/v1beta2",
+  "metadata": {
+    "group": "cluster.open-cluster-management.io",
+    "version": "v1beta2",
+    "plural": "managedclustersetbindings",
+    "singular": "managedclustersetbinding",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "Spec defines the attributes of ManagedClusterSetBinding.",
+    "fields": {
+      "clusterSet": {
+        "type": "string",
+        "description": "ClusterSet is the name of the ManagedClusterSet to bind. It must match the\ninstance name of the ManagedClusterSetBinding and cannot change once created.\nUser is allowed to set this field if they have an RBAC rule to CREATE on the\nvirtual subresource of managedclustersets/bind."
+      }
+    }
+  },
+  "status": {
+    "description": "Status represents the current status of the ManagedClusterSetBinding",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions contains the different condition statuses for this ManagedClusterSetBinding.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition.\nThis may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon.\nFor instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition.\nProducers of specific condition types may define expected values and meanings for this field,\nand whether the values are considered a guaranteed API.\nThe value should be a CamelCase string.\nThis field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: cluster.open-cluster-management.io/v1beta2\nkind: ManagedClusterSetBinding\nmetadata:\n  name: example-managedclustersetbinding\n  namespace: default\nspec:\n  clusterSet: \"example-clusterSet\"\n"
+}

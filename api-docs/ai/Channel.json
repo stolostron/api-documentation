@@ -1,0 +1,163 @@
+{
+  "kind": "Channel",
+  "apiVersion": "apps.open-cluster-management.io/v1",
+  "metadata": {
+    "group": "apps.open-cluster-management.io",
+    "version": "v1",
+    "plural": "channels",
+    "singular": "channel",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "ChannelSpec defines the desired state of Channel",
+    "fields": {
+      "configMapRef": {
+        "type": "object",
+        "description": "Reference to a ConfigMap which contains additional settings for accessing the channel. For example, the `insecureSkipVerify` option for accessing HTTPS endpoints can be set in the ConfigMap to indicate a insecure connection.",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: \"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered the event) or if no container name is specified \"spec.containers[2]\" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object. TODO: this design is not final and this field is subject to change in the future."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "gates": {
+        "type": "object",
+        "description": "ChannelGate defines a criteria for promoting a Deployable from the sourceNamespaces to Channel.",
+        "fields": {
+          "annotations": {
+            "type": "object",
+            "description": "The annotations for selecting the Deployables to be eligible for promotion."
+          },
+          "labelSelector": {
+            "type": "object",
+            "description": "A label selector for selecting the Deployables.",
+            "fields": {
+              "matchExpressions": {
+                "type": "array",
+                "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the label key that the selector applies to.",
+                    "required": true
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.",
+                    "required": true
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch."
+                  }
+                }
+              },
+              "matchLabels": {
+                "type": "object",
+                "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is \"key\", the operator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+              }
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "insecureSkipVerify": {
+        "type": "boolean",
+        "description": "Skip server TLS certificate verification for Git or Helm channel."
+      },
+      "pathname": {
+        "type": "string",
+        "description": "For a `helmrepo` or `github` channel, pathname is the repo URL. For a `objectbucket` channel, pathname is the Object store URL with the name of the bucket.",
+        "required": true
+      },
+      "secretRef": {
+        "type": "object",
+        "description": "For a `github` channel or a `helmrepo` channel on github, use this to reference a secret which contains the credentials for authentication, for example: `user` and `accessToken`. For a `objectbucket` channel, use this to reference a secret which contains the AWS credentials, for example: `AccessKeyID`,`SecretAccessKey` and `Region`.",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: \"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered the event) or if no container name is specified \"spec.containers[2]\" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object. TODO: this design is not final and this field is subject to change in the future."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "sourceNamespaces": {
+        "type": "array",
+        "description": "A list of namespace names from which Deployables can be promoted."
+      },
+      "type": {
+        "type": "string",
+        "description": "ChannelType defines a type of channel",
+        "required": true,
+        "enum": [
+          "Namespace",
+          "HelmRepo",
+          "ObjectBucket",
+          "GitHub",
+          "Git",
+          "namespace",
+          "helmrepo",
+          "objectbucket",
+          "github",
+          "git"
+        ]
+      }
+    }
+  },
+  "status": {
+    "description": "The most recent observed status of the Channel.",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: apps.open-cluster-management.io/v1\nkind: Channel\nmetadata:\n  name: example-channel\n  namespace: default\nspec:\n  pathname: \"example-pathname\"\n  type: Namespace\n"
+}

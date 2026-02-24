@@ -1,0 +1,129 @@
+{
+  "kind": "ManagedProxyServiceResolver",
+  "apiVersion": "proxy.open-cluster-management.io/v1alpha1",
+  "metadata": {
+    "group": "proxy.open-cluster-management.io",
+    "version": "v1alpha1",
+    "plural": "managedproxyserviceresolvers",
+    "singular": "managedproxyserviceresolver",
+    "scope": "Cluster"
+  },
+  "spec": {
+    "description": "ManagedProxyServiceResolverSpec defines the desired state of ManagedProxyServiceResolver.",
+    "fields": {
+      "managedClusterSelector": {
+        "type": "object",
+        "description": "ManagedClusterSelector selects a set of managed clusters.",
+        "required": true,
+        "fields": {
+          "managedClusterSet": {
+            "type": "object",
+            "description": "ManagedClusterSet defines a set of managed clusters that need to expose the service.",
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the managed cluster set.",
+                "required": true
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "Type represents the type of the selector. Now only ManagedClusterSet is supported.",
+            "enum": [
+              "ManagedClusterSet"
+            ],
+            "default": "ManagedClusterSet"
+          }
+        }
+      },
+      "serviceSelector": {
+        "type": "object",
+        "description": "ServiceSelector selects a service.",
+        "required": true,
+        "fields": {
+          "serviceRef": {
+            "type": "object",
+            "description": "ServiceRef defines a service in a namespace.",
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name represents the name of the service.",
+                "required": true
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace represents the namespace of the service.",
+                "required": true
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "Type represents the type of the selector. Now only ServiceRef type is supported.",
+            "enum": [
+              "ServiceRef"
+            ],
+            "default": "ServiceRef"
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "ManagedProxyServiceResolverStatus defines the observed state of ManagedProxyServiceResolver.",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions contains the different condition statuses for this ManagedProxyServiceResolver.",
+        "required": true,
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition. This may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase. --- Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be useful (see .node.status.conditions), the ability to deconflict is important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: proxy.open-cluster-management.io/v1alpha1\nkind: ManagedProxyServiceResolver\nmetadata:\n  name: example-managedproxyserviceresolver\nspec:\n  managedClusterSelector: {}\n  serviceSelector: {}\n"
+}

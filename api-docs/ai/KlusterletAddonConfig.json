@@ -1,0 +1,222 @@
+{
+  "kind": "KlusterletAddonConfig",
+  "apiVersion": "agent.open-cluster-management.io/v1",
+  "metadata": {
+    "group": "agent.open-cluster-management.io",
+    "version": "v1",
+    "plural": "klusterletaddonconfigs",
+    "singular": "klusterletaddonconfig",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "KlusterletAddonConfigSpec defines the desired state of KlusterletAddonConfig",
+    "fields": {
+      "applicationManager": {
+        "type": "object",
+        "description": "ApplicationManagerConfig defines the configurations of ApplicationManager addon agent.",
+        "required": true,
+        "fields": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Enabled is the flag to enable/disable the addon. default is false."
+          },
+          "proxyPolicy": {
+            "type": "string",
+            "description": "ProxyPolicy defines the policy to set proxy for each addon agent. default is Disabled. Disabled means that the addon agent pods do not configure the proxy env variables. OCPGlobalProxy means that the addon agent pods use the cluster-wide proxy config of OCP cluster provisioned by ACM. CustomProxy means that the addon agent pods use the ProxyConfig specified in KlusterletAddonConfig.",
+            "enum": [
+              "Disabled",
+              "OCPGlobalProxy",
+              "CustomProxy"
+            ]
+          }
+        }
+      },
+      "certPolicyController": {
+        "type": "object",
+        "description": "CertPolicyControllerConfig defines the configurations of CertPolicyController addon agent.",
+        "required": true,
+        "fields": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Enabled is the flag to enable/disable the addon. default is false."
+          },
+          "proxyPolicy": {
+            "type": "string",
+            "description": "ProxyPolicy defines the policy to set proxy for each addon agent. default is Disabled. Disabled means that the addon agent pods do not configure the proxy env variables. OCPGlobalProxy means that the addon agent pods use the cluster-wide proxy config of OCP cluster provisioned by ACM. CustomProxy means that the addon agent pods use the ProxyConfig specified in KlusterletAddonConfig.",
+            "enum": [
+              "Disabled",
+              "OCPGlobalProxy",
+              "CustomProxy"
+            ]
+          }
+        }
+      },
+      "clusterLabels": {
+        "type": "object",
+        "description": "DEPRECATED in release 2.4 and will be removed in the future since not used anymore."
+      },
+      "clusterName": {
+        "type": "string",
+        "description": "DEPRECATED in release 2.4 and will be removed in the future since not used anymore."
+      },
+      "clusterNamespace": {
+        "type": "string",
+        "description": "DEPRECATED in release 2.4 and will be removed in the future since not used anymore."
+      },
+      "iamPolicyController": {
+        "type": "object",
+        "description": "DEPRECATED in release 2.11 and will be removed in the future since not used anymore.",
+        "fields": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Enabled is the flag to enable/disable the addon. default is false."
+          },
+          "proxyPolicy": {
+            "type": "string",
+            "description": "ProxyPolicy defines the policy to set proxy for each addon agent. default is Disabled.\nDisabled means that the addon agent pods do not configure the proxy env variables.\nOCPGlobalProxy means that the addon agent pods use the cluster-wide proxy config of OCP cluster provisioned by ACM.\nCustomProxy means that the addon agent pods use the ProxyConfig specified in KlusterletAddonConfig.",
+            "enum": [
+              "Disabled",
+              "OCPGlobalProxy",
+              "CustomProxy"
+            ]
+          }
+        }
+      },
+      "policyController": {
+        "type": "object",
+        "description": "PolicyController defines the configurations of PolicyController addon agent.",
+        "required": true,
+        "fields": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Enabled is the flag to enable/disable the addon. default is false."
+          },
+          "proxyPolicy": {
+            "type": "string",
+            "description": "ProxyPolicy defines the policy to set proxy for each addon agent. default is Disabled. Disabled means that the addon agent pods do not configure the proxy env variables. OCPGlobalProxy means that the addon agent pods use the cluster-wide proxy config of OCP cluster provisioned by ACM. CustomProxy means that the addon agent pods use the ProxyConfig specified in KlusterletAddonConfig.",
+            "enum": [
+              "Disabled",
+              "OCPGlobalProxy",
+              "CustomProxy"
+            ]
+          }
+        }
+      },
+      "proxyConfig": {
+        "type": "object",
+        "description": "ProxyConfig defines the cluster-wide proxy configuration of the OCP managed cluster.",
+        "fields": {
+          "httpProxy": {
+            "type": "string",
+            "description": "HTTPProxy is the URL of the proxy for HTTP requests.  Empty means unset and will not result in an env var."
+          },
+          "httpsProxy": {
+            "type": "string",
+            "description": "HTTPSProxy is the URL of the proxy for HTTPS requests.  Empty means unset and will not result in an env var."
+          },
+          "noProxy": {
+            "type": "string",
+            "description": "NoProxy is a comma-separated list of hostnames and/or CIDRs for which the proxy should not be used. Empty means unset and will not result in an env var. The API Server of Hub cluster should be added here. And If you scale up workers that are not included in the network defined by the networking.machineNetwork[].cidr field from the installation configuration, you must add them to this list to prevent connection issues."
+          }
+        }
+      },
+      "searchCollector": {
+        "type": "object",
+        "description": "SearchCollectorConfig defines the configurations of SearchCollector addon agent.",
+        "required": true,
+        "fields": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Enabled is the flag to enable/disable the addon. default is false."
+          },
+          "proxyPolicy": {
+            "type": "string",
+            "description": "ProxyPolicy defines the policy to set proxy for each addon agent. default is Disabled. Disabled means that the addon agent pods do not configure the proxy env variables. OCPGlobalProxy means that the addon agent pods use the cluster-wide proxy config of OCP cluster provisioned by ACM. CustomProxy means that the addon agent pods use the ProxyConfig specified in KlusterletAddonConfig.",
+            "enum": [
+              "Disabled",
+              "OCPGlobalProxy",
+              "CustomProxy"
+            ]
+          }
+        }
+      },
+      "version": {
+        "type": "string",
+        "description": "DEPRECATED in release 2.4 and will be removed in the future since not used anymore."
+      }
+    }
+  },
+  "status": {
+    "description": "KlusterletAddonConfigStatus defines the observed state of KlusterletAddonConfig",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions contains condition information for the klusterletAddonConfig",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition. This may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase. --- Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be useful (see .node.status.conditions), the ability to deconflict is important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      },
+      "ocpGlobalProxy": {
+        "type": "object",
+        "description": "OCPGlobalProxy is the cluster-wide proxy config of the OCP cluster provisioned by ACM",
+        "fields": {
+          "httpProxy": {
+            "type": "string",
+            "description": "HTTPProxy is the URL of the proxy for HTTP requests.  Empty means unset and will not result in an env var."
+          },
+          "httpsProxy": {
+            "type": "string",
+            "description": "HTTPSProxy is the URL of the proxy for HTTPS requests.  Empty means unset and will not result in an env var."
+          },
+          "noProxy": {
+            "type": "string",
+            "description": "NoProxy is a comma-separated list of hostnames and/or CIDRs for which the proxy should not be used. Empty means unset and will not result in an env var. The API Server of Hub cluster should be added here. And If you scale up workers that are not included in the network defined by the networking.machineNetwork[].cidr field from the installation configuration, you must add them to this list to prevent connection issues."
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: agent.open-cluster-management.io/v1\nkind: KlusterletAddonConfig\nmetadata:\n  name: example-klusterletaddonconfig\n  namespace: default\nspec:\n  applicationManager: {}\n  certPolicyController: {}\n  policyController: {}\n  searchCollector: {}\n"
+}

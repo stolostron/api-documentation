@@ -1,0 +1,20 @@
+{
+  "kind": "PolicyReport",
+  "apiVersion": "wgpolicyk8s.io/v1alpha1",
+  "metadata": {
+    "group": "wgpolicyk8s.io",
+    "version": "v1alpha1",
+    "plural": "policyreports",
+    "singular": "policyreport",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {}
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: wgpolicyk8s.io/v1alpha1\nkind: PolicyReport\nmetadata:\n  name: example-policyreport\n  namespace: default\n"
+}

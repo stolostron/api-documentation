@@ -1,0 +1,44 @@
+{
+  "kind": "NMStateConfig",
+  "apiVersion": "agent-install.openshift.io/v1beta1",
+  "metadata": {
+    "group": "agent-install.openshift.io",
+    "version": "v1beta1",
+    "plural": "nmstateconfigs",
+    "singular": "nmstateconfig",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {
+      "config": {
+        "type": "object",
+        "description": "yaml that can be processed by nmstate, using custom marshaling/unmarshaling that will allow to populate nmstate config as plain yaml."
+      },
+      "interfaces": {
+        "type": "array",
+        "description": "Interfaces is an array of interface objects containing the name and MAC\naddress for interfaces that are referenced in the raw nmstate config YAML.\nInterfaces listed here will be automatically renamed in the nmstate config\nYAML to match the real device name that is observed to have the\ncorresponding MAC address. At least one interface must be listed so that it\ncan be used to identify the correct host, which is done by matching any MAC\naddress in this list to any MAC address observed on the host.",
+        "fields": {
+          "macAddress": {
+            "type": "string",
+            "description": "mac address present on the host.",
+            "required": true,
+            "validations": {
+              "pattern": "^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$"
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "nic name used in the yaml, which relates 1:1 to the mac address.\nName in REST API: logicalNICName",
+            "required": true
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: agent-install.openshift.io/v1beta1\nkind: NMStateConfig\nmetadata:\n  name: example-nmstateconfig\n  namespace: default\nspec:\n  config: {}\n  interfaces: []\n"
+}

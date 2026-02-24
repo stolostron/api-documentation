@@ -1,0 +1,52 @@
+{
+  "kind": "Metal3Remediation",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1beta1",
+    "plural": "metal3remediations",
+    "singular": "metal3remediation",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "Metal3RemediationSpec defines the desired state of Metal3Remediation.",
+    "fields": {
+      "strategy": {
+        "type": "object",
+        "description": "Strategy field defines remediation strategy.",
+        "fields": {
+          "retryLimit": {
+            "type": "integer",
+            "description": "Sets maximum number of remediation retries."
+          },
+          "timeout": {
+            "type": "string",
+            "description": "Sets the timeout between remediation retries."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of remediation."
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "Metal3RemediationStatus defines the observed state of Metal3Remediation.",
+    "fields": {
+      "lastRemediated": {
+        "type": "string",
+        "description": "LastRemediated identifies when the host was last remediated"
+      },
+      "phase": {
+        "type": "string",
+        "description": "Phase represents the current phase of machine remediation.\nE.g. Pending, Running, Done etc."
+      },
+      "retryCount": {
+        "type": "integer",
+        "description": "RetryCount can be used as a counter during the remediation.\nField can hold number of reboots etc."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1beta1\nkind: Metal3Remediation\nmetadata:\n  name: example-metal3remediation\n  namespace: default\nspec:\n  strategy: {}\n"
+}

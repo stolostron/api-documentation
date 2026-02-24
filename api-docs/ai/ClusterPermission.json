@@ -1,0 +1,364 @@
+{
+  "kind": "ClusterPermission",
+  "apiVersion": "rbac.open-cluster-management.io/v1alpha1",
+  "metadata": {
+    "group": "rbac.open-cluster-management.io",
+    "version": "v1alpha1",
+    "plural": "clusterpermissions",
+    "singular": "clusterpermission",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "ClusterPermissionSpec defines the desired state of ClusterPermission",
+    "fields": {
+      "clusterRole": {
+        "type": "object",
+        "description": "ClusterRole represents the ClusterRole that is being created on the managed cluster",
+        "fields": {
+          "rules": {
+            "type": "array",
+            "description": "Rules holds all the PolicyRules for this ClusterRole",
+            "required": true,
+            "fields": {
+              "apiGroups": {
+                "type": "array",
+                "description": "APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of\nthe enumerated resources in any API group will be allowed. \"\" represents the core API group and \"*\" represents all API groups."
+              },
+              "nonResourceURLs": {
+                "type": "array",
+                "description": "NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path\nSince non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding.\nRules can either apply to API resources (such as \"pods\" or \"secrets\") or non-resource URL paths (such as \"/api\"),  but not both."
+              },
+              "resourceNames": {
+                "type": "array",
+                "description": "ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed."
+              },
+              "resources": {
+                "type": "array",
+                "description": "Resources is a list of resources this rule applies to. '*' represents all resources."
+              },
+              "verbs": {
+                "type": "array",
+                "description": "Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.",
+                "required": true
+              }
+            }
+          }
+        }
+      },
+      "clusterRoleBinding": {
+        "type": "object",
+        "description": "ClusterRoleBinding represents the ClusterRoleBinding that is being created on the managed cluster",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the ClusterRoleBinding if a name different than the ClusterPermission name is used"
+          },
+          "roleRef": {
+            "type": "object",
+            "description": "RoleRef contains information that points to the ClusterRole being used",
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup is the group for the resource being referenced",
+                "required": true
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the type of resource being referenced",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of resource being referenced",
+                "required": true
+              }
+            }
+          },
+          "subject": {
+            "type": "object",
+            "description": "Subject contains a reference to the object or user identities a ClusterPermission binding applies to.\nBesides the typical subject for a binding, a ManagedServiceAccount can be used as a subject as well.\nIf both subject and subjects exist then only subjects will be used.",
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup holds the API group of the referenced subject.\nDefaults to \"\" for ServiceAccount subjects.\nDefaults to \"rbac.authorization.k8s.io\" for User and Group subjects."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind of object being referenced. Values defined by this API group are \"User\", \"Group\", and \"ServiceAccount\".\nIf the Authorizer does not recognized the kind value, the Authorizer should report an error.",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the object being referenced.",
+                "required": true
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace of the referenced object.  If the object kind is non-namespace, such as \"User\" or \"Group\", and this value is not empty\nthe Authorizer should report an error."
+              }
+            }
+          },
+          "subjects": {
+            "type": "array",
+            "description": "Subjects contains an array of references to objects or user identities a ClusterPermission binding applies to.\nBesides the typical subject for a binding, a ManagedServiceAccount can be used as a subject as well.\nIf both subject and subjects exist then only subjects will be used.",
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup holds the API group of the referenced subject.\nDefaults to \"\" for ServiceAccount subjects.\nDefaults to \"rbac.authorization.k8s.io\" for User and Group subjects."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind of object being referenced. Values defined by this API group are \"User\", \"Group\", and \"ServiceAccount\".\nIf the Authorizer does not recognized the kind value, the Authorizer should report an error.",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the object being referenced.",
+                "required": true
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace of the referenced object.  If the object kind is non-namespace, such as \"User\" or \"Group\", and this value is not empty\nthe Authorizer should report an error."
+              }
+            }
+          }
+        }
+      },
+      "roleBindings": {
+        "type": "array",
+        "description": "RoleBindings represents RoleBindings that are being created on the managed cluster",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name of the RoleBinding if a name different than the ClusterPermission name is used"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the Role for that is being created on the managed cluster"
+          },
+          "namespaceSelector": {
+            "type": "object",
+            "description": "NamespaceSelector define the general labelSelector which namespace to apply the rules to\nNote: the namespace must exists on the hub cluster",
+            "fields": {
+              "matchExpressions": {
+                "type": "array",
+                "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the label key that the selector applies to.",
+                    "required": true
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                    "required": true
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+                  }
+                }
+              },
+              "matchLabels": {
+                "type": "object",
+                "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+              }
+            }
+          },
+          "roleRef": {
+            "type": "object",
+            "description": "RoleRef contains information that points to the role being used",
+            "required": true,
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup is the group for the resource being referenced"
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the type of resource being referenced",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of resource being referenced"
+              }
+            }
+          },
+          "subject": {
+            "type": "object",
+            "description": "Subject contains a reference to the object or user identities a ClusterPermission binding applies to.\nBesides the typical subject for a binding, a ManagedServiceAccount can be used as a subject as well.\nIf both subject and subjects exist then only subjects will be used.",
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup holds the API group of the referenced subject.\nDefaults to \"\" for ServiceAccount subjects.\nDefaults to \"rbac.authorization.k8s.io\" for User and Group subjects."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind of object being referenced. Values defined by this API group are \"User\", \"Group\", and \"ServiceAccount\".\nIf the Authorizer does not recognized the kind value, the Authorizer should report an error.",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the object being referenced.",
+                "required": true
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace of the referenced object.  If the object kind is non-namespace, such as \"User\" or \"Group\", and this value is not empty\nthe Authorizer should report an error."
+              }
+            }
+          },
+          "subjects": {
+            "type": "array",
+            "description": "Subjects contains an array of references to objects or user identities a ClusterPermission binding applies to.\nBesides the typical subject for a binding, a ManagedServiceAccount can be used as a subject as well.\nIf both subject and subjects exist then only subjects will be used.",
+            "fields": {
+              "apiGroup": {
+                "type": "string",
+                "description": "APIGroup holds the API group of the referenced subject.\nDefaults to \"\" for ServiceAccount subjects.\nDefaults to \"rbac.authorization.k8s.io\" for User and Group subjects."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind of object being referenced. Values defined by this API group are \"User\", \"Group\", and \"ServiceAccount\".\nIf the Authorizer does not recognized the kind value, the Authorizer should report an error.",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the object being referenced.",
+                "required": true
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace of the referenced object.  If the object kind is non-namespace, such as \"User\" or \"Group\", and this value is not empty\nthe Authorizer should report an error."
+              }
+            }
+          }
+        }
+      },
+      "roles": {
+        "type": "array",
+        "description": "Roles represents roles that are being created on the managed cluster",
+        "fields": {
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the Role for that is being created on the managed cluster"
+          },
+          "namespaceSelector": {
+            "type": "object",
+            "description": "NamespaceSelector define the general labelSelector which namespace to apply the rules to\nNote: the namespace must exists on the hub cluster",
+            "fields": {
+              "matchExpressions": {
+                "type": "array",
+                "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the label key that the selector applies to.",
+                    "required": true
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                    "required": true
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+                  }
+                }
+              },
+              "matchLabels": {
+                "type": "object",
+                "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+              }
+            }
+          },
+          "rules": {
+            "type": "array",
+            "description": "Rules holds all the PolicyRules for this Role",
+            "required": true,
+            "fields": {
+              "apiGroups": {
+                "type": "array",
+                "description": "APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of\nthe enumerated resources in any API group will be allowed. \"\" represents the core API group and \"*\" represents all API groups."
+              },
+              "nonResourceURLs": {
+                "type": "array",
+                "description": "NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path\nSince non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding.\nRules can either apply to API resources (such as \"pods\" or \"secrets\") or non-resource URL paths (such as \"/api\"),  but not both."
+              },
+              "resourceNames": {
+                "type": "array",
+                "description": "ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed."
+              },
+              "resources": {
+                "type": "array",
+                "description": "Resources is a list of resources this rule applies to. '*' represents all resources."
+              },
+              "verbs": {
+                "type": "array",
+                "description": "Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.",
+                "required": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "ClusterPermissionStatus defines the observed state of ClusterPermission",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions is the condition list.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition.\nThis may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon.\nFor instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition.\nProducers of specific condition types may define expected values and meanings for this field,\nand whether the values are considered a guaranteed API.\nThe value should be a CamelCase string.\nThis field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: rbac.open-cluster-management.io/v1alpha1\nkind: ClusterPermission\nmetadata:\n  name: example-clusterpermission\n  namespace: default\nspec:\n  clusterRole: {}\n  clusterRoleBinding: {}\n  roleBindings: []\n  roles: []\n"
+}

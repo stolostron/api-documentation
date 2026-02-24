@@ -1,0 +1,65 @@
+{
+  "kind": "ClusterState",
+  "apiVersion": "hive.openshift.io/v1",
+  "metadata": {
+    "group": "hive.openshift.io",
+    "version": "v1",
+    "plural": "clusterstates",
+    "singular": "clusterstate",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "ClusterStateSpec defines the desired state of ClusterState",
+    "fields": {}
+  },
+  "status": {
+    "description": "ClusterStateStatus defines the observed state of ClusterState",
+    "fields": {
+      "clusterOperators": {
+        "type": "array",
+        "description": "ClusterOperators contains the state for every cluster operator in the\ntarget cluster",
+        "fields": {
+          "conditions": {
+            "type": "array",
+            "description": "Conditions is the set of conditions in the status of the cluster operator\non the target cluster",
+            "fields": {
+              "lastTransitionTime": {
+                "type": "string",
+                "description": "lastTransitionTime is the time of the last update to the current status property.",
+                "required": true
+              },
+              "message": {
+                "type": "string",
+                "description": "message provides additional information about the current condition.\nThis is only to be consumed by humans.  It may contain Line Feed\ncharacters (U+000A), which should be rendered as new lines."
+              },
+              "reason": {
+                "type": "string",
+                "description": "reason is the CamelCase reason for the condition's current status."
+              },
+              "status": {
+                "type": "string",
+                "description": "status of the condition, one of True, False, Unknown.",
+                "required": true
+              },
+              "type": {
+                "type": "string",
+                "description": "type specifies the aspect reported by this condition.",
+                "required": true
+              }
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the cluster operator",
+            "required": true
+          }
+        }
+      },
+      "lastUpdated": {
+        "type": "string",
+        "description": "LastUpdated is the last time that operator state was updated"
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: hive.openshift.io/v1\nkind: ClusterState\nmetadata:\n  name: example-clusterstate\n  namespace: default\n"
+}
