@@ -1,0 +1,73 @@
+{
+  "kind": "AppliedManifestWork",
+  "apiVersion": "work.open-cluster-management.io/v1",
+  "metadata": {
+    "group": "work.open-cluster-management.io",
+    "version": "v1",
+    "plural": "appliedmanifestworks",
+    "singular": "appliedmanifestwork",
+    "scope": "Cluster"
+  },
+  "spec": {
+    "description": "Spec represents the desired configuration of AppliedManifestWork.",
+    "fields": {
+      "agentID": {
+        "type": "string",
+        "description": "AgentID represents the ID of the work agent who is to handle this AppliedManifestWork."
+      },
+      "hubHash": {
+        "type": "string",
+        "description": "HubHash represents the hash of the first hub kube apiserver to identify which hub\nthis AppliedManifestWork links to.",
+        "required": true
+      },
+      "manifestWorkName": {
+        "type": "string",
+        "description": "ManifestWorkName represents the name of the related manifestwork on the hub.",
+        "required": true
+      }
+    }
+  },
+  "status": {
+    "description": "Status represents the current status of AppliedManifestWork.",
+    "fields": {
+      "appliedResources": {
+        "type": "array",
+        "description": "AppliedResources represents a list of resources defined within the manifestwork that are applied.\nOnly resources with valid GroupVersionResource, namespace, and name are suitable.\nAn item in this slice is deleted when there is no mapped manifest in manifestwork.Spec or by finalizer.\nThe resource relating to the item will also be removed from managed cluster.\nThe deleted resource may still be present until the finalizers for that resource are finished.\nHowever, the resource will not be undeleted, so it can be removed from this list and eventual consistency is preserved.",
+        "fields": {
+          "group": {
+            "type": "string",
+            "description": "Group is the API Group of the Kubernetes resource,\nempty string indicates it is in core group."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the Kubernetes resource.",
+            "required": true
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Name is the namespace of the Kubernetes resource, empty string indicates\nit is a cluster scoped resource."
+          },
+          "resource": {
+            "type": "string",
+            "description": "Resource is the resource name of the Kubernetes resource.",
+            "required": true
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID is set on successful deletion of the Kubernetes resource by controller. The\nresource might be still visible on the managed cluster after this field is set.\nIt is not directly settable by a client."
+          },
+          "version": {
+            "type": "string",
+            "description": "Version is the version of the Kubernetes resource.",
+            "required": true
+          }
+        }
+      },
+      "evictionStartTime": {
+        "type": "string",
+        "description": "EvictionStartTime represents the current appliedmanifestwork will be evicted after a grace period.\nAn appliedmanifestwork will be evicted from the managed cluster in the following two scenarios:\n  - the manifestwork of the current appliedmanifestwork is missing on the hub, or\n  - the appliedmanifestwork hub hash does not match the current hub hash of the work agent."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: work.open-cluster-management.io/v1\nkind: AppliedManifestWork\nmetadata:\n  name: example-appliedmanifestwork\nspec:\n  hubHash: \"example-hubHash\"\n  manifestWorkName: \"example-manifestWorkName\"\n"
+}

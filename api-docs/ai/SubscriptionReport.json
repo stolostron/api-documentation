@@ -1,0 +1,20 @@
+{
+  "kind": "SubscriptionReport",
+  "apiVersion": "apps.open-cluster-management.io/v1alpha1",
+  "metadata": {
+    "group": "apps.open-cluster-management.io",
+    "version": "v1alpha1",
+    "plural": "subscriptionreports",
+    "singular": "subscriptionreport",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {}
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: apps.open-cluster-management.io/v1alpha1\nkind: SubscriptionReport\nmetadata:\n  name: example-subscriptionreport\n  namespace: default\n"
+}

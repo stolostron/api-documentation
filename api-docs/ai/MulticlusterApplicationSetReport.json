@@ -1,0 +1,20 @@
+{
+  "kind": "MulticlusterApplicationSetReport",
+  "apiVersion": "apps.open-cluster-management.io/v1alpha1",
+  "metadata": {
+    "group": "apps.open-cluster-management.io",
+    "version": "v1alpha1",
+    "plural": "multiclusterapplicationsetreports",
+    "singular": "multiclusterapplicationsetreport",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {}
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: apps.open-cluster-management.io/v1alpha1\nkind: MulticlusterApplicationSetReport\nmetadata:\n  name: example-multiclusterapplicationsetreport\n  namespace: default\n"
+}

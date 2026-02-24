@@ -1,0 +1,66 @@
+{
+  "kind": "AWSClusterStaticIdentity",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1beta1",
+    "plural": "awsclusterstaticidentities",
+    "singular": "awsclusterstaticidentity",
+    "scope": "Cluster"
+  },
+  "spec": {
+    "description": "Spec for this AWSClusterStaticIdentity",
+    "fields": {
+      "allowedNamespaces": {
+        "type": "object",
+        "description": "AllowedNamespaces is used to identify which namespaces are allowed to use the identity from.\nNamespaces can be selected either using an array of namespaces or with label selector.\nAn empty allowedNamespaces object indicates that AWSClusters can use this identity from any namespace.\nIf this object is nil, no namespaces will be allowed (default behaviour, if this field is not provided)\nA namespace should be either in the NamespaceList or match with Selector to use the identity.",
+        "fields": {
+          "list": {
+            "type": "array",
+            "description": "An nil or empty list indicates that AWSClusters cannot use the identity from any namespace."
+          },
+          "selector": {
+            "type": "object",
+            "description": "An empty selector indicates that AWSClusters cannot use this\nAWSClusterIdentity from any namespace.",
+            "fields": {
+              "matchExpressions": {
+                "type": "array",
+                "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the label key that the selector applies to.",
+                    "required": true
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                    "required": true
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+                  }
+                }
+              },
+              "matchLabels": {
+                "type": "object",
+                "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+              }
+            }
+          }
+        }
+      },
+      "secretRef": {
+        "type": "string",
+        "description": "Reference to a secret containing the credentials. The secret should\ncontain the following data keys:\n AccessKeyID: AKIAIOSFODNN7EXAMPLE\n SecretAccessKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY\n SessionToken: Optional",
+        "required": true
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1beta1\nkind: AWSClusterStaticIdentity\nmetadata:\n  name: example-awsclusterstaticidentity\nspec:\n  secretRef: \"example-secretRef\"\n"
+}

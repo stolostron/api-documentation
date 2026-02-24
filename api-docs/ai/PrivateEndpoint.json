@@ -1,0 +1,617 @@
+{
+  "kind": "PrivateEndpoint",
+  "apiVersion": "network.azure.com/v1api20220701",
+  "metadata": {
+    "group": "network.azure.com",
+    "version": "v1api20220701",
+    "plural": "privateendpoints",
+    "singular": "privateendpoint",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {
+      "applicationSecurityGroups": {
+        "type": "array",
+        "description": "ApplicationSecurityGroups: Application security groups in which the private endpoint IP configuration is included.",
+        "fields": {
+          "reference": {
+            "type": "object",
+            "description": "Reference: Resource ID.",
+            "fields": {
+              "armId": {
+                "type": "string",
+                "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+                "validations": {
+                  "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+                }
+              },
+              "group": {
+                "type": "string",
+                "description": "Group is the Kubernetes group of the resource."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the Kubernetes kind of the resource."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the Kubernetes name of the resource."
+              }
+            }
+          }
+        }
+      },
+      "azureName": {
+        "type": "string",
+        "description": "AzureName: The name of the resource in Azure. This is often the same as the name of the resource in Kubernetes but it\ndoesn't have to be."
+      },
+      "customNetworkInterfaceName": {
+        "type": "string",
+        "description": "CustomNetworkInterfaceName: The custom name of the network interface attached to the private endpoint."
+      },
+      "extendedLocation": {
+        "type": "object",
+        "description": "ExtendedLocation: The extended location of the load balancer.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name: The name of the extended location."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type: The type of the extended location.",
+            "enum": [
+              "EdgeZone"
+            ]
+          }
+        }
+      },
+      "ipConfigurations": {
+        "type": "array",
+        "description": "IpConfigurations: A list of IP configurations of the private endpoint. This will be used to map to the First Party\nService's endpoints.",
+        "fields": {
+          "groupId": {
+            "type": "string",
+            "description": "GroupId: The ID of a group obtained from the remote resource that this private endpoint should connect to."
+          },
+          "memberName": {
+            "type": "string",
+            "description": "MemberName: The member name of a group obtained from the remote resource that this private endpoint should connect to."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name: The name of the resource that is unique within a resource group."
+          },
+          "privateIPAddress": {
+            "type": "string",
+            "description": "PrivateIPAddress: A private ip address obtained from the private endpoint's subnet."
+          }
+        }
+      },
+      "location": {
+        "type": "string",
+        "description": "Location: Resource location."
+      },
+      "manualPrivateLinkServiceConnections": {
+        "type": "array",
+        "description": "ManualPrivateLinkServiceConnections: A grouping of information about the connection to the remote resource. Used when\nthe network admin does not have access to approve connections to the remote resource.",
+        "fields": {
+          "groupIds": {
+            "type": "array",
+            "description": "GroupIds: The ID(s) of the group(s) obtained from the remote resource that this private endpoint should connect to."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name: The name of the resource that is unique within a resource group. This name can be used to access the resource."
+          },
+          "privateLinkServiceConnectionState": {
+            "type": "object",
+            "description": "PrivateLinkServiceConnectionState: A collection of read-only information about the state of the connection to the remote\nresource.",
+            "fields": {
+              "actionsRequired": {
+                "type": "string",
+                "description": "ActionsRequired: A message indicating if changes on the service provider require any updates on the consumer."
+              },
+              "description": {
+                "type": "string",
+                "description": "Description: The reason for approval/rejection of the connection."
+              },
+              "status": {
+                "type": "string",
+                "description": "Status: Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service."
+              }
+            }
+          },
+          "privateLinkServiceReference": {
+            "type": "object",
+            "description": "PrivateLinkServiceReference: The resource id of private link service.",
+            "fields": {
+              "armId": {
+                "type": "string",
+                "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+                "validations": {
+                  "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+                }
+              },
+              "group": {
+                "type": "string",
+                "description": "Group is the Kubernetes group of the resource."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the Kubernetes kind of the resource."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the Kubernetes name of the resource."
+              }
+            }
+          },
+          "requestMessage": {
+            "type": "string",
+            "description": "RequestMessage: A message passed to the owner of the remote resource with this connection request. Restricted to 140\nchars."
+          }
+        }
+      },
+      "operatorSpec": {
+        "type": "object",
+        "description": "OperatorSpec: The specification for configuring operator behavior. This field is interpreted by the operator and not\npassed directly to Azure",
+        "fields": {
+          "configMapExpressions": {
+            "type": "array",
+            "description": "ConfigMapExpressions: configures where to place operator written dynamic ConfigMaps (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          },
+          "configMaps": {
+            "type": "object",
+            "description": "ConfigMaps: configures where to place operator written ConfigMaps.",
+            "fields": {
+              "primaryNicPrivateIpAddress": {
+                "type": "object",
+                "description": "PrimaryNicPrivateIpAddress: indicates where the PrimaryNicPrivateIpAddress config map should be placed. If omitted, no\nconfig map will be created.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "Key is the key in the ConfigMap being referenced",
+                    "required": true
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name is the name of the Kubernetes ConfigMap to write to.\nThe ConfigMap will be created in the same namespace as the resource.",
+                    "required": true
+                  }
+                }
+              }
+            }
+          },
+          "secretExpressions": {
+            "type": "array",
+            "description": "SecretExpressions: configures where to place operator written dynamic secrets (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          }
+        }
+      },
+      "owner": {
+        "type": "object",
+        "description": "Owner: The owner of the resource. The owner controls where the resource goes when it is deployed. The owner also\ncontrols the resources lifecycle. When the owner is deleted the resource will also be deleted. Owner is expected to be a\nreference to a resources.azure.com/ResourceGroup resource",
+        "required": true,
+        "fields": {
+          "armId": {
+            "type": "string",
+            "description": "No description provided.",
+            "validations": {
+              "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "This is the name of the Kubernetes resource to reference."
+          }
+        }
+      },
+      "privateLinkServiceConnections": {
+        "type": "array",
+        "description": "PrivateLinkServiceConnections: A grouping of information about the connection to the remote resource.",
+        "fields": {
+          "groupIds": {
+            "type": "array",
+            "description": "GroupIds: The ID(s) of the group(s) obtained from the remote resource that this private endpoint should connect to."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name: The name of the resource that is unique within a resource group. This name can be used to access the resource."
+          },
+          "privateLinkServiceConnectionState": {
+            "type": "object",
+            "description": "PrivateLinkServiceConnectionState: A collection of read-only information about the state of the connection to the remote\nresource.",
+            "fields": {
+              "actionsRequired": {
+                "type": "string",
+                "description": "ActionsRequired: A message indicating if changes on the service provider require any updates on the consumer."
+              },
+              "description": {
+                "type": "string",
+                "description": "Description: The reason for approval/rejection of the connection."
+              },
+              "status": {
+                "type": "string",
+                "description": "Status: Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service."
+              }
+            }
+          },
+          "privateLinkServiceReference": {
+            "type": "object",
+            "description": "PrivateLinkServiceReference: The resource id of private link service.",
+            "fields": {
+              "armId": {
+                "type": "string",
+                "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+                "validations": {
+                  "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+                }
+              },
+              "group": {
+                "type": "string",
+                "description": "Group is the Kubernetes group of the resource."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the Kubernetes kind of the resource."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the Kubernetes name of the resource."
+              }
+            }
+          },
+          "requestMessage": {
+            "type": "string",
+            "description": "RequestMessage: A message passed to the owner of the remote resource with this connection request. Restricted to 140\nchars."
+          }
+        }
+      },
+      "subnet": {
+        "type": "object",
+        "description": "Subnet: The ID of the subnet from which the private IP will be allocated.",
+        "fields": {
+          "reference": {
+            "type": "object",
+            "description": "Reference: Resource ID.",
+            "fields": {
+              "armId": {
+                "type": "string",
+                "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+                "validations": {
+                  "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+                }
+              },
+              "group": {
+                "type": "string",
+                "description": "Group is the Kubernetes group of the resource."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind is the Kubernetes kind of the resource."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the Kubernetes name of the resource."
+              }
+            }
+          }
+        }
+      },
+      "tags": {
+        "type": "object",
+        "description": "Tags: Resource tags."
+      }
+    }
+  },
+  "status": {
+    "description": "Private endpoint resource.",
+    "fields": {
+      "applicationSecurityGroups": {
+        "type": "array",
+        "description": "ApplicationSecurityGroups: Application security groups in which the private endpoint IP configuration is included.",
+        "fields": {
+          "id": {
+            "type": "string",
+            "description": "Id: Resource ID."
+          }
+        }
+      },
+      "conditions": {
+        "type": "array",
+        "description": "Conditions: The observed state of the resource",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "LastTransitionTime is the last time the condition transitioned from one status to another.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Message is a human readable message indicating details about the transition. This field may be empty."
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "ObservedGeneration is the .metadata.generation that the condition was set based upon. For instance, if\n.metadata.generation is currently 12, but the .status.condition[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the condition's last transition.\nReasons are upper CamelCase (PascalCase) with no spaces. A reason is always provided, this field will not be empty.",
+            "required": true
+          },
+          "severity": {
+            "type": "string",
+            "description": "Severity with which to treat failures of this type of condition.\nFor conditions which have positive polarity (Status == True is their normal/healthy state), this will be omitted when Status == True\nFor conditions which have negative polarity (Status == False is their normal/healthy state), this will be omitted when Status == False.\nThis is omitted in all cases when Status == Unknown"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the condition, one of True, False, or Unknown.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of condition.",
+            "required": true
+          }
+        }
+      },
+      "customDnsConfigs": {
+        "type": "array",
+        "description": "CustomDnsConfigs: An array of custom dns configurations.",
+        "fields": {
+          "fqdn": {
+            "type": "string",
+            "description": "Fqdn: Fqdn that resolves to private endpoint ip address."
+          },
+          "ipAddresses": {
+            "type": "array",
+            "description": "IpAddresses: A list of private ip addresses of the private endpoint."
+          }
+        }
+      },
+      "customNetworkInterfaceName": {
+        "type": "string",
+        "description": "CustomNetworkInterfaceName: The custom name of the network interface attached to the private endpoint."
+      },
+      "etag": {
+        "type": "string",
+        "description": "Etag: A unique read-only string that changes whenever the resource is updated."
+      },
+      "extendedLocation": {
+        "type": "object",
+        "description": "ExtendedLocation: The extended location of the load balancer.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name: The name of the extended location."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type: The type of the extended location."
+          }
+        }
+      },
+      "id": {
+        "type": "string",
+        "description": "Id: Resource ID."
+      },
+      "ipConfigurations": {
+        "type": "array",
+        "description": "IpConfigurations: A list of IP configurations of the private endpoint. This will be used to map to the First Party\nService's endpoints.",
+        "fields": {
+          "etag": {
+            "type": "string",
+            "description": "Etag: A unique read-only string that changes whenever the resource is updated."
+          },
+          "groupId": {
+            "type": "string",
+            "description": "GroupId: The ID of a group obtained from the remote resource that this private endpoint should connect to."
+          },
+          "memberName": {
+            "type": "string",
+            "description": "MemberName: The member name of a group obtained from the remote resource that this private endpoint should connect to."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name: The name of the resource that is unique within a resource group."
+          },
+          "privateIPAddress": {
+            "type": "string",
+            "description": "PrivateIPAddress: A private ip address obtained from the private endpoint's subnet."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type: The resource type."
+          }
+        }
+      },
+      "location": {
+        "type": "string",
+        "description": "Location: Resource location."
+      },
+      "manualPrivateLinkServiceConnections": {
+        "type": "array",
+        "description": "ManualPrivateLinkServiceConnections: A grouping of information about the connection to the remote resource. Used when\nthe network admin does not have access to approve connections to the remote resource.",
+        "fields": {
+          "etag": {
+            "type": "string",
+            "description": "Etag: A unique read-only string that changes whenever the resource is updated."
+          },
+          "groupIds": {
+            "type": "array",
+            "description": "GroupIds: The ID(s) of the group(s) obtained from the remote resource that this private endpoint should connect to."
+          },
+          "id": {
+            "type": "string",
+            "description": "Id: Resource ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name: The name of the resource that is unique within a resource group. This name can be used to access the resource."
+          },
+          "privateLinkServiceConnectionState": {
+            "type": "object",
+            "description": "PrivateLinkServiceConnectionState: A collection of read-only information about the state of the connection to the remote\nresource.",
+            "fields": {
+              "actionsRequired": {
+                "type": "string",
+                "description": "ActionsRequired: A message indicating if changes on the service provider require any updates on the consumer."
+              },
+              "description": {
+                "type": "string",
+                "description": "Description: The reason for approval/rejection of the connection."
+              },
+              "status": {
+                "type": "string",
+                "description": "Status: Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service."
+              }
+            }
+          },
+          "privateLinkServiceId": {
+            "type": "string",
+            "description": "PrivateLinkServiceId: The resource id of private link service."
+          },
+          "provisioningState": {
+            "type": "string",
+            "description": "ProvisioningState: The provisioning state of the private link service connection resource."
+          },
+          "requestMessage": {
+            "type": "string",
+            "description": "RequestMessage: A message passed to the owner of the remote resource with this connection request. Restricted to 140\nchars."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type: The resource type."
+          }
+        }
+      },
+      "name": {
+        "type": "string",
+        "description": "Name: Resource name."
+      },
+      "networkInterfaces": {
+        "type": "array",
+        "description": "NetworkInterfaces: An array of references to the network interfaces created for this private endpoint.",
+        "fields": {
+          "id": {
+            "type": "string",
+            "description": "Id: Resource ID."
+          }
+        }
+      },
+      "privateLinkServiceConnections": {
+        "type": "array",
+        "description": "PrivateLinkServiceConnections: A grouping of information about the connection to the remote resource.",
+        "fields": {
+          "etag": {
+            "type": "string",
+            "description": "Etag: A unique read-only string that changes whenever the resource is updated."
+          },
+          "groupIds": {
+            "type": "array",
+            "description": "GroupIds: The ID(s) of the group(s) obtained from the remote resource that this private endpoint should connect to."
+          },
+          "id": {
+            "type": "string",
+            "description": "Id: Resource ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name: The name of the resource that is unique within a resource group. This name can be used to access the resource."
+          },
+          "privateLinkServiceConnectionState": {
+            "type": "object",
+            "description": "PrivateLinkServiceConnectionState: A collection of read-only information about the state of the connection to the remote\nresource.",
+            "fields": {
+              "actionsRequired": {
+                "type": "string",
+                "description": "ActionsRequired: A message indicating if changes on the service provider require any updates on the consumer."
+              },
+              "description": {
+                "type": "string",
+                "description": "Description: The reason for approval/rejection of the connection."
+              },
+              "status": {
+                "type": "string",
+                "description": "Status: Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service."
+              }
+            }
+          },
+          "privateLinkServiceId": {
+            "type": "string",
+            "description": "PrivateLinkServiceId: The resource id of private link service."
+          },
+          "provisioningState": {
+            "type": "string",
+            "description": "ProvisioningState: The provisioning state of the private link service connection resource."
+          },
+          "requestMessage": {
+            "type": "string",
+            "description": "RequestMessage: A message passed to the owner of the remote resource with this connection request. Restricted to 140\nchars."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type: The resource type."
+          }
+        }
+      },
+      "provisioningState": {
+        "type": "string",
+        "description": "ProvisioningState: The provisioning state of the private endpoint resource."
+      },
+      "subnet": {
+        "type": "object",
+        "description": "Subnet: The ID of the subnet from which the private IP will be allocated.",
+        "fields": {
+          "id": {
+            "type": "string",
+            "description": "Id: Resource ID."
+          }
+        }
+      },
+      "tags": {
+        "type": "object",
+        "description": "Tags: Resource tags."
+      },
+      "type": {
+        "type": "string",
+        "description": "Type: Resource type."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: network.azure.com/v1api20220701\nkind: PrivateEndpoint\nmetadata:\n  name: example-privateendpoint\n  namespace: default\nspec:\n  owner: {}\n"
+}

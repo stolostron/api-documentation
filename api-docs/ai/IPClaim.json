@@ -1,0 +1,95 @@
+{
+  "kind": "IPClaim",
+  "apiVersion": "ipam.metal3.io/v1alpha1",
+  "metadata": {
+    "group": "ipam.metal3.io",
+    "version": "v1alpha1",
+    "plural": "ipclaims",
+    "singular": "ipclaim",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "IPClaimSpec defines the desired state of IPClaim.",
+    "fields": {
+      "pool": {
+        "type": "object",
+        "description": "Pool is the IPPool this was generated from.",
+        "required": true,
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "IPClaimStatus defines the observed state of IPClaim.",
+    "fields": {
+      "address": {
+        "type": "object",
+        "description": "Address is the IPAddress that was generated for this claim.",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "errorMessage": {
+        "type": "string",
+        "description": "ErrorMessage contains the error message"
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: ipam.metal3.io/v1alpha1\nkind: IPClaim\nmetadata:\n  name: example-ipclaim\n  namespace: default\nspec:\n  pool: {}\n"
+}

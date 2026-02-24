@@ -1,0 +1,148 @@
+{
+  "kind": "DiscoveredCluster",
+  "apiVersion": "discovery.open-cluster-management.io/v1",
+  "metadata": {
+    "group": "discovery.open-cluster-management.io",
+    "version": "v1",
+    "plural": "discoveredclusters",
+    "singular": "discoveredcluster",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "DiscoveredClusterSpec defines the desired state of DiscoveredCluster",
+    "fields": {
+      "activityTimestamp": {
+        "type": "string",
+        "description": "ActivityTimestamp records the last observed activity of the cluster."
+      },
+      "apiUrl": {
+        "type": "string",
+        "description": "APIURL is the endpoint used to access the cluster's API server.",
+        "required": true
+      },
+      "cloudProvider": {
+        "type": "string",
+        "description": "CloudProvider specifies the cloud provider where the cluster is hosted (e.g., AWS, Azure, GCP)."
+      },
+      "console": {
+        "type": "string",
+        "description": "Console provides the URL of the cluster's web-based console."
+      },
+      "creationTimestamp": {
+        "type": "string",
+        "description": "CreationTimestamp marks when the cluster was initially discovered."
+      },
+      "credential": {
+        "type": "object",
+        "description": "Credential references the Kubernetes secret containing authentication details for the cluster.",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "displayName": {
+        "type": "string",
+        "description": "DisplayName is a human-readable name assigned to the cluster.",
+        "required": true
+      },
+      "importAsManagedCluster": {
+        "type": "boolean",
+        "description": "ImportAsManagedCluster determines whether the discovered cluster should be automatically imported as a managed cluster.",
+        "default": false
+      },
+      "isManagedCluster": {
+        "type": "boolean",
+        "description": "IsManagedCluster indicates whether the cluster is currently managed.",
+        "required": true
+      },
+      "name": {
+        "type": "string",
+        "description": "Name represents the unique identifier of the discovered cluster.",
+        "required": true
+      },
+      "ocpClusterId": {
+        "type": "string",
+        "description": "OCPClusterID contains the unique identifier assigned by OpenShift to the cluster."
+      },
+      "openshiftVersion": {
+        "type": "string",
+        "description": "OpenshiftVersion specifies the OpenShift version running on the cluster."
+      },
+      "owner": {
+        "type": "string",
+        "description": "Owner identifies the owner or organization responsible for the cluster."
+      },
+      "region": {
+        "type": "string",
+        "description": "Region specifies the geographical region where the cluster is deployed."
+      },
+      "rhocmClusterId": {
+        "type": "string",
+        "description": "RHOCMClusterID contains the cluster ID from Red Hat OpenShift Cluster Manager."
+      },
+      "status": {
+        "type": "string",
+        "description": "Status represents the current state of the discovered cluster (e.g Active, Stale)."
+      },
+      "type": {
+        "type": "string",
+        "description": "Type defines the type of cluster, such as OpenShift, Kubernetes, or a specific managed service type.",
+        "required": true
+      }
+    }
+  },
+  "status": {
+    "description": "DiscoveredClusterStatus defines the observed state of DiscoveredCluster",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "INSERT ADDITIONAL STATUS FIELD - define observed state of cluster\nImportant: Run \"make\" to regenerate code after modifying this file",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "LastTransitionTime is the last time the condition changed from one status to another."
+          },
+          "lastUpdateTime": {
+            "type": "string",
+            "description": "The last time this condition was updated."
+          },
+          "status": {
+            "type": "string",
+            "description": "Status is the status of the condition. One of True, False, Unknown."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type is the type of the discovered cluster condition."
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: discovery.open-cluster-management.io/v1\nkind: DiscoveredCluster\nmetadata:\n  name: example-discoveredcluster\n  namespace: default\nspec:\n  apiUrl: \"example-apiUrl\"\n  displayName: \"example-displayName\"\n  isManagedCluster: true\n  name: \"example-name\"\n  type: \"example-type\"\n"
+}

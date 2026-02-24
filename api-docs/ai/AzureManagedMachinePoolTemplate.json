@@ -1,0 +1,520 @@
+{
+  "kind": "AzureManagedMachinePoolTemplate",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1beta1",
+    "plural": "azuremanagedmachinepooltemplates",
+    "singular": "azuremanagedmachinepooltemplate",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AzureManagedMachinePoolTemplateSpec defines the desired state of AzureManagedMachinePoolTemplate.",
+    "fields": {
+      "template": {
+        "type": "object",
+        "description": "AzureManagedMachinePoolTemplateResource describes the data needed to create an AzureManagedCluster from a template.",
+        "required": true,
+        "fields": {
+          "spec": {
+            "type": "object",
+            "description": "AzureManagedMachinePoolTemplateResourceSpec specifies an Azure managed control plane template resource.",
+            "required": true,
+            "fields": {
+              "additionalTags": {
+                "type": "object",
+                "description": "AdditionalTags is an optional set of tags to add to Azure resources managed by the\nAzure provider, in addition to the ones added by default."
+              },
+              "asoManagedClustersAgentPoolPatches": {
+                "type": "array",
+                "description": "ASOManagedClustersAgentPoolPatches defines JSON merge patches to be applied to the generated ASO ManagedClustersAgentPool resource.\nWARNING: This is meant to be used sparingly to enable features for development and testing that are not\notherwise represented in the CAPZ API. Misconfiguration that conflicts with CAPZ's normal mode of\noperation is possible."
+              },
+              "availabilityZones": {
+                "type": "array",
+                "description": "AvailabilityZones - Availability zones for nodes. Must use VirtualMachineScaleSets AgentPoolType.\nImmutable."
+              },
+              "enableEncryptionAtHost": {
+                "type": "boolean",
+                "description": "EnableEncryptionAtHost indicates whether host encryption is enabled on the node pool.\nImmutable.\nSee also [AKS doc].\n[AKS doc]: https://learn.microsoft.com/en-us/azure/aks/enable-host-encryption"
+              },
+              "enableFIPS": {
+                "type": "boolean",
+                "description": "EnableFIPS indicates whether FIPS is enabled on the node pool.\nImmutable."
+              },
+              "enableNodePublicIP": {
+                "type": "boolean",
+                "description": "EnableNodePublicIP controls whether or not nodes in the pool each have a public IP address.\nImmutable."
+              },
+              "enableUltraSSD": {
+                "type": "boolean",
+                "description": "EnableUltraSSD enables the storage type UltraSSD_LRS for the agent pool.\nImmutable."
+              },
+              "kubeletConfig": {
+                "type": "object",
+                "description": "KubeletConfig specifies the kubelet configurations for nodes.\nImmutable.",
+                "fields": {
+                  "allowedUnsafeSysctls": {
+                    "type": "array",
+                    "description": "AllowedUnsafeSysctls - Allowlist of unsafe sysctls or unsafe sysctl patterns (ending in `*`).\nValid values match `kernel.shm*`, `kernel.msg*`, `kernel.sem`, `fs.mqueue.*`, or `net.*`."
+                  },
+                  "containerLogMaxFiles": {
+                    "type": "integer",
+                    "description": "ContainerLogMaxFiles - The maximum number of container log files that can be present for a container. The number must be \u2265 2.",
+                    "validations": {
+                      "minimum": 2
+                    }
+                  },
+                  "containerLogMaxSizeMB": {
+                    "type": "integer",
+                    "description": "ContainerLogMaxSizeMB - The maximum size in MB of a container log file before it is rotated."
+                  },
+                  "cpuCfsQuota": {
+                    "type": "boolean",
+                    "description": "CPUCfsQuota - Enable CPU CFS quota enforcement for containers that specify CPU limits."
+                  },
+                  "cpuCfsQuotaPeriod": {
+                    "type": "string",
+                    "description": "CPUCfsQuotaPeriod - Sets CPU CFS quota period value.\nMust end in \"ms\", e.g. \"100ms\""
+                  },
+                  "cpuManagerPolicy": {
+                    "type": "string",
+                    "description": "CPUManagerPolicy - CPU Manager policy to use.",
+                    "enum": [
+                      "none",
+                      "static"
+                    ]
+                  },
+                  "failSwapOn": {
+                    "type": "boolean",
+                    "description": "FailSwapOn - If set to true it will make the Kubelet fail to start if swap is enabled on the node."
+                  },
+                  "imageGcHighThreshold": {
+                    "type": "integer",
+                    "description": "ImageGcHighThreshold - The percent of disk usage after which image garbage collection is always run.\nValid values are 0-100 (inclusive).",
+                    "validations": {
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  },
+                  "imageGcLowThreshold": {
+                    "type": "integer",
+                    "description": "ImageGcLowThreshold - The percent of disk usage before which image garbage collection is never run.\nValid values are 0-100 (inclusive) and must be less than `imageGcHighThreshold`.",
+                    "validations": {
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  },
+                  "podMaxPids": {
+                    "type": "integer",
+                    "description": "PodMaxPids - The maximum number of processes per pod.\nMust not exceed kernel PID limit. -1 disables the limit.",
+                    "validations": {
+                      "minimum": -1
+                    }
+                  },
+                  "topologyManagerPolicy": {
+                    "type": "string",
+                    "description": "TopologyManagerPolicy - Topology Manager policy to use.",
+                    "enum": [
+                      "none",
+                      "best-effort",
+                      "restricted",
+                      "single-numa-node"
+                    ]
+                  }
+                }
+              },
+              "kubeletDiskType": {
+                "type": "string",
+                "description": "KubeletDiskType specifies the kubelet disk type. Default to OS. Possible values include: 'OS', 'Temporary'.\nRequires Microsoft.ContainerService/KubeletDisk preview feature to be set.\nImmutable.\nSee also [AKS doc].\n[AKS doc]: https://learn.microsoft.com/rest/api/aks/agent-pools/create-or-update?tabs=HTTP#kubeletdisktype",
+                "enum": [
+                  "OS",
+                  "Temporary"
+                ]
+              },
+              "linuxOSConfig": {
+                "type": "object",
+                "description": "LinuxOSConfig specifies the custom Linux OS settings and configurations.\nImmutable.",
+                "fields": {
+                  "swapFileSizeMB": {
+                    "type": "integer",
+                    "description": "SwapFileSizeMB specifies size in MB of a swap file will be created on the agent nodes from this node pool.\nMax value of SwapFileSizeMB should be the size of temporary disk(/dev/sdb).\nMust be at least 1.\nSee also [AKS doc].\n[AKS doc]: https://learn.microsoft.com/azure/virtual-machines/managed-disks-overview#temporary-disk",
+                    "validations": {
+                      "minimum": 1
+                    }
+                  },
+                  "sysctls": {
+                    "type": "object",
+                    "description": "Sysctl specifies the settings for Linux agent nodes.",
+                    "fields": {
+                      "fsAioMaxNr": {
+                        "type": "integer",
+                        "description": "FsAioMaxNr specifies the maximum number of system-wide asynchronous io requests.\nValid values are 65536-6553500 (inclusive).\nMaps to fs.aio-max-nr.",
+                        "validations": {
+                          "minimum": 65536,
+                          "maximum": 6553500
+                        }
+                      },
+                      "fsFileMax": {
+                        "type": "integer",
+                        "description": "FsFileMax specifies the max number of file-handles that the Linux kernel will allocate, by increasing increases the maximum number of open files permitted.\nValid values are 8192-12000500 (inclusive).\nMaps to fs.file-max.",
+                        "validations": {
+                          "minimum": 8192,
+                          "maximum": 12000500
+                        }
+                      },
+                      "fsInotifyMaxUserWatches": {
+                        "type": "integer",
+                        "description": "FsInotifyMaxUserWatches specifies the number of file watches allowed by the system. Each watch is roughly 90 bytes on a 32-bit kernel, and roughly 160 bytes on a 64-bit kernel.\nValid values are 781250-2097152 (inclusive).\nMaps to fs.inotify.max_user_watches.",
+                        "validations": {
+                          "minimum": 781250,
+                          "maximum": 2097152
+                        }
+                      },
+                      "fsNrOpen": {
+                        "type": "integer",
+                        "description": "FsNrOpen specifies the maximum number of file-handles a process can allocate.\nValid values are 8192-20000500 (inclusive).\nMaps to fs.nr_open.",
+                        "validations": {
+                          "minimum": 8192,
+                          "maximum": 20000500
+                        }
+                      },
+                      "kernelThreadsMax": {
+                        "type": "integer",
+                        "description": "KernelThreadsMax specifies the maximum number of all threads that can be created.\nValid values are 20-513785 (inclusive).\nMaps to kernel.threads-max.",
+                        "validations": {
+                          "minimum": 20,
+                          "maximum": 513785
+                        }
+                      },
+                      "netCoreNetdevMaxBacklog": {
+                        "type": "integer",
+                        "description": "NetCoreNetdevMaxBacklog specifies maximum number of packets, queued on the INPUT side, when the interface receives packets faster than kernel can process them.\nValid values are 1000-3240000 (inclusive).\nMaps to net.core.netdev_max_backlog.",
+                        "validations": {
+                          "minimum": 1000,
+                          "maximum": 3240000
+                        }
+                      },
+                      "netCoreOptmemMax": {
+                        "type": "integer",
+                        "description": "NetCoreOptmemMax specifies the maximum ancillary buffer size (option memory buffer) allowed per socket.\nSocket option memory is used in a few cases to store extra structures relating to usage of the socket.\nValid values are 20480-4194304 (inclusive).\nMaps to net.core.optmem_max.",
+                        "validations": {
+                          "minimum": 20480,
+                          "maximum": 4194304
+                        }
+                      },
+                      "netCoreRmemDefault": {
+                        "type": "integer",
+                        "description": "NetCoreRmemDefault specifies the default receive socket buffer size in bytes.\nValid values are 212992-134217728 (inclusive).\nMaps to net.core.rmem_default.",
+                        "validations": {
+                          "minimum": 212992,
+                          "maximum": 134217728
+                        }
+                      },
+                      "netCoreRmemMax": {
+                        "type": "integer",
+                        "description": "NetCoreRmemMax specifies the maximum receive socket buffer size in bytes.\nValid values are 212992-134217728 (inclusive).\nMaps to net.core.rmem_max.",
+                        "validations": {
+                          "minimum": 212992,
+                          "maximum": 134217728
+                        }
+                      },
+                      "netCoreSomaxconn": {
+                        "type": "integer",
+                        "description": "NetCoreSomaxconn specifies maximum number of connection requests that can be queued for any given listening socket.\nAn upper limit for the value of the backlog parameter passed to the listen(2)(https://man7.org/linux/man-pages/man2/listen.2.html) function.\nIf the backlog argument is greater than the somaxconn, then it's silently truncated to this limit.\nValid values are 4096-3240000 (inclusive).\nMaps to net.core.somaxconn.",
+                        "validations": {
+                          "minimum": 4096,
+                          "maximum": 3240000
+                        }
+                      },
+                      "netCoreWmemDefault": {
+                        "type": "integer",
+                        "description": "NetCoreWmemDefault specifies the default send socket buffer size in bytes.\nValid values are 212992-134217728 (inclusive).\nMaps to net.core.wmem_default.",
+                        "validations": {
+                          "minimum": 212992,
+                          "maximum": 134217728
+                        }
+                      },
+                      "netCoreWmemMax": {
+                        "type": "integer",
+                        "description": "NetCoreWmemMax specifies the maximum send socket buffer size in bytes.\nValid values are 212992-134217728 (inclusive).\nMaps to net.core.wmem_max.",
+                        "validations": {
+                          "minimum": 212992,
+                          "maximum": 134217728
+                        }
+                      },
+                      "netIpv4IPLocalPortRange": {
+                        "type": "string",
+                        "description": "NetIpv4IPLocalPortRange is used by TCP and UDP traffic to choose the local port on the agent node.\nPortRange should be specified in the format \"first last\".\nFirst, being an integer, must be between [1024 - 60999].\nLast, being an integer, must be between [32768 - 65000].\nMaps to net.ipv4.ip_local_port_range."
+                      },
+                      "netIpv4NeighDefaultGcThresh1": {
+                        "type": "integer",
+                        "description": "NetIpv4NeighDefaultGcThresh1 specifies the minimum number of entries that may be in the ARP cache.\nGarbage collection won't be triggered if the number of entries is below this setting.\nValid values are 128-80000 (inclusive).\nMaps to net.ipv4.neigh.default.gc_thresh1.",
+                        "validations": {
+                          "minimum": 128,
+                          "maximum": 80000
+                        }
+                      },
+                      "netIpv4NeighDefaultGcThresh2": {
+                        "type": "integer",
+                        "description": "NetIpv4NeighDefaultGcThresh2 specifies soft maximum number of entries that may be in the ARP cache.\nARP garbage collection will be triggered about 5 seconds after reaching this soft maximum.\nValid values are 512-90000 (inclusive).\nMaps to net.ipv4.neigh.default.gc_thresh2.",
+                        "validations": {
+                          "minimum": 512,
+                          "maximum": 90000
+                        }
+                      },
+                      "netIpv4NeighDefaultGcThresh3": {
+                        "type": "integer",
+                        "description": "NetIpv4NeighDefaultGcThresh3 specified hard maximum number of entries in the ARP cache.\nValid values are 1024-100000 (inclusive).\nMaps to net.ipv4.neigh.default.gc_thresh3.",
+                        "validations": {
+                          "minimum": 1024,
+                          "maximum": 100000
+                        }
+                      },
+                      "netIpv4TCPFinTimeout": {
+                        "type": "integer",
+                        "description": "NetIpv4TCPFinTimeout specifies the length of time an orphaned connection will remain in the FIN_WAIT_2 state before it's aborted at the local end.\nValid values are 5-120 (inclusive).\nMaps to net.ipv4.tcp_fin_timeout.",
+                        "validations": {
+                          "minimum": 5,
+                          "maximum": 120
+                        }
+                      },
+                      "netIpv4TCPKeepaliveProbes": {
+                        "type": "integer",
+                        "description": "NetIpv4TCPKeepaliveProbes specifies the number of keepalive probes TCP sends out, until it decides the connection is broken.\nValid values are 1-15 (inclusive).\nMaps to net.ipv4.tcp_keepalive_probes.",
+                        "validations": {
+                          "minimum": 1,
+                          "maximum": 15
+                        }
+                      },
+                      "netIpv4TCPKeepaliveTime": {
+                        "type": "integer",
+                        "description": "NetIpv4TCPKeepaliveTime specifies the rate at which TCP sends out a keepalive message when keepalive is enabled.\nValid values are 30-432000 (inclusive).\nMaps to net.ipv4.tcp_keepalive_time.",
+                        "validations": {
+                          "minimum": 30,
+                          "maximum": 432000
+                        }
+                      },
+                      "netIpv4TCPMaxSynBacklog": {
+                        "type": "integer",
+                        "description": "NetIpv4TCPMaxSynBacklog specifies the maximum number of queued connection requests that have still not received an acknowledgment from the connecting client.\nIf this number is exceeded, the kernel will begin dropping requests.\nValid values are 128-3240000 (inclusive).\nMaps to net.ipv4.tcp_max_syn_backlog.",
+                        "validations": {
+                          "minimum": 128,
+                          "maximum": 3240000
+                        }
+                      },
+                      "netIpv4TCPMaxTwBuckets": {
+                        "type": "integer",
+                        "description": "NetIpv4TCPMaxTwBuckets specifies maximal number of timewait sockets held by system simultaneously.\nIf this number is exceeded, time-wait socket is immediately destroyed and warning is printed.\nValid values are 8000-1440000 (inclusive).\nMaps to net.ipv4.tcp_max_tw_buckets.",
+                        "validations": {
+                          "minimum": 8000,
+                          "maximum": 1440000
+                        }
+                      },
+                      "netIpv4TCPTwReuse": {
+                        "type": "boolean",
+                        "description": "NetIpv4TCPTwReuse is used to allow to reuse TIME-WAIT sockets for new connections when it's safe from protocol viewpoint.\nMaps to net.ipv4.tcp_tw_reuse."
+                      },
+                      "netIpv4TCPkeepaliveIntvl": {
+                        "type": "integer",
+                        "description": "NetIpv4TCPkeepaliveIntvl specifies the frequency of the probes sent out.\nMultiplied by tcpKeepaliveprobes, it makes up the time to kill a connection that isn't responding, after probes started.\nValid values are 1-75 (inclusive).\nMaps to net.ipv4.tcp_keepalive_intvl.",
+                        "validations": {
+                          "minimum": 1,
+                          "maximum": 75
+                        }
+                      },
+                      "netNetfilterNfConntrackBuckets": {
+                        "type": "integer",
+                        "description": "NetNetfilterNfConntrackBuckets specifies the size of hash table used by nf_conntrack module to record the established connection record of the TCP protocol.\nValid values are 65536-147456 (inclusive).\nMaps to net.netfilter.nf_conntrack_buckets.",
+                        "validations": {
+                          "minimum": 65536,
+                          "maximum": 147456
+                        }
+                      },
+                      "netNetfilterNfConntrackMax": {
+                        "type": "integer",
+                        "description": "NetNetfilterNfConntrackMax specifies the maximum number of connections supported by the nf_conntrack module or the size of connection tracking table.\nValid values are 131072-1048576 (inclusive).\nMaps to net.netfilter.nf_conntrack_max.",
+                        "validations": {
+                          "minimum": 131072,
+                          "maximum": 1048576
+                        }
+                      },
+                      "vmMaxMapCount": {
+                        "type": "integer",
+                        "description": "VMMaxMapCount specifies the maximum number of memory map areas a process may have.\nMaps to vm.max_map_count.\nValid values are 65530-262144 (inclusive).",
+                        "validations": {
+                          "minimum": 65530,
+                          "maximum": 262144
+                        }
+                      },
+                      "vmSwappiness": {
+                        "type": "integer",
+                        "description": "VMSwappiness specifies aggressiveness of the kernel in swapping memory pages.\nHigher values will increase aggressiveness, lower values decrease the amount of swap.\nValid values are 0-100 (inclusive).\nMaps to vm.swappiness.",
+                        "validations": {
+                          "minimum": 0,
+                          "maximum": 100
+                        }
+                      },
+                      "vmVfsCachePressure": {
+                        "type": "integer",
+                        "description": "VMVfsCachePressure specifies the percentage value that controls tendency of the kernel to reclaim the memory, which is used for caching of directory and inode objects.\nValid values are 1-500 (inclusive).\nMaps to vm.vfs_cache_pressure.",
+                        "validations": {
+                          "minimum": 1,
+                          "maximum": 500
+                        }
+                      }
+                    }
+                  },
+                  "transparentHugePageDefrag": {
+                    "type": "string",
+                    "description": "TransparentHugePageDefrag specifies whether the kernel should make aggressive use of memory compaction to make more hugepages available.\nSee also [Linux doc].\n[Linux doc]: https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html#admin-guide-transhuge for more details.",
+                    "enum": [
+                      "always",
+                      "defer",
+                      "defer+madvise",
+                      "madvise",
+                      "never"
+                    ]
+                  },
+                  "transparentHugePageEnabled": {
+                    "type": "string",
+                    "description": "TransparentHugePageEnabled specifies various modes of Transparent Hugepages.\nSee also [Linux doc].\n[Linux doc]: https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html#admin-guide-transhuge for more details.",
+                    "enum": [
+                      "always",
+                      "madvise",
+                      "never"
+                    ]
+                  }
+                }
+              },
+              "maxPods": {
+                "type": "integer",
+                "description": "MaxPods specifies the kubelet `--max-pods` configuration for the node pool.\nImmutable.\nSee also [AKS doc], [K8s doc].\n[AKS doc]: https://learn.microsoft.com/azure/aks/configure-azure-cni#configure-maximum---new-clusters\n[K8s doc]: https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/"
+              },
+              "mode": {
+                "type": "string",
+                "description": "Mode represents the mode of an agent pool. Possible values include: System, User.",
+                "required": true,
+                "enum": [
+                  "System",
+                  "User"
+                ]
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the agent pool. If not specified, CAPZ uses the name of the CR as the agent pool name.\nImmutable."
+              },
+              "nodeLabels": {
+                "type": "object",
+                "description": "Node labels represent the labels for all of the nodes present in node pool.\nSee also [AKS doc].\n[AKS doc]: https://learn.microsoft.com/azure/aks/use-labels"
+              },
+              "nodePublicIPPrefixID": {
+                "type": "string",
+                "description": "NodePublicIPPrefixID specifies the public IP prefix resource ID which VM nodes should use IPs from.\nImmutable."
+              },
+              "osDiskSizeGB": {
+                "type": "integer",
+                "description": "OSDiskSizeGB is the disk size for every machine in this agent pool.\nIf you specify 0, it will apply the default osDisk size according to the vmSize specified.\nImmutable."
+              },
+              "osDiskType": {
+                "type": "string",
+                "description": "OsDiskType specifies the OS disk type for each node in the pool. Allowed values are 'Ephemeral' and 'Managed' (default).\nImmutable.\nSee also [AKS doc].\n[AKS doc]: https://learn.microsoft.com/azure/aks/cluster-configuration#ephemeral-os",
+                "enum": [
+                  "Ephemeral",
+                  "Managed"
+                ],
+                "default": "Managed"
+              },
+              "osType": {
+                "type": "string",
+                "description": "OSType specifies the virtual machine operating system. Default to Linux. Possible values include: 'Linux', 'Windows'.\n'Windows' requires the AzureManagedControlPlane's `spec.networkPlugin` to be `azure`.\nImmutable.\nSee also [AKS doc].\n[AKS doc]: https://learn.microsoft.com/rest/api/aks/agent-pools/create-or-update?tabs=HTTP#ostype",
+                "enum": [
+                  "Linux",
+                  "Windows"
+                ],
+                "default": "Linux"
+              },
+              "scaleDownMode": {
+                "type": "string",
+                "description": "ScaleDownMode affects the cluster autoscaler behavior. Default to Delete. Possible values include: 'Deallocate', 'Delete'",
+                "enum": [
+                  "Deallocate",
+                  "Delete"
+                ],
+                "default": "Delete"
+              },
+              "scaleSetPriority": {
+                "type": "string",
+                "description": "ScaleSetPriority specifies the ScaleSetPriority value. Default to Regular. Possible values include: 'Regular', 'Spot'\nImmutable.",
+                "enum": [
+                  "Regular",
+                  "Spot"
+                ]
+              },
+              "scaling": {
+                "type": "object",
+                "description": "Scaling specifies the autoscaling parameters for the node pool.",
+                "fields": {
+                  "maxSize": {
+                    "type": "integer",
+                    "description": "MaxSize is the maximum number of nodes for auto-scaling."
+                  },
+                  "minSize": {
+                    "type": "integer",
+                    "description": "MinSize is the minimum number of nodes for auto-scaling."
+                  }
+                }
+              },
+              "sku": {
+                "type": "string",
+                "description": "SKU is the size of the VMs in the node pool.\nImmutable.",
+                "required": true
+              },
+              "spotMaxPrice": {
+                "type": "N/A",
+                "description": "SpotMaxPrice defines max price to pay for spot instance. Possible values are any decimal value greater than zero or -1.\nIf you set the max price to be -1, the VM won't be evicted based on price. The price for the VM will be the current price\nfor spot or the price for a standard VM, which ever is less, as long as there's capacity and quota available.",
+                "validations": {
+                  "pattern": "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                }
+              },
+              "subnetName": {
+                "type": "string",
+                "description": "SubnetName specifies the Subnet where the MachinePool will be placed\nImmutable."
+              },
+              "taints": {
+                "type": "array",
+                "description": "Taints specifies the taints for nodes present in this agent pool.\nSee also [AKS doc].\n[AKS doc]: https://learn.microsoft.com/azure/aks/use-multiple-node-pools#setting-node-pool-taints",
+                "fields": {
+                  "effect": {
+                    "type": "string",
+                    "description": "Effect specifies the effect for the taint",
+                    "required": true,
+                    "enum": [
+                      "NoSchedule",
+                      "NoExecute",
+                      "PreferNoSchedule"
+                    ]
+                  },
+                  "key": {
+                    "type": "string",
+                    "description": "Key is the key of the taint",
+                    "required": true
+                  },
+                  "value": {
+                    "type": "string",
+                    "description": "Value is the value of the taint",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1beta1\nkind: AzureManagedMachinePoolTemplate\nmetadata:\n  name: example-azuremanagedmachinepooltemplate\n  namespace: default\nspec:\n  template: {}\n"
+}

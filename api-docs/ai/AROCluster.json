@@ -1,0 +1,164 @@
+{
+  "kind": "AROCluster",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta2",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1beta2",
+    "plural": "aroclusters",
+    "singular": "arocluster",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AROClusterSpec defines the desired state of AROCluster.",
+    "fields": {
+      "controlPlaneEndpoint": {
+        "type": "object",
+        "description": "ControlPlaneEndpoint represents the endpoint used to communicate with the control plane.",
+        "fields": {
+          "host": {
+            "type": "string",
+            "description": "host is the hostname on which the API server is serving."
+          },
+          "port": {
+            "type": "integer",
+            "description": "port is the port on which the API server is serving.",
+            "validations": {
+              "minimum": 1,
+              "maximum": 65535
+            }
+          }
+        }
+      },
+      "resources": {
+        "type": "array",
+        "description": "Resources are embedded ASO resources to be managed by this AROCluster.\nThese typically include ResourceGroup, VirtualNetwork, NetworkSecurityGroup,\nVirtualNetworksSubnet, Vault (Key Vault), UserAssignedIdentities, and RoleAssignments."
+      }
+    }
+  },
+  "status": {
+    "description": "AROClusterStatus defines the observed state of AROCluster.",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions define the current service state of the AROCluster.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition.\nThis may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon.\nFor instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition.\nProducers of specific condition types may define expected values and meanings for this field,\nand whether the values are considered a guaranteed API.\nThe value should be a CamelCase string.\nThis field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      },
+      "failureDomains": {
+        "type": "array",
+        "description": "FailureDomains specifies a list fo available availability zones that can be used",
+        "fields": {
+          "attributes": {
+            "type": "object",
+            "description": "attributes is a free form map of attributes an infrastructure provider might use or require."
+          },
+          "controlPlane": {
+            "type": "boolean",
+            "description": "controlPlane determines if this failure domain is suitable for use by control plane machines."
+          },
+          "name": {
+            "type": "string",
+            "description": "name is the name of the failure domain.",
+            "required": true
+          }
+        }
+      },
+      "initialization": {
+        "type": "object",
+        "description": "initialization provides observations of the AROCluster initialization process.\nNOTE: Fields in this struct are part of the Cluster API contract and are used to orchestrate initial Machine provisioning.",
+        "fields": {
+          "provisioned": {
+            "type": "boolean",
+            "description": "provision is true when the AROCluster provider reports that the infra cluster is provisioned;\nA infra cluster is considered provisioned when it has valid endpoint.\nNOTE: this field is part of the Cluster API contract, and it is used to orchestrate initial Machine provisioning."
+          }
+        }
+      },
+      "ready": {
+        "type": "boolean",
+        "description": "Ready is when the AROControlPlane has a API server URL."
+      },
+      "resources": {
+        "type": "array",
+        "description": "Resources represents the status of ASO resources managed by this AROCluster.\nThis is populated when using the Resources field in the spec.",
+        "fields": {
+          "ready": {
+            "type": "boolean",
+            "description": "No description provided.",
+            "required": true
+          },
+          "resource": {
+            "type": "object",
+            "description": "StatusResource is a handle to a resource.",
+            "required": true,
+            "fields": {
+              "group": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "kind": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "version": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1beta2\nkind: AROCluster\nmetadata:\n  name: example-arocluster\n  namespace: default\nspec:\n  controlPlaneEndpoint: {}\n  resources: []\n"
+}

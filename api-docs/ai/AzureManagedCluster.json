@@ -1,0 +1,42 @@
+{
+  "kind": "AzureManagedCluster",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1beta1",
+    "plural": "azuremanagedclusters",
+    "singular": "azuremanagedcluster",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AzureManagedClusterSpec defines the desired state of AzureManagedCluster.",
+    "fields": {
+      "controlPlaneEndpoint": {
+        "type": "object",
+        "description": "ControlPlaneEndpoint represents the endpoint used to communicate with the control plane.\nImmutable, populated by the AKS API at create.\nBecause this field is programmatically set by CAPZ after resource creation, we define it as +optional\nin the API schema to permit resource admission.",
+        "fields": {
+          "host": {
+            "type": "string",
+            "description": "host is the hostname on which the API server is serving.",
+            "required": true
+          },
+          "port": {
+            "type": "integer",
+            "description": "port is the port on which the API server is serving.",
+            "required": true
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "AzureManagedClusterStatus defines the observed state of AzureManagedCluster.",
+    "fields": {
+      "ready": {
+        "type": "boolean",
+        "description": "Ready is true when the provider resource is ready."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1beta1\nkind: AzureManagedCluster\nmetadata:\n  name: example-azuremanagedcluster\n  namespace: default\nspec:\n  controlPlaneEndpoint: {}\n"
+}

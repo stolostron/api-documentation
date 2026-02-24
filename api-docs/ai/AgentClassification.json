@@ -1,0 +1,77 @@
+{
+  "kind": "AgentClassification",
+  "apiVersion": "agent-install.openshift.io/v1beta1",
+  "metadata": {
+    "group": "agent-install.openshift.io",
+    "version": "v1beta1",
+    "plural": "agentclassifications",
+    "singular": "agentclassification",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AgentClassificationSpec defines the desired state of AgentClassification",
+    "fields": {
+      "labelKey": {
+        "type": "string",
+        "description": "LabelKey specifies the label key to apply to matched Agents",
+        "required": true
+      },
+      "labelValue": {
+        "type": "string",
+        "description": "LabelValue specifies the label value to apply to matched Agents",
+        "required": true
+      },
+      "query": {
+        "type": "string",
+        "description": "Query is in gojq format (https://github.com/itchyny/gojq#difference-to-jq)\nand will be invoked on each Agent's inventory. The query should return a\nboolean. The operator will apply the label to any Agent for which \"true\"\nis returned.",
+        "required": true
+      }
+    }
+  },
+  "status": {
+    "description": "AgentClassificationStatus defines the observed state of AgentClassification",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "lastHeartbeatTime": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "message": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "reason": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "status": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "ConditionType is the state of the operator's reconciliation functionality.",
+            "required": true
+          }
+        }
+      },
+      "errorCount": {
+        "type": "integer",
+        "description": "ErrorCount shows how many Agents encountered errors when matching the classification"
+      },
+      "matchedCount": {
+        "type": "integer",
+        "description": "MatchedCount shows how many Agents currently match the classification"
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: agent-install.openshift.io/v1beta1\nkind: AgentClassification\nmetadata:\n  name: example-agentclassification\n  namespace: default\nspec:\n  labelKey: \"example-labelKey\"\n  labelValue: \"example-labelValue\"\n  query: \"example-query\"\n"
+}

@@ -1,0 +1,577 @@
+{
+  "kind": "Extension",
+  "apiVersion": "kubernetesconfiguration.azure.com/v1api20230501",
+  "metadata": {
+    "group": "kubernetesconfiguration.azure.com",
+    "version": "v1api20230501",
+    "plural": "extensions",
+    "singular": "extension",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {
+      "aksAssignedIdentity": {
+        "type": "object",
+        "description": "AksAssignedIdentity: Identity of the Extension resource in an AKS cluster",
+        "fields": {
+          "type": {
+            "type": "string",
+            "description": "Type: The identity type.",
+            "enum": [
+              "SystemAssigned",
+              "UserAssigned"
+            ]
+          }
+        }
+      },
+      "autoUpgradeMinorVersion": {
+        "type": "boolean",
+        "description": "AutoUpgradeMinorVersion: Flag to note if this extension participates in auto upgrade of minor version, or not."
+      },
+      "azureName": {
+        "type": "string",
+        "description": "AzureName: The name of the resource in Azure. This is often the same as the name of the resource in Kubernetes but it\ndoesn't have to be."
+      },
+      "configurationProtectedSettings": {
+        "type": "object",
+        "description": "ConfigurationProtectedSettings: Configuration settings that are sensitive, as name-value pairs for configuring this\nextension.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name is the name of the Kubernetes secret being referenced.\nThe secret must be in the same namespace as the resource",
+            "required": true
+          }
+        }
+      },
+      "configurationSettings": {
+        "type": "object",
+        "description": "ConfigurationSettings: Configuration settings, as name-value pairs for configuring this extension."
+      },
+      "extensionType": {
+        "type": "string",
+        "description": "ExtensionType: Type of the Extension, of which this resource is an instance of.  It must be one of the Extension Types\nregistered with Microsoft.KubernetesConfiguration by the Extension publisher."
+      },
+      "identity": {
+        "type": "object",
+        "description": "Identity: Identity of the Extension resource",
+        "fields": {
+          "type": {
+            "type": "string",
+            "description": "Type: The identity type.",
+            "enum": [
+              "SystemAssigned"
+            ]
+          }
+        }
+      },
+      "operatorSpec": {
+        "type": "object",
+        "description": "OperatorSpec: The specification for configuring operator behavior. This field is interpreted by the operator and not\npassed directly to Azure",
+        "fields": {
+          "configMapExpressions": {
+            "type": "array",
+            "description": "ConfigMapExpressions: configures where to place operator written dynamic ConfigMaps (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          },
+          "configMaps": {
+            "type": "object",
+            "description": "ConfigMaps: configures where to place operator written ConfigMaps.",
+            "fields": {
+              "principalId": {
+                "type": "object",
+                "description": "PrincipalId: indicates where the PrincipalId config map should be placed. If omitted, no config map will be created.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "Key is the key in the ConfigMap being referenced",
+                    "required": true
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name is the name of the Kubernetes ConfigMap to write to.\nThe ConfigMap will be created in the same namespace as the resource.",
+                    "required": true
+                  }
+                }
+              }
+            }
+          },
+          "secretExpressions": {
+            "type": "array",
+            "description": "SecretExpressions: configures where to place operator written dynamic secrets (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          }
+        }
+      },
+      "owner": {
+        "type": "object",
+        "description": "Owner: The owner of the resource. The owner controls where the resource goes when it is deployed. The owner also\ncontrols the resources lifecycle. When the owner is deleted the resource will also be deleted. This resource is an\nextension resource, which means that any other Azure resource can be its owner.",
+        "required": true,
+        "fields": {
+          "armId": {
+            "type": "string",
+            "description": "Ownership across namespaces is not supported.",
+            "validations": {
+              "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+            }
+          },
+          "group": {
+            "type": "string",
+            "description": "Group is the Kubernetes group of the resource."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind is the Kubernetes kind of the resource."
+          },
+          "name": {
+            "type": "string",
+            "description": "This is the name of the Kubernetes resource to reference."
+          }
+        }
+      },
+      "plan": {
+        "type": "object",
+        "description": "Plan: The plan information.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name: A user defined name of the 3rd Party Artifact that is being procured.",
+            "required": true
+          },
+          "product": {
+            "type": "string",
+            "description": "Product: The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the\nartifact at the time of Data Market onboarding.",
+            "required": true
+          },
+          "promotionCode": {
+            "type": "string",
+            "description": "PromotionCode: A publisher provided promotion code as provisioned in Data Market for the said product/artifact."
+          },
+          "publisher": {
+            "type": "string",
+            "description": "Publisher: The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic",
+            "required": true
+          },
+          "version": {
+            "type": "string",
+            "description": "Version: The version of the desired product/artifact."
+          }
+        }
+      },
+      "releaseTrain": {
+        "type": "string",
+        "description": "ReleaseTrain: ReleaseTrain this extension participates in for auto-upgrade (e.g. Stable, Preview, etc.) - only if\nautoUpgradeMinorVersion is 'true'."
+      },
+      "scope": {
+        "type": "object",
+        "description": "Scope: Scope at which the extension is installed.",
+        "fields": {
+          "cluster": {
+            "type": "object",
+            "description": "Cluster: Specifies that the scope of the extension is Cluster",
+            "fields": {
+              "releaseNamespace": {
+                "type": "string",
+                "description": "ReleaseNamespace: Namespace where the extension Release must be placed, for a Cluster scoped extension.  If this\nnamespace does not exist, it will be created"
+              }
+            }
+          },
+          "namespace": {
+            "type": "object",
+            "description": "Namespace: Specifies that the scope of the extension is Namespace",
+            "fields": {
+              "targetNamespace": {
+                "type": "string",
+                "description": "TargetNamespace: Namespace where the extension will be created for an Namespace scoped extension.  If this namespace\ndoes not exist, it will be created"
+              }
+            }
+          }
+        }
+      },
+      "systemData": {
+        "type": "object",
+        "description": "SystemData: Top level metadata\nhttps://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/common-api-contracts.md#system-metadata-for-all-azure-resources",
+        "fields": {
+          "createdAt": {
+            "type": "string",
+            "description": "CreatedAt: The timestamp of resource creation (UTC)."
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "CreatedBy: The identity that created the resource."
+          },
+          "createdByType": {
+            "type": "string",
+            "description": "CreatedByType: The type of identity that created the resource.",
+            "enum": [
+              "Application",
+              "Key",
+              "ManagedIdentity",
+              "User"
+            ]
+          },
+          "lastModifiedAt": {
+            "type": "string",
+            "description": "LastModifiedAt: The timestamp of resource last modification (UTC)"
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "description": "LastModifiedBy: The identity that last modified the resource."
+          },
+          "lastModifiedByType": {
+            "type": "string",
+            "description": "LastModifiedByType: The type of identity that last modified the resource.",
+            "enum": [
+              "Application",
+              "Key",
+              "ManagedIdentity",
+              "User"
+            ]
+          }
+        }
+      },
+      "version": {
+        "type": "string",
+        "description": "Version: User-specified version of the extension for this extension to 'pin'. To use 'version', autoUpgradeMinorVersion\nmust be 'false'."
+      }
+    }
+  },
+  "status": {
+    "description": "The Extension object.",
+    "fields": {
+      "aksAssignedIdentity": {
+        "type": "object",
+        "description": "AksAssignedIdentity: Identity of the Extension resource in an AKS cluster",
+        "fields": {
+          "principalId": {
+            "type": "string",
+            "description": "PrincipalId: The principal ID of resource identity."
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "TenantId: The tenant ID of resource."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type: The identity type."
+          }
+        }
+      },
+      "autoUpgradeMinorVersion": {
+        "type": "boolean",
+        "description": "AutoUpgradeMinorVersion: Flag to note if this extension participates in auto upgrade of minor version, or not."
+      },
+      "conditions": {
+        "type": "array",
+        "description": "Conditions: The observed state of the resource",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "LastTransitionTime is the last time the condition transitioned from one status to another.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Message is a human readable message indicating details about the transition. This field may be empty."
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "ObservedGeneration is the .metadata.generation that the condition was set based upon. For instance, if\n.metadata.generation is currently 12, but the .status.condition[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the condition's last transition.\nReasons are upper CamelCase (PascalCase) with no spaces. A reason is always provided, this field will not be empty.",
+            "required": true
+          },
+          "severity": {
+            "type": "string",
+            "description": "Severity with which to treat failures of this type of condition.\nFor conditions which have positive polarity (Status == True is their normal/healthy state), this will be omitted when Status == True\nFor conditions which have negative polarity (Status == False is their normal/healthy state), this will be omitted when Status == False.\nThis is omitted in all cases when Status == Unknown"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the condition, one of True, False, or Unknown.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of condition.",
+            "required": true
+          }
+        }
+      },
+      "configurationProtectedSettings": {
+        "type": "object",
+        "description": "ConfigurationProtectedSettings: Configuration settings that are sensitive, as name-value pairs for configuring this\nextension."
+      },
+      "configurationSettings": {
+        "type": "object",
+        "description": "ConfigurationSettings: Configuration settings, as name-value pairs for configuring this extension."
+      },
+      "currentVersion": {
+        "type": "string",
+        "description": "CurrentVersion: Currently installed version of the extension."
+      },
+      "customLocationSettings": {
+        "type": "object",
+        "description": "CustomLocationSettings: Custom Location settings properties."
+      },
+      "errorInfo": {
+        "type": "object",
+        "description": "ErrorInfo: Error information from the Agent - e.g. errors during installation.",
+        "fields": {
+          "additionalInfo": {
+            "type": "array",
+            "description": "AdditionalInfo: The error additional info.",
+            "fields": {
+              "info": {
+                "type": "object",
+                "description": "Info: The additional info."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type: The additional info type."
+              }
+            }
+          },
+          "code": {
+            "type": "string",
+            "description": "Code: The error code."
+          },
+          "details": {
+            "type": "array",
+            "description": "Details: The error details.",
+            "fields": {
+              "additionalInfo": {
+                "type": "array",
+                "description": "AdditionalInfo: The error additional info.",
+                "fields": {
+                  "info": {
+                    "type": "object",
+                    "description": "Info: The additional info."
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type: The additional info type."
+                  }
+                }
+              },
+              "code": {
+                "type": "string",
+                "description": "Code: The error code."
+              },
+              "message": {
+                "type": "string",
+                "description": "Message: The error message."
+              },
+              "target": {
+                "type": "string",
+                "description": "Target: The error target."
+              }
+            }
+          },
+          "message": {
+            "type": "string",
+            "description": "Message: The error message."
+          },
+          "target": {
+            "type": "string",
+            "description": "Target: The error target."
+          }
+        }
+      },
+      "extensionType": {
+        "type": "string",
+        "description": "ExtensionType: Type of the Extension, of which this resource is an instance of.  It must be one of the Extension Types\nregistered with Microsoft.KubernetesConfiguration by the Extension publisher."
+      },
+      "id": {
+        "type": "string",
+        "description": "Id: Fully qualified resource ID for the resource. Ex -\n/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+      },
+      "identity": {
+        "type": "object",
+        "description": "Identity: Identity of the Extension resource",
+        "fields": {
+          "principalId": {
+            "type": "string",
+            "description": "PrincipalId: The principal ID of resource identity."
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "TenantId: The tenant ID of resource."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type: The identity type."
+          }
+        }
+      },
+      "isSystemExtension": {
+        "type": "boolean",
+        "description": "IsSystemExtension: Flag to note if this extension is a system extension"
+      },
+      "name": {
+        "type": "string",
+        "description": "Name: The name of the resource"
+      },
+      "packageUri": {
+        "type": "string",
+        "description": "PackageUri: Uri of the Helm package"
+      },
+      "plan": {
+        "type": "object",
+        "description": "Plan: The plan information.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name: A user defined name of the 3rd Party Artifact that is being procured."
+          },
+          "product": {
+            "type": "string",
+            "description": "Product: The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the\nartifact at the time of Data Market onboarding."
+          },
+          "promotionCode": {
+            "type": "string",
+            "description": "PromotionCode: A publisher provided promotion code as provisioned in Data Market for the said product/artifact."
+          },
+          "publisher": {
+            "type": "string",
+            "description": "Publisher: The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic"
+          },
+          "version": {
+            "type": "string",
+            "description": "Version: The version of the desired product/artifact."
+          }
+        }
+      },
+      "provisioningState": {
+        "type": "string",
+        "description": "ProvisioningState: Status of installation of this extension."
+      },
+      "releaseTrain": {
+        "type": "string",
+        "description": "ReleaseTrain: ReleaseTrain this extension participates in for auto-upgrade (e.g. Stable, Preview, etc.) - only if\nautoUpgradeMinorVersion is 'true'."
+      },
+      "scope": {
+        "type": "object",
+        "description": "Scope: Scope at which the extension is installed.",
+        "fields": {
+          "cluster": {
+            "type": "object",
+            "description": "Cluster: Specifies that the scope of the extension is Cluster",
+            "fields": {
+              "releaseNamespace": {
+                "type": "string",
+                "description": "ReleaseNamespace: Namespace where the extension Release must be placed, for a Cluster scoped extension.  If this\nnamespace does not exist, it will be created"
+              }
+            }
+          },
+          "namespace": {
+            "type": "object",
+            "description": "Namespace: Specifies that the scope of the extension is Namespace",
+            "fields": {
+              "targetNamespace": {
+                "type": "string",
+                "description": "TargetNamespace: Namespace where the extension will be created for an Namespace scoped extension.  If this namespace\ndoes not exist, it will be created"
+              }
+            }
+          }
+        }
+      },
+      "statuses": {
+        "type": "array",
+        "description": "Statuses: Status from this extension.",
+        "fields": {
+          "code": {
+            "type": "string",
+            "description": "Code: Status code provided by the Extension"
+          },
+          "displayStatus": {
+            "type": "string",
+            "description": "DisplayStatus: Short description of status of the extension."
+          },
+          "level": {
+            "type": "string",
+            "description": "Level: Level of the status."
+          },
+          "message": {
+            "type": "string",
+            "description": "Message: Detailed message of the status from the Extension."
+          },
+          "time": {
+            "type": "string",
+            "description": "Time: DateLiteral (per ISO8601) noting the time of installation status."
+          }
+        }
+      },
+      "systemData": {
+        "type": "object",
+        "description": "SystemData: Top level metadata\nhttps://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/common-api-contracts.md#system-metadata-for-all-azure-resources",
+        "fields": {
+          "createdAt": {
+            "type": "string",
+            "description": "CreatedAt: The timestamp of resource creation (UTC)."
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "CreatedBy: The identity that created the resource."
+          },
+          "createdByType": {
+            "type": "string",
+            "description": "CreatedByType: The type of identity that created the resource."
+          },
+          "lastModifiedAt": {
+            "type": "string",
+            "description": "LastModifiedAt: The timestamp of resource last modification (UTC)"
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "description": "LastModifiedBy: The identity that last modified the resource."
+          },
+          "lastModifiedByType": {
+            "type": "string",
+            "description": "LastModifiedByType: The type of identity that last modified the resource."
+          }
+        }
+      },
+      "type": {
+        "type": "string",
+        "description": "Type: The type of the resource. E.g. \"Microsoft.Compute/virtualMachines\" or \"Microsoft.Storage/storageAccounts\""
+      },
+      "version": {
+        "type": "string",
+        "description": "Version: User-specified version of the extension for this extension to 'pin'. To use 'version', autoUpgradeMinorVersion\nmust be 'false'."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: kubernetesconfiguration.azure.com/v1api20230501\nkind: Extension\nmetadata:\n  name: example-extension\n  namespace: default\nspec:\n  owner: {}\n"
+}

@@ -1,0 +1,487 @@
+{
+  "kind": "HcpOpenShiftClustersExternalAuth",
+  "apiVersion": "redhatopenshift.azure.com/v1api20240610preview",
+  "metadata": {
+    "group": "redhatopenshift.azure.com",
+    "version": "v1api20240610preview",
+    "plural": "hcpopenshiftclustersexternalauths",
+    "singular": "hcpopenshiftclustersexternalauth",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {
+      "azureName": {
+        "type": "string",
+        "description": "AzureName: The name of the resource in Azure. This is often the same as the name of the resource in Kubernetes but it\ndoesn't have to be.",
+        "validations": {
+          "pattern": "^[a-zA-Z][-a-zA-Z0-9]{1,15}$"
+        }
+      },
+      "operatorSpec": {
+        "type": "object",
+        "description": "OperatorSpec: The specification for configuring operator behavior. This field is interpreted by the operator and not\npassed directly to Azure",
+        "fields": {
+          "configMapExpressions": {
+            "type": "array",
+            "description": "ConfigMapExpressions: configures where to place operator written dynamic ConfigMaps (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          },
+          "secretExpressions": {
+            "type": "array",
+            "description": "SecretExpressions: configures where to place operator written dynamic secrets (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          }
+        }
+      },
+      "owner": {
+        "type": "object",
+        "description": "Owner: The owner of the resource. The owner controls where the resource goes when it is deployed. The owner also\ncontrols the resources lifecycle. When the owner is deleted the resource will also be deleted. Owner is expected to be a\nreference to a redhatopenshift.azure.com/HcpOpenShiftCluster resource",
+        "required": true,
+        "fields": {
+          "armId": {
+            "type": "string",
+            "description": "No description provided.",
+            "validations": {
+              "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "This is the name of the Kubernetes resource to reference."
+          }
+        }
+      },
+      "properties": {
+        "type": "object",
+        "description": "Properties: The resource-specific properties for this resource.",
+        "fields": {
+          "claim": {
+            "type": "object",
+            "description": "Claim: External Auth claim\nThis configures how claims are validated and applied.",
+            "required": true,
+            "fields": {
+              "mappings": {
+                "type": "object",
+                "description": "Mappings: The claim mappings",
+                "required": true,
+                "fields": {
+                  "groups": {
+                    "type": "object",
+                    "description": "Groups: The claim mappings groups.",
+                    "fields": {
+                      "claim": {
+                        "type": "string",
+                        "description": "Claim: Claim name of the external profile",
+                        "required": true
+                      },
+                      "prefix": {
+                        "type": "string",
+                        "description": "Prefix: Prefix for the claim external profile\nIf this is specified prefixPolicy will be set to \"Prefix\" by default"
+                      }
+                    }
+                  },
+                  "username": {
+                    "type": "object",
+                    "description": "Username: The claim mappings username.",
+                    "required": true,
+                    "fields": {
+                      "claim": {
+                        "type": "string",
+                        "description": "Claim: Claim name of the external profile",
+                        "required": true
+                      },
+                      "prefix": {
+                        "type": "string",
+                        "description": "Prefix: Prefix for the claim external profile\nMust be set when the prefixPolicy field is set to 'Prefix' and must be unset\notherwise."
+                      },
+                      "prefixPolicy": {
+                        "type": "string",
+                        "description": "PrefixPolicy: Prefix policy is an optional field that configures how a prefix should be\napplied to the value of the JWT claim specified in the 'claim' field.\nAllowed values are 'Prefix', 'NoPrefix', and 'None'.\nWhen set to 'Prefix', the value specified in the prefix field will be\nprepended to the value of the JWT claim.\nThe prefix field must be set when prefixPolicy is 'Prefix'.\nWhen set to 'NoPrefix', no prefix will be prepended to the value\nof the JWT claim.\nWhen set to 'None', this means no opinion and the platform is left to choose\nany prefixes that are applied which is subject to change over time.\nCurrently, the platform prepends `{issuerURL}#` to the value of the JWT claim\nwhen the claim is not 'email'.\nAs an example, consider the following scenario:\n`prefix` is unset, `issuerURL` is set to `https://myoidc.tld`,\nthe JWT claims include \"username\":\"userA\" and \"email\":\"userA",
+                        "enum": [
+                          "NoPrefix",
+                          "None",
+                          "Prefix"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "validationRules": {
+                "type": "array",
+                "description": "ValidationRules: The claim validation rules",
+                "fields": {
+                  "requiredClaim": {
+                    "type": "object",
+                    "description": "RequiredClaim: The required claim rule to be applied.",
+                    "fields": {
+                      "claim": {
+                        "type": "string",
+                        "description": "Claim: Claim name for the validation profile\nclaim is a required field that configures the name of the required claim.",
+                        "required": true
+                      },
+                      "requiredValue": {
+                        "type": "string",
+                        "description": "RequiredValue: Required value\nrequiredValue is a required field that configures the value that 'claim' must\nhave when taken from the incoming JWT claims.\nIf the value in the JWT claims does not match, the token\nwill be rejected for authentication.",
+                        "required": true
+                      }
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type: This configures the type of the validation rule.\nIt defaults to \"RequiredClaim\"",
+                    "enum": [
+                      "RequiredClaim"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "clients": {
+            "type": "array",
+            "description": "Clients: External Auth OIDC clients\nThere must not be more than 20 entries and entries must have unique namespace/name pairs.",
+            "fields": {
+              "clientId": {
+                "type": "string",
+                "description": "ClientId: External Auth client id\nThe clientId must appear in the audience field of the TokenIssuerProfile.",
+                "required": true
+              },
+              "component": {
+                "type": "object",
+                "description": "Component: External Auth client component",
+                "required": true,
+                "fields": {
+                  "authClientNamespace": {
+                    "type": "string",
+                    "description": "AuthClientNamespace: The namespace of the external Auth client\nThis specifies the namespace in which the platform component being configured\nto use the identity provider as an authentication mode is running.\nIt is used in combination with name as a unique identifier.",
+                    "required": true
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name: The name of the external auth client\nThis specifies the name of the platform component being configured to use\nthe identity provider as an authentication mode.\nIt is used in combination with namespace as a unique identifier.",
+                    "required": true
+                  }
+                }
+              },
+              "extraScopes": {
+                "type": "array",
+                "description": "ExtraScopes: external auth client scopes\nThis is useful if you have configured claim mappings that requires specific\nscopes to be requested beyond the standard OIDC scopes.\nWhen omitted, no additional scopes are requested."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type: Determines the OIDC provider client type.",
+                "required": true,
+                "enum": [
+                  "Confidential",
+                  "Public"
+                ]
+              }
+            }
+          },
+          "issuer": {
+            "type": "object",
+            "description": "Issuer: Token Issuer profile",
+            "required": true,
+            "fields": {
+              "audiences": {
+                "type": "array",
+                "description": "Audiences: This configures the acceptable audiences the JWT token, issued by the identity\nprovider, must be issued to. At least one of the entries must match the\n'aud' claim in the JWT token.\naudiences must contain at least one entry and must not exceed ten entries.",
+                "required": true
+              },
+              "ca": {
+                "type": "string",
+                "description": "Ca: The issuer of the token\nCertificate bundle to use to validate server certificates for the configured URL.\nIt must be PEM encoded and when not specified, the system trust is used."
+              },
+              "url": {
+                "type": "string",
+                "description": "Url: This configures the URL used to issue tokens by the identity provider.\nThe Kubernetes API server determines how authentication tokens should be handled\nby matching the 'iss' claim in the JWT to the issuerURL of configured identity providers.\nissuerURL must use the 'https' scheme.",
+                "required": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions: The observed state of the resource",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "LastTransitionTime is the last time the condition transitioned from one status to another.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Message is a human readable message indicating details about the transition. This field may be empty."
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "ObservedGeneration is the .metadata.generation that the condition was set based upon. For instance, if\n.metadata.generation is currently 12, but the .status.condition[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the condition's last transition.\nReasons are upper CamelCase (PascalCase) with no spaces. A reason is always provided, this field will not be empty.",
+            "required": true
+          },
+          "severity": {
+            "type": "string",
+            "description": "Severity with which to treat failures of this type of condition.\nFor conditions which have positive polarity (Status == True is their normal/healthy state), this will be omitted when Status == True\nFor conditions which have negative polarity (Status == False is their normal/healthy state), this will be omitted when Status == False.\nThis is omitted in all cases when Status == Unknown"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the condition, one of True, False, or Unknown.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of condition.",
+            "required": true
+          }
+        }
+      },
+      "id": {
+        "type": "string",
+        "description": "Id: Fully qualified resource ID for the resource. E.g.\n\"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}\""
+      },
+      "name": {
+        "type": "string",
+        "description": "Name: The name of the resource"
+      },
+      "properties": {
+        "type": "object",
+        "description": "Properties: The resource-specific properties for this resource.",
+        "fields": {
+          "claim": {
+            "type": "object",
+            "description": "Claim: External Auth claim\nThis configures how claims are validated and applied.",
+            "fields": {
+              "mappings": {
+                "type": "object",
+                "description": "Mappings: The claim mappings",
+                "fields": {
+                  "groups": {
+                    "type": "object",
+                    "description": "Groups: The claim mappings groups.",
+                    "fields": {
+                      "claim": {
+                        "type": "string",
+                        "description": "Claim: Claim name of the external profile"
+                      },
+                      "prefix": {
+                        "type": "string",
+                        "description": "Prefix: Prefix for the claim external profile\nIf this is specified prefixPolicy will be set to \"Prefix\" by default"
+                      }
+                    }
+                  },
+                  "username": {
+                    "type": "object",
+                    "description": "Username: The claim mappings username.",
+                    "fields": {
+                      "claim": {
+                        "type": "string",
+                        "description": "Claim: Claim name of the external profile"
+                      },
+                      "prefix": {
+                        "type": "string",
+                        "description": "Prefix: Prefix for the claim external profile\nMust be set when the prefixPolicy field is set to 'Prefix' and must be unset\notherwise."
+                      },
+                      "prefixPolicy": {
+                        "type": "string",
+                        "description": "PrefixPolicy: Prefix policy is an optional field that configures how a prefix should be\napplied to the value of the JWT claim specified in the 'claim' field.\nAllowed values are 'Prefix', 'NoPrefix', and 'None'.\nWhen set to 'Prefix', the value specified in the prefix field will be\nprepended to the value of the JWT claim.\nThe prefix field must be set when prefixPolicy is 'Prefix'.\nWhen set to 'NoPrefix', no prefix will be prepended to the value\nof the JWT claim.\nWhen set to 'None', this means no opinion and the platform is left to choose\nany prefixes that are applied which is subject to change over time.\nCurrently, the platform prepends `{issuerURL}#` to the value of the JWT claim\nwhen the claim is not 'email'.\nAs an example, consider the following scenario:\n`prefix` is unset, `issuerURL` is set to `https://myoidc.tld`,\nthe JWT claims include \"username\":\"userA\" and \"email\":\"userA"
+                      }
+                    }
+                  }
+                }
+              },
+              "validationRules": {
+                "type": "array",
+                "description": "ValidationRules: The claim validation rules",
+                "fields": {
+                  "requiredClaim": {
+                    "type": "object",
+                    "description": "RequiredClaim: The required claim rule to be applied.",
+                    "fields": {
+                      "claim": {
+                        "type": "string",
+                        "description": "Claim: Claim name for the validation profile\nclaim is a required field that configures the name of the required claim."
+                      },
+                      "requiredValue": {
+                        "type": "string",
+                        "description": "RequiredValue: Required value\nrequiredValue is a required field that configures the value that 'claim' must\nhave when taken from the incoming JWT claims.\nIf the value in the JWT claims does not match, the token\nwill be rejected for authentication."
+                      }
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Type: This configures the type of the validation rule.\nIt defaults to \"RequiredClaim\""
+                  }
+                }
+              }
+            }
+          },
+          "clients": {
+            "type": "array",
+            "description": "Clients: External Auth OIDC clients\nThere must not be more than 20 entries and entries must have unique namespace/name pairs.",
+            "fields": {
+              "clientId": {
+                "type": "string",
+                "description": "ClientId: External Auth client id\nThe clientId must appear in the audience field of the TokenIssuerProfile.",
+                "required": true
+              },
+              "component": {
+                "type": "object",
+                "description": "Component: External Auth client component",
+                "required": true,
+                "fields": {
+                  "authClientNamespace": {
+                    "type": "string",
+                    "description": "AuthClientNamespace: The namespace of the external Auth client\nThis specifies the namespace in which the platform component being configured\nto use the identity provider as an authentication mode is running.\nIt is used in combination with name as a unique identifier.",
+                    "required": true
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name: The name of the external auth client\nThis specifies the name of the platform component being configured to use\nthe identity provider as an authentication mode.\nIt is used in combination with namespace as a unique identifier.",
+                    "required": true
+                  }
+                }
+              },
+              "extraScopes": {
+                "type": "array",
+                "description": "ExtraScopes: external auth client scopes\nThis is useful if you have configured claim mappings that requires specific\nscopes to be requested beyond the standard OIDC scopes.\nWhen omitted, no additional scopes are requested."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type: Determines the OIDC provider client type.",
+                "required": true,
+                "enum": [
+                  "Confidential",
+                  "Public"
+                ]
+              }
+            }
+          },
+          "condition": {
+            "type": "object",
+            "description": "Condition: An observation of the current state with additional information.",
+            "fields": {
+              "lastTransitionTime": {
+                "type": "string",
+                "description": "LastTransitionTime: The last time the condition transitioned from one status to another."
+              },
+              "message": {
+                "type": "string",
+                "description": "Message: This is a human readable message indicating details about the transition.\nThis may be an empty string."
+              },
+              "reason": {
+                "type": "string",
+                "description": "Reason: This contains a programmatic identifier indicating the reason for the condition's last transition."
+              },
+              "status": {
+                "type": "string",
+                "description": "Status: The status of the condition."
+              },
+              "type": {
+                "type": "string",
+                "description": "Type: This is a PascalCase (or in foo.example.com/PascalCase) code to represent the type of condition."
+              }
+            }
+          },
+          "issuer": {
+            "type": "object",
+            "description": "Issuer: Token Issuer profile",
+            "fields": {
+              "audiences": {
+                "type": "array",
+                "description": "Audiences: This configures the acceptable audiences the JWT token, issued by the identity\nprovider, must be issued to. At least one of the entries must match the\n'aud' claim in the JWT token.\naudiences must contain at least one entry and must not exceed ten entries."
+              },
+              "ca": {
+                "type": "string",
+                "description": "Ca: The issuer of the token\nCertificate bundle to use to validate server certificates for the configured URL.\nIt must be PEM encoded and when not specified, the system trust is used."
+              },
+              "url": {
+                "type": "string",
+                "description": "Url: This configures the URL used to issue tokens by the identity provider.\nThe Kubernetes API server determines how authentication tokens should be handled\nby matching the 'iss' claim in the JWT to the issuerURL of configured identity providers.\nissuerURL must use the 'https' scheme."
+              }
+            }
+          },
+          "provisioningState": {
+            "type": "string",
+            "description": "ProvisioningState: Provisioning state"
+          }
+        }
+      },
+      "systemData": {
+        "type": "object",
+        "description": "SystemData: Azure Resource Manager metadata containing createdBy and modifiedBy information.",
+        "fields": {
+          "createdAt": {
+            "type": "string",
+            "description": "CreatedAt: The timestamp of resource creation (UTC)."
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "CreatedBy: The identity that created the resource."
+          },
+          "createdByType": {
+            "type": "string",
+            "description": "CreatedByType: The type of identity that created the resource."
+          },
+          "lastModifiedAt": {
+            "type": "string",
+            "description": "LastModifiedAt: The timestamp of resource last modification (UTC)"
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "description": "LastModifiedBy: The identity that last modified the resource."
+          },
+          "lastModifiedByType": {
+            "type": "string",
+            "description": "LastModifiedByType: The type of identity that last modified the resource."
+          }
+        }
+      },
+      "type": {
+        "type": "string",
+        "description": "Type: The type of the resource. E.g. \"Microsoft.Compute/virtualMachines\" or \"Microsoft.Storage/storageAccounts\""
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: redhatopenshift.azure.com/v1api20240610preview\nkind: HcpOpenShiftClustersExternalAuth\nmetadata:\n  name: example-hcpopenshiftclustersexternalauth\n  namespace: default\nspec:\n  owner: {}\n"
+}

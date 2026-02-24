@@ -1,0 +1,33 @@
+{
+  "kind": "AzureManagedClusterTemplate",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1beta1",
+    "plural": "azuremanagedclustertemplates",
+    "singular": "azuremanagedclustertemplate",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AzureManagedClusterTemplateSpec defines the desired state of AzureManagedClusterTemplate.",
+    "fields": {
+      "template": {
+        "type": "object",
+        "description": "AzureManagedClusterTemplateResource describes the data needed to create an AzureManagedCluster from a template.",
+        "required": true,
+        "fields": {
+          "spec": {
+            "type": "object",
+            "description": "AzureManagedClusterTemplateResourceSpec specifies an Azure managed cluster template resource.",
+            "required": true
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1beta1\nkind: AzureManagedClusterTemplate\nmetadata:\n  name: example-azuremanagedclustertemplate\n  namespace: default\nspec:\n  template: {}\n"
+}

@@ -1,0 +1,359 @@
+{
+  "kind": "Subscription",
+  "apiVersion": "apps.open-cluster-management.io/v1",
+  "metadata": {
+    "group": "apps.open-cluster-management.io",
+    "version": "v1",
+    "plural": "subscriptions",
+    "singular": "subscription",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "SubscriptionSpec defines the desired state of Subscription",
+    "fields": {
+      "allow": {
+        "type": "array",
+        "description": "Specify a list of resources allowed for deployment",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "APIVersion specifies the API version for the group of resources"
+          },
+          "kinds": {
+            "type": "array",
+            "description": "Kinds specifies a list of kinds under the same API version for the group of resources"
+          }
+        }
+      },
+      "channel": {
+        "type": "string",
+        "description": "The primary channel namespaced name used by the subscription. Its format is \"<channel NameSpace>/<channel Name>\"",
+        "required": true
+      },
+      "deny": {
+        "type": "array",
+        "description": "Specify a list of resources denied for deployment",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "APIVersion specifies the API version for the group of resources"
+          },
+          "kinds": {
+            "type": "array",
+            "description": "Kinds specifies a list of kinds under the same API version for the group of resources"
+          }
+        }
+      },
+      "hooksecretref": {
+        "type": "object",
+        "description": "Specify a secret reference used in Ansible job integration authentication",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object.\nTODO: this design is not final and this field is subject to change in the future."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "name": {
+        "type": "string",
+        "description": "Subscribe a package by its package name"
+      },
+      "overrides": {
+        "type": "array",
+        "description": "Specify overrides when applied to clusters. Hub use only",
+        "fields": {
+          "clusterName": {
+            "type": "string",
+            "description": "Cluster name",
+            "required": true
+          },
+          "clusterOverrides": {
+            "type": "array",
+            "description": "ClusterOverrides defines a list of content for override",
+            "required": true
+          }
+        }
+      },
+      "packageFilter": {
+        "type": "object",
+        "description": "Subscribe packages by a package filter",
+        "fields": {
+          "annotations": {
+            "type": "object",
+            "description": "Annotations defines a type of filter for selecting resources by annotations"
+          },
+          "filterRef": {
+            "type": "object",
+            "description": "FilterRef defines a type of filter for selecting resources by another resource reference",
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names\nTODO: Add other useful fields. apiVersion, kind, uid?"
+              }
+            }
+          },
+          "labelSelector": {
+            "type": "object",
+            "description": "LabelSelector defines a type of filter for selecting resources by label selector",
+            "fields": {
+              "matchExpressions": {
+                "type": "array",
+                "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the label key that the selector applies to.",
+                    "required": true
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                    "required": true
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+                  }
+                }
+              },
+              "matchLabels": {
+                "type": "object",
+                "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+              }
+            }
+          },
+          "version": {
+            "type": "string",
+            "description": "Version defines a type of filter for selecting resources by version"
+          }
+        }
+      },
+      "packageOverrides": {
+        "type": "array",
+        "description": "Override packages",
+        "fields": {
+          "packageAlias": {
+            "type": "string",
+            "description": "PackageAlias defines the alias of the package name that will be onverriden"
+          },
+          "packageName": {
+            "type": "string",
+            "description": "PackageName defines the package name that will be onverriden",
+            "required": true
+          },
+          "packageOverrides": {
+            "type": "array",
+            "description": "PackageOverrides defines a list of content for override"
+          }
+        }
+      },
+      "placement": {
+        "type": "object",
+        "description": "Specify a placement reference for selecting clusters. Hub use only",
+        "fields": {
+          "clusterSelector": {
+            "type": "object",
+            "description": "A label selector is a label query over a set of resources. The result of matchLabels and\nmatchExpressions are ANDed. An empty label selector matches all objects. A null\nlabel selector matches no objects.",
+            "fields": {
+              "matchExpressions": {
+                "type": "array",
+                "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the label key that the selector applies to.",
+                    "required": true
+                  },
+                  "operator": {
+                    "type": "string",
+                    "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                    "required": true
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+                  }
+                }
+              },
+              "matchLabels": {
+                "type": "object",
+                "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+              }
+            }
+          },
+          "clusters": {
+            "type": "array",
+            "description": "No description provided.",
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              }
+            }
+          },
+          "local": {
+            "type": "boolean",
+            "description": "It indicates a standalone subscription if the Local pointer is set to be true"
+          },
+          "placementRef": {
+            "type": "object",
+            "description": "Specify a placement reference for selecting clusters",
+            "fields": {
+              "apiVersion": {
+                "type": "string",
+                "description": "API version of the referent."
+              },
+              "fieldPath": {
+                "type": "string",
+                "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object.\nTODO: this design is not final and this field is subject to change in the future."
+              },
+              "kind": {
+                "type": "string",
+                "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+              },
+              "resourceVersion": {
+                "type": "string",
+                "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+              },
+              "uid": {
+                "type": "string",
+                "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+              }
+            }
+          }
+        }
+      },
+      "secondaryChannel": {
+        "type": "string",
+        "description": "The secondary channel will be applied if the primary channel fails to connect"
+      },
+      "timewindow": {
+        "type": "object",
+        "description": "Specify a time window to indicate when the subscription is handled",
+        "fields": {
+          "daysofweek": {
+            "type": "array",
+            "description": "A list of days of a week, valid values include: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday"
+          },
+          "hours": {
+            "type": "array",
+            "description": "A list of hour ranges",
+            "fields": {
+              "end": {
+                "type": "string",
+                "description": "End time of the hour range"
+              },
+              "start": {
+                "type": "string",
+                "description": "Start time of the hour range"
+              }
+            }
+          },
+          "location": {
+            "type": "string",
+            "description": "time zone location, refer to TZ identifier in https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+          },
+          "windowtype": {
+            "type": "string",
+            "description": "Activiate time window or not. The subscription deployment will only be handled during these active windows\nValid values include: active,blocked,Active,Blocked",
+            "enum": [
+              "active",
+              "blocked",
+              "Active",
+              "Blocked"
+            ]
+          }
+        }
+      },
+      "watchHelmNamespaceScopedResources": {
+        "type": "boolean",
+        "description": "WatchHelmNamespaceScopedResources is used to enable watching namespace scope Helm chart resources"
+      }
+    }
+  },
+  "status": {
+    "description": "SubscriptionStatus defines the observed status of a subscription",
+    "fields": {
+      "ansiblejobs": {
+        "type": "object",
+        "description": "AnsibleJobsStatus defines status of ansible jobs propagated by the subscription",
+        "fields": {
+          "lastposthookjob": {
+            "type": "string",
+            "description": "The lastly propagated posthook job"
+          },
+          "lastprehookjob": {
+            "type": "string",
+            "description": "The lastly propagated prehook job"
+          },
+          "posthookjobshistory": {
+            "type": "array",
+            "description": "reserved for backward compatibility"
+          },
+          "prehookjobshistory": {
+            "type": "array",
+            "description": "reserved for backward compatibility"
+          }
+        }
+      },
+      "appstatusReference": {
+        "type": "string",
+        "description": "The CLI reference for getting the subscription status output"
+      },
+      "lastUpdateTime": {
+        "type": "string",
+        "description": "Timestamp of when the subscription status was last updated."
+      },
+      "message": {
+        "type": "string",
+        "description": "Informational message of the subscription deployment"
+      },
+      "phase": {
+        "type": "string",
+        "description": "Phase of the subscription deployment"
+      },
+      "reason": {
+        "type": "string",
+        "description": "additional error output of the subscription deployment"
+      },
+      "statuses": {
+        "type": "object",
+        "description": "SubscriptionClusterStatusMap defines status of each subscription per cluster, key is cluster name"
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: apps.open-cluster-management.io/v1\nkind: Subscription\nmetadata:\n  name: example-subscription\n  namespace: default\nspec:\n  channel: \"example-channel\"\n"
+}

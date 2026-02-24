@@ -1,0 +1,455 @@
+{
+  "kind": "SelectorSyncIdentityProvider",
+  "apiVersion": "hive.openshift.io/v1",
+  "metadata": {
+    "group": "hive.openshift.io",
+    "version": "v1",
+    "plural": "selectorsyncidentityproviders",
+    "singular": "selectorsyncidentityprovider",
+    "scope": "Cluster"
+  },
+  "spec": {
+    "description": "SelectorSyncIdentityProviderSpec defines the SyncIdentityProviderCommonSpec to sync to\nClusterDeploymentSelector indicating which clusters the SelectorSyncIdentityProvider applies\nto in any namespace.",
+    "fields": {
+      "clusterDeploymentSelector": {
+        "type": "object",
+        "description": "ClusterDeploymentSelector is a LabelSelector indicating which clusters the SelectorIdentityProvider\napplies to in any namespace.",
+        "fields": {
+          "matchExpressions": {
+            "type": "array",
+            "description": "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "key is the label key that the selector applies to.",
+                "required": true
+              },
+              "operator": {
+                "type": "string",
+                "description": "operator represents a key's relationship to a set of values.\nValid operators are In, NotIn, Exists and DoesNotExist.",
+                "required": true
+              },
+              "values": {
+                "type": "array",
+                "description": "values is an array of string values. If the operator is In or NotIn,\nthe values array must be non-empty. If the operator is Exists or DoesNotExist,\nthe values array must be empty. This array is replaced during a strategic\nmerge patch."
+              }
+            }
+          },
+          "matchLabels": {
+            "type": "object",
+            "description": "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels\nmap is equivalent to an element of matchExpressions, whose key field is \"key\", the\noperator is \"In\", and the values array contains only \"value\". The requirements are ANDed."
+          }
+        }
+      },
+      "identityProviders": {
+        "type": "array",
+        "description": "IdentityProviders is an ordered list of ways for a user to identify themselves",
+        "required": true,
+        "fields": {
+          "basicAuth": {
+            "type": "object",
+            "description": "basicAuth contains configuration options for the BasicAuth IdP",
+            "fields": {
+              "ca": {
+                "type": "object",
+                "description": "ca is an optional reference to a config map by name containing the PEM-encoded CA bundle.\nIt is used as a trust anchor to validate the TLS certificate presented by the remote server.\nThe key \"ca.crt\" is used to locate the data.\nIf specified and the config map or expected key is not found, the identity provider is not honored.\nIf the specified ca data is not valid, the identity provider is not honored.\nIf empty, the default system roots are used.\nThe namespace for this config map is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced config map",
+                    "required": true
+                  }
+                }
+              },
+              "tlsClientCert": {
+                "type": "object",
+                "description": "tlsClientCert is an optional reference to a secret by name that contains the\nPEM-encoded TLS client certificate to present when connecting to the server.\nThe key \"tls.crt\" is used to locate the data.\nIf specified and the secret or expected key is not found, the identity provider is not honored.\nIf the specified certificate data is not valid, the identity provider is not honored.\nThe namespace for this secret is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced secret",
+                    "required": true
+                  }
+                }
+              },
+              "tlsClientKey": {
+                "type": "object",
+                "description": "tlsClientKey is an optional reference to a secret by name that contains the\nPEM-encoded TLS private key for the client certificate referenced in tlsClientCert.\nThe key \"tls.key\" is used to locate the data.\nIf specified and the secret or expected key is not found, the identity provider is not honored.\nIf the specified certificate data is not valid, the identity provider is not honored.\nThe namespace for this secret is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced secret",
+                    "required": true
+                  }
+                }
+              },
+              "url": {
+                "type": "string",
+                "description": "url is the remote URL to connect to"
+              }
+            }
+          },
+          "github": {
+            "type": "object",
+            "description": "github enables user authentication using GitHub credentials",
+            "fields": {
+              "ca": {
+                "type": "object",
+                "description": "ca is an optional reference to a config map by name containing the PEM-encoded CA bundle.\nIt is used as a trust anchor to validate the TLS certificate presented by the remote server.\nThe key \"ca.crt\" is used to locate the data.\nIf specified and the config map or expected key is not found, the identity provider is not honored.\nIf the specified ca data is not valid, the identity provider is not honored.\nIf empty, the default system roots are used.\nThis can only be configured when hostname is set to a non-empty value.\nThe namespace for this config map is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced config map",
+                    "required": true
+                  }
+                }
+              },
+              "clientID": {
+                "type": "string",
+                "description": "clientID is the oauth client ID"
+              },
+              "clientSecret": {
+                "type": "object",
+                "description": "clientSecret is a required reference to the secret by name containing the oauth client secret.\nThe key \"clientSecret\" is used to locate the data.\nIf the secret or expected key is not found, the identity provider is not honored.\nThe namespace for this secret is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced secret",
+                    "required": true
+                  }
+                }
+              },
+              "hostname": {
+                "type": "string",
+                "description": "hostname is the optional domain (e.g. \"mycompany.com\") for use with a hosted instance of\nGitHub Enterprise.\nIt must match the GitHub Enterprise settings value configured at /setup/settings#hostname."
+              },
+              "organizations": {
+                "type": "array",
+                "description": "organizations optionally restricts which organizations are allowed to log in"
+              },
+              "teams": {
+                "type": "array",
+                "description": "teams optionally restricts which teams are allowed to log in. Format is <org>/<team>."
+              }
+            }
+          },
+          "gitlab": {
+            "type": "object",
+            "description": "gitlab enables user authentication using GitLab credentials",
+            "fields": {
+              "ca": {
+                "type": "object",
+                "description": "ca is an optional reference to a config map by name containing the PEM-encoded CA bundle.\nIt is used as a trust anchor to validate the TLS certificate presented by the remote server.\nThe key \"ca.crt\" is used to locate the data.\nIf specified and the config map or expected key is not found, the identity provider is not honored.\nIf the specified ca data is not valid, the identity provider is not honored.\nIf empty, the default system roots are used.\nThe namespace for this config map is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced config map",
+                    "required": true
+                  }
+                }
+              },
+              "clientID": {
+                "type": "string",
+                "description": "clientID is the oauth client ID"
+              },
+              "clientSecret": {
+                "type": "object",
+                "description": "clientSecret is a required reference to the secret by name containing the oauth client secret.\nThe key \"clientSecret\" is used to locate the data.\nIf the secret or expected key is not found, the identity provider is not honored.\nThe namespace for this secret is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced secret",
+                    "required": true
+                  }
+                }
+              },
+              "url": {
+                "type": "string",
+                "description": "url is the oauth server base URL"
+              }
+            }
+          },
+          "google": {
+            "type": "object",
+            "description": "google enables user authentication using Google credentials",
+            "fields": {
+              "clientID": {
+                "type": "string",
+                "description": "clientID is the oauth client ID"
+              },
+              "clientSecret": {
+                "type": "object",
+                "description": "clientSecret is a required reference to the secret by name containing the oauth client secret.\nThe key \"clientSecret\" is used to locate the data.\nIf the secret or expected key is not found, the identity provider is not honored.\nThe namespace for this secret is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced secret",
+                    "required": true
+                  }
+                }
+              },
+              "hostedDomain": {
+                "type": "string",
+                "description": "hostedDomain is the optional Google App domain (e.g. \"mycompany.com\") to restrict logins to"
+              }
+            }
+          },
+          "htpasswd": {
+            "type": "object",
+            "description": "htpasswd enables user authentication using an HTPasswd file to validate credentials",
+            "fields": {
+              "fileData": {
+                "type": "object",
+                "description": "fileData is a required reference to a secret by name containing the data to use as the htpasswd file.\nThe key \"htpasswd\" is used to locate the data.\nIf the secret or expected key is not found, the identity provider is not honored.\nIf the specified htpasswd data is not valid, the identity provider is not honored.\nThe namespace for this secret is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced secret",
+                    "required": true
+                  }
+                }
+              }
+            }
+          },
+          "keystone": {
+            "type": "object",
+            "description": "keystone enables user authentication using keystone password credentials",
+            "fields": {
+              "ca": {
+                "type": "object",
+                "description": "ca is an optional reference to a config map by name containing the PEM-encoded CA bundle.\nIt is used as a trust anchor to validate the TLS certificate presented by the remote server.\nThe key \"ca.crt\" is used to locate the data.\nIf specified and the config map or expected key is not found, the identity provider is not honored.\nIf the specified ca data is not valid, the identity provider is not honored.\nIf empty, the default system roots are used.\nThe namespace for this config map is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced config map",
+                    "required": true
+                  }
+                }
+              },
+              "domainName": {
+                "type": "string",
+                "description": "domainName is required for keystone v3"
+              },
+              "tlsClientCert": {
+                "type": "object",
+                "description": "tlsClientCert is an optional reference to a secret by name that contains the\nPEM-encoded TLS client certificate to present when connecting to the server.\nThe key \"tls.crt\" is used to locate the data.\nIf specified and the secret or expected key is not found, the identity provider is not honored.\nIf the specified certificate data is not valid, the identity provider is not honored.\nThe namespace for this secret is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced secret",
+                    "required": true
+                  }
+                }
+              },
+              "tlsClientKey": {
+                "type": "object",
+                "description": "tlsClientKey is an optional reference to a secret by name that contains the\nPEM-encoded TLS private key for the client certificate referenced in tlsClientCert.\nThe key \"tls.key\" is used to locate the data.\nIf specified and the secret or expected key is not found, the identity provider is not honored.\nIf the specified certificate data is not valid, the identity provider is not honored.\nThe namespace for this secret is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced secret",
+                    "required": true
+                  }
+                }
+              },
+              "url": {
+                "type": "string",
+                "description": "url is the remote URL to connect to"
+              }
+            }
+          },
+          "ldap": {
+            "type": "object",
+            "description": "ldap enables user authentication using LDAP credentials",
+            "fields": {
+              "attributes": {
+                "type": "object",
+                "description": "attributes maps LDAP attributes to identities",
+                "fields": {
+                  "email": {
+                    "type": "array",
+                    "description": "email is the list of attributes whose values should be used as the email address. Optional.\nIf unspecified, no email is set for the identity"
+                  },
+                  "id": {
+                    "type": "array",
+                    "description": "id is the list of attributes whose values should be used as the user ID. Required.\nFirst non-empty attribute is used. At least one attribute is required. If none of the listed\nattribute have a value, authentication fails.\nLDAP standard identity attribute is \"dn\""
+                  },
+                  "name": {
+                    "type": "array",
+                    "description": "name is the list of attributes whose values should be used as the display name. Optional.\nIf unspecified, no display name is set for the identity\nLDAP standard display name attribute is \"cn\""
+                  },
+                  "preferredUsername": {
+                    "type": "array",
+                    "description": "preferredUsername is the list of attributes whose values should be used as the preferred username.\nLDAP standard login attribute is \"uid\""
+                  }
+                }
+              },
+              "bindDN": {
+                "type": "string",
+                "description": "bindDN is an optional DN to bind with during the search phase."
+              },
+              "bindPassword": {
+                "type": "object",
+                "description": "bindPassword is an optional reference to a secret by name\ncontaining a password to bind with during the search phase.\nThe key \"bindPassword\" is used to locate the data.\nIf specified and the secret or expected key is not found, the identity provider is not honored.\nThe namespace for this secret is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced secret",
+                    "required": true
+                  }
+                }
+              },
+              "ca": {
+                "type": "object",
+                "description": "ca is an optional reference to a config map by name containing the PEM-encoded CA bundle.\nIt is used as a trust anchor to validate the TLS certificate presented by the remote server.\nThe key \"ca.crt\" is used to locate the data.\nIf specified and the config map or expected key is not found, the identity provider is not honored.\nIf the specified ca data is not valid, the identity provider is not honored.\nIf empty, the default system roots are used.\nThe namespace for this config map is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced config map",
+                    "required": true
+                  }
+                }
+              },
+              "insecure": {
+                "type": "boolean",
+                "description": "insecure, if true, indicates the connection should not use TLS\nWARNING: Should not be set to `true` with the URL scheme \"ldaps://\" as \"ldaps://\" URLs always\n         attempt to connect using TLS, even when `insecure` is set to `true`\nWhen `true`, \"ldap://\" URLS connect insecurely. When `false`, \"ldap://\" URLs are upgraded to\na TLS connection using StartTLS as specified in https://tools.ietf.org/html/rfc2830."
+              },
+              "url": {
+                "type": "string",
+                "description": "url is an RFC 2255 URL which specifies the LDAP search parameters to use.\nThe syntax of the URL is:\nldap://host:port/basedn?attribute?scope?filter"
+              }
+            }
+          },
+          "mappingMethod": {
+            "type": "string",
+            "description": "mappingMethod determines how identities from this provider are mapped to users\nDefaults to \"claim\""
+          },
+          "name": {
+            "type": "string",
+            "description": "name is used to qualify the identities returned by this provider.\n- It MUST be unique and not shared by any other identity provider used\n- It MUST be a valid path segment: name cannot equal \".\" or \"..\" or contain \"/\" or \"%\" or \":\"\n  Ref: https://godoc.org/github.com/openshift/origin/pkg/user/apis/user/validation#ValidateIdentityProviderName"
+          },
+          "openID": {
+            "type": "object",
+            "description": "openID enables user authentication using OpenID credentials",
+            "fields": {
+              "ca": {
+                "type": "object",
+                "description": "ca is an optional reference to a config map by name containing the PEM-encoded CA bundle.\nIt is used as a trust anchor to validate the TLS certificate presented by the remote server.\nThe key \"ca.crt\" is used to locate the data.\nIf specified and the config map or expected key is not found, the identity provider is not honored.\nIf the specified ca data is not valid, the identity provider is not honored.\nIf empty, the default system roots are used.\nThe namespace for this config map is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced config map",
+                    "required": true
+                  }
+                }
+              },
+              "claims": {
+                "type": "object",
+                "description": "claims mappings",
+                "fields": {
+                  "email": {
+                    "type": "array",
+                    "description": "email is the list of claims whose values should be used as the email address. Optional.\nIf unspecified, no email is set for the identity"
+                  },
+                  "groups": {
+                    "type": "array",
+                    "description": "groups is the list of claims value of which should be used to synchronize groups\nfrom the OIDC provider to OpenShift for the user.\nIf multiple claims are specified, the first one with a non-empty value is used."
+                  },
+                  "name": {
+                    "type": "array",
+                    "description": "name is the list of claims whose values should be used as the display name. Optional.\nIf unspecified, no display name is set for the identity"
+                  },
+                  "preferredUsername": {
+                    "type": "array",
+                    "description": "preferredUsername is the list of claims whose values should be used as the preferred username.\nIf unspecified, the preferred username is determined from the value of the sub claim"
+                  }
+                }
+              },
+              "clientID": {
+                "type": "string",
+                "description": "clientID is the oauth client ID"
+              },
+              "clientSecret": {
+                "type": "object",
+                "description": "clientSecret is a required reference to the secret by name containing the oauth client secret.\nThe key \"clientSecret\" is used to locate the data.\nIf the secret or expected key is not found, the identity provider is not honored.\nThe namespace for this secret is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced secret",
+                    "required": true
+                  }
+                }
+              },
+              "extraAuthorizeParameters": {
+                "type": "object",
+                "description": "extraAuthorizeParameters are any custom parameters to add to the authorize request."
+              },
+              "extraScopes": {
+                "type": "array",
+                "description": "extraScopes are any scopes to request in addition to the standard \"openid\" scope."
+              },
+              "issuer": {
+                "type": "string",
+                "description": "issuer is the URL that the OpenID Provider asserts as its Issuer Identifier.\nIt must use the https scheme with no query or fragment component."
+              }
+            }
+          },
+          "requestHeader": {
+            "type": "object",
+            "description": "requestHeader enables user authentication using request header credentials",
+            "fields": {
+              "ca": {
+                "type": "object",
+                "description": "ca is a required reference to a config map by name containing the PEM-encoded CA bundle.\nIt is used as a trust anchor to validate the TLS certificate presented by the remote server.\nSpecifically, it allows verification of incoming requests to prevent header spoofing.\nThe key \"ca.crt\" is used to locate the data.\nIf the config map or expected key is not found, the identity provider is not honored.\nIf the specified ca data is not valid, the identity provider is not honored.\nThe namespace for this config map is openshift-config.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the metadata.name of the referenced config map",
+                    "required": true
+                  }
+                }
+              },
+              "challengeURL": {
+                "type": "string",
+                "description": "challengeURL is a URL to redirect unauthenticated /authorize requests to\nUnauthenticated requests from OAuth clients which expect WWW-Authenticate challenges will be\nredirected here.\n${url} is replaced with the current URL, escaped to be safe in a query parameter\n  https://www.example.com/sso-login?then=${url}\n${query} is replaced with the current query string\n  https://www.example.com/auth-proxy/oauth/authorize?${query}\nRequired when challenge is set to true."
+              },
+              "clientCommonNames": {
+                "type": "array",
+                "description": "clientCommonNames is an optional list of common names to require a match from. If empty, any\nclient certificate validated against the clientCA bundle is considered authoritative."
+              },
+              "emailHeaders": {
+                "type": "array",
+                "description": "emailHeaders is the set of headers to check for the email address"
+              },
+              "headers": {
+                "type": "array",
+                "description": "headers is the set of headers to check for identity information"
+              },
+              "loginURL": {
+                "type": "string",
+                "description": "loginURL is a URL to redirect unauthenticated /authorize requests to\nUnauthenticated requests from OAuth clients which expect interactive logins will be redirected here\n${url} is replaced with the current URL, escaped to be safe in a query parameter\n  https://www.example.com/sso-login?then=${url}\n${query} is replaced with the current query string\n  https://www.example.com/auth-proxy/oauth/authorize?${query}\nRequired when login is set to true."
+              },
+              "nameHeaders": {
+                "type": "array",
+                "description": "nameHeaders is the set of headers to check for the display name"
+              },
+              "preferredUsernameHeaders": {
+                "type": "array",
+                "description": "preferredUsernameHeaders is the set of headers to check for the preferred username"
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "type identifies the identity provider type for this entry."
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "IdentityProviderStatus defines the observed state of SyncSet",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: hive.openshift.io/v1\nkind: SelectorSyncIdentityProvider\nmetadata:\n  name: example-selectorsyncidentityprovider\nspec:\n  identityProviders: []\n"
+}

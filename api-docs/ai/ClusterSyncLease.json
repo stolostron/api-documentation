@@ -1,0 +1,26 @@
+{
+  "kind": "ClusterSyncLease",
+  "apiVersion": "hiveinternal.openshift.io/v1alpha1",
+  "metadata": {
+    "group": "hiveinternal.openshift.io",
+    "version": "v1alpha1",
+    "plural": "clustersyncleases",
+    "singular": "clustersynclease",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "ClusterSyncLeaseSpec is the specification of a ClusterSyncLease.",
+    "fields": {
+      "renewTime": {
+        "type": "string",
+        "description": "RenewTime is the time when SyncSets and SelectorSyncSets were last applied to the cluster.",
+        "required": true
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: hiveinternal.openshift.io/v1alpha1\nkind: ClusterSyncLease\nmetadata:\n  name: example-clustersynclease\n  namespace: default\nspec:\n  renewTime: \"example-renewTime\"\n"
+}

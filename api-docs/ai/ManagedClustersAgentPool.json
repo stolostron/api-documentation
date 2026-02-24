@@ -1,0 +1,899 @@
+{
+  "kind": "ManagedClustersAgentPool",
+  "apiVersion": "containerservice.azure.com/v1api20210501",
+  "metadata": {
+    "group": "containerservice.azure.com",
+    "version": "v1api20210501",
+    "plural": "managedclustersagentpools",
+    "singular": "managedclustersagentpool",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {
+      "availabilityZones": {
+        "type": "array",
+        "description": "AvailabilityZones: The list of Availability zones to use for nodes. This can only be specified if the AgentPoolType\nproperty is 'VirtualMachineScaleSets'."
+      },
+      "azureName": {
+        "type": "string",
+        "description": "AzureName: The name of the resource in Azure. This is often the same as the name of the resource in Kubernetes but it\ndoesn't have to be."
+      },
+      "count": {
+        "type": "integer",
+        "description": "Count: Number of agents (VMs) to host docker containers. Allowed values must be in the range of 0 to 1000 (inclusive)\nfor user pools and in the range of 1 to 1000 (inclusive) for system pools. The default value is 1."
+      },
+      "enableAutoScaling": {
+        "type": "boolean",
+        "description": "EnableAutoScaling: Whether to enable auto-scaler"
+      },
+      "enableEncryptionAtHost": {
+        "type": "boolean",
+        "description": "EnableEncryptionAtHost: This is only supported on certain VM sizes and in certain Azure regions. For more information,\nsee: https://docs.microsoft.com/azure/aks/enable-host-encryption"
+      },
+      "enableFIPS": {
+        "type": "boolean",
+        "description": "EnableFIPS: See [Add a FIPS-enabled node\npool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#add-a-fips-enabled-node-pool-preview) for more\ndetails."
+      },
+      "enableNodePublicIP": {
+        "type": "boolean",
+        "description": "EnableNodePublicIP: Some scenarios may require nodes in a node pool to receive their own dedicated public IP addresses.\nA common scenario is for gaming workloads, where a console needs to make a direct connection to a cloud virtual machine\nto minimize hops. For more information see [assigning a public IP per\nnode](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#assign-a-public-ip-per-node-for-your-node-pools). The\ndefault is false."
+      },
+      "enableUltraSSD": {
+        "type": "boolean",
+        "description": "EnableUltraSSD: Whether to enable UltraSSD"
+      },
+      "gpuInstanceProfile": {
+        "type": "string",
+        "description": "GpuInstanceProfile: GPUInstanceProfile to be used to specify GPU MIG instance profile for supported GPU VM SKU.",
+        "enum": [
+          "MIG1g",
+          "MIG2g",
+          "MIG3g",
+          "MIG4g",
+          "MIG7g"
+        ]
+      },
+      "kubeletConfig": {
+        "type": "object",
+        "description": "KubeletConfig: The Kubelet configuration on the agent pool nodes.",
+        "fields": {
+          "allowedUnsafeSysctls": {
+            "type": "array",
+            "description": "No description provided."
+          },
+          "containerLogMaxFiles": {
+            "type": "integer",
+            "description": "No description provided.",
+            "validations": {
+              "minimum": 2
+            }
+          },
+          "containerLogMaxSizeMB": {
+            "type": "integer",
+            "description": "No description provided."
+          },
+          "cpuCfsQuota": {
+            "type": "boolean",
+            "description": "No description provided."
+          },
+          "cpuCfsQuotaPeriod": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "cpuManagerPolicy": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "failSwapOn": {
+            "type": "boolean",
+            "description": "No description provided."
+          },
+          "imageGcHighThreshold": {
+            "type": "integer",
+            "description": "No description provided."
+          },
+          "imageGcLowThreshold": {
+            "type": "integer",
+            "description": "No description provided."
+          },
+          "podMaxPids": {
+            "type": "integer",
+            "description": "No description provided."
+          },
+          "topologyManagerPolicy": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "kubeletDiskType": {
+        "type": "string",
+        "description": "KubeletDiskType: Determines the placement of emptyDir volumes, container runtime data root, and Kubelet ephemeral\nstorage.",
+        "enum": [
+          "OS",
+          "Temporary"
+        ]
+      },
+      "linuxOSConfig": {
+        "type": "object",
+        "description": "LinuxOSConfig: The OS configuration of Linux agent nodes.",
+        "fields": {
+          "swapFileSizeMB": {
+            "type": "integer",
+            "description": "No description provided."
+          },
+          "sysctls": {
+            "type": "object",
+            "description": "No description provided.",
+            "fields": {
+              "fsAioMaxNr": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "fsFileMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "fsInotifyMaxUserWatches": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "fsNrOpen": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "kernelThreadsMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreNetdevMaxBacklog": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreOptmemMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreRmemDefault": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreRmemMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreSomaxconn": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreWmemDefault": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreWmemMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4IpLocalPortRange": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "netIpv4NeighDefaultGcThresh1": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4NeighDefaultGcThresh2": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4NeighDefaultGcThresh3": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpFinTimeout": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpKeepaliveProbes": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpKeepaliveTime": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpMaxSynBacklog": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpMaxTwBuckets": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpTwReuse": {
+                "type": "boolean",
+                "description": "No description provided."
+              },
+              "netIpv4TcpkeepaliveIntvl": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netNetfilterNfConntrackBuckets": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netNetfilterNfConntrackMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "vmMaxMapCount": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "vmSwappiness": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "vmVfsCachePressure": {
+                "type": "integer",
+                "description": "No description provided."
+              }
+            }
+          },
+          "transparentHugePageDefrag": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "transparentHugePageEnabled": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "maxCount": {
+        "type": "integer",
+        "description": "MaxCount: The maximum number of nodes for auto-scaling"
+      },
+      "maxPods": {
+        "type": "integer",
+        "description": "MaxPods: The maximum number of pods that can run on a node."
+      },
+      "minCount": {
+        "type": "integer",
+        "description": "MinCount: The minimum number of nodes for auto-scaling"
+      },
+      "mode": {
+        "type": "string",
+        "description": "Mode: A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent pool\nrestrictions  and best practices, see: https://docs.microsoft.com/azure/aks/use-system-pools",
+        "enum": [
+          "System",
+          "User"
+        ]
+      },
+      "nodeLabels": {
+        "type": "object",
+        "description": "NodeLabels: The node labels to be persisted across all nodes in agent pool."
+      },
+      "nodePublicIPPrefixIDReference": {
+        "type": "object",
+        "description": "NodePublicIPPrefixIDReference: This is of the form:\n/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPPrefixes/{publicIPPrefixName}",
+        "fields": {
+          "armId": {
+            "type": "string",
+            "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+            "validations": {
+              "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+            }
+          },
+          "group": {
+            "type": "string",
+            "description": "Group is the Kubernetes group of the resource."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind is the Kubernetes kind of the resource."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name is the Kubernetes name of the resource."
+          }
+        }
+      },
+      "nodeTaints": {
+        "type": "array",
+        "description": "NodeTaints: The taints added to new nodes during node pool create and scale. For example, key=value:NoSchedule."
+      },
+      "operatorSpec": {
+        "type": "object",
+        "description": "OperatorSpec: The specification for configuring operator behavior. This field is interpreted by the operator and not\npassed directly to Azure",
+        "fields": {
+          "configMapExpressions": {
+            "type": "array",
+            "description": "ConfigMapExpressions: configures where to place operator written dynamic ConfigMaps (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          },
+          "secretExpressions": {
+            "type": "array",
+            "description": "SecretExpressions: configures where to place operator written dynamic secrets (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          }
+        }
+      },
+      "orchestratorVersion": {
+        "type": "string",
+        "description": "OrchestratorVersion: As a best practice, you should upgrade all node pools in an AKS cluster to the same Kubernetes\nversion. The node pool version must have the same major version as the control plane. The node pool minor version must\nbe within two minor versions of the control plane version. The node pool version cannot be greater than the control\nplane version. For more information see [upgrading a node\npool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#upgrade-a-node-pool)."
+      },
+      "osDiskSizeGB": {
+        "type": "integer",
+        "description": "No description provided.",
+        "validations": {
+          "minimum": 0,
+          "maximum": 2048
+        }
+      },
+      "osDiskType": {
+        "type": "string",
+        "description": "OsDiskType: The default is 'Ephemeral' if the VM supports it and has a cache disk larger than the requested\nOSDiskSizeGB. Otherwise,  defaults to 'Managed'. May not be changed after creation. For more information see [Ephemeral\nOS](https://docs.microsoft.com/azure/aks/cluster-configuration#ephemeral-os).",
+        "enum": [
+          "Ephemeral",
+          "Managed"
+        ]
+      },
+      "osSKU": {
+        "type": "string",
+        "description": "OsSKU: Specifies an OS SKU. This value must not be specified if OSType is Windows.",
+        "enum": [
+          "CBLMariner",
+          "Ubuntu"
+        ]
+      },
+      "osType": {
+        "type": "string",
+        "description": "OsType: The operating system type. The default is Linux.",
+        "enum": [
+          "Linux",
+          "Windows"
+        ]
+      },
+      "owner": {
+        "type": "object",
+        "description": "Owner: The owner of the resource. The owner controls where the resource goes when it is deployed. The owner also\ncontrols the resources lifecycle. When the owner is deleted the resource will also be deleted. Owner is expected to be a\nreference to a containerservice.azure.com/ManagedCluster resource",
+        "required": true,
+        "fields": {
+          "armId": {
+            "type": "string",
+            "description": "No description provided.",
+            "validations": {
+              "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "This is the name of the Kubernetes resource to reference."
+          }
+        }
+      },
+      "podSubnetIDReference": {
+        "type": "object",
+        "description": "PodSubnetIDReference: If omitted, pod IPs are statically assigned on the node subnet (see vnetSubnetID for more\ndetails). This is of the form:\n/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}",
+        "fields": {
+          "armId": {
+            "type": "string",
+            "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+            "validations": {
+              "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+            }
+          },
+          "group": {
+            "type": "string",
+            "description": "Group is the Kubernetes group of the resource."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind is the Kubernetes kind of the resource."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name is the Kubernetes name of the resource."
+          }
+        }
+      },
+      "proximityPlacementGroupID": {
+        "type": "string",
+        "description": "ProximityPlacementGroupID: The ID for Proximity Placement Group."
+      },
+      "scaleSetEvictionPolicy": {
+        "type": "string",
+        "description": "ScaleSetEvictionPolicy: This cannot be specified unless the scaleSetPriority is 'Spot'. If not specified, the default is\n'Delete'.",
+        "enum": [
+          "Deallocate",
+          "Delete"
+        ]
+      },
+      "scaleSetPriority": {
+        "type": "string",
+        "description": "ScaleSetPriority: The Virtual Machine Scale Set priority. If not specified, the default is 'Regular'.",
+        "enum": [
+          "Regular",
+          "Spot"
+        ]
+      },
+      "spotMaxPrice": {
+        "type": "number",
+        "description": "SpotMaxPrice: Possible values are any decimal value greater than zero or -1 which indicates the willingness to pay any\non-demand price. For more details on spot pricing, see [spot VMs\npricing](https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing)"
+      },
+      "tags": {
+        "type": "object",
+        "description": "Tags: The tags to be persisted on the agent pool virtual machine scale set."
+      },
+      "type": {
+        "type": "string",
+        "description": "Type: The type of Agent Pool.",
+        "enum": [
+          "AvailabilitySet",
+          "VirtualMachineScaleSets"
+        ]
+      },
+      "upgradeSettings": {
+        "type": "object",
+        "description": "UpgradeSettings: Settings for upgrading the agentpool",
+        "fields": {
+          "maxSurge": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "vmSize": {
+        "type": "string",
+        "description": "VmSize: VM size availability varies by region. If a node contains insufficient compute resources (memory, cpu, etc) pods\nmight fail to run correctly. For more details on restricted VM sizes, see:\nhttps://docs.microsoft.com/azure/aks/quotas-skus-regions"
+      },
+      "vnetSubnetIDReference": {
+        "type": "object",
+        "description": "VnetSubnetIDReference: If this is not specified, a VNET and subnet will be generated and used. If no podSubnetID is\nspecified, this applies to nodes and pods, otherwise it applies to just nodes. This is of the form:\n/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}",
+        "fields": {
+          "armId": {
+            "type": "string",
+            "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+            "validations": {
+              "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+            }
+          },
+          "group": {
+            "type": "string",
+            "description": "Group is the Kubernetes group of the resource."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind is the Kubernetes kind of the resource."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name is the Kubernetes name of the resource."
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {
+      "availabilityZones": {
+        "type": "array",
+        "description": "AvailabilityZones: The list of Availability zones to use for nodes. This can only be specified if the AgentPoolType\nproperty is 'VirtualMachineScaleSets'."
+      },
+      "conditions": {
+        "type": "array",
+        "description": "Conditions: The observed state of the resource",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "LastTransitionTime is the last time the condition transitioned from one status to another.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Message is a human readable message indicating details about the transition. This field may be empty."
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "ObservedGeneration is the .metadata.generation that the condition was set based upon. For instance, if\n.metadata.generation is currently 12, but the .status.condition[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the condition's last transition.\nReasons are upper CamelCase (PascalCase) with no spaces. A reason is always provided, this field will not be empty.",
+            "required": true
+          },
+          "severity": {
+            "type": "string",
+            "description": "Severity with which to treat failures of this type of condition.\nFor conditions which have positive polarity (Status == True is their normal/healthy state), this will be omitted when Status == True\nFor conditions which have negative polarity (Status == False is their normal/healthy state), this will be omitted when Status == False.\nThis is omitted in all cases when Status == Unknown"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the condition, one of True, False, or Unknown.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of condition.",
+            "required": true
+          }
+        }
+      },
+      "count": {
+        "type": "integer",
+        "description": "Count: Number of agents (VMs) to host docker containers. Allowed values must be in the range of 0 to 1000 (inclusive)\nfor user pools and in the range of 1 to 1000 (inclusive) for system pools. The default value is 1."
+      },
+      "enableAutoScaling": {
+        "type": "boolean",
+        "description": "EnableAutoScaling: Whether to enable auto-scaler"
+      },
+      "enableEncryptionAtHost": {
+        "type": "boolean",
+        "description": "EnableEncryptionAtHost: This is only supported on certain VM sizes and in certain Azure regions. For more information,\nsee: https://docs.microsoft.com/azure/aks/enable-host-encryption"
+      },
+      "enableFIPS": {
+        "type": "boolean",
+        "description": "EnableFIPS: See [Add a FIPS-enabled node\npool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#add-a-fips-enabled-node-pool-preview) for more\ndetails."
+      },
+      "enableNodePublicIP": {
+        "type": "boolean",
+        "description": "EnableNodePublicIP: Some scenarios may require nodes in a node pool to receive their own dedicated public IP addresses.\nA common scenario is for gaming workloads, where a console needs to make a direct connection to a cloud virtual machine\nto minimize hops. For more information see [assigning a public IP per\nnode](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#assign-a-public-ip-per-node-for-your-node-pools). The\ndefault is false."
+      },
+      "enableUltraSSD": {
+        "type": "boolean",
+        "description": "EnableUltraSSD: Whether to enable UltraSSD"
+      },
+      "gpuInstanceProfile": {
+        "type": "string",
+        "description": "GpuInstanceProfile: GPUInstanceProfile to be used to specify GPU MIG instance profile for supported GPU VM SKU."
+      },
+      "id": {
+        "type": "string",
+        "description": "Id: Resource ID."
+      },
+      "kubeletConfig": {
+        "type": "object",
+        "description": "KubeletConfig: The Kubelet configuration on the agent pool nodes.",
+        "fields": {
+          "allowedUnsafeSysctls": {
+            "type": "array",
+            "description": "No description provided."
+          },
+          "containerLogMaxFiles": {
+            "type": "integer",
+            "description": "No description provided."
+          },
+          "containerLogMaxSizeMB": {
+            "type": "integer",
+            "description": "No description provided."
+          },
+          "cpuCfsQuota": {
+            "type": "boolean",
+            "description": "No description provided."
+          },
+          "cpuCfsQuotaPeriod": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "cpuManagerPolicy": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "failSwapOn": {
+            "type": "boolean",
+            "description": "No description provided."
+          },
+          "imageGcHighThreshold": {
+            "type": "integer",
+            "description": "No description provided."
+          },
+          "imageGcLowThreshold": {
+            "type": "integer",
+            "description": "No description provided."
+          },
+          "podMaxPids": {
+            "type": "integer",
+            "description": "No description provided."
+          },
+          "topologyManagerPolicy": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "kubeletDiskType": {
+        "type": "string",
+        "description": "KubeletDiskType: Determines the placement of emptyDir volumes, container runtime data root, and Kubelet ephemeral\nstorage."
+      },
+      "linuxOSConfig": {
+        "type": "object",
+        "description": "LinuxOSConfig: The OS configuration of Linux agent nodes.",
+        "fields": {
+          "swapFileSizeMB": {
+            "type": "integer",
+            "description": "No description provided."
+          },
+          "sysctls": {
+            "type": "object",
+            "description": "No description provided.",
+            "fields": {
+              "fsAioMaxNr": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "fsFileMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "fsInotifyMaxUserWatches": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "fsNrOpen": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "kernelThreadsMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreNetdevMaxBacklog": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreOptmemMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreRmemDefault": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreRmemMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreSomaxconn": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreWmemDefault": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netCoreWmemMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4IpLocalPortRange": {
+                "type": "string",
+                "description": "No description provided."
+              },
+              "netIpv4NeighDefaultGcThresh1": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4NeighDefaultGcThresh2": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4NeighDefaultGcThresh3": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpFinTimeout": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpKeepaliveProbes": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpKeepaliveTime": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpMaxSynBacklog": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpMaxTwBuckets": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netIpv4TcpTwReuse": {
+                "type": "boolean",
+                "description": "No description provided."
+              },
+              "netIpv4TcpkeepaliveIntvl": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netNetfilterNfConntrackBuckets": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "netNetfilterNfConntrackMax": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "vmMaxMapCount": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "vmSwappiness": {
+                "type": "integer",
+                "description": "No description provided."
+              },
+              "vmVfsCachePressure": {
+                "type": "integer",
+                "description": "No description provided."
+              }
+            }
+          },
+          "transparentHugePageDefrag": {
+            "type": "string",
+            "description": "No description provided."
+          },
+          "transparentHugePageEnabled": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "maxCount": {
+        "type": "integer",
+        "description": "MaxCount: The maximum number of nodes for auto-scaling"
+      },
+      "maxPods": {
+        "type": "integer",
+        "description": "MaxPods: The maximum number of pods that can run on a node."
+      },
+      "minCount": {
+        "type": "integer",
+        "description": "MinCount: The minimum number of nodes for auto-scaling"
+      },
+      "mode": {
+        "type": "string",
+        "description": "Mode: A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent pool\nrestrictions  and best practices, see: https://docs.microsoft.com/azure/aks/use-system-pools"
+      },
+      "name": {
+        "type": "string",
+        "description": "Name: The name of the resource that is unique within a resource group. This name can be used to access the resource."
+      },
+      "nodeImageVersion": {
+        "type": "string",
+        "description": "NodeImageVersion: The version of node image"
+      },
+      "nodeLabels": {
+        "type": "object",
+        "description": "NodeLabels: The node labels to be persisted across all nodes in agent pool."
+      },
+      "nodePublicIPPrefixID": {
+        "type": "string",
+        "description": "NodePublicIPPrefixID: This is of the form:\n/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPPrefixes/{publicIPPrefixName}"
+      },
+      "nodeTaints": {
+        "type": "array",
+        "description": "NodeTaints: The taints added to new nodes during node pool create and scale. For example, key=value:NoSchedule."
+      },
+      "orchestratorVersion": {
+        "type": "string",
+        "description": "OrchestratorVersion: As a best practice, you should upgrade all node pools in an AKS cluster to the same Kubernetes\nversion. The node pool version must have the same major version as the control plane. The node pool minor version must\nbe within two minor versions of the control plane version. The node pool version cannot be greater than the control\nplane version. For more information see [upgrading a node\npool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#upgrade-a-node-pool)."
+      },
+      "osDiskSizeGB": {
+        "type": "integer",
+        "description": "No description provided."
+      },
+      "osDiskType": {
+        "type": "string",
+        "description": "OsDiskType: The default is 'Ephemeral' if the VM supports it and has a cache disk larger than the requested\nOSDiskSizeGB. Otherwise,  defaults to 'Managed'. May not be changed after creation. For more information see [Ephemeral\nOS](https://docs.microsoft.com/azure/aks/cluster-configuration#ephemeral-os)."
+      },
+      "osSKU": {
+        "type": "string",
+        "description": "OsSKU: Specifies an OS SKU. This value must not be specified if OSType is Windows."
+      },
+      "osType": {
+        "type": "string",
+        "description": "OsType: The operating system type. The default is Linux."
+      },
+      "podSubnetID": {
+        "type": "string",
+        "description": "PodSubnetID: If omitted, pod IPs are statically assigned on the node subnet (see vnetSubnetID for more details). This is\nof the form:\n/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}"
+      },
+      "powerState": {
+        "type": "object",
+        "description": "PowerState: Describes whether the Agent Pool is Running or Stopped",
+        "fields": {
+          "code": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "properties_type": {
+        "type": "string",
+        "description": "PropertiesType: The type of Agent Pool."
+      },
+      "provisioningState": {
+        "type": "string",
+        "description": "ProvisioningState: The current deployment or provisioning state."
+      },
+      "proximityPlacementGroupID": {
+        "type": "string",
+        "description": "ProximityPlacementGroupID: The ID for Proximity Placement Group."
+      },
+      "scaleSetEvictionPolicy": {
+        "type": "string",
+        "description": "ScaleSetEvictionPolicy: This cannot be specified unless the scaleSetPriority is 'Spot'. If not specified, the default is\n'Delete'."
+      },
+      "scaleSetPriority": {
+        "type": "string",
+        "description": "ScaleSetPriority: The Virtual Machine Scale Set priority. If not specified, the default is 'Regular'."
+      },
+      "spotMaxPrice": {
+        "type": "number",
+        "description": "SpotMaxPrice: Possible values are any decimal value greater than zero or -1 which indicates the willingness to pay any\non-demand price. For more details on spot pricing, see [spot VMs\npricing](https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing)"
+      },
+      "tags": {
+        "type": "object",
+        "description": "Tags: The tags to be persisted on the agent pool virtual machine scale set."
+      },
+      "type": {
+        "type": "string",
+        "description": "Type: Resource type"
+      },
+      "upgradeSettings": {
+        "type": "object",
+        "description": "UpgradeSettings: Settings for upgrading the agentpool",
+        "fields": {
+          "maxSurge": {
+            "type": "string",
+            "description": "No description provided."
+          }
+        }
+      },
+      "vmSize": {
+        "type": "string",
+        "description": "VmSize: VM size availability varies by region. If a node contains insufficient compute resources (memory, cpu, etc) pods\nmight fail to run correctly. For more details on restricted VM sizes, see:\nhttps://docs.microsoft.com/azure/aks/quotas-skus-regions"
+      },
+      "vnetSubnetID": {
+        "type": "string",
+        "description": "VnetSubnetID: If this is not specified, a VNET and subnet will be generated and used. If no podSubnetID is specified,\nthis applies to nodes and pods, otherwise it applies to just nodes. This is of the form:\n/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}"
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: containerservice.azure.com/v1api20210501\nkind: ManagedClustersAgentPool\nmetadata:\n  name: example-managedclustersagentpool\n  namespace: default\nspec:\n  owner: {}\n"
+}

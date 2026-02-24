@@ -1,0 +1,210 @@
+{
+  "kind": "Cluster",
+  "apiVersion": "cluster.x-k8s.io/v1alpha3",
+  "metadata": {
+    "group": "cluster.x-k8s.io",
+    "version": "v1alpha3",
+    "plural": "clusters",
+    "singular": "cluster",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "spec is the desired state of Cluster.",
+    "fields": {
+      "clusterNetwork": {
+        "type": "object",
+        "description": "clusterNetwork is the cluster network configuration.",
+        "fields": {
+          "apiServerPort": {
+            "type": "integer",
+            "description": "apiServerPort specifies the port the API Server should bind to.\nDefaults to 6443."
+          },
+          "pods": {
+            "type": "object",
+            "description": "pods is the network ranges from which Pod networks are allocated.",
+            "fields": {
+              "cidrBlocks": {
+                "type": "array",
+                "description": "cidrBlocks is a list of CIDR blocks.",
+                "required": true
+              }
+            }
+          },
+          "serviceDomain": {
+            "type": "string",
+            "description": "serviceDomain is the domain name for services."
+          },
+          "services": {
+            "type": "object",
+            "description": "services is the network ranges from which service VIPs are allocated.",
+            "fields": {
+              "cidrBlocks": {
+                "type": "array",
+                "description": "cidrBlocks is a list of CIDR blocks.",
+                "required": true
+              }
+            }
+          }
+        }
+      },
+      "controlPlaneEndpoint": {
+        "type": "object",
+        "description": "controlPlaneEndpoint represents the endpoint used to communicate with the control plane.",
+        "fields": {
+          "host": {
+            "type": "string",
+            "description": "host is the hostname on which the API server is serving.",
+            "required": true
+          },
+          "port": {
+            "type": "integer",
+            "description": "port is the port on which the API server is serving.",
+            "required": true
+          }
+        }
+      },
+      "controlPlaneRef": {
+        "type": "object",
+        "description": "controlPlaneRef is an optional reference to a provider-specific resource that holds\nthe details for provisioning the Control Plane for a Cluster.",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "infrastructureRef": {
+        "type": "object",
+        "description": "infrastructureRef is a reference to a provider-specific resource that holds the details\nfor provisioning infrastructure for a cluster in said provider.",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "paused": {
+        "type": "boolean",
+        "description": "paused can be used to prevent controllers from processing the Cluster and all its associated objects."
+      }
+    }
+  },
+  "status": {
+    "description": "status is the observed state of Cluster.",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "conditions defines current service state of the cluster.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed. If that is not known, then using the time when\nthe API field changed is acceptable."
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition.\nThis field may be empty."
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason is the reason for the condition's last transition in CamelCase.\nThe specific API may choose whether or not this field is considered a guaranteed API.\nThis field may not be empty."
+          },
+          "severity": {
+            "type": "string",
+            "description": "severity provides an explicit classification of Reason code, so the users or machines can immediately\nunderstand the current situation and act accordingly.\nThe Severity field MUST be set only when Status=False."
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.\nMany .condition.type values are consistent across resources like Available, but because arbitrary conditions\ncan be useful (see .node.status.conditions), the ability to deconflict is important.",
+            "required": true
+          }
+        }
+      },
+      "controlPlaneInitialized": {
+        "type": "boolean",
+        "description": "controlPlaneInitialized defines if the control plane has been initialized."
+      },
+      "controlPlaneReady": {
+        "type": "boolean",
+        "description": "controlPlaneReady defines if the control plane is ready."
+      },
+      "failureDomains": {
+        "type": "object",
+        "description": "failureDomains is a slice of failure domain objects synced from the infrastructure provider."
+      },
+      "failureMessage": {
+        "type": "string",
+        "description": "failureMessage indicates that there is a fatal problem reconciling the\nstate, and will be set to a descriptive error message."
+      },
+      "failureReason": {
+        "type": "string",
+        "description": "failureReason indicates that there is a fatal problem reconciling the\nstate, and will be set to a token value suitable for\nprogrammatic interpretation."
+      },
+      "infrastructureReady": {
+        "type": "boolean",
+        "description": "infrastructureReady is the state of the infrastructure provider."
+      },
+      "observedGeneration": {
+        "type": "integer",
+        "description": "observedGeneration is the latest generation observed by the controller."
+      },
+      "phase": {
+        "type": "string",
+        "description": "phase represents the current phase of cluster actuation.\nE.g. Pending, Running, Terminating, Failed etc."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: cluster.x-k8s.io/v1alpha3\nkind: Cluster\nmetadata:\n  name: example-cluster\n  namespace: default\nspec:\n  clusterNetwork: {}\n  controlPlaneEndpoint: {}\n  controlPlaneRef: {}\n  infrastructureRef: {}\n  paused: true\n"
+}

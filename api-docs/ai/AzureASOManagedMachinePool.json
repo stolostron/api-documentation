@@ -1,0 +1,76 @@
+{
+  "kind": "AzureASOManagedMachinePool",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1alpha1",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1alpha1",
+    "plural": "azureasomanagedmachinepools",
+    "singular": "azureasomanagedmachinepool",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AzureASOManagedMachinePoolSpec defines the desired state of AzureASOManagedMachinePool.",
+    "fields": {
+      "providerIDList": {
+        "type": "array",
+        "description": "ProviderIDList is the list of cloud provider IDs for the instances. It fulfills Cluster API's machine\npool infrastructure provider contract."
+      },
+      "resources": {
+        "type": "array",
+        "description": "Resources are embedded ASO resources to be managed by this resource."
+      }
+    }
+  },
+  "status": {
+    "description": "AzureASOManagedMachinePoolStatus defines the observed state of AzureASOManagedMachinePool.",
+    "fields": {
+      "ready": {
+        "type": "boolean",
+        "description": "Ready represents whether or not the infrastructure is ready to be used. It fulfills Cluster API's\nmachine pool infrastructure provider contract."
+      },
+      "replicas": {
+        "type": "integer",
+        "description": "Replicas is the current number of provisioned replicas. It fulfills Cluster API's machine pool\ninfrastructure provider contract."
+      },
+      "resources": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "ready": {
+            "type": "boolean",
+            "description": "No description provided.",
+            "required": true
+          },
+          "resource": {
+            "type": "object",
+            "description": "StatusResource is a handle to a resource.",
+            "required": true,
+            "fields": {
+              "group": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "kind": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "version": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1\nkind: AzureASOManagedMachinePool\nmetadata:\n  name: example-azureasomanagedmachinepool\n  namespace: default\nspec:\n  providerIDList: []\n  resources: []\n"
+}

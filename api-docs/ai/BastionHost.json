@@ -1,0 +1,340 @@
+{
+  "kind": "BastionHost",
+  "apiVersion": "network.azure.com/v1api20220701",
+  "metadata": {
+    "group": "network.azure.com",
+    "version": "v1api20220701",
+    "plural": "bastionhosts",
+    "singular": "bastionhost",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {
+      "azureName": {
+        "type": "string",
+        "description": "AzureName: The name of the resource in Azure. This is often the same as the name of the resource in Kubernetes but it\ndoesn't have to be."
+      },
+      "disableCopyPaste": {
+        "type": "boolean",
+        "description": "DisableCopyPaste: Enable/Disable Copy/Paste feature of the Bastion Host resource."
+      },
+      "dnsName": {
+        "type": "string",
+        "description": "DnsName: FQDN for the endpoint on which bastion host is accessible."
+      },
+      "enableFileCopy": {
+        "type": "boolean",
+        "description": "EnableFileCopy: Enable/Disable File Copy feature of the Bastion Host resource."
+      },
+      "enableIpConnect": {
+        "type": "boolean",
+        "description": "EnableIpConnect: Enable/Disable IP Connect feature of the Bastion Host resource."
+      },
+      "enableShareableLink": {
+        "type": "boolean",
+        "description": "EnableShareableLink: Enable/Disable Shareable Link of the Bastion Host resource."
+      },
+      "enableTunneling": {
+        "type": "boolean",
+        "description": "EnableTunneling: Enable/Disable Tunneling feature of the Bastion Host resource."
+      },
+      "ipConfigurations": {
+        "type": "array",
+        "description": "IpConfigurations: IP configuration of the Bastion Host resource.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name: Name of the resource that is unique within a resource group. This name can be used to access the resource."
+          },
+          "privateIPAllocationMethod": {
+            "type": "string",
+            "description": "PrivateIPAllocationMethod: Private IP allocation method.",
+            "enum": [
+              "Dynamic",
+              "Static"
+            ]
+          },
+          "publicIPAddress": {
+            "type": "object",
+            "description": "PublicIPAddress: Reference of the PublicIP resource.",
+            "required": true,
+            "fields": {
+              "reference": {
+                "type": "object",
+                "description": "Reference: Resource ID.",
+                "fields": {
+                  "armId": {
+                    "type": "string",
+                    "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+                    "validations": {
+                      "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+                    }
+                  },
+                  "group": {
+                    "type": "string",
+                    "description": "Group is the Kubernetes group of the resource."
+                  },
+                  "kind": {
+                    "type": "string",
+                    "description": "Kind is the Kubernetes kind of the resource."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name is the Kubernetes name of the resource."
+                  }
+                }
+              }
+            }
+          },
+          "subnet": {
+            "type": "object",
+            "description": "Subnet: Reference of the subnet resource.",
+            "required": true,
+            "fields": {
+              "reference": {
+                "type": "object",
+                "description": "Reference: Resource ID.",
+                "fields": {
+                  "armId": {
+                    "type": "string",
+                    "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+                    "validations": {
+                      "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+                    }
+                  },
+                  "group": {
+                    "type": "string",
+                    "description": "Group is the Kubernetes group of the resource."
+                  },
+                  "kind": {
+                    "type": "string",
+                    "description": "Kind is the Kubernetes kind of the resource."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name is the Kubernetes name of the resource."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "location": {
+        "type": "string",
+        "description": "Location: Resource location."
+      },
+      "operatorSpec": {
+        "type": "object",
+        "description": "OperatorSpec: The specification for configuring operator behavior. This field is interpreted by the operator and not\npassed directly to Azure",
+        "fields": {
+          "configMapExpressions": {
+            "type": "array",
+            "description": "ConfigMapExpressions: configures where to place operator written dynamic ConfigMaps (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          },
+          "secretExpressions": {
+            "type": "array",
+            "description": "SecretExpressions: configures where to place operator written dynamic secrets (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          }
+        }
+      },
+      "owner": {
+        "type": "object",
+        "description": "Owner: The owner of the resource. The owner controls where the resource goes when it is deployed. The owner also\ncontrols the resources lifecycle. When the owner is deleted the resource will also be deleted. Owner is expected to be a\nreference to a resources.azure.com/ResourceGroup resource",
+        "required": true,
+        "fields": {
+          "armId": {
+            "type": "string",
+            "description": "No description provided.",
+            "validations": {
+              "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "This is the name of the Kubernetes resource to reference."
+          }
+        }
+      },
+      "scaleUnits": {
+        "type": "integer",
+        "description": "ScaleUnits: The scale units for the Bastion Host resource.",
+        "validations": {
+          "minimum": 2,
+          "maximum": 50
+        }
+      },
+      "sku": {
+        "type": "object",
+        "description": "Sku: The sku of this Bastion Host.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name: The name of this Bastion Host.",
+            "enum": [
+              "Basic",
+              "Standard"
+            ]
+          }
+        }
+      },
+      "tags": {
+        "type": "object",
+        "description": "Tags: Resource tags."
+      }
+    }
+  },
+  "status": {
+    "description": "Bastion Host resource.",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions: The observed state of the resource",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "LastTransitionTime is the last time the condition transitioned from one status to another.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Message is a human readable message indicating details about the transition. This field may be empty."
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "ObservedGeneration is the .metadata.generation that the condition was set based upon. For instance, if\n.metadata.generation is currently 12, but the .status.condition[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the condition's last transition.\nReasons are upper CamelCase (PascalCase) with no spaces. A reason is always provided, this field will not be empty.",
+            "required": true
+          },
+          "severity": {
+            "type": "string",
+            "description": "Severity with which to treat failures of this type of condition.\nFor conditions which have positive polarity (Status == True is their normal/healthy state), this will be omitted when Status == True\nFor conditions which have negative polarity (Status == False is their normal/healthy state), this will be omitted when Status == False.\nThis is omitted in all cases when Status == Unknown"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the condition, one of True, False, or Unknown.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of condition.",
+            "required": true
+          }
+        }
+      },
+      "disableCopyPaste": {
+        "type": "boolean",
+        "description": "DisableCopyPaste: Enable/Disable Copy/Paste feature of the Bastion Host resource."
+      },
+      "dnsName": {
+        "type": "string",
+        "description": "DnsName: FQDN for the endpoint on which bastion host is accessible."
+      },
+      "enableFileCopy": {
+        "type": "boolean",
+        "description": "EnableFileCopy: Enable/Disable File Copy feature of the Bastion Host resource."
+      },
+      "enableIpConnect": {
+        "type": "boolean",
+        "description": "EnableIpConnect: Enable/Disable IP Connect feature of the Bastion Host resource."
+      },
+      "enableShareableLink": {
+        "type": "boolean",
+        "description": "EnableShareableLink: Enable/Disable Shareable Link of the Bastion Host resource."
+      },
+      "enableTunneling": {
+        "type": "boolean",
+        "description": "EnableTunneling: Enable/Disable Tunneling feature of the Bastion Host resource."
+      },
+      "etag": {
+        "type": "string",
+        "description": "Etag: A unique read-only string that changes whenever the resource is updated."
+      },
+      "id": {
+        "type": "string",
+        "description": "Id: Resource ID."
+      },
+      "ipConfigurations": {
+        "type": "array",
+        "description": "IpConfigurations: IP configuration of the Bastion Host resource.",
+        "fields": {
+          "id": {
+            "type": "string",
+            "description": "Id: Resource ID."
+          }
+        }
+      },
+      "location": {
+        "type": "string",
+        "description": "Location: Resource location."
+      },
+      "name": {
+        "type": "string",
+        "description": "Name: Resource name."
+      },
+      "provisioningState": {
+        "type": "string",
+        "description": "ProvisioningState: The provisioning state of the bastion host resource."
+      },
+      "scaleUnits": {
+        "type": "integer",
+        "description": "ScaleUnits: The scale units for the Bastion Host resource."
+      },
+      "sku": {
+        "type": "object",
+        "description": "Sku: The sku of this Bastion Host.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "Name: The name of this Bastion Host."
+          }
+        }
+      },
+      "tags": {
+        "type": "object",
+        "description": "Tags: Resource tags."
+      },
+      "type": {
+        "type": "string",
+        "description": "Type: Resource type."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: network.azure.com/v1api20220701\nkind: BastionHost\nmetadata:\n  name: example-bastionhost\n  namespace: default\nspec:\n  owner: {}\n"
+}

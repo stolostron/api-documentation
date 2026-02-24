@@ -1,0 +1,94 @@
+{
+  "kind": "AddOnPlacementScore",
+  "apiVersion": "cluster.open-cluster-management.io/v1alpha1",
+  "metadata": {
+    "group": "cluster.open-cluster-management.io",
+    "version": "v1alpha1",
+    "plural": "addonplacementscores",
+    "singular": "addonplacementscore",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {}
+  },
+  "status": {
+    "description": "Status represents the status of the AddOnPlacementScore.",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions contain the different condition statuses for this AddOnPlacementScore.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition.\nThis may be an empty string.",
+            "required": true
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "observedGeneration represents the .metadata.generation that the condition was set based upon.\nFor instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance.",
+            "validations": {
+              "minimum": 0
+            }
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition.\nProducers of specific condition types may define expected values and meanings for this field,\nand whether the values are considered a guaranteed API.\nThe value should be a CamelCase string.\nThis field may not be empty.",
+            "required": true,
+            "validations": {
+              "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true,
+            "enum": [
+              "True",
+              "False",
+              "Unknown"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.",
+            "required": true,
+            "validations": {
+              "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+            }
+          }
+        }
+      },
+      "scores": {
+        "type": "array",
+        "description": "Scores contain a list of score name and value of this managed cluster.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "name is the name of the score",
+            "required": true
+          },
+          "value": {
+            "type": "integer",
+            "description": "value is the value of the score. The score range is from -100 to 100.",
+            "required": true,
+            "validations": {
+              "minimum": -100,
+              "maximum": 100
+            }
+          }
+        }
+      },
+      "validUntil": {
+        "type": "string",
+        "description": "validUntil defines the valid time of the scores.\nAfter this time, the scores are considered to be invalid by placement. nil means never expire.\nThe controller owning this resource should keep the scores up-to-date."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: cluster.open-cluster-management.io/v1alpha1\nkind: AddOnPlacementScore\nmetadata:\n  name: example-addonplacementscore\n  namespace: default\n"
+}

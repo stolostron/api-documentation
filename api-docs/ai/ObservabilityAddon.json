@@ -1,0 +1,110 @@
+{
+  "kind": "ObservabilityAddon",
+  "apiVersion": "observability.open-cluster-management.io/v1beta1",
+  "metadata": {
+    "group": "observability.open-cluster-management.io",
+    "version": "v1beta1",
+    "plural": "observabilityaddons",
+    "singular": "observabilityaddon",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "ObservabilityAddonSpec is the spec of observability addon.",
+    "fields": {
+      "enableMetrics": {
+        "type": "boolean",
+        "description": "EnableMetrics indicates the observability addon push metrics to hub server.",
+        "default": true
+      },
+      "interval": {
+        "type": "integer",
+        "description": "Interval for the observability addon push metrics to hub server.",
+        "default": 300,
+        "validations": {
+          "minimum": 15,
+          "maximum": 3600
+        }
+      },
+      "resources": {
+        "type": "object",
+        "description": "Resource requirement for metrics-collector",
+        "fields": {
+          "claims": {
+            "type": "array",
+            "description": "Claims lists the names of resources, defined in spec.resourceClaims,\nthat are used by this container.\nThis is an alpha field and requires enabling the\nDynamicResourceAllocation feature gate.\nThis field is immutable. It can only be set for containers.",
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name must match the name of one entry in pod.spec.resourceClaims of\nthe Pod where this field is used. It makes that resource available\ninside a container.",
+                "required": true
+              },
+              "request": {
+                "type": "string",
+                "description": "Request is the name chosen for a request in the referenced claim.\nIf empty, everything from the claim is made available, otherwise\nonly the result of this request."
+              }
+            }
+          },
+          "limits": {
+            "type": "object",
+            "description": "Limits describes the maximum amount of compute resources allowed.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+          },
+          "requests": {
+            "type": "object",
+            "description": "Requests describes the minimum amount of compute resources required.\nIf Requests is omitted for a container, it defaults to Limits if that is explicitly specified,\notherwise to an implementation-defined value. Requests cannot exceed Limits.\nMore info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+          }
+        }
+      },
+      "scrapeSizeLimitBytes": {
+        "type": "integer",
+        "description": "ScrapeSizeLimitBytes is the max size in bytes for a single metrics scrape from in-cluster Prometheus.\nDefault is 1 GiB.",
+        "default": 1073741824
+      },
+      "workers": {
+        "type": "integer",
+        "description": "Workers is the number of workers in metrics-collector that work in parallel to\npush metrics to hub server. If set to > 1, metrics-collector will shard\n/federate calls to Prometheus, based on matcher rules provided by allowlist.\nEnsure that number of matchers exceeds number of workers.",
+        "default": 1,
+        "validations": {
+          "minimum": 1
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "ObservabilityAddonStatus defines the observed state of ObservabilityAddon",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "No description provided.",
+        "required": true,
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          },
+          "reason": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          },
+          "status": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "No description provided.",
+            "required": true
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: observability.open-cluster-management.io/v1beta1\nkind: ObservabilityAddon\nmetadata:\n  name: example-observabilityaddon\n  namespace: default\nspec:\n  enableMetrics: True\n  interval: 300\n  resources: {}\n  scrapeSizeLimitBytes: 1073741824\n  workers: 1\n"
+}

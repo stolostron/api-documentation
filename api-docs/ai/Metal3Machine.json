@@ -1,0 +1,340 @@
+{
+  "kind": "Metal3Machine",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1beta1",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1beta1",
+    "plural": "metal3machines",
+    "singular": "metal3machine",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "Metal3MachineSpec defines the desired state of Metal3Machine.",
+    "fields": {
+      "automatedCleaningMode": {
+        "type": "string",
+        "description": "When set to disabled, automated cleaning of host disks will be skipped\nduring provisioning and deprovisioning.",
+        "enum": [
+          "metadata",
+          "disabled"
+        ]
+      },
+      "customDeploy": {
+        "type": "object",
+        "description": "A custom deploy procedure.",
+        "fields": {
+          "method": {
+            "type": "string",
+            "description": "Custom deploy method name.\nThis name is specific to the deploy ramdisk used. If you don't have\na custom deploy ramdisk, you shouldn't use CustomDeploy.",
+            "required": true
+          }
+        }
+      },
+      "dataTemplate": {
+        "type": "object",
+        "description": "MetadataTemplate is a reference to a Metal3DataTemplate object containing\na template of metadata to be rendered. Metadata keys defined in the\nmetadataTemplate take precedence over keys defined in metadata field.",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "hostSelector": {
+        "type": "object",
+        "description": "HostSelector specifies matching criteria for labels on BareMetalHosts.\nThis is used to limit the set of BareMetalHost objects considered for\nclaiming for a metal3machine.",
+        "fields": {
+          "matchExpressions": {
+            "type": "array",
+            "description": "Label match expressions that must be true on a chosen BareMetalHost",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "operator": {
+                "type": "string",
+                "description": "Operator represents a key/field's relationship to value(s).\nSee labels.Requirement and fields.Requirement for more details.",
+                "required": true
+              },
+              "values": {
+                "type": "array",
+                "description": "No description provided.",
+                "required": true
+              }
+            }
+          },
+          "matchLabels": {
+            "type": "object",
+            "description": "Key/value pairs of labels that must exist on a chosen BareMetalHost"
+          }
+        }
+      },
+      "image": {
+        "type": "object",
+        "description": "Image is the image to be provisioned.",
+        "fields": {
+          "checksum": {
+            "type": "string",
+            "description": "Checksum is a md5sum, sha256sum or sha512sum value or a URL to retrieve one.",
+            "required": true
+          },
+          "checksumType": {
+            "type": "string",
+            "description": "ChecksumType is the checksum algorithm for the image.\ne.g md5, sha256, sha512",
+            "enum": [
+              "md5",
+              "sha256",
+              "sha512"
+            ]
+          },
+          "format": {
+            "type": "string",
+            "description": "DiskFormat contains the image disk format.",
+            "enum": [
+              "raw",
+              "qcow2",
+              "vdi",
+              "vmdk",
+              "live-iso"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "description": "URL is a location of an image to deploy.",
+            "required": true
+          }
+        }
+      },
+      "metaData": {
+        "type": "object",
+        "description": "MetaData is an object storing the reference to the secret containing the\nMetadata given by the user.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "name is unique within a namespace to reference a secret resource."
+          },
+          "namespace": {
+            "type": "string",
+            "description": "namespace defines the space within which the secret name must be unique."
+          }
+        }
+      },
+      "networkData": {
+        "type": "object",
+        "description": "NetworkData is an object storing the reference to the secret containing the\nnetwork data given by the user.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "name is unique within a namespace to reference a secret resource."
+          },
+          "namespace": {
+            "type": "string",
+            "description": "namespace defines the space within which the secret name must be unique."
+          }
+        }
+      },
+      "providerID": {
+        "type": "string",
+        "description": "ProviderID will be the Metal3 machine in ProviderID format\n(metal3://<bmh-uuid>)"
+      },
+      "userData": {
+        "type": "object",
+        "description": "UserData references the Secret that holds user data needed by the bare metal\noperator. The Namespace is optional; it will default to the metal3machine's\nnamespace if not specified.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "name is unique within a namespace to reference a secret resource."
+          },
+          "namespace": {
+            "type": "string",
+            "description": "namespace defines the space within which the secret name must be unique."
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "Metal3MachineStatus defines the observed state of Metal3Machine.",
+    "fields": {
+      "addresses": {
+        "type": "array",
+        "description": "Addresses is a list of addresses assigned to the machine.\nThis field is copied from the infrastructure provider reference.",
+        "fields": {
+          "address": {
+            "type": "string",
+            "description": "address is the machine address.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "type is the machine address type, one of Hostname, ExternalIP, InternalIP, ExternalDNS or InternalDNS.",
+            "required": true,
+            "enum": [
+              "Hostname",
+              "ExternalIP",
+              "InternalIP",
+              "ExternalDNS",
+              "InternalDNS"
+            ]
+          }
+        }
+      },
+      "conditions": {
+        "type": "array",
+        "description": "Conditions defines current service state of the Metal3Machine.",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed. If that is not known, then using the time when\nthe API field changed is acceptable.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "message is a human readable message indicating details about the transition.\nThis field may be empty."
+          },
+          "reason": {
+            "type": "string",
+            "description": "reason is the reason for the condition's last transition in CamelCase.\nThe specific API may choose whether or not this field is considered a guaranteed API.\nThis field may be empty."
+          },
+          "severity": {
+            "type": "string",
+            "description": "severity provides an explicit classification of Reason code, so the users or machines can immediately\nunderstand the current situation and act accordingly.\nThe Severity field MUST be set only when Status=False."
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the condition, one of True, False, Unknown.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.\nMany .condition.type values are consistent across resources like Available, but because arbitrary conditions\ncan be useful (see .node.status.conditions), the ability to deconflict is important.",
+            "required": true
+          }
+        }
+      },
+      "failureMessage": {
+        "type": "string",
+        "description": "FailureMessage will be set in the event that there is a terminal problem\nreconciling the metal3machine and will contain a more verbose string suitable\nfor logging and human consumption.\nThis field should not be set for transitive errors that a controller\nfaces that are expected to be fixed automatically over\ntime (like service outages), but instead indicate that something is\nfundamentally wrong with the metal3machine's spec or the configuration of\nthe controller, and that manual intervention is required. Examples\nof terminal errors would be invalid combinations of settings in the\nspec, values that are unsupported by the controller, or the\nresponsible controller itself being critically misconfigured.\nAny transient errors that occur during the reconciliation of\nmetal3machines can be added as events to the metal3machine object\nand/or logged in the controller's output."
+      },
+      "failureReason": {
+        "type": "string",
+        "description": "FailureReason will be set in the event that there is a terminal problem\nreconciling the metal3machine and will contain a succinct value suitable\nfor machine interpretation.\nThis field should not be set for transitive errors that a controller\nfaces that are expected to be fixed automatically over\ntime (like service outages), but instead indicate that something is\nfundamentally wrong with the metal3machine's spec or the configuration of\nthe controller, and that manual intervention is required. Examples\nof terminal errors would be invalid combinations of settings in the\nspec, values that are unsupported by the controller, or the\nresponsible controller itself being critically misconfigured.\nAny transient errors that occur during the reconciliation of\nmetal3machines can be added as events to the metal3machine object\nand/or logged in the controller's output."
+      },
+      "lastUpdated": {
+        "type": "string",
+        "description": "LastUpdated identifies when this status was last observed."
+      },
+      "metaData": {
+        "type": "object",
+        "description": "MetaData is an object storing the reference to the secret containing the\nMetadata used to deploy the BareMetalHost.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "name is unique within a namespace to reference a secret resource."
+          },
+          "namespace": {
+            "type": "string",
+            "description": "namespace defines the space within which the secret name must be unique."
+          }
+        }
+      },
+      "networkData": {
+        "type": "object",
+        "description": "NetworkData is an object storing the reference to the secret containing the\nnetwork data used to deploy the BareMetalHost.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "name is unique within a namespace to reference a secret resource."
+          },
+          "namespace": {
+            "type": "string",
+            "description": "namespace defines the space within which the secret name must be unique."
+          }
+        }
+      },
+      "phase": {
+        "type": "string",
+        "description": "Phase represents the current phase of machine actuation.\nE.g. Pending, Running, Terminating, Failed etc."
+      },
+      "ready": {
+        "type": "boolean",
+        "description": "Ready is the state of the metal3.\nmhrivnak: \" it would be good to document what this means, how to interpret\nit, under what circumstances the value changes, etc.\""
+      },
+      "renderedData": {
+        "type": "object",
+        "description": "RenderedData is a reference to a rendered Metal3Data object containing\nthe references to metaData and networkData secrets.",
+        "fields": {
+          "apiVersion": {
+            "type": "string",
+            "description": "API version of the referent."
+          },
+          "fieldPath": {
+            "type": "string",
+            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          },
+          "resourceVersion": {
+            "type": "string",
+            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
+          },
+          "uid": {
+            "type": "string",
+            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          }
+        }
+      },
+      "userData": {
+        "type": "object",
+        "description": "UserData references the Secret that holds user data needed by the bare metal\noperator. The Namespace is optional; it will default to the metal3machine's\nnamespace if not specified.",
+        "fields": {
+          "name": {
+            "type": "string",
+            "description": "name is unique within a namespace to reference a secret resource."
+          },
+          "namespace": {
+            "type": "string",
+            "description": "namespace defines the space within which the secret name must be unique."
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1beta1\nkind: Metal3Machine\nmetadata:\n  name: example-metal3machine\n  namespace: default\nspec:\n  automatedCleaningMode: metadata\n  customDeploy: {}\n  dataTemplate: {}\n  hostSelector: {}\n  image: {}\n"
+}

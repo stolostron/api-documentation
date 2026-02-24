@@ -1,0 +1,84 @@
+{
+  "kind": "AzureASOManagedCluster",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1alpha1",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1alpha1",
+    "plural": "azureasomanagedclusters",
+    "singular": "azureasomanagedcluster",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AzureASOManagedClusterSpec defines the desired state of AzureASOManagedCluster.",
+    "fields": {
+      "controlPlaneEndpoint": {
+        "type": "object",
+        "description": "ControlPlaneEndpoint is the location of the API server within the control plane. CAPZ manages this field\nand it should not be set by the user. It fulfills Cluster API's cluster infrastructure provider contract.\nBecause this field is programmatically set by CAPZ after resource creation, we define it as +optional\nin the API schema to permit resource admission.",
+        "fields": {
+          "host": {
+            "type": "string",
+            "description": "host is the hostname on which the API server is serving.",
+            "required": true
+          },
+          "port": {
+            "type": "integer",
+            "description": "port is the port on which the API server is serving.",
+            "required": true
+          }
+        }
+      },
+      "resources": {
+        "type": "array",
+        "description": "Resources are embedded ASO resources to be managed by this resource."
+      }
+    }
+  },
+  "status": {
+    "description": "AzureASOManagedClusterStatus defines the observed state of AzureASOManagedCluster.",
+    "fields": {
+      "ready": {
+        "type": "boolean",
+        "description": "Ready represents whether or not the cluster has been provisioned and is ready. It fulfills Cluster\nAPI's cluster infrastructure provider contract."
+      },
+      "resources": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "ready": {
+            "type": "boolean",
+            "description": "No description provided.",
+            "required": true
+          },
+          "resource": {
+            "type": "object",
+            "description": "StatusResource is a handle to a resource.",
+            "required": true,
+            "fields": {
+              "group": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "kind": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "version": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1\nkind: AzureASOManagedCluster\nmetadata:\n  name: example-azureasomanagedcluster\n  namespace: default\nspec:\n  controlPlaneEndpoint: {}\n  resources: []\n"
+}

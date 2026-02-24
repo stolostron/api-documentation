@@ -1,0 +1,62 @@
+{
+  "kind": "PolicySet",
+  "apiVersion": "policy.open-cluster-management.io/v1beta1",
+  "metadata": {
+    "group": "policy.open-cluster-management.io",
+    "version": "v1beta1",
+    "plural": "policysets",
+    "singular": "policyset",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "PolicySetSpec defines the group of policies to be included in the policy set.",
+    "fields": {
+      "description": {
+        "type": "string",
+        "description": "Description is the description of this policy set."
+      },
+      "policies": {
+        "type": "array",
+        "description": "Policies is a list of policy names that are contained within the policy set.",
+        "required": true
+      }
+    }
+  },
+  "status": {
+    "description": "PolicySetStatus reports the observed status of the policy set resulting from its policies.",
+    "fields": {
+      "compliant": {
+        "type": "string",
+        "description": "Compliant reports the observed status resulting from the compliance of the policies within.",
+        "enum": [
+          "Compliant",
+          "Pending",
+          "NonCompliant"
+        ]
+      },
+      "placement": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "placement": {
+            "type": "string",
+            "description": "Placement is the name of the Placement resource, from the cluster.open-cluster-management.io API group, that is bound to the policy."
+          },
+          "placementBinding": {
+            "type": "string",
+            "description": "PlacementBinding is the name of the PlacementBinding resource, from the policies.open-cluster-management.io API group, that binds the placement resource to the policy set."
+          },
+          "placementRule": {
+            "type": "string",
+            "description": "PlacementRule (deprecated) is the name of the PlacementRule resource, from the apps.open-cluster-management.io API group, that is bound to the policy."
+          }
+        }
+      },
+      "statusMessage": {
+        "type": "string",
+        "description": "StatusMessge reports the current state while determining the compliance of the policy set."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: policy.open-cluster-management.io/v1beta1\nkind: PolicySet\nmetadata:\n  name: example-policyset\n  namespace: default\nspec:\n  policies: []\n"
+}

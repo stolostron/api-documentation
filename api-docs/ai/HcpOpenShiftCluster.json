@@ -1,0 +1,825 @@
+{
+  "kind": "HcpOpenShiftCluster",
+  "apiVersion": "redhatopenshift.azure.com/v1api20240610preview",
+  "metadata": {
+    "group": "redhatopenshift.azure.com",
+    "version": "v1api20240610preview",
+    "plural": "hcpopenshiftclusters",
+    "singular": "hcpopenshiftcluster",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "",
+    "fields": {
+      "azureName": {
+        "type": "string",
+        "description": "AzureName: The name of the resource in Azure. This is often the same as the name of the resource in Kubernetes but it\ndoesn't have to be.",
+        "validations": {
+          "pattern": "^[a-zA-Z][-a-zA-Z0-9]{1,52}[a-zA-Z0-9]$"
+        }
+      },
+      "identity": {
+        "type": "object",
+        "description": "Identity: The managed service identities assigned to this resource.",
+        "fields": {
+          "type": {
+            "type": "string",
+            "description": "Type: Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).",
+            "required": true,
+            "enum": [
+              "None",
+              "SystemAssigned",
+              "SystemAssigned,UserAssigned",
+              "UserAssigned"
+            ]
+          },
+          "userAssignedIdentities": {
+            "type": "array",
+            "description": "UserAssignedIdentities: The set of user assigned identities associated with the resource. The userAssignedIdentities\ndictionary keys will be ARM resource ids in the form:\n'/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.\nThe dictionary values can be empty objects ({}) in requests.",
+            "fields": {
+              "reference": {
+                "type": "object",
+                "description": "ResourceReference represents a resource reference, either to a Kubernetes resource or directly to an Azure resource via ARMID",
+                "fields": {
+                  "armId": {
+                    "type": "string",
+                    "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+                    "validations": {
+                      "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+                    }
+                  },
+                  "group": {
+                    "type": "string",
+                    "description": "Group is the Kubernetes group of the resource."
+                  },
+                  "kind": {
+                    "type": "string",
+                    "description": "Kind is the Kubernetes kind of the resource."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name is the Kubernetes name of the resource."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "location": {
+        "type": "string",
+        "description": "Location: The geo-location where the resource lives",
+        "required": true
+      },
+      "operatorSpec": {
+        "type": "object",
+        "description": "OperatorSpec: The specification for configuring operator behavior. This field is interpreted by the operator and not\npassed directly to Azure",
+        "fields": {
+          "configMapExpressions": {
+            "type": "array",
+            "description": "ConfigMapExpressions: configures where to place operator written dynamic ConfigMaps (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          },
+          "secretExpressions": {
+            "type": "array",
+            "description": "SecretExpressions: configures where to place operator written dynamic secrets (created with CEL expressions).",
+            "fields": {
+              "key": {
+                "type": "string",
+                "description": "Key is the key in the ConfigMap or Secret being written to. If the CEL expression in Value returns a string\nthis is required to identify what key to write to. If the CEL expression in Value returns a map[string]string\nKey must not be set, instead the keys written will be determined dynamically based on the keys of the resulting\nmap[string]string."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name is the name of the Kubernetes configmap or secret to write to.\nThe configmap or secret will be created in the same namespace as the resource.",
+                "required": true
+              },
+              "value": {
+                "type": "string",
+                "description": "Value is a CEL expression. The CEL expression may return a string or a map[string]string. For more information\non CEL in ASO see https://azure.github.io/azure-service-operator/guide/expressions/",
+                "required": true
+              }
+            }
+          },
+          "secrets": {
+            "type": "object",
+            "description": "Secrets: configures where to place Azure generated secrets.",
+            "fields": {
+              "adminCredentials": {
+                "type": "object",
+                "description": "AdminCredentials: indicates where the AdminCredentials secret should be placed. If omitted, the secret will not be\nretrieved from Azure.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "Key is the key in the Kubernetes secret being referenced.",
+                    "required": true
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name is the name of the Kubernetes secret to write to.\nThe secret will be created in the same namespace as the resource.",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "owner": {
+        "type": "object",
+        "description": "Owner: The owner of the resource. The owner controls where the resource goes when it is deployed. The owner also\ncontrols the resources lifecycle. When the owner is deleted the resource will also be deleted. Owner is expected to be a\nreference to a resources.azure.com/ResourceGroup resource",
+        "required": true,
+        "fields": {
+          "armId": {
+            "type": "string",
+            "description": "No description provided.",
+            "validations": {
+              "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "This is the name of the Kubernetes resource to reference."
+          }
+        }
+      },
+      "properties": {
+        "type": "object",
+        "description": "Properties: The resource-specific properties for this resource.",
+        "fields": {
+          "api": {
+            "type": "object",
+            "description": "Api: Shows the cluster API server profile",
+            "fields": {
+              "authorizedCidrs": {
+                "type": "array",
+                "description": "AuthorizedCidrs: The list of authorized IPv4 CIDR blocks allowed to access the API server. Maximum 500 entries."
+              },
+              "visibility": {
+                "type": "string",
+                "description": "Visibility: The internet visibility of the OpenShift API server",
+                "enum": [
+                  "Private",
+                  "Public"
+                ]
+              }
+            }
+          },
+          "autoscaling": {
+            "type": "object",
+            "description": "Autoscaling: Configure ClusterAutoscaling .",
+            "fields": {
+              "maxNodeProvisionTimeSeconds": {
+                "type": "integer",
+                "description": "MaxNodeProvisionTimeSeconds: maxNodeProvisionTimeSeconds is the maximum time to wait for node provisioning before\nconsidering the\nprovisioning to be unsuccessful. The default is 900 seconds, or 15 minutes.",
+                "validations": {
+                  "minimum": 0
+                }
+              },
+              "maxNodesTotal": {
+                "type": "integer",
+                "description": "MaxNodesTotal: maxNodesTotal is the maximum allowable number of nodes for the Autoscaler scale out to be operational.\nThe autoscaler will not grow the cluster beyond this number. If omitted, the autoscaler will not have a maximum limit.",
+                "validations": {
+                  "minimum": 0
+                }
+              },
+              "maxPodGracePeriodSeconds": {
+                "type": "integer",
+                "description": "MaxPodGracePeriodSeconds: maxPodGracePeriod is the maximum seconds to wait for graceful pod termination before scaling\ndown a NodePool.\nThe default is 600 seconds.",
+                "validations": {
+                  "minimum": 0
+                }
+              },
+              "podPriorityThreshold": {
+                "type": "integer",
+                "description": "PodPriorityThreshold: podPriorityThreshold enables users to schedule \u201cbest-effort\u201d pods, which shouldn\u2019t trigger\nautoscaler actions,\nbut only run when there are spare resources available. The default is -10.\nSee the following for more details:\nhttps://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-does-cluster-autoscaler-work-with-pod-priority-and-preemption"
+              }
+            }
+          },
+          "clusterImageRegistry": {
+            "type": "object",
+            "description": "ClusterImageRegistry: OpenShift internal image registry",
+            "fields": {
+              "state": {
+                "type": "string",
+                "description": "State: state indicates the desired ImageStream-backed cluster image registry installation mode.\nThis can only be set during cluster creation and cannot be changed after cluster creation.\nEnabled means the ImageStream-backed image registry will be run as pods on worker nodes in\nthe cluster. Disabled means the ImageStream-backed image registry will not be present in\nthe cluster. The default is Enabled.",
+                "enum": [
+                  "Disabled",
+                  "Enabled"
+                ]
+              }
+            }
+          },
+          "dns": {
+            "type": "object",
+            "description": "Dns: Cluster DNS configuration",
+            "fields": {
+              "baseDomainPrefix": {
+                "type": "string",
+                "description": "BaseDomainPrefix: BaseDomainPrefix is the unique name of the cluster representing the OpenShift's cluster name.\nBaseDomainPrefix is the name that will appear in the cluster's DNS, provisioned cloud providers resources",
+                "validations": {
+                  "pattern": "^[a-z]([-a-z0-9]*[a-z0-9])?$"
+                }
+              }
+            }
+          },
+          "etcd": {
+            "type": "object",
+            "description": "Etcd: Configure ETCD.",
+            "fields": {
+              "dataEncryption": {
+                "type": "object",
+                "description": "DataEncryption: ETCD Data Encryption settings.\nIf not specified platform managed keys are used.",
+                "fields": {
+                  "customerManaged": {
+                    "type": "object",
+                    "description": "CustomerManaged: Specify customer managed encryption key details.\nRequired when keyManagementMode is \"CustomerManaged\".",
+                    "fields": {
+                      "encryptionType": {
+                        "type": "string",
+                        "description": "EncryptionType: The encryption type used.\nBy default, \"KMS\" is used.",
+                        "enum": [
+                          "KMS"
+                        ]
+                      },
+                      "kms": {
+                        "type": "object",
+                        "description": "Kms: The Key Management Service (KMS) encryption key details.\nRequired when encryptionType is \"KMS\".",
+                        "fields": {
+                          "activeKey": {
+                            "type": "object",
+                            "description": "ActiveKey: The details of the active key.",
+                            "required": true,
+                            "fields": {
+                              "name": {
+                                "type": "string",
+                                "description": "Name: name is the name of the keyvault key used for encryption/decryption.",
+                                "required": true
+                              },
+                              "vaultName": {
+                                "type": "string",
+                                "description": "VaultName: vaultName is the name of the keyvault that contains the secret.",
+                                "required": true
+                              },
+                              "version": {
+                                "type": "string",
+                                "description": "Version: version contains the version of the key to use.",
+                                "required": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "keyManagementMode": {
+                    "type": "string",
+                    "description": "KeyManagementMode: Specify the key management strategy used for the encryption key that encrypts the ETCD data.\nBy default, \"PlatformManaged\" is used.",
+                    "enum": [
+                      "CustomerManaged",
+                      "PlatformManaged"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "network": {
+            "type": "object",
+            "description": "Network: Cluster network configuration",
+            "fields": {
+              "hostPrefix": {
+                "type": "integer",
+                "description": "HostPrefix: Network host prefix"
+              },
+              "machineCidr": {
+                "type": "string",
+                "description": "MachineCidr: The CIDR block from which to assign machine IP addresses"
+              },
+              "networkType": {
+                "type": "string",
+                "description": "NetworkType: The main controller responsible for rendering the core networking components",
+                "enum": [
+                  "OVNKubernetes",
+                  "Other"
+                ]
+              },
+              "podCidr": {
+                "type": "string",
+                "description": "PodCidr: The CIDR of the pod IP addresses"
+              },
+              "serviceCidr": {
+                "type": "string",
+                "description": "ServiceCidr: The CIDR block for assigned service IPs"
+              }
+            }
+          },
+          "nodeDrainTimeoutMinutes": {
+            "type": "integer",
+            "description": "NodeDrainTimeoutMinutes: nodeDrainTimeoutMinutes is the grace period for how long Pod Disruption Budget-protected\nworkloads will be\nrespected during any node draining operation. After this grace period, any workloads protected by Pod Disruption\nBudgets that have not been successfully drained from a node will be forcibly evicted. This is\nespecially relevant to cluster upgrades.\nValid values are in minutes and from 0 to 10080 minutes (1 week).\n0 means that the MachinePool can be drained without any time limitation.\nThis is the value is used a default for all NodePools. It can be overridden\nby specifying nodeDrainTimeoutMinutes for a given NodePool",
+            "validations": {
+              "minimum": 0,
+              "maximum": 10080
+            }
+          },
+          "platform": {
+            "type": "object",
+            "description": "Platform: Azure platform configuration",
+            "required": true,
+            "fields": {
+              "managedResourceGroup": {
+                "type": "string",
+                "description": "ManagedResourceGroup: Resource group to put cluster resources"
+              },
+              "networkSecurityGroupReference": {
+                "type": "object",
+                "description": "NetworkSecurityGroupReference: ResourceId for the NSG (network security group) attached to the cluster subnet\nNote that NSGs cannot be reused for other ARO-HCP clusters.",
+                "required": true,
+                "fields": {
+                  "armId": {
+                    "type": "string",
+                    "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+                    "validations": {
+                      "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+                    }
+                  },
+                  "group": {
+                    "type": "string",
+                    "description": "Group is the Kubernetes group of the resource."
+                  },
+                  "kind": {
+                    "type": "string",
+                    "description": "Kind is the Kubernetes kind of the resource."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name is the Kubernetes name of the resource."
+                  }
+                }
+              },
+              "operatorsAuthentication": {
+                "type": "object",
+                "description": "OperatorsAuthentication: The configuration that the operators of the cluster have to authenticate to Azure",
+                "required": true,
+                "fields": {
+                  "userAssignedIdentities": {
+                    "type": "object",
+                    "description": "UserAssignedIdentities: Represents the information related to Azure User-Assigned managed identities needed\nto perform Operators authentication based on Azure User-Assigned Managed Identities",
+                    "required": true,
+                    "fields": {
+                      "controlPlaneOperatorsReferences": {
+                        "type": "object",
+                        "description": "ControlPlaneOperatorsReferences: The set of Azure User-Assigned Managed Identities leveraged for the Control Plane\noperators of the cluster. The set of required managed identities is dependent on the\nCluster's OpenShift version.",
+                        "required": true
+                      },
+                      "dataPlaneOperatorsReferences": {
+                        "type": "object",
+                        "description": "DataPlaneOperatorsReferences: The set of Azure User-Assigned Managed Identities leveraged for the Data Plane\noperators of the cluster. The set of required managed identities is dependent on the\nCluster's OpenShift version.",
+                        "required": true
+                      },
+                      "serviceManagedIdentityReference": {
+                        "type": "object",
+                        "description": "ServiceManagedIdentityReference: Represents the information associated to an Azure User-Assigned Managed Identity whose\npurpose is to perform service level actions.",
+                        "required": true,
+                        "fields": {
+                          "armId": {
+                            "type": "string",
+                            "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+                            "validations": {
+                              "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+                            }
+                          },
+                          "group": {
+                            "type": "string",
+                            "description": "Group is the Kubernetes group of the resource."
+                          },
+                          "kind": {
+                            "type": "string",
+                            "description": "Kind is the Kubernetes kind of the resource."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name is the Kubernetes name of the resource."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "outboundType": {
+                "type": "string",
+                "description": "OutboundType: The core outgoing configuration",
+                "enum": [
+                  "LoadBalancer"
+                ]
+              },
+              "subnetReference": {
+                "type": "object",
+                "description": "SubnetReference: The Azure resource ID of the worker subnet\nNote that a subnet cannot be reused between ARO-HCP Clusters.",
+                "required": true,
+                "fields": {
+                  "armId": {
+                    "type": "string",
+                    "description": "ARMID is a string of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.\nThe /resourcegroups/{resourceGroupName} bit is optional as some resources are scoped at the subscription level\nARMID is mutually exclusive with Group, Kind, Namespace and Name.",
+                    "validations": {
+                      "pattern": "(?i)(^(/subscriptions/([^/]+)(/resourcegroups/([^/]+))?)?/providers/([^/]+)/([^/]+/[^/]+)(/([^/]+/[^/]+))*$|^/subscriptions/([^/]+)(/resourcegroups/([^/]+))?$)"
+                    }
+                  },
+                  "group": {
+                    "type": "string",
+                    "description": "Group is the Kubernetes group of the resource."
+                  },
+                  "kind": {
+                    "type": "string",
+                    "description": "Kind is the Kubernetes kind of the resource."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name is the Kubernetes name of the resource."
+                  }
+                }
+              }
+            }
+          },
+          "version": {
+            "type": "object",
+            "description": "Version: Version of the control plane components",
+            "fields": {
+              "channelGroup": {
+                "type": "string",
+                "description": "ChannelGroup: ChannelGroup is the name of the set to which this version belongs. Each version belongs to only a single\nset."
+              },
+              "id": {
+                "type": "string",
+                "description": "Id: ID is the unique identifier of the version."
+              }
+            }
+          }
+        }
+      },
+      "tags": {
+        "type": "object",
+        "description": "Tags: Resource tags."
+      }
+    }
+  },
+  "status": {
+    "description": "HCP cluster resource",
+    "fields": {
+      "conditions": {
+        "type": "array",
+        "description": "Conditions: The observed state of the resource",
+        "fields": {
+          "lastTransitionTime": {
+            "type": "string",
+            "description": "LastTransitionTime is the last time the condition transitioned from one status to another.",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Message is a human readable message indicating details about the transition. This field may be empty."
+          },
+          "observedGeneration": {
+            "type": "integer",
+            "description": "ObservedGeneration is the .metadata.generation that the condition was set based upon. For instance, if\n.metadata.generation is currently 12, but the .status.condition[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the condition's last transition.\nReasons are upper CamelCase (PascalCase) with no spaces. A reason is always provided, this field will not be empty.",
+            "required": true
+          },
+          "severity": {
+            "type": "string",
+            "description": "Severity with which to treat failures of this type of condition.\nFor conditions which have positive polarity (Status == True is their normal/healthy state), this will be omitted when Status == True\nFor conditions which have negative polarity (Status == False is their normal/healthy state), this will be omitted when Status == False.\nThis is omitted in all cases when Status == Unknown"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the condition, one of True, False, or Unknown.",
+            "required": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of condition.",
+            "required": true
+          }
+        }
+      },
+      "id": {
+        "type": "string",
+        "description": "Id: Fully qualified resource ID for the resource. E.g.\n\"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}\""
+      },
+      "identity": {
+        "type": "object",
+        "description": "Identity: The managed service identities assigned to this resource.",
+        "fields": {
+          "principalId": {
+            "type": "string",
+            "description": "PrincipalId: The service principal ID of the system assigned identity. This property will only be provided for a system\nassigned identity."
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "TenantId: The tenant ID of the system assigned identity. This property will only be provided for a system assigned\nidentity."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type: Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed)."
+          },
+          "userAssignedIdentities": {
+            "type": "object",
+            "description": "UserAssignedIdentities: The set of user assigned identities associated with the resource. The userAssignedIdentities\ndictionary keys will be ARM resource ids in the form:\n'/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.\nThe dictionary values can be empty objects ({}) in requests."
+          }
+        }
+      },
+      "location": {
+        "type": "string",
+        "description": "Location: The geo-location where the resource lives"
+      },
+      "name": {
+        "type": "string",
+        "description": "Name: The name of the resource"
+      },
+      "properties": {
+        "type": "object",
+        "description": "Properties: The resource-specific properties for this resource.",
+        "fields": {
+          "api": {
+            "type": "object",
+            "description": "Api: Shows the cluster API server profile",
+            "fields": {
+              "authorizedCidrs": {
+                "type": "array",
+                "description": "AuthorizedCidrs: The list of authorized IPv4 CIDR blocks allowed to access the API server. Maximum 500 entries."
+              },
+              "url": {
+                "type": "string",
+                "description": "Url: URL endpoint for the API server"
+              },
+              "visibility": {
+                "type": "string",
+                "description": "Visibility: The internet visibility of the OpenShift API server"
+              }
+            }
+          },
+          "autoscaling": {
+            "type": "object",
+            "description": "Autoscaling: Configure ClusterAutoscaling .",
+            "fields": {
+              "maxNodeProvisionTimeSeconds": {
+                "type": "integer",
+                "description": "MaxNodeProvisionTimeSeconds: maxNodeProvisionTimeSeconds is the maximum time to wait for node provisioning before\nconsidering the\nprovisioning to be unsuccessful. The default is 900 seconds, or 15 minutes."
+              },
+              "maxNodesTotal": {
+                "type": "integer",
+                "description": "MaxNodesTotal: maxNodesTotal is the maximum allowable number of nodes for the Autoscaler scale out to be operational.\nThe autoscaler will not grow the cluster beyond this number. If omitted, the autoscaler will not have a maximum limit."
+              },
+              "maxPodGracePeriodSeconds": {
+                "type": "integer",
+                "description": "MaxPodGracePeriodSeconds: maxPodGracePeriod is the maximum seconds to wait for graceful pod termination before scaling\ndown a NodePool.\nThe default is 600 seconds."
+              },
+              "podPriorityThreshold": {
+                "type": "integer",
+                "description": "PodPriorityThreshold: podPriorityThreshold enables users to schedule \u201cbest-effort\u201d pods, which shouldn\u2019t trigger\nautoscaler actions,\nbut only run when there are spare resources available. The default is -10.\nSee the following for more details:\nhttps://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-does-cluster-autoscaler-work-with-pod-priority-and-preemption"
+              }
+            }
+          },
+          "clusterImageRegistry": {
+            "type": "object",
+            "description": "ClusterImageRegistry: OpenShift internal image registry",
+            "fields": {
+              "state": {
+                "type": "string",
+                "description": "State: state indicates the desired ImageStream-backed cluster image registry installation mode.\nThis can only be set during cluster creation and cannot be changed after cluster creation.\nEnabled means the ImageStream-backed image registry will be run as pods on worker nodes in\nthe cluster. Disabled means the ImageStream-backed image registry will not be present in\nthe cluster. The default is Enabled."
+              }
+            }
+          },
+          "console": {
+            "type": "object",
+            "description": "Console: Shows the cluster web console information",
+            "fields": {
+              "url": {
+                "type": "string",
+                "description": "Url: The cluster web console URL endpoint"
+              }
+            }
+          },
+          "dns": {
+            "type": "object",
+            "description": "Dns: Cluster DNS configuration",
+            "fields": {
+              "baseDomain": {
+                "type": "string",
+                "description": "BaseDomain: BaseDomain is the base DNS domain of the cluster."
+              },
+              "baseDomainPrefix": {
+                "type": "string",
+                "description": "BaseDomainPrefix: BaseDomainPrefix is the unique name of the cluster representing the OpenShift's cluster name.\nBaseDomainPrefix is the name that will appear in the cluster's DNS, provisioned cloud providers resources"
+              }
+            }
+          },
+          "etcd": {
+            "type": "object",
+            "description": "Etcd: Configure ETCD.",
+            "fields": {
+              "dataEncryption": {
+                "type": "object",
+                "description": "DataEncryption: ETCD Data Encryption settings.\nIf not specified platform managed keys are used.",
+                "fields": {
+                  "customerManaged": {
+                    "type": "object",
+                    "description": "CustomerManaged: Specify customer managed encryption key details.\nRequired when keyManagementMode is \"CustomerManaged\".",
+                    "fields": {
+                      "encryptionType": {
+                        "type": "string",
+                        "description": "EncryptionType: The encryption type used.\nBy default, \"KMS\" is used."
+                      },
+                      "kms": {
+                        "type": "object",
+                        "description": "Kms: The Key Management Service (KMS) encryption key details.\nRequired when encryptionType is \"KMS\".",
+                        "fields": {
+                          "activeKey": {
+                            "type": "object",
+                            "description": "ActiveKey: The details of the active key.",
+                            "fields": {
+                              "name": {
+                                "type": "string",
+                                "description": "Name: name is the name of the keyvault key used for encryption/decryption."
+                              },
+                              "vaultName": {
+                                "type": "string",
+                                "description": "VaultName: vaultName is the name of the keyvault that contains the secret."
+                              },
+                              "version": {
+                                "type": "string",
+                                "description": "Version: version contains the version of the key to use."
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "keyManagementMode": {
+                    "type": "string",
+                    "description": "KeyManagementMode: Specify the key management strategy used for the encryption key that encrypts the ETCD data.\nBy default, \"PlatformManaged\" is used."
+                  }
+                }
+              }
+            }
+          },
+          "network": {
+            "type": "object",
+            "description": "Network: Cluster network configuration",
+            "fields": {
+              "hostPrefix": {
+                "type": "integer",
+                "description": "HostPrefix: Network host prefix"
+              },
+              "machineCidr": {
+                "type": "string",
+                "description": "MachineCidr: The CIDR block from which to assign machine IP addresses"
+              },
+              "networkType": {
+                "type": "string",
+                "description": "NetworkType: The main controller responsible for rendering the core networking components"
+              },
+              "podCidr": {
+                "type": "string",
+                "description": "PodCidr: The CIDR of the pod IP addresses"
+              },
+              "serviceCidr": {
+                "type": "string",
+                "description": "ServiceCidr: The CIDR block for assigned service IPs"
+              }
+            }
+          },
+          "nodeDrainTimeoutMinutes": {
+            "type": "integer",
+            "description": "NodeDrainTimeoutMinutes: nodeDrainTimeoutMinutes is the grace period for how long Pod Disruption Budget-protected\nworkloads will be\nrespected during any node draining operation. After this grace period, any workloads protected by Pod Disruption\nBudgets that have not been successfully drained from a node will be forcibly evicted. This is\nespecially relevant to cluster upgrades.\nValid values are in minutes and from 0 to 10080 minutes (1 week).\n0 means that the MachinePool can be drained without any time limitation.\nThis is the value is used a default for all NodePools. It can be overridden\nby specifying nodeDrainTimeoutMinutes for a given NodePool"
+          },
+          "platform": {
+            "type": "object",
+            "description": "Platform: Azure platform configuration",
+            "fields": {
+              "issuerUrl": {
+                "type": "string",
+                "description": "IssuerUrl: URL for the OIDC provider to be used for authentication\nto authenticate against user Azure cloud account"
+              },
+              "managedResourceGroup": {
+                "type": "string",
+                "description": "ManagedResourceGroup: Resource group to put cluster resources"
+              },
+              "networkSecurityGroupId": {
+                "type": "string",
+                "description": "NetworkSecurityGroupId: ResourceId for the NSG (network security group) attached to the cluster subnet\nNote that NSGs cannot be reused for other ARO-HCP clusters."
+              },
+              "operatorsAuthentication": {
+                "type": "object",
+                "description": "OperatorsAuthentication: The configuration that the operators of the cluster have to authenticate to Azure",
+                "fields": {
+                  "userAssignedIdentities": {
+                    "type": "object",
+                    "description": "UserAssignedIdentities: Represents the information related to Azure User-Assigned managed identities needed\nto perform Operators authentication based on Azure User-Assigned Managed Identities",
+                    "fields": {
+                      "controlPlaneOperators": {
+                        "type": "object",
+                        "description": "ControlPlaneOperators: The set of Azure User-Assigned Managed Identities leveraged for the Control Plane\noperators of the cluster. The set of required managed identities is dependent on the\nCluster's OpenShift version."
+                      },
+                      "dataPlaneOperators": {
+                        "type": "object",
+                        "description": "DataPlaneOperators: The set of Azure User-Assigned Managed Identities leveraged for the Data Plane\noperators of the cluster. The set of required managed identities is dependent on the\nCluster's OpenShift version."
+                      },
+                      "serviceManagedIdentity": {
+                        "type": "string",
+                        "description": "ServiceManagedIdentity: Represents the information associated to an Azure User-Assigned Managed Identity whose\npurpose is to perform service level actions."
+                      }
+                    }
+                  }
+                }
+              },
+              "outboundType": {
+                "type": "string",
+                "description": "OutboundType: The core outgoing configuration"
+              },
+              "subnetId": {
+                "type": "string",
+                "description": "SubnetId: The Azure resource ID of the worker subnet\nNote that a subnet cannot be reused between ARO-HCP Clusters."
+              }
+            }
+          },
+          "provisioningState": {
+            "type": "string",
+            "description": "ProvisioningState: The status of the last operation."
+          },
+          "version": {
+            "type": "object",
+            "description": "Version: Version of the control plane components",
+            "fields": {
+              "channelGroup": {
+                "type": "string",
+                "description": "ChannelGroup: ChannelGroup is the name of the set to which this version belongs. Each version belongs to only a single\nset."
+              },
+              "id": {
+                "type": "string",
+                "description": "Id: ID is the unique identifier of the version."
+              }
+            }
+          }
+        }
+      },
+      "systemData": {
+        "type": "object",
+        "description": "SystemData: Azure Resource Manager metadata containing createdBy and modifiedBy information.",
+        "fields": {
+          "createdAt": {
+            "type": "string",
+            "description": "CreatedAt: The timestamp of resource creation (UTC)."
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "CreatedBy: The identity that created the resource."
+          },
+          "createdByType": {
+            "type": "string",
+            "description": "CreatedByType: The type of identity that created the resource."
+          },
+          "lastModifiedAt": {
+            "type": "string",
+            "description": "LastModifiedAt: The timestamp of resource last modification (UTC)"
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "description": "LastModifiedBy: The identity that last modified the resource."
+          },
+          "lastModifiedByType": {
+            "type": "string",
+            "description": "LastModifiedByType: The type of identity that last modified the resource."
+          }
+        }
+      },
+      "tags": {
+        "type": "object",
+        "description": "Tags: Resource tags."
+      },
+      "type": {
+        "type": "string",
+        "description": "Type: The type of the resource. E.g. \"Microsoft.Compute/virtualMachines\" or \"Microsoft.Storage/storageAccounts\""
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: redhatopenshift.azure.com/v1api20240610preview\nkind: HcpOpenShiftCluster\nmetadata:\n  name: example-hcpopenshiftcluster\n  namespace: default\nspec:\n  location: \"example-location\"\n  owner: {}\n"
+}

@@ -1,0 +1,42 @@
+{
+  "kind": "AzureASOManagedControlPlaneTemplate",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1alpha1",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1alpha1",
+    "plural": "azureasomanagedcontrolplanetemplates",
+    "singular": "azureasomanagedcontrolplanetemplate",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AzureASOManagedControlPlaneTemplateSpec defines the desired state of AzureASOManagedControlPlane.",
+    "fields": {
+      "template": {
+        "type": "object",
+        "description": "AzureASOManagedControlPlaneResource defines the templated resource.",
+        "required": true,
+        "fields": {
+          "spec": {
+            "type": "object",
+            "description": "AzureASOManagedControlPlaneTemplateResourceSpec defines the desired state of the templated resource.",
+            "fields": {
+              "resources": {
+                "type": "array",
+                "description": "Resources are embedded ASO resources to be managed by this resource."
+              },
+              "version": {
+                "type": "string",
+                "description": "Version is the Kubernetes version of the control plane. It fulfills Cluster API's control plane\nprovider contract."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": {
+    "description": "",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1\nkind: AzureASOManagedControlPlaneTemplate\nmetadata:\n  name: example-azureasomanagedcontrolplanetemplate\n  namespace: default\nspec:\n  template: {}\n"
+}

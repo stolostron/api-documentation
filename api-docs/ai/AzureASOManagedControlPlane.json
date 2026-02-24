@@ -1,0 +1,96 @@
+{
+  "kind": "AzureASOManagedControlPlane",
+  "apiVersion": "infrastructure.cluster.x-k8s.io/v1alpha1",
+  "metadata": {
+    "group": "infrastructure.cluster.x-k8s.io",
+    "version": "v1alpha1",
+    "plural": "azureasomanagedcontrolplanes",
+    "singular": "azureasomanagedcontrolplane",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "AzureASOManagedControlPlaneSpec defines the desired state of AzureASOManagedControlPlane.",
+    "fields": {
+      "resources": {
+        "type": "array",
+        "description": "Resources are embedded ASO resources to be managed by this resource."
+      },
+      "version": {
+        "type": "string",
+        "description": "Version is the Kubernetes version of the control plane. It fulfills Cluster API's control plane\nprovider contract."
+      }
+    }
+  },
+  "status": {
+    "description": "AzureASOManagedControlPlaneStatus defines the observed state of AzureASOManagedControlPlane.",
+    "fields": {
+      "controlPlaneEndpoint": {
+        "type": "object",
+        "description": "ControlPlaneEndpoint represents the endpoint for the cluster's API server.",
+        "fields": {
+          "host": {
+            "type": "string",
+            "description": "host is the hostname on which the API server is serving.",
+            "required": true
+          },
+          "port": {
+            "type": "integer",
+            "description": "port is the port on which the API server is serving.",
+            "required": true
+          }
+        }
+      },
+      "initialized": {
+        "type": "boolean",
+        "description": "Initialized represents whether or not the API server has been provisioned. It fulfills Cluster API's\ncontrol plane provider contract. For AKS, this is equivalent to `ready`."
+      },
+      "ready": {
+        "type": "boolean",
+        "description": "Ready represents whether or not the API server is ready to receive requests. It fulfills Cluster API's\ncontrol plane provider contract. For AKS, this is equivalent to `initialized`."
+      },
+      "resources": {
+        "type": "array",
+        "description": "No description provided.",
+        "fields": {
+          "ready": {
+            "type": "boolean",
+            "description": "No description provided.",
+            "required": true
+          },
+          "resource": {
+            "type": "object",
+            "description": "StatusResource is a handle to a resource.",
+            "required": true,
+            "fields": {
+              "group": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "kind": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              },
+              "version": {
+                "type": "string",
+                "description": "No description provided.",
+                "required": true
+              }
+            }
+          }
+        }
+      },
+      "version": {
+        "type": "string",
+        "description": "Version is the observed Kubernetes version of the control plane. It fulfills Cluster API's control\nplane provider contract."
+      }
+    }
+  },
+  "exampleYAML": "apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1\nkind: AzureASOManagedControlPlane\nmetadata:\n  name: example-azureasomanagedcontrolplane\n  namespace: default\nspec:\n  resources: []\n  version: \"example-version\"\n"
+}

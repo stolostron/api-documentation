@@ -1,0 +1,20 @@
+{
+  "kind": "MachinePoolNameLease",
+  "apiVersion": "hive.openshift.io/v1",
+  "metadata": {
+    "group": "hive.openshift.io",
+    "version": "v1",
+    "plural": "machinepoolnameleases",
+    "singular": "machinepoolnamelease",
+    "scope": "Namespaced"
+  },
+  "spec": {
+    "description": "MachinePoolNameLeaseSpec is a minimal resource for obtaining unique machine pool names of a limited length.",
+    "fields": {}
+  },
+  "status": {
+    "description": "MachinePoolNameLeaseStatus defines the observed state of MachinePoolNameLease.",
+    "fields": {}
+  },
+  "exampleYAML": "apiVersion: hive.openshift.io/v1\nkind: MachinePoolNameLease\nmetadata:\n  name: example-machinepoolnamelease\n  namespace: default\n"
+}
