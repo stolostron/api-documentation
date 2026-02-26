@@ -1,351 +1,825 @@
 {
   "kind": "MachinePool",
-  "apiVersion": "cluster.x-k8s.io/v1alpha3",
+  "apiVersion": "hive.openshift.io/v1",
   "metadata": {
-    "group": "cluster.x-k8s.io",
-    "version": "v1alpha3",
+    "group": "hive.openshift.io",
+    "version": "v1",
     "plural": "machinepools",
     "singular": "machinepool",
     "scope": "Namespaced"
   },
   "spec": {
-    "description": "spec is the desired state of MachinePool.",
+    "description": "MachinePoolSpec defines the desired state of MachinePool",
     "fields": {
-      "clusterName": {
-        "type": "string",
-        "description": "clusterName is the name of the Cluster this object belongs to.",
-        "required": true
-      },
-      "failureDomains": {
-        "type": "array",
-        "description": "failureDomains is the list of failure domains this MachinePool should be attached to."
-      },
-      "minReadySeconds": {
-        "type": "integer",
-        "description": "minReadySeconds is the minimum number of seconds for which a newly created machine instances should\nbe ready.\nDefaults to 0 (machine instance will be considered available as soon as it\nis ready)"
-      },
-      "providerIDList": {
-        "type": "array",
-        "description": "providerIDList are the identification IDs of machine instances provided by the provider.\nThis field must match the provider IDs as seen on the node objects corresponding to a machine pool's machine instances."
-      },
-      "replicas": {
-        "type": "integer",
-        "description": "replicas is the number of desired machines. Defaults to 1.\nThis is a pointer to distinguish between explicit zero and not specified."
-      },
-      "strategy": {
+      "autoscaling": {
         "type": "object",
-        "description": "strategy is the deployment strategy to use to replace existing machine instances with\nnew ones.",
+        "description": "Autoscaling is the details for auto-scaling the machine pool.\nReplicas and autoscaling cannot be used together.",
         "fields": {
-          "rollingUpdate": {
-            "type": "object",
-            "description": "rollingUpdate is the rolling update config params. Present only if\nMachineDeploymentStrategyType = RollingUpdate.",
-            "fields": {
-              "maxSurge": {
-                "type": "N/A",
-                "description": "maxSurge is the maximum number of machines that can be scheduled above the\ndesired number of machines.\nValue can be an absolute number (ex: 5) or a percentage of\ndesired machines (ex: 10%).\nThis can not be 0 if MaxUnavailable is 0.\nAbsolute number is calculated from percentage by rounding up.\nDefaults to 1.\nExample: when this is set to 30%, the new MachineSet can be scaled\nup immediately when the rolling update starts, such that the total\nnumber of old and new machines do not exceed 130% of desired\nmachines. Once old machines have been killed, new MachineSet can\nbe scaled up further, ensuring that total number of machines running\nat any time during the update is at most 130% of desired machines."
-              },
-              "maxUnavailable": {
-                "type": "N/A",
-                "description": "maxUnavailable is the maximum number of machines that can be unavailable during the update.\nValue can be an absolute number (ex: 5) or a percentage of desired\nmachines (ex: 10%).\nAbsolute number is calculated from percentage by rounding down.\nThis can not be 0 if MaxSurge is 0.\nDefaults to 0.\nExample: when this is set to 30%, the old MachineSet can be scaled\ndown to 70% of desired machines immediately when the rolling update\nstarts. Once new machines are ready, old MachineSet can be scaled\ndown further, followed by scaling up the new MachineSet, ensuring\nthat the total number of machines available at all times\nduring the update is at least 70% of desired machines."
-              }
-            }
+          "maxReplicas": {
+            "type": "integer",
+            "description": "MaxReplicas is the maximum number of replicas for the machine pool.",
+            "required": true
           },
-          "type": {
-            "type": "string",
-            "description": "type of deployment. Currently the only supported strategy is\n\"RollingUpdate\".\nDefault is RollingUpdate."
+          "minReplicas": {
+            "type": "integer",
+            "description": "MinReplicas is the minimum number of replicas for the machine pool.",
+            "required": true
           }
         }
       },
-      "template": {
+      "clusterDeploymentRef": {
         "type": "object",
-        "description": "template describes the machines that will be created.",
+        "description": "ClusterDeploymentRef references the cluster deployment to which this\nmachine pool belongs.",
         "required": true,
         "fields": {
-          "metadata": {
+          "name": {
+            "type": "string",
+            "description": "Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+            "default": ""
+          }
+        }
+      },
+      "labels": {
+        "type": "object",
+        "description": "Map of label string keys and values that will be applied to the created MachineSet's\nMachineSpec. This affects the labels that will end up on the *Nodes* (in contrast with\nthe MachineLabels field). This list will overwrite any modifications made to Node labels\non an ongoing basis."
+      },
+      "machineLabels": {
+        "type": "object",
+        "description": "Map of label string keys and values that will be applied to the created MachineSet's\nMachineTemplateSpec. This affects the labels that will end up on the *Machines* (in\ncontrast with the Labels field). This list will overwrite any modifications made to\nMachine labels on an ongoing basis. Note: We ignore entries that conflict with\ngenerated labels."
+      },
+      "name": {
+        "type": "string",
+        "description": "Name is the name of the machine pool.",
+        "required": true
+      },
+      "platform": {
+        "type": "object",
+        "description": "Platform is configuration for machine pool specific to the platform.\nWhen using a MachinePool to control the default worker machines\ncreated by installer, these must match the values provided in the\ninstall-config.",
+        "required": true,
+        "fields": {
+          "aws": {
             "type": "object",
-            "description": "metadata is the standard object's metadata.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+            "description": "AWS is the configuration used when installing on AWS.",
             "fields": {
-              "annotations": {
-                "type": "object",
-                "description": "annotations is an unstructured key value map stored with a resource that may be\nset by external tools to store and retrieve arbitrary metadata. They are not\nqueryable and should be preserved when modifying objects.\nMore info: http://kubernetes.io/docs/user-guide/annotations"
-              },
-              "generateName": {
-                "type": "string",
-                "description": "generateName is an optional prefix, used by the server, to generate a unique\nname ONLY IF the Name field has not been provided.\nIf this field is used, the name returned to the client will be different\nthan the name passed. This value will also be combined with a unique suffix.\nThe provided value has the same validation rules as the Name field,\nand may be truncated by the length of the suffix required to make the value\nunique on the server.\nIf this field is specified and the generated name exists, the server will\nNOT return a 409 - instead, it will either return 201 Created or 500 with Reason\nServerTimeout indicating a unique name could not be found in the time allotted, and the client\nshould retry (optionally after the time indicated in the Retry-After header).\nApplied only if Name is not specified.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency\nDeprecated: This field has no function and is going to be removed in a next release."
-              },
-              "labels": {
-                "type": "object",
-                "description": "labels is a map of string keys and values that can be used to organize and categorize\n(scope and select) objects. May match selectors of replication controllers\nand services.\nMore info: http://kubernetes.io/docs/user-guide/labels"
-              },
-              "name": {
-                "type": "string",
-                "description": "name must be unique within a namespace. Is required when creating resources, although\nsome resources may allow a client to request the generation of an appropriate name\nautomatically. Name is primarily intended for creation idempotence and configuration\ndefinition.\nCannot be updated.\nMore info: http://kubernetes.io/docs/user-guide/identifiers#names\nDeprecated: This field has no function and is going to be removed in a next release."
-              },
-              "namespace": {
-                "type": "string",
-                "description": "namespace defines the space within each name must be unique. An empty namespace is\nequivalent to the \"default\" namespace, but \"default\" is the canonical representation.\nNot all objects are required to be scoped to a namespace - the value of this field for\nthose objects will be empty.\nMust be a DNS_LABEL.\nCannot be updated.\nMore info: http://kubernetes.io/docs/user-guide/namespaces\nDeprecated: This field has no function and is going to be removed in a next release."
-              },
-              "ownerReferences": {
+              "additionalSecurityGroupIDs": {
                 "type": "array",
-                "description": "ownerReferences is the list of objects depended by this object. If ALL objects in the list have\nbeen deleted, this object will be garbage collected. If this object is managed by a controller,\nthen an entry in this list will point to this controller, with the controller field set to true.\nThere cannot be more than one managing controller.\nDeprecated: This field has no function and is going to be removed in a next release.",
+                "description": "AdditionalSecurityGroupIDs contains IDs of additional security groups for machines, where each ID\nis presented in the format sg-xxxx."
+              },
+              "metadataService": {
+                "type": "object",
+                "description": "EC2MetadataOptions defines metadata service interaction options for EC2 instances in the machine pool.",
                 "fields": {
-                  "apiVersion": {
+                  "authentication": {
                     "type": "string",
-                    "description": "API version of the referent.",
+                    "description": "Authentication determines whether or not the host requires the use of authentication when interacting with the metadata service.\nWhen using authentication, this enforces v2 interaction method (IMDSv2) with the metadata service.\nWhen omitted, this means the user has no opinion and the value is left to the platform to choose a good\ndefault, which is subject to change over time. The current default is optional.\nAt this point this field represents `HttpTokens` parameter from `InstanceMetadataOptionsRequest` structure in AWS EC2 API\nhttps://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_InstanceMetadataOptionsRequest.html"
+                  }
+                }
+              },
+              "rootVolume": {
+                "type": "object",
+                "description": "EC2RootVolume defines the storage for ec2 instance.",
+                "required": true,
+                "fields": {
+                  "iops": {
+                    "type": "integer",
+                    "description": "IOPS defines the iops for the storage."
+                  },
+                  "kmsKeyARN": {
+                    "type": "string",
+                    "description": "The KMS key that will be used to encrypt the EBS volume.\nIf no key is provided the default KMS key for the account will be used.\nhttps://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetEbsDefaultKmsKeyId.html"
+                  },
+                  "size": {
+                    "type": "integer",
+                    "description": "Size defines the size of the storage.",
                     "required": true
                   },
-                  "blockOwnerDeletion": {
-                    "type": "boolean",
-                    "description": "If true, AND if the owner has the \"foregroundDeletion\" finalizer, then\nthe owner cannot be deleted from the key-value store until this\nreference is removed.\nSee https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion\nfor how the garbage collector interacts with this field and enforces the foreground deletion.\nDefaults to false.\nTo set this field, a user needs \"delete\" permission of the owner,\notherwise 422 (Unprocessable Entity) will be returned."
-                  },
-                  "controller": {
-                    "type": "boolean",
-                    "description": "If true, this reference points to the managing controller."
-                  },
-                  "kind": {
+                  "type": {
                     "type": "string",
-                    "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+                    "description": "Type defines the type of the storage.",
                     "required": true
+                  }
+                }
+              },
+              "spotMarketOptions": {
+                "type": "object",
+                "description": "SpotMarketOptions allows users to configure instances to be run using AWS Spot instances.",
+                "fields": {
+                  "maxPrice": {
+                    "type": "string",
+                    "description": "The maximum price the user is willing to pay for their instances\nDefault: On-Demand price"
+                  }
+                }
+              },
+              "subnets": {
+                "type": "array",
+                "description": "Subnets is the list of IDs of subnets to which to attach the machines.\nThere must be exactly one subnet for each availability zone used.\nThese subnets may be public or private.\nAs a special case, for consistency with install-config, you may specify exactly one\nprivate and one public subnet for each availability zone. In this case, the public\nsubnets will be filtered out and only the private subnets will be used.\nIf empty/omitted, we will look for subnets in each availability zone tagged with\nName=<clusterID>-private-<az> (legacy terraform) or <clusterID>-subnet-private-<az>\n(CAPA)."
+              },
+              "type": {
+                "type": "string",
+                "description": "InstanceType defines the ec2 instance type.\neg. m4-large",
+                "required": true
+              },
+              "userTags": {
+                "type": "object",
+                "description": "UserTags contains the user defined tags to be supplied for the ec2 instance.\nNote that these will be merged with ClusterDeployment.Spec.Platform.AWS.UserTags, with\nthis field taking precedence when keys collide."
+              },
+              "zones": {
+                "type": "array",
+                "description": "Zones is list of availability zones that can be used."
+              }
+            }
+          },
+          "azure": {
+            "type": "object",
+            "description": "Azure is the configuration used when installing on Azure.",
+            "fields": {
+              "computeSubnet": {
+                "type": "string",
+                "description": "ComputeSubnet specifies an existing subnet for use by compute nodes.\nIf omitted, the default (${infraID}-worker-subnet) will be used."
+              },
+              "networkResourceGroupName": {
+                "type": "string",
+                "description": "NetworkResourceGroupName specifies the network resource group that contains an existing VNet.\nIgnored unless VirtualNetwork is also specified."
+              },
+              "osDisk": {
+                "type": "object",
+                "description": "OSDisk defines the storage for instance.",
+                "required": true,
+                "fields": {
+                  "diskEncryptionSet": {
+                    "type": "object",
+                    "description": "DiskEncryptionSet defines a disk encryption set.",
+                    "fields": {
+                      "name": {
+                        "type": "string",
+                        "description": "Name is the name of the disk encryption set.",
+                        "required": true
+                      },
+                      "resourceGroup": {
+                        "type": "string",
+                        "description": "ResourceGroup defines the Azure resource group used by the disk\nencryption set.",
+                        "required": true
+                      },
+                      "subscriptionId": {
+                        "type": "string",
+                        "description": "SubscriptionID defines the Azure subscription the disk encryption\nset is in."
+                      }
+                    }
+                  },
+                  "diskSizeGB": {
+                    "type": "integer",
+                    "description": "DiskSizeGB defines the size of disk in GB.",
+                    "required": true,
+                    "validations": {
+                      "minimum": 0
+                    }
+                  },
+                  "diskType": {
+                    "type": "string",
+                    "description": "DiskType defines the type of disk.\nFor control plane nodes, the valid values are Premium_LRS and StandardSSD_LRS.\nDefault is Premium_LRS.",
+                    "enum": [
+                      "Standard_LRS",
+                      "Premium_LRS",
+                      "StandardSSD_LRS"
+                    ]
+                  }
+                }
+              },
+              "osImage": {
+                "type": "object",
+                "description": "OSImage defines the image to use for the OS.",
+                "fields": {
+                  "offer": {
+                    "type": "string",
+                    "description": "Offer is the offer of the image.",
+                    "required": true
+                  },
+                  "plan": {
+                    "type": "string",
+                    "description": "Plan is the purchase plan of the image.\nIf omitted, it defaults to \"WithPurchasePlan\".",
+                    "enum": [
+                      "WithPurchasePlan",
+                      "NoPurchasePlan"
+                    ]
+                  },
+                  "publisher": {
+                    "type": "string",
+                    "description": "Publisher is the publisher of the image.",
+                    "required": true
+                  },
+                  "sku": {
+                    "type": "string",
+                    "description": "SKU is the SKU of the image.",
+                    "required": true
+                  },
+                  "version": {
+                    "type": "string",
+                    "description": "Version is the version of the image.",
+                    "required": true
+                  }
+                }
+              },
+              "outboundType": {
+                "type": "string",
+                "description": "OutboundType is a strategy for how egress from cluster is achieved. When not specified default is \"Loadbalancer\"."
+              },
+              "type": {
+                "type": "string",
+                "description": "InstanceType defines the azure instance type.\neg. Standard_DS_V2",
+                "required": true
+              },
+              "virtualNetwork": {
+                "type": "string",
+                "description": "VirtualNetwork specifies the name of an existing VNet for the Machines to use\nIf omitted, the default (${infraID}-vnet) will be used."
+              },
+              "vmNetworkingType": {
+                "type": "string",
+                "description": "VMNetworkingType specifies whether to enable accelerated networking.\nAccelerated networking enables single root I/O virtualization (SR-IOV) to a VM, greatly improving its\nnetworking performance.\neg. values: \"Accelerated\", \"Basic\"",
+                "enum": [
+                  "Accelerated",
+                  "Basic"
+                ]
+              },
+              "zones": {
+                "type": "array",
+                "description": "Zones is list of availability zones that can be used.\neg. [\"1\", \"2\", \"3\"]"
+              }
+            }
+          },
+          "gcp": {
+            "type": "object",
+            "description": "GCP is the configuration used when installing on GCP.",
+            "fields": {
+              "networkProjectID": {
+                "type": "string",
+                "description": "NetworkProjectID specifies which project the network and subnets exist in when\nthey are not in the main ProjectID."
+              },
+              "onHostMaintenance": {
+                "type": "string",
+                "description": "OnHostMaintenance determines the behavior when a maintenance event occurs that might cause the instance to reboot.\nThis is required to be set to \"Terminate\" if you want to provision machine with attached GPUs.\nOtherwise, allowed values are \"Migrate\" and \"Terminate\".\nIf omitted, the platform chooses a default, which is subject to change over time, currently that default is \"Migrate\".",
+                "enum": [
+                  "Migrate",
+                  "Terminate"
+                ]
+              },
+              "osDisk": {
+                "type": "object",
+                "description": "OSDisk defines the storage for instances.",
+                "fields": {
+                  "diskSizeGB": {
+                    "type": "integer",
+                    "description": "DiskSizeGB defines the size of disk in GB.\nDefaulted internally to 128.",
+                    "validations": {
+                      "minimum": 16,
+                      "maximum": 65536
+                    }
+                  },
+                  "diskType": {
+                    "type": "string",
+                    "description": "DiskType defines the type of disk.\nThe valid values at this time are: pd-standard, pd-ssd, local-ssd, pd-balanced, hyperdisk-balanced.\nDefaulted internally to pd-ssd."
+                  },
+                  "encryptionKey": {
+                    "type": "object",
+                    "description": "EncryptionKey defines the KMS key to be used to encrypt the disk.",
+                    "fields": {
+                      "kmsKey": {
+                        "type": "object",
+                        "description": "KMSKey is a reference to a KMS Key to use for the encryption.",
+                        "fields": {
+                          "keyRing": {
+                            "type": "string",
+                            "description": "KeyRing is the name of the KMS Key Ring which the KMS Key belongs to.",
+                            "required": true
+                          },
+                          "location": {
+                            "type": "string",
+                            "description": "Location is the GCP location in which the Key Ring exists.",
+                            "required": true
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name is the name of the customer managed encryption key to be used for the disk encryption.",
+                            "required": true
+                          },
+                          "projectID": {
+                            "type": "string",
+                            "description": "ProjectID is the ID of the Project in which the KMS Key Ring exists.\nDefaults to the VM ProjectID if not set."
+                          }
+                        }
+                      },
+                      "kmsKeyServiceAccount": {
+                        "type": "string",
+                        "description": "KMSKeyServiceAccount is the service account being used for the\nencryption request for the given KMS key. If absent, the Compute\nEngine default service account is used.\nSee https://cloud.google.com/compute/docs/access/service-accounts#compute_engine_service_account\nfor details on the default service account."
+                      }
+                    }
+                  }
+                }
+              },
+              "secureBoot": {
+                "type": "string",
+                "description": "SecureBoot Defines whether the instance should have secure boot enabled.\nVerifies the digital signature of all boot components, and halts the boot process if signature verification fails.\nIf omitted, the platform chooses a default, which is subject to change over time. Currently that default is \"Disabled\".",
+                "enum": [
+                  "Enabled",
+                  "Disabled"
+                ]
+              },
+              "serviceAccount": {
+                "type": "string",
+                "description": "ServiceAccount is the email of a gcp service account to be attached to worker nodes\nin order to provide the permissions required by the cloud provider. For the default\nworker MachinePool, it is the user's responsibility to match this to the value\nprovided in the install-config."
+              },
+              "tags": {
+                "type": "array",
+                "description": "Tags defines a set of network tags which will be added to instances in the machineset.\nNot to be confused with UserTags."
+              },
+              "type": {
+                "type": "string",
+                "description": "InstanceType defines the GCP instance type.\neg. n1-standard-4",
+                "required": true
+              },
+              "userTags": {
+                "type": "array",
+                "description": "userTags has additional keys and values that we will add as tags to the providerSpec of\nMachineSets that we creates on GCP. Tag key and tag value should be the shortnames of the\ntag key and tag value resource. Consumer is responsible for using this only for spokes\nwhere custom tags are supported.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the key part of the tag. A tag key can have a maximum of 63 characters and\ncannot be empty. Tag key must begin and end with an alphanumeric character, and\nmust contain only uppercase, lowercase alphanumeric characters, and the following\nspecial characters `._-`.",
+                    "required": true
+                  },
+                  "parentID": {
+                    "type": "string",
+                    "description": "parentID is the ID of the hierarchical resource where the tags are defined,\ne.g. at the Organization or the Project level. To find the Organization ID or Project ID refer to the following pages:\nhttps://cloud.google.com/resource-manager/docs/creating-managing-organization#retrieving_your_organization_id,\nhttps://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects.\nAn OrganizationID must consist of decimal numbers, and cannot have leading zeroes.\nA ProjectID must be 6 to 30 characters in length, can only contain lowercase letters,\nnumbers, and hyphens, and must start with a letter, and cannot end with a hyphen.",
+                    "required": true
+                  },
+                  "value": {
+                    "type": "string",
+                    "description": "value is the value part of the tag. A tag value can have a maximum of 63 characters\nand cannot be empty. Tag value must begin and end with an alphanumeric character, and\nmust contain only uppercase, lowercase alphanumeric characters, and the following\nspecial characters `_-.@%=+:,*#&(){}[]` and spaces.",
+                    "required": true
+                  }
+                }
+              },
+              "zones": {
+                "type": "array",
+                "description": "Zones is list of availability zones that can be used."
+              }
+            }
+          },
+          "ibmcloud": {
+            "type": "object",
+            "description": "IBMCloud is the configuration used when installing on IBM Cloud.",
+            "fields": {
+              "bootVolume": {
+                "type": "object",
+                "description": "BootVolume is the configuration for the machine's boot volume.",
+                "fields": {
+                  "encryptionKey": {
+                    "type": "string",
+                    "description": "EncryptionKey is the CRN referencing a Key Protect or Hyper Protect\nCrypto Services key to use for volume encryption. If not specified, a\nprovider managed encryption key will be used."
+                  }
+                }
+              },
+              "dedicatedHosts": {
+                "type": "array",
+                "description": "DedicatedHosts is the configuration for the machine's dedicated host and profile.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name is the name of the dedicated host to provision the machine on. If\nspecified, machines will be created on pre-existing dedicated host."
+                  },
+                  "profile": {
+                    "type": "string",
+                    "description": "Profile is the profile ID for the dedicated host. If specified, new\ndedicated host will be created for machines."
+                  }
+                }
+              },
+              "type": {
+                "type": "string",
+                "description": "InstanceType is the VSI machine profile."
+              },
+              "zones": {
+                "type": "array",
+                "description": "Zones is the list of availability zones used for machines in the pool."
+              }
+            }
+          },
+          "nutanix": {
+            "type": "object",
+            "description": "Nutanix is the configuration used when installing on Nutanix prism central.",
+            "fields": {
+              "bootType": {
+                "type": "string",
+                "description": "BootType indicates the boot type (Legacy, UEFI or SecureBoot) the Machine's VM uses to boot.\nIf this field is empty or omitted, the VM will use the default boot type \"Legacy\" to boot.\n\"SecureBoot\" depends on \"UEFI\" boot, i.e., enabling \"SecureBoot\" means that \"UEFI\" boot is also enabled.",
+                "enum": [
+                  "",
+                  "Legacy",
+                  "UEFI",
+                  "SecureBoot"
+                ]
+              },
+              "categories": {
+                "type": "array",
+                "description": "Categories optionally adds one or more prism categories (each with key and value) for\nthe Machine's VM to associate with. All the category key and value pairs specified must\nalready exist in the prism central.",
+                "fields": {
+                  "key": {
+                    "type": "string",
+                    "description": "key is the prism category key name",
+                    "required": true
+                  },
+                  "value": {
+                    "type": "string",
+                    "description": "value is the prism category value associated with the key",
+                    "required": true
+                  }
+                }
+              },
+              "coresPerSocket": {
+                "type": "integer",
+                "description": "NumCoresPerSocket is the number of cores per socket in a vm. The number\nof vCPUs on the vm will be NumCPUs times NumCoresPerSocket.\nFor example: 4 CPUs and 4 Cores per socket will result in 16 VPUs.\nThe AHV scheduler treats socket and core allocation exactly the same\nso there is no benefit to configuring cores over CPUs."
+              },
+              "cpus": {
+                "type": "integer",
+                "description": "NumCPUs is the total number of virtual processor cores to assign a vm."
+              },
+              "dataDisks": {
+                "type": "array",
+                "description": "DataDisks holds information of the data disks to attach to the Machine's VM",
+                "fields": {
+                  "dataSource": {
+                    "type": "object",
+                    "description": "dataSource refers to a data source image for the VM disk.",
+                    "fields": {
+                      "name": {
+                        "type": "string",
+                        "description": "name is the resource name in the PC"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "type is the identifier type to use for this resource.",
+                        "required": true,
+                        "enum": [
+                          "uuid",
+                          "name"
+                        ]
+                      },
+                      "uuid": {
+                        "type": "string",
+                        "description": "uuid is the UUID of the resource in the PC."
+                      }
+                    }
+                  },
+                  "deviceProperties": {
+                    "type": "object",
+                    "description": "deviceProperties are the properties of the disk device.",
+                    "fields": {
+                      "adapterType": {
+                        "type": "string",
+                        "description": "adapterType is the adapter type of the disk address.\nIf the deviceType is \"Disk\", the valid adapterType can be \"SCSI\", \"IDE\", \"PCI\", \"SATA\" or \"SPAPR\".\nIf the deviceType is \"CDRom\", the valid adapterType can be \"IDE\" or \"SATA\".",
+                        "required": true,
+                        "enum": [
+                          "SCSI",
+                          "IDE",
+                          "PCI",
+                          "SATA",
+                          "SPAPR"
+                        ]
+                      },
+                      "deviceIndex": {
+                        "type": "integer",
+                        "description": "deviceIndex is the index of the disk address. The valid values are non-negative integers, with the default value 0.\nFor a Machine VM, the deviceIndex for the disks with the same deviceType.adapterType combination should\nstart from 0 and increase consecutively afterwards. Note that for each Machine VM, the Disk.SCSI.0\nand CDRom.IDE.0 are reserved to be used by the VM's system. So for dataDisks of Disk.SCSI and CDRom.IDE,\nthe deviceIndex should start from 1.",
+                        "required": true,
+                        "default": 0,
+                        "validations": {
+                          "minimum": 0
+                        }
+                      },
+                      "deviceType": {
+                        "type": "string",
+                        "description": "deviceType specifies the disk device type.\nThe valid values are \"Disk\" and \"CDRom\", and the default is \"Disk\".",
+                        "required": true,
+                        "enum": [
+                          "Disk",
+                          "CDRom"
+                        ],
+                        "default": "Disk"
+                      }
+                    }
+                  },
+                  "diskSize": {
+                    "type": "N/A",
+                    "description": "diskSize is size (in Quantity format) of the disk attached to the VM.\nSee https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#Format for the Quantity format and example documentation.\nThe minimum diskSize is 1GB.",
+                    "required": true,
+                    "validations": {
+                      "pattern": "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                    }
+                  },
+                  "storageConfig": {
+                    "type": "object",
+                    "description": "storageConfig are the storage configuration parameters of the VM disks.",
+                    "fields": {
+                      "diskMode": {
+                        "type": "string",
+                        "description": "diskMode specifies the disk mode.\nThe valid values are Standard and Flash, and the default is Standard.",
+                        "enum": [
+                          "Standard",
+                          "Flash"
+                        ],
+                        "default": "Standard"
+                      },
+                      "storageContainer": {
+                        "type": "object",
+                        "description": "storageContainer refers to the storage_container used by the VM disk.",
+                        "fields": {
+                          "type": {
+                            "type": "string",
+                            "description": "type is the identifier type to use for this resource.\nThe valid value is \"uuid\".",
+                            "required": true,
+                            "enum": [
+                              "uuid"
+                            ]
+                          },
+                          "uuid": {
+                            "type": "string",
+                            "description": "uuid is the UUID of the storage resource in the PC."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "failureDomains": {
+                "type": "array",
+                "description": "FailureDomains optionally configures a list of failure domain names\nthat will be applied to the MachinePool. These names must correspond\nto failure domains configured in `CD.Spec.Platform.Nutanix`."
+              },
+              "gpus": {
+                "type": "array",
+                "description": "GPUs is a list of GPU devices to attach to the machine's VM.",
+                "fields": {
+                  "deviceID": {
+                    "type": "integer",
+                    "description": "deviceID is the GPU device ID with the integer value."
                   },
                   "name": {
                     "type": "string",
-                    "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names",
+                    "description": "name is the GPU device name"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "type is the identifier type of the GPU device.\nValid values are Name and DeviceID.",
+                    "required": true,
+                    "enum": [
+                      "Name",
+                      "DeviceID"
+                    ]
+                  }
+                }
+              },
+              "memoryMiB": {
+                "type": "integer",
+                "description": "Memory is the size of a VM's memory in MiB."
+              },
+              "osDisk": {
+                "type": "object",
+                "description": "OSDisk defines the storage for instance.",
+                "fields": {
+                  "diskSizeGiB": {
+                    "type": "integer",
+                    "description": "DiskSizeGiB defines the size of disk in GiB."
+                  }
+                }
+              },
+              "project": {
+                "type": "object",
+                "description": "Project optionally identifies a Prism project for the Machine's VM to associate with.",
+                "fields": {
+                  "name": {
+                    "type": "string",
+                    "description": "name is the resource name in the PC"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "type is the identifier type to use for this resource.",
+                    "required": true,
+                    "enum": [
+                      "uuid",
+                      "name"
+                    ]
+                  },
+                  "uuid": {
+                    "type": "string",
+                    "description": "uuid is the UUID of the resource in the PC."
+                  }
+                }
+              }
+            }
+          },
+          "openstack": {
+            "type": "object",
+            "description": "OpenStack is the configuration used when installing on OpenStack.",
+            "fields": {
+              "additionalSecurityGroupIDs": {
+                "type": "array",
+                "description": "AdditionalSecurityGroupIDs contains IDs of additional security groups for machines, where each ID\nis presented in the UUID format."
+              },
+              "flavor": {
+                "type": "string",
+                "description": "Flavor defines the OpenStack Nova flavor.\neg. m1.large\nThe json key here differs from the installer which uses both \"computeFlavor\" and type \"type\" depending on which\ntype you're looking at, and the resulting field on the MachineSet is \"flavor\". We are opting to stay consistent\nwith the end result.",
+                "required": true
+              },
+              "rootVolume": {
+                "type": "object",
+                "description": "RootVolume defines the root volume for instances in the machine pool.\nThe instances use ephemeral disks if not set.",
+                "fields": {
+                  "size": {
+                    "type": "integer",
+                    "description": "Size defines the size of the volume in gibibytes (GiB).\nRequired",
                     "required": true
                   },
-                  "uid": {
+                  "type": {
                     "type": "string",
-                    "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids",
+                    "description": "Type defines the type of the volume.\nRequired",
                     "required": true
                   }
                 }
               }
             }
           },
-          "spec": {
+          "vsphere": {
             "type": "object",
-            "description": "spec is the specification of the desired behavior of the machine.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status",
+            "description": "VSphere is the configuration used when installing on vSphere",
             "fields": {
-              "bootstrap": {
-                "type": "object",
-                "description": "bootstrap is a reference to a local struct which encapsulates\nfields to configure the Machine\u2019s bootstrapping mechanism.",
-                "required": true,
-                "fields": {
-                  "configRef": {
-                    "type": "object",
-                    "description": "configRef is a reference to a bootstrap provider-specific resource\nthat holds configuration details. The reference is optional to\nallow users/operators to specify Bootstrap.Data without\nthe need of a controller.",
-                    "fields": {
-                      "apiVersion": {
-                        "type": "string",
-                        "description": "API version of the referent."
-                      },
-                      "fieldPath": {
-                        "type": "string",
-                        "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
-                      },
-                      "kind": {
-                        "type": "string",
-                        "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
-                      },
-                      "name": {
-                        "type": "string",
-                        "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
-                      },
-                      "namespace": {
-                        "type": "string",
-                        "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
-                      },
-                      "resourceVersion": {
-                        "type": "string",
-                        "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
-                      },
-                      "uid": {
-                        "type": "string",
-                        "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
-                      }
-                    }
-                  },
-                  "data": {
-                    "type": "string",
-                    "description": "data contains the bootstrap data, such as cloud-init details scripts.\nIf nil, the Machine should remain in the Pending state.\nDeprecated: Switch to DataSecretName."
-                  },
-                  "dataSecretName": {
-                    "type": "string",
-                    "description": "dataSecretName is the name of the secret that stores the bootstrap data script.\nIf nil, the Machine should remain in the Pending state."
-                  }
-                }
-              },
-              "clusterName": {
-                "type": "string",
-                "description": "clusterName is the name of the Cluster this object belongs to.",
+              "coresPerSocket": {
+                "type": "integer",
+                "description": "NumCoresPerSocket is the number of cores per socket in a vm. The number\nof vCPUs on the vm will be NumCPUs/NumCoresPerSocket.",
                 "required": true
               },
-              "failureDomain": {
-                "type": "string",
-                "description": "failureDomain is the failure domain the machine will be created in.\nMust match a key in the FailureDomains map stored on the cluster object."
+              "cpus": {
+                "type": "integer",
+                "description": "NumCPUs is the total number of virtual processor cores to assign a vm.",
+                "required": true
               },
-              "infrastructureRef": {
+              "memoryMB": {
+                "type": "integer",
+                "description": "Memory is the size of a VM's memory in MB.",
+                "required": true
+              },
+              "osDisk": {
                 "type": "object",
-                "description": "infrastructureRef is a required reference to a custom resource\noffered by an infrastructure provider.",
+                "description": "OSDisk defines the storage for instance.",
                 "required": true,
                 "fields": {
-                  "apiVersion": {
-                    "type": "string",
-                    "description": "API version of the referent."
-                  },
-                  "fieldPath": {
-                    "type": "string",
-                    "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
-                  },
-                  "kind": {
-                    "type": "string",
-                    "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
-                  },
-                  "name": {
-                    "type": "string",
-                    "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
-                  },
-                  "namespace": {
-                    "type": "string",
-                    "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
-                  },
-                  "resourceVersion": {
-                    "type": "string",
-                    "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
-                  },
-                  "uid": {
-                    "type": "string",
-                    "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+                  "diskSizeGB": {
+                    "type": "integer",
+                    "description": "DiskSizeGB defines the size of disk in GB.",
+                    "required": true
                   }
                 }
               },
-              "nodeDrainTimeout": {
+              "resourcePool": {
                 "type": "string",
-                "description": "nodeDrainTimeout is the total amount of time that the controller will spend on draining a node.\nThe default value is 0, meaning that the node can be drained without any time limitations.\nNOTE: NodeDrainTimeout is different from `kubectl drain --timeout`"
+                "description": "ResourcePool is the name of the resource pool that will be used for virtual machines.\nIf it is not present, a default value will be used."
               },
-              "providerID": {
-                "type": "string",
-                "description": "providerID is the identification ID of the machine provided by the provider.\nThis field must match the provider ID as seen on the node object corresponding to this machine.\nThis field is required by higher level consumers of cluster-api. Example use case is cluster autoscaler\nwith cluster-api as provider. Clean-up logic in the autoscaler compares machines to nodes to find out\nmachines at provider which could not get registered as Kubernetes nodes. With cluster-api as a\ngeneric out-of-tree provider for autoscaler, this field is required by autoscaler to be\nable to have a provider view of the list of machines. Another list of nodes is queried from the k8s apiserver\nand then a comparison is done to find out unregistered machines and are marked for delete.\nThis field will be set by the actuators and consumed by higher level entities like autoscaler that will\nbe interfacing with cluster-api as generic provider."
-              },
-              "version": {
-                "type": "string",
-                "description": "version defines the desired Kubernetes version.\nThis field is meant to be optionally used by bootstrap providers."
+              "tagIDs": {
+                "type": "array",
+                "description": "TagIDs is a list of up to 10 tags to add to the VMs that this machine set provisions in vSphere."
               }
             }
+          }
+        }
+      },
+      "replicas": {
+        "type": "integer",
+        "description": "Replicas is the count of machines for this machine pool.\nReplicas and autoscaling cannot be used together.\nDefault is 1, if autoscaling is not used."
+      },
+      "taints": {
+        "type": "array",
+        "description": "List of taints that will be applied to the created MachineSet's MachineSpec.\nThis list will overwrite any modifications made to Node taints on an ongoing basis.\nIn case of duplicate entries, first encountered taint Value will be preserved,\nand the rest collapsed on the corresponding MachineSets.\nNote that taints are uniquely identified based on key+effect, not just key.",
+        "fields": {
+          "effect": {
+            "type": "string",
+            "description": "Required. The effect of the taint on pods\nthat do not tolerate the taint.\nValid effects are NoSchedule, PreferNoSchedule and NoExecute.",
+            "required": true
+          },
+          "key": {
+            "type": "string",
+            "description": "Required. The taint key to be applied to a node.",
+            "required": true
+          },
+          "timeAdded": {
+            "type": "string",
+            "description": "TimeAdded represents the time at which the taint was added."
+          },
+          "value": {
+            "type": "string",
+            "description": "The taint value corresponding to the taint key."
           }
         }
       }
     }
   },
   "status": {
-    "description": "status is the observed state of MachinePool.",
+    "description": "MachinePoolStatus defines the observed state of MachinePool",
     "fields": {
-      "availableReplicas": {
-        "type": "integer",
-        "description": "availableReplicas is the number of available replicas (ready for at least minReadySeconds) for this MachinePool."
-      },
-      "bootstrapReady": {
-        "type": "boolean",
-        "description": "bootstrapReady is the state of the bootstrap provider."
-      },
       "conditions": {
         "type": "array",
-        "description": "conditions define the current service state of the MachinePool.",
+        "description": "Conditions includes more detailed status for the cluster deployment",
         "fields": {
+          "lastProbeTime": {
+            "type": "string",
+            "description": "LastProbeTime is the last time we probed the condition."
+          },
           "lastTransitionTime": {
             "type": "string",
-            "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed. If that is not known, then using the time when\nthe API field changed is acceptable."
+            "description": "LastTransitionTime is the last time the condition transitioned from one status to another."
           },
           "message": {
             "type": "string",
-            "description": "message is a human readable message indicating details about the transition.\nThis field may be empty."
+            "description": "Message is a human-readable message indicating details about last transition."
           },
           "reason": {
             "type": "string",
-            "description": "reason is the reason for the condition's last transition in CamelCase.\nThe specific API may choose whether or not this field is considered a guaranteed API.\nThis field may not be empty."
-          },
-          "severity": {
-            "type": "string",
-            "description": "severity provides an explicit classification of Reason code, so the users or machines can immediately\nunderstand the current situation and act accordingly.\nThe Severity field MUST be set only when Status=False."
+            "description": "Reason is a unique, one-word, CamelCase reason for the condition's last transition."
           },
           "status": {
             "type": "string",
-            "description": "status of the condition, one of True, False, Unknown.",
+            "description": "Status is the status of the condition.",
             "required": true
           },
           "type": {
             "type": "string",
-            "description": "type of condition in CamelCase or in foo.example.com/CamelCase.\nMany .condition.type values are consistent across resources like Available, but because arbitrary conditions\ncan be useful (see .node.status.conditions), the ability to deconflict is important.",
+            "description": "Type is the type of the condition.",
             "required": true
           }
         }
       },
-      "failureMessage": {
-        "type": "string",
-        "description": "failureMessage indicates that there is a problem reconciling the state,\nand will be set to a descriptive error message."
+      "controlledByReplica": {
+        "type": "integer",
+        "description": "ControlledByReplica indicates which replica of the hive-machinepool StatefulSet is responsible\nfor this MachinePool. Note that this value indicates the replica that most recently handled the\nMachinePool. If the hive-machinepool statefulset is scaled up or down, the controlling replica\ncan change, potentially causing logs to be spread across multiple pods."
       },
-      "failureReason": {
-        "type": "string",
-        "description": "failureReason indicates that there is a problem reconciling the state, and\nwill be set to a token value suitable for programmatic interpretation."
-      },
-      "infrastructureReady": {
-        "type": "boolean",
-        "description": "infrastructureReady is the state of the infrastructure provider."
-      },
-      "nodeRefs": {
+      "machineSets": {
         "type": "array",
-        "description": "nodeRefs will point to the corresponding Nodes if it they exist.",
+        "description": "MachineSets is the status of the machine sets for the machine pool on the remote cluster.",
         "fields": {
-          "apiVersion": {
+          "errorMessage": {
             "type": "string",
-            "description": "API version of the referent."
+            "description": "No description provided."
           },
-          "fieldPath": {
+          "errorReason": {
             "type": "string",
-            "description": "If referring to a piece of an object instead of an entire object, this string\nshould contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].\nFor example, if the object reference is to a container within a pod, this would take on a value like:\n\"spec.containers{name}\" (where \"name\" refers to the name of the container that triggered\nthe event) or if no container name is specified \"spec.containers[2]\" (container with\nindex 2 in this pod). This syntax is chosen only to have some well-defined way of\nreferencing a part of an object."
+            "description": "In the event that there is a terminal problem reconciling the\nreplicas, both ErrorReason and ErrorMessage will be set. ErrorReason\nwill be populated with a succinct value suitable for machine\ninterpretation, while ErrorMessage will contain a more verbose\nstring suitable for logging and human consumption."
           },
-          "kind": {
-            "type": "string",
-            "description": "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+          "maxReplicas": {
+            "type": "integer",
+            "description": "MaxReplicas is the maximum number of replicas for the machine set.",
+            "required": true
+          },
+          "minReplicas": {
+            "type": "integer",
+            "description": "MinReplicas is the minimum number of replicas for the machine set.",
+            "required": true
           },
           "name": {
             "type": "string",
-            "description": "Name of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+            "description": "Name is the name of the machine set.",
+            "required": true
           },
-          "namespace": {
-            "type": "string",
-            "description": "Namespace of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"
+          "readyReplicas": {
+            "type": "integer",
+            "description": "The number of ready replicas for this MachineSet. A machine is considered ready\nwhen the node has been created and is \"Ready\". It is transferred as-is from the\nMachineSet from remote cluster."
           },
-          "resourceVersion": {
-            "type": "string",
-            "description": "Specific resourceVersion to which this reference is made, if any.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency"
-          },
-          "uid": {
-            "type": "string",
-            "description": "UID of the referent.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids"
+          "replicas": {
+            "type": "integer",
+            "description": "Replicas is the current number of replicas for the machine set.",
+            "required": true
           }
         }
       },
-      "observedGeneration": {
-        "type": "integer",
-        "description": "observedGeneration is the latest generation observed by the controller."
+      "ownedLabels": {
+        "type": "array",
+        "description": "OwnedLabels lists the keys of labels this MachinePool created on the remote MachineSet's\nMachineSpec. (In contrast with OwnedMachineLabels.)\nUsed to identify labels to remove from the remote MachineSet when they are absent from\nthe MachinePool's spec.labels."
       },
-      "phase": {
-        "type": "string",
-        "description": "phase represents the current phase of cluster actuation.\nE.g. Pending, Running, Terminating, Failed etc."
+      "ownedMachineLabels": {
+        "type": "array",
+        "description": "OwnedMachineLabels lists the keys of labels this MachinePool created on the remote\nMachineSet's MachineTemplateSpec. (In contrast with OwnedLabels.)\nUsed to identify labels to remove from the remote MachineSet when they are absent from\nthe MachinePool's spec.machineLabels."
       },
-      "readyReplicas": {
-        "type": "integer",
-        "description": "readyReplicas is the number of ready replicas for this MachinePool. A machine is considered ready when the node has been created and is \"Ready\"."
+      "ownedTaints": {
+        "type": "array",
+        "description": "OwnedTaints lists identifiers of taints this MachinePool created on the remote MachineSet.\nUsed to identify taints to remove from the remote MachineSet when they are absent from\nthe MachinePool's spec.taints.",
+        "fields": {
+          "effect": {
+            "type": "string",
+            "description": "Effect matches corev1.Taint.Effect."
+          },
+          "key": {
+            "type": "string",
+            "description": "Key matches corev1.Taint.Key."
+          }
+        }
       },
       "replicas": {
         "type": "integer",
-        "description": "replicas is the most recently observed number of replicas."
-      },
-      "unavailableReplicas": {
-        "type": "integer",
-        "description": "unavailableReplicas is the total number of unavailable machine instances targeted by this machine pool.\nThis is the total number of machine instances that are still required for\nthe machine pool to have 100% available capacity. They may either\nbe machine instances that are running but not yet available or machine instances\nthat still have not been created."
+        "description": "Replicas is the current number of replicas for the machine pool."
       }
     }
   },
-  "exampleYAML": "apiVersion: cluster.x-k8s.io/v1alpha3\nkind: MachinePool\nmetadata:\n  name: example-machinepool\n  namespace: default\nspec:\n  clusterName: \"example-clusterName\"\n  template: {}\n"
+  "exampleYAML": "apiVersion: hive.openshift.io/v1\nkind: MachinePool\nmetadata:\n  name: example-machinepool\n  namespace: default\nspec:\n  clusterDeploymentRef: {}\n  name: \"example-name\"\n  platform: {}\n"
 }
