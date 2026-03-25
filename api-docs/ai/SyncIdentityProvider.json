@@ -13,7 +13,7 @@
     "fields": {
       "clusterDeploymentRefs": {
         "type": "array",
-        "description": "ClusterDeploymentRefs is the list of LocalObjectReference indicating which clusters the\nSyncSet applies to in the SyncSet's namespace.",
+        "description": "ClusterDeploymentRefs is the list of LocalObjectReference indicating which clusters the\nSyncIdentityProvider applies to in the SyncIdentityProvider's namespace.",
         "required": true,
         "fields": {
           "name": {
@@ -430,7 +430,7 @@
     }
   },
   "status": {
-    "description": "IdentityProviderStatus defines the observed state of SyncSet",
+    "description": "IdentityProviderStatus defines the observed state of the SyncIdentityProvider",
     "fields": {}
   },
   "exampleYAML": "apiVersion: hive.openshift.io/v1\nkind: SyncIdentityProvider\nmetadata:\n  name: example-syncidentityprovider\n  namespace: default\nspec:\n  clusterDeploymentRefs: []\n  identityProviders: []\n"

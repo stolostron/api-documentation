@@ -13,7 +13,7 @@
     "fields": {
       "clusterDeploymentSelector": {
         "type": "object",
-        "description": "ClusterDeploymentSelector is a LabelSelector indicating which clusters the SelectorIdentityProvider\napplies to in any namespace.",
+        "description": "ClusterDeploymentSelector is a LabelSelector indicating which clusters the SelectorSyncIdentityProvider\napplies to in any namespace.",
         "fields": {
           "matchExpressions": {
             "type": "array",
@@ -448,7 +448,7 @@
     }
   },
   "status": {
-    "description": "IdentityProviderStatus defines the observed state of SyncSet",
+    "description": "IdentityProviderStatus defines the observed state of the SyncIdentityProvider",
     "fields": {}
   },
   "exampleYAML": "apiVersion: hive.openshift.io/v1\nkind: SelectorSyncIdentityProvider\nmetadata:\n  name: example-selectorsyncidentityprovider\nspec:\n  identityProviders: []\n"

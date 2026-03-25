@@ -1021,7 +1021,7 @@ from the pool once claimed and then automatically replaced with a new one.
 
 ## SelectorSyncIdentityProvider
 
-SelectorSyncIdentityProvider is the Schema for the SelectorSyncSet API
+SelectorSyncIdentityProvider is the Schema for the SelectorSyncIdentityProvider API
 
 [View a detailed API Reference for SelectorSyncIdentityProvider](selectorsyncidentityprovider_api.md).
 

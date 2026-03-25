@@ -1,6 +1,6 @@
 # SelectorSyncIdentityProvider API
 
-SelectorSyncIdentityProvider is the Schema for the SelectorSyncSet API
+SelectorSyncIdentityProvider is the Schema for the SelectorSyncIdentityProvider API
 
 ## Spec Fields
 
@@ -10,7 +10,7 @@ to in any namespace.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
-|  **clusterDeploymentSelector** | `object` | ClusterDeploymentSelector is a LabelSelector indicating which clusters the SelectorIdentityProvider applies to in any namespace. | N/A |
+|  **clusterDeploymentSelector** | `object` | ClusterDeploymentSelector is a LabelSelector indicating which clusters the SelectorSyncIdentityProvider applies to in any namespace. | N/A |
 | └>&nbsp;&nbsp; **matchExpressions** | `array` | matchExpressions is a list of label selector requirements. The requirements are ANDed. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **key** | `string` | key is the label key that the selector applies to. | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **operator** | `string` | operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist. | N/A |
@@ -100,7 +100,7 @@ to in any namespace.
 | └>&nbsp;&nbsp; **type** | `string` | type identifies the identity provider type for this entry. | N/A |
 ## Status Fields
 
-IdentityProviderStatus defines the observed state of SyncSet
+IdentityProviderStatus defines the observed state of the SyncIdentityProvider
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
