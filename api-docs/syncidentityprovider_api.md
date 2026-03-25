@@ -10,7 +10,7 @@ SyncIdentityProvider's namespace.
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|
-|  **clusterDeploymentRefs** | `array` | ClusterDeploymentRefs is the list of LocalObjectReference indicating which clusters the SyncSet applies to in the SyncSet's namespace. | N/A |
+|  **clusterDeploymentRefs** | `array` | ClusterDeploymentRefs is the list of LocalObjectReference indicating which clusters the SyncIdentityProvider applies to in the SyncIdentityProvider's namespace. | N/A |
 | └>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
 |  **identityProviders** | `array` | IdentityProviders is an ordered list of ways for a user to identify themselves | N/A |
 | └>&nbsp;&nbsp; **basicAuth** | `object` | basicAuth contains configuration options for the BasicAuth IdP | N/A |
@@ -96,7 +96,7 @@ SyncIdentityProvider's namespace.
 | └>&nbsp;&nbsp; **type** | `string` | type identifies the identity provider type for this entry. | N/A |
 ## Status Fields
 
-IdentityProviderStatus defines the observed state of SyncSet
+IdentityProviderStatus defines the observed state of the SyncIdentityProvider
 
 | Field | Type | Description | Validations |
 |:---|---|---|---|

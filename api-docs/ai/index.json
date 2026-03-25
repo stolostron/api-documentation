@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-24T05:26:21.548522+00:00",
+  "generatedAt": "2026-03-25T05:26:35.913127+00:00",
   "crds": [
     {
       "kind": "BackupSchedule",
@@ -1138,7 +1138,7 @@
       "version": "v1",
       "plural": "selectorsyncidentityproviders",
       "scope": "Cluster",
-      "description": "SelectorSyncIdentityProvider is the Schema for the SelectorSyncSet API",
+      "description": "SelectorSyncIdentityProvider is the Schema for the SelectorSyncIdentityProvider API",
       "schemaFile": "SelectorSyncIdentityProvider.json"
     },
     {
