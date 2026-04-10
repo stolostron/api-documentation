@@ -1,0 +1,7 @@
+# Direct Python dependencies for api-documentation
+# PyYAML: used by cmd/gen-api-docs.py for CRD YAML parsing
+PyYAML==6.0.3
+# flake8: used for Python linting (make lint)
+flake8==7.3.0
+# mcp: used by cmd/mcp-server.py (MCP stdio server)
+mcp==1.27.0

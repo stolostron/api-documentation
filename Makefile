@@ -70,8 +70,7 @@ help:
 .PHONY: deps
 deps: ensure-gen-api-docs
 	@which python3 > /dev/null || (echo "Python3 not found. Attempting to install..." && (command -v apt-get >/dev/null 2>&1 && sudo apt-get update && sudo apt-get install -y python3) || (command -v yum >/dev/null 2>&1 && sudo yum install -y python3) || (command -v brew >/dev/null 2>&1 && brew install python3) || (echo "Automatic install failed. Please install Python3 manually." && exit 1))
-	@python3 -c "import yaml" 2>/dev/null || (echo "PyYAML not found. Installing..." && python3 -m pip install --user pyyaml)
-	@python3 -c "import flake8" 2>/dev/null || (echo "Flake8 not found. Installing..." && python3 -m pip install --user flake8)
+	@python3 -m pip install --user -r requirements.txt --quiet
 	@which curl > /dev/null || (echo "Curl not found. Attempting to install..." && (command -v apt-get >/dev/null 2>&1 && sudo apt-get update && sudo apt-get install -y curl) || (command -v yum >/dev/null 2>&1 && sudo yum install -y curl) || (command -v brew >/dev/null 2>&1 && brew install curl) || (echo "Automatic install failed. Please install Curl manually." && exit 1))
 	@which git > /dev/null || (echo "Git not found. Attempting to install..." && (command -v apt-get >/dev/null 2>&1 && sudo apt-get update && sudo apt-get install -y git) || (command -v yum >/dev/null 2>&1 && sudo yum install -y git) || (command -v brew >/dev/null 2>&1 && brew install git) || (echo "Automatic install failed. Please install Git manually." && exit 1))
 
@@ -217,7 +216,7 @@ test-clean:
 # MCP server targets
 .PHONY: install-mcp
 install-mcp:
-	@python3 -m pip install --user mcp
+	@python3 -m pip install --user -r requirements.txt
 
 .PHONY: run-mcp
 run-mcp:
