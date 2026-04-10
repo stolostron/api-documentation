@@ -3,8 +3,7 @@
 **Date:** 2026-04-08
 **Grader:** Claude Code
 **Scope:** acm-crds/ (branch: release-2.16), mce-crds/ (branch: release-2.16) — sampled 20 files
-**CRD files graded:** 20
-**Total fields graded:** 302
+**Total fields graded:** 328
 
 ---
 
@@ -56,7 +55,7 @@ Any of these apply:
 | AgentClusterInstall | mce-crds/assisted-service/extensions.hive.openshift.io_agentclusterinstalls.yaml | 8 | 6 | 2 | 16 |
 | Cluster (CAPI) | mce-crds/cluster-api-k8s/apiextensions.k8s.io_v1_customresourcedefinition_clusters.cluster.x-k8s.io.yaml | 5 | 6 | 1 | 12 |
 | AWSCluster | mce-crds/cluster-api-provider-aws/apiextensions.k8s.io_v1_customresourcedefinition_awsclusters.infrastructure.cluster.x-k8s.io.yaml | 7 | 5 | 0 | 12 |
-| **TOTAL** | | **134** | **122** | **72** | **302** |
+| **TOTAL** | | **134** | **122** | **72** | **328** |
 
 ---
 

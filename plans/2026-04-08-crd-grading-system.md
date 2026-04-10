@@ -69,7 +69,7 @@ make setup-core
 /grade-crds
 
 # Step 2b: Grade with Gemini CLI
-gemini -m gemini-3-fast < prompts/grade-crd-descriptions.md
+gemini -m gemini-3-flash-preview < prompts/grade-crd-descriptions.md
 ```
 
 Both tools write to `grading/crd-descriptions-YYYY-MM-DD.md`.
@@ -134,9 +134,9 @@ All deliverables completed in session 2026-04-08.
 
 | Grade | Count | % |
 |---|---|---|
-| Good | 134 | 44% |
-| Passable | 122 | 40% |
-| Needs Improvement | 72 | 24% |
+| Good | 134 | 41% |
+| Passable | 122 | 37% |
+| Needs Improvement | 72 | 22% |
 
 ### Top 5 Fields Most in Need of Improvement
 
