@@ -5,3 +5,5 @@ PyYAML==6.0.3
 flake8==7.3.0
 # mcp: used by cmd/mcp-server.py (MCP stdio server)
 mcp==1.27.0
+# cryptography: transitive dep via mcp->pyjwt[crypto]; pinned to resolve CVE-2026-39892
+cryptography>=46.0.7
