@@ -202,7 +202,6 @@ Errors are returned as `TextContent` strings, not raised — MCP clients handle 
 
 ### Deviations from plan
 
-- `list_releases` promoted to a first-class named tool (plan listed it in the tools table but did not give it a separate description section)
 - `urllib.request` used exclusively — no `httpx` added (as preferred in plan)
 - `_fetch_text()` implemented but not called by any current tool — retained as it will be needed if a raw-YAML endpoint is added later
 - Case-insensitive kind lookup added (not in plan) — improves UX when callers use lowercase or mixed-case kind names

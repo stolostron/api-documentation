@@ -156,7 +156,7 @@ async def list_tools() -> list[types.Tool]:
 @server.call_tool()
 async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
     try:
-        result = _dispatch(name, arguments)
+        result = await asyncio.to_thread(_dispatch, name, arguments)
     except urllib.error.HTTPError as e:
         result = f"Error fetching data from GitHub: HTTP {e.code} — {e.reason}"
     except urllib.error.URLError as e:
