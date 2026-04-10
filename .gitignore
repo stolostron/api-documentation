@@ -5,3 +5,4 @@ __pycache__/
 ./ocm
 ./acm-crds
 ./mce-crds
+.claude/settings.local.json

@@ -44,6 +44,13 @@ help:
 	@echo "  dev-test                    - Complete development test cycle (clean + test)"
 	@echo "  validate                    - Run tests and generate API docs for validation"
 	@echo ""
+	@echo "MCP Server:"
+	@echo "  install-mcp                 - Install the mcp Python package required by mcp-server.py"
+	@echo "  run-mcp                     - Run the MCP stdio server (for testing; clients launch it automatically)"
+	@echo ""
+	@echo "Quality:"
+	@echo "  grade-crds                  - Show instructions for grading CRD description quality"
+	@echo ""
 	@echo "Cleanup:"
 	@echo "  remove-git-repos            - Remove cloned git repositories"
 	@echo "  remove-core-crds            - Remove MCE and ACM CRD directories"
@@ -206,6 +213,28 @@ test-clean:
 	@find . -name "*.pyc" -delete
 	@find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
 	@rm -rf api-docs
+
+# MCP server targets
+.PHONY: install-mcp
+install-mcp:
+	@python3 -m pip install --user mcp
+
+.PHONY: run-mcp
+run-mcp:
+	@python3 cmd/mcp-server.py
+
+# Quality targets
+.PHONY: grade-crds
+grade-crds:
+	@echo "CRD Description Grading"
+	@echo ""
+	@echo "For Claude Code:  type /grade-crds in a Claude Code session"
+	@echo "For Gemini CLI:   gemini -m gemini-3-fast < prompts/grade-crd-descriptions.md"
+	@echo ""
+	@echo "Reports are written to grading/crd-descriptions-YYYY-MM-DD.md"
+	@echo ""
+	@echo "CRDs must be downloaded first:"
+	@echo "  make setup-core"
 
 # Development targets
 .PHONY: dev-test
