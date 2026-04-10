@@ -112,31 +112,122 @@ Prefer stdlib `urllib.request` for fetching to avoid adding a dependency beyond 
 
 ## Implementation
 
-### What was built
+### Files
 
-**`cmd/mcp-server.py`** — single-file Python, ~160 lines. All four planned tools implemented.
+| File | Lines | Description |
+|---|---|---|
+| `cmd/mcp-server.py` | 231 | Single-file stdio MCP server |
+| `plans/2026-04-08-mcp-server.md` | this file | Plan and implementation record |
+
+Makefile targets added to the existing `Makefile` (no new file):
+
+| Target | Command | Description |
+|---|---|---|
+| `install-mcp` | `python3 -m pip install --user mcp` | Install MCP Python SDK |
+| `run-mcp` | `python3 cmd/mcp-server.py` | Run server for manual testing |
+
+Both targets are listed under `make help`.
+
+---
+
+### Code structure
+
+```
+cmd/mcp-server.py
+├── Constants
+│   ├── KNOWN_RELEASES   — hard-coded list ["release-2.14", "release-2.15", "release-2.16"]
+│   ├── DEFAULT_RELEASE  — KNOWN_RELEASES[-1] (latest)
+│   └── RAW_BASE         — GitHub raw content URL template
+├── HTTP helpers
+│   ├── _fetch_json()    — urllib.request, 15s timeout, returns parsed dict
+│   ├── _fetch_text()    — urllib.request, 15s timeout, returns decoded str
+│   ├── _cache           — module-level dict keyed by (release, kind|"index")
+│   ├── _get_index()     — fetch/cache index.json for a release
+│   └── _get_schema()    — fetch/cache {Kind}.json for a release
+├── Tool helpers
+│   ├── _resolve_release() — validates release against KNOWN_RELEASES, falls back to DEFAULT_RELEASE
+│   └── _release_arg()     — returns reusable inputSchema fragment for the release parameter
+├── Server (mcp.Server("acm-api-docs"))
+│   ├── list_tools()     — registers all four tools with JSON Schema inputSchema
+│   ├── call_tool()      — top-level dispatcher; catches HTTPError, URLError, KeyError → text error
+│   └── _dispatch()      — synchronous per-tool logic
+└── Entry point — asyncio.run(main()) via stdio_server()
+```
+
+---
+
+### Tool implementations
+
+**`list_releases`**
+
+Returns `{"releases": [...], "default": "release-2.16"}`. No network call.
+
+**`list_crds`**
+
+Fetches `index.json` for the resolved release. Projects each CRD entry to `{kind, apiVersion, scope, description}`. Returns `{"release": ..., "count": N, "crds": [...]}`.
+
+**`get_crd_schema`**
+
+1. Resolves kind case-insensitively against `index.json` (e.g. `managedcluster` → `ManagedCluster`)
+2. Fetches `{Kind}.json`
+3. Returns the full JSON schema as a pretty-printed string
+
+Not-found error enumerates all available kinds so the caller can correct the name without a separate `list_crds` call.
+
+**`get_crd_example`**
+
+Same kind resolution as `get_crd_schema`. Returns `schema["exampleYAML"]` (a string). Returns a descriptive message if `exampleYAML` is absent or empty rather than raising.
+
+---
+
+### Caching
+
+`_cache` is a module-level `dict[tuple[str, str], object]`. The key is `(release, "index")` for the index and `(release, Kind)` for schemas. Populated lazily on first access per session; never invalidated (the server process is short-lived per MCP client session).
+
+---
+
+### Error handling
+
+`call_tool()` wraps `_dispatch()` in a try/except that catches:
+
+| Exception | Response |
+|---|---|
+| `urllib.error.HTTPError` | `"Error fetching data from GitHub: HTTP {code} — {reason}"` |
+| `urllib.error.URLError` | `"Network error: {reason}"` |
+| `KeyError` | `"Not found: {message}"` — used for missing kind, missing field, unknown tool |
+
+Errors are returned as `TextContent` strings, not raised — MCP clients handle them as normal tool results.
+
+---
 
 ### Deviations from plan
 
-- `list_releases` added as a first-class tool (was implicit in plan, not listed as a named tool)
-- `urllib.request` used for HTTP (as preferred); no `httpx` dependency
-- Case-insensitive kind lookup via index — `managedcluster` resolves to `ManagedCluster`; not-found error includes the full list of available kinds
+- `list_releases` promoted to a first-class named tool (plan listed it in the tools table but did not give it a separate description section)
+- `urllib.request` used exclusively — no `httpx` added (as preferred in plan)
+- `_fetch_text()` implemented but not called by any current tool — retained as it will be needed if a raw-YAML endpoint is added later
+- Case-insensitive kind lookup added (not in plan) — improves UX when callers use lowercase or mixed-case kind names
+
+---
 
 ### Alternatives considered and rejected
 
 **Go binary** — evaluated for easier distribution (single downloadable binary). Rejected: the server fetches from raw GitHub URLs at runtime; Go and Python reach those URLs equally well. A rewrite would add `go.mod` and Go toolchain to a Python-only repo with no benefit for the current audience. Revisit if there is demand to distribute this outside the repo.
 
-**`make sync` + local files** — fetch docs to disk first, serve locally. Rejected: adds steps (clone → sync → run) rather than removing them. Fetch-at-runtime is simpler.
+**`make sync` + local files** — fetch docs to disk first, serve locally. Rejected: adds steps (clone → sync → run) rather than removing them. Fetch-at-runtime is simpler and matches the goal of requiring no local copy of the generated docs.
+
+---
 
 ### Usage
 
 Install the dependency:
+
 ```sh
 make install-mcp
 # or: pip install --user mcp
 ```
 
-Add to `.claude/settings.json`:
+Add to `.claude/settings.json` (or equivalent for Cursor / Claude Desktop):
+
 ```json
 {
   "mcpServers": {
@@ -147,3 +238,19 @@ Add to `.claude/settings.json`:
   }
 }
 ```
+
+Test manually:
+
+```sh
+make run-mcp   # starts server on stdio; send JSON-RPC manually or use an MCP inspector
+```
+
+---
+
+### Verification
+
+- [x] `make lint` passes (flake8 — no unused imports, correct blank lines)
+- [x] `make install-mcp` installs `mcp` package via pip
+- [x] `make run-mcp` starts the server process without error
+- [x] `make help` lists `install-mcp` and `run-mcp` under the correct section
+- [ ] End-to-end test via Claude Code MCP client — connect and call all four tools against `release-2.16`
