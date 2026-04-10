@@ -20,7 +20,6 @@ import asyncio
 import json
 import urllib.request
 import urllib.error
-from functools import lru_cache
 
 import mcp.types as types
 from mcp.server import Server
@@ -38,6 +37,7 @@ DEFAULT_RELEASE = KNOWN_RELEASES[-1]
 RAW_BASE = "https://raw.githubusercontent.com/stolostron/api-documentation/{release}/api-docs/ai"
 
 # ── HTTP helpers ─────────────────────────────────────────────────────────────
+
 
 def _fetch_json(url: str) -> dict:
     """Fetch and parse JSON from a URL. Raises urllib.error.HTTPError on failure."""
