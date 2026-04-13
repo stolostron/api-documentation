@@ -1,4 +1,5 @@
 # Direct Python dependencies for api-documentation
+# Last security audit: 2026-04-13 — pip-audit clean, all packages at latest stable release
 # PyYAML: used by cmd/gen-api-docs.py for CRD YAML parsing
 PyYAML==6.0.3
 # flake8: used for Python linting (make lint)
@@ -6,4 +7,4 @@ flake8==7.3.0
 # mcp: used by cmd/mcp-server.py (MCP stdio server)
 mcp==1.27.0
 # cryptography: transitive dep via mcp->pyjwt[crypto]; pinned to resolve CVE-2026-39892
-cryptography>=46.0.7
+cryptography==46.0.7
