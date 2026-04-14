@@ -1,5 +1,5 @@
 # Direct Python dependencies for api-documentation
-# Last security audit: 2026-04-13 — pip-audit clean, all packages at latest stable release
+# Last security audit: 2026-04-14 — pip-audit clean, all packages at latest stable release
 # PyYAML: used by cmd/gen-api-docs.py for CRD YAML parsing
 PyYAML==6.0.3
 # flake8: used for Python linting (make lint)
