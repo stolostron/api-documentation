@@ -58,7 +58,8 @@ ClusterDeprovisionSpec defines the desired state of ClusterDeprovision
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **credentialsSecretRef** | `object` | CredentialsSecretRef is the vSphere account credentials to use for deprovisioning the cluster | N/A |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **name** | `string` | Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names | N/A |
-| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **vCenter** | `string` | VCenter is the vSphere vCenter hostname. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **vCenter** | `string` | DeprecatedVCenter is the vSphere vCenter hostname. Deprecated: use VCenters instead. | N/A |
+| &nbsp;&nbsp;&nbsp;&nbsp;└>&nbsp;&nbsp; **vCenters** | `array` | VCenters are potentially multiple vCenter hostnames. Prefer this field over VCenter. | N/A |
 ## Status Fields
 
 ClusterDeprovisionStatus defines the observed state of ClusterDeprovision
