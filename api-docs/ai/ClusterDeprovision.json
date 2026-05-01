@@ -283,8 +283,11 @@
               },
               "vCenter": {
                 "type": "string",
-                "description": "VCenter is the vSphere vCenter hostname.",
-                "required": true
+                "description": "DeprecatedVCenter is the vSphere vCenter hostname.\nDeprecated: use VCenters instead."
+              },
+              "vCenters": {
+                "type": "array",
+                "description": "VCenters are potentially multiple vCenter hostnames. Prefer this field over VCenter."
               }
             }
           }

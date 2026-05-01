@@ -886,7 +886,7 @@
               },
               "cluster": {
                 "type": "string",
-                "description": "Cluster is the name of the cluster virtual machines will be cloned into."
+                "description": "Cluster is the name of the cluster virtual machines will be cloned into.\nDeprecated: Please use Platform.Infrastructure instead\nSee also: Platform.ConvertDeprecatedFields"
               },
               "credentialsSecretRef": {
                 "type": "object",
@@ -902,26 +902,393 @@
               },
               "datacenter": {
                 "type": "string",
-                "description": "Datacenter is the name of the datacenter to use in the vCenter.",
-                "required": true
+                "description": "Datacenter is the name of the datacenter to use in the vCenter.\nDeprecated: Please use Platform.Infrastructure instead\nSee also: Platform.ConvertDeprecatedFields"
               },
               "defaultDatastore": {
                 "type": "string",
-                "description": "DefaultDatastore is the default datastore to use for provisioning volumes.",
-                "required": true
+                "description": "DefaultDatastore is the default datastore to use for provisioning volumes.\nDeprecated: Please use Platform.Infrastructure instead\nSee also: Platform.ConvertDeprecatedFields"
               },
               "folder": {
                 "type": "string",
-                "description": "Folder is the name of the folder that will be used and/or created for\nvirtual machines."
+                "description": "Folder is the name of the folder that will be used and/or created for\nvirtual machines.\nDeprecated: Please use Platform.Infrastructure instead\nSee also: Platform.ConvertDeprecatedFields"
+              },
+              "infrastructure": {
+                "type": "object",
+                "description": "Infrastructure is the desired state of the vSphere infrastructure provider.",
+                "fields": {
+                  "apiVIP": {
+                    "type": "string",
+                    "description": "DeprecatedAPIVIP is the virtual IP address for the api endpoint\nDeprecated: Use APIVIPs"
+                  },
+                  "apiVIPs": {
+                    "type": "array",
+                    "description": "APIVIPs contains the VIP(s) for the api endpoint. In dual stack clusters\nit contains an IPv4 and IPv6 address, otherwise only one VIP"
+                  },
+                  "cluster": {
+                    "type": "string",
+                    "description": "Cluster is the name of the cluster virtual machines will be cloned into.\nDeprecated: Use FailureDomains.Topology.Cluster"
+                  },
+                  "clusterOSImage": {
+                    "type": "string",
+                    "description": "ClusterOSImage overrides the url provided in rhcos.json to download the RHCOS OVA"
+                  },
+                  "datacenter": {
+                    "type": "string",
+                    "description": "Datacenter is the name of the datacenter to use in the vCenter.\nDeprecated: Use FailureDomains.Topology.Datacenter"
+                  },
+                  "defaultDatastore": {
+                    "type": "string",
+                    "description": "DefaultDatastore is the default datastore to use for provisioning volumes.\nDeprecated: Use FailureDomains.Topology.Datastore"
+                  },
+                  "defaultMachinePlatform": {
+                    "type": "object",
+                    "description": "DefaultMachinePlatform is the default configuration used when\ninstalling on VSphere for machine pools which do not define their own\nplatform configuration.",
+                    "fields": {
+                      "coresPerSocket": {
+                        "type": "integer",
+                        "description": "NumCoresPerSocket is the number of cores per socket in a vm. The number\nof vCPUs on the vm will be NumCPUs/NumCoresPerSocket."
+                      },
+                      "cpus": {
+                        "type": "integer",
+                        "description": "NumCPUs is the total number of virtual processor cores to assign a vm."
+                      },
+                      "dataDisks": {
+                        "type": "array",
+                        "description": "DataDisks are additional disks to add to the VM that are not part of the VM's OVA template.",
+                        "fields": {
+                          "name": {
+                            "type": "string",
+                            "description": "name is used to identify the disk definition. name is required needs to be unique so that it can be used to\nclearly identify purpose of the disk.",
+                            "required": true,
+                            "validations": {
+                              "pattern": "^[a-zA-Z0-9]([-_a-zA-Z0-9]*[a-zA-Z0-9])?$"
+                            }
+                          },
+                          "provisioningMode": {
+                            "type": "string",
+                            "description": "provisioningMode is an optional field that specifies the provisioning type to be used by this vSphere data disk.\nAllowed values are \"Thin\", \"Thick\", \"EagerlyZeroed\", and omitted.\nWhen set to Thin, the disk will be made using thin provisioning allocating the bare minimum space.\nWhen set to Thick, the full disk size will be allocated when disk is created.\nWhen set to EagerlyZeroed, the disk will be created using eager zero provisioning. An eager zeroed thick disk has all space allocated and wiped clean of any previous contents on the physical media at creation time. Such disks may take longer time during creation compared to other disk formats.\nWhen omitted, no setting will be applied to the data disk and the provisioning mode for the disk will be determined by the default storage policy configured for the datastore in vSphere.",
+                            "enum": [
+                              "Thin",
+                              "Thick",
+                              "EagerlyZeroed"
+                            ]
+                          },
+                          "sizeGiB": {
+                            "type": "integer",
+                            "description": "sizeGiB is the size of the disk in GiB.\nThe maximum supported size is 16384 GiB.",
+                            "required": true,
+                            "validations": {
+                              "minimum": 1,
+                              "maximum": 16384
+                            }
+                          }
+                        }
+                      },
+                      "memoryMB": {
+                        "type": "integer",
+                        "description": "Memory is the size of a VM's memory in MB."
+                      },
+                      "osDisk": {
+                        "type": "object",
+                        "description": "OSDisk defines the storage for instance.",
+                        "fields": {
+                          "diskSizeGB": {
+                            "type": "integer",
+                            "description": "DiskSizeGB defines the size of disk in GB."
+                          }
+                        }
+                      },
+                      "zones": {
+                        "type": "array",
+                        "description": "Zones defines available zones\nZones is available in TechPreview."
+                      }
+                    }
+                  },
+                  "diskType": {
+                    "type": "string",
+                    "description": "DiskType is the name of the disk provisioning type,\nvalid values are thin, thick, and eagerZeroedThick. When not\nspecified, it will be set according to the default storage policy\nof vsphere.",
+                    "enum": [
+                      "",
+                      "thin",
+                      "thick",
+                      "eagerZeroedThick"
+                    ]
+                  },
+                  "dnsRecordsType": {
+                    "type": "string",
+                    "description": "dnsRecordsType determines whether records for api, api-int, and ingress\nare provided by the internal DNS service or externally.\nAllowed values are `Internal`, `External`, and omitted.\nWhen set to `Internal`, records are provided by the internal infrastructure and\nno additional user configuration is required for the cluster to function.\nWhen set to `External`, records are not provided by the internal infrastructure\nand must be configured by the user on a DNS server outside the cluster.\nCluster nodes must use this external server for their upstream DNS requests.\nThis value may only be set when loadBalancer.type is set to UserManaged.\nWhen omitted, this means the user has no opinion and the platform is left\nto choose reasonable defaults. These defaults are subject to change over time.\nThe current default is `Internal`.",
+                    "enum": [
+                      "Internal",
+                      "External"
+                    ]
+                  },
+                  "failureDomains": {
+                    "type": "array",
+                    "description": "FailureDomains holds the VSpherePlatformFailureDomainSpec which contains\nthe definition of region, zone and the vCenter topology.\nIf this is omitted failure domains (regions and zones) will not be used.",
+                    "fields": {
+                      "name": {
+                        "type": "string",
+                        "description": "name defines the name of the FailureDomain\nThis name is arbitrary but will be used\nin VSpherePlatformDeploymentZone for association.",
+                        "required": true
+                      },
+                      "region": {
+                        "type": "string",
+                        "description": "The region is the name of the tag in vCenter that is associated with the\ntag category `openshift-region`. The region name must match the tag name\nand must exist prior to installation. When the regionType is Datacenter\nthe tag must be attached to the toplogy.datacenter object in vCenter.\nWhen the regionType is ComputeCluster the tag must be attached to the topology.computeCluster\nobject in vCenter.",
+                        "required": true
+                      },
+                      "regionType": {
+                        "type": "string",
+                        "description": "regionType is the type of failure domain region, the current values are \"Datacenter\" and \"ComputeCluster\"\nWhen regionType is Datacenter the zoneType must be ComputeCluster.\nWhen regionType is ComputeCluster the zoneType must be HostGroup"
+                      },
+                      "server": {
+                        "type": "string",
+                        "description": "server is the fully-qualified domain name or the IP address of the vCenter server.",
+                        "required": true
+                      },
+                      "topology": {
+                        "type": "object",
+                        "description": "Topology describes a given failure domain using vSphere constructs",
+                        "required": true,
+                        "fields": {
+                          "computeCluster": {
+                            "type": "string",
+                            "description": "computeCluster as the failure domain\nThis is required to be a path",
+                            "required": true
+                          },
+                          "datacenter": {
+                            "type": "string",
+                            "description": "datacenter is the vCenter datacenter in which virtual machines will be located\nand defined as the failure domain.",
+                            "required": true
+                          },
+                          "datastore": {
+                            "type": "string",
+                            "description": "datastore is the name or inventory path of the datastore in which the\nvirtual machine is created/located.",
+                            "required": true
+                          },
+                          "folder": {
+                            "type": "string",
+                            "description": "folder is the inventory path of the folder in which the\nvirtual machine is created/located.",
+                            "validations": {
+                              "pattern": "^/.*?/vm/.*?"
+                            }
+                          },
+                          "hostGroup": {
+                            "type": "string",
+                            "description": "hostGroup is the name of the vm-host group of type host within vCenter for this failure domain.\nhostGroup is limited to 80 characters.\nThis field is required when the ZoneType is HostGroup"
+                          },
+                          "networks": {
+                            "type": "array",
+                            "description": "networks is the list of networks within this failure domain",
+                            "required": true
+                          },
+                          "resourcePool": {
+                            "type": "string",
+                            "description": "resourcePool is the absolute path of the resource pool where virtual machines will be\ncreated. The absolute path is of the form /<datacenter>/host/<cluster>/Resources/<resourcepool>.",
+                            "validations": {
+                              "pattern": "^/.*?/host/.*?/Resources.*"
+                            }
+                          },
+                          "tagIDs": {
+                            "type": "array",
+                            "description": "tagIDs is an optional set of tags to add to an instance. Specified tagIDs\nmust use URN-notation instead of display names. A maximum of 10 tag IDs may be specified."
+                          },
+                          "template": {
+                            "type": "string",
+                            "description": "template is the inventory path of the virtual machine or template\nthat will be used for cloning.",
+                            "validations": {
+                              "pattern": "^/.*?/vm/.*?"
+                            }
+                          }
+                        }
+                      },
+                      "zone": {
+                        "type": "string",
+                        "description": "The zone is the name of the tag in vCenter that is associated with\nthe tag category `openshift-zone`. The zone name must match the tag name\nand must exist prior to installation. When zoneType is HostGroup the\nESXi hosts defined in the provided in the topology.hostGroup field must be tagged.\nWhen the zoneType is ComputeCluster the tag must be attached to the topology.computeCluster\nobject in vCenter.",
+                        "required": true
+                      },
+                      "zoneType": {
+                        "type": "string",
+                        "description": "When zoneType is ComputeCluster the regionType must be Datacenter\nWhen zoneType is HostGroup the regionType must be ComputeCluster\nIf the zoneType is HostGroup topology.hostGroup must be defined and exist in vCenter\nprior to installation."
+                      }
+                    }
+                  },
+                  "folder": {
+                    "type": "string",
+                    "description": "Folder is the absolute path of the folder that will be used and/or created for\nvirtual machines. The absolute path is of the form /<datacenter>/vm/<folder>/<subfolder>.\nDeprecated: Use FailureDomains.Topology.Folder",
+                    "validations": {
+                      "pattern": "^/.*?/vm/.*?"
+                    }
+                  },
+                  "hosts": {
+                    "type": "array",
+                    "description": "Hosts defines network configurations to be applied by the installer. Hosts is available in TechPreview.",
+                    "fields": {
+                      "failureDomain": {
+                        "type": "string",
+                        "description": "FailureDomain refers to the name of a FailureDomain as described in https://github.com/openshift/enhancements/blob/master/enhancements/installer/vsphere-ipi-zonal.md"
+                      },
+                      "networkDevice": {
+                        "type": "object",
+                        "description": "NetworkDeviceSpec to be applied to the host",
+                        "required": true,
+                        "fields": {
+                          "gateway": {
+                            "type": "string",
+                            "description": "gateway is an IPv4 or IPv6 address which represents the subnet gateway,\nfor example, 192.168.1.1."
+                          },
+                          "ipAddrs": {
+                            "type": "array",
+                            "description": "ipAddrs is a list of one or more IPv4 and/or IPv6 addresses and CIDR to assign to\nthis device, for example, 192.168.1.100/24. IP addresses provided via ipAddrs are\nintended to allow explicit assignment of a machine's IP address.",
+                            "required": true
+                          },
+                          "nameservers": {
+                            "type": "array",
+                            "description": "nameservers is a list of IPv4 and/or IPv6 addresses used as DNS nameservers, for example,\n8.8.8.8. a nameserver is not provided by a fulfilled IPAddressClaim. If DHCP is not the\nsource of IP addresses for this network device, nameservers should include a valid nameserver."
+                          }
+                        }
+                      },
+                      "role": {
+                        "type": "string",
+                        "description": "Role defines the role of the node",
+                        "required": true,
+                        "enum": [
+                          "",
+                          "bootstrap",
+                          "control-plane",
+                          "compute"
+                        ]
+                      }
+                    }
+                  },
+                  "ingressVIP": {
+                    "type": "string",
+                    "description": "DeprecatedIngressVIP is the virtual IP address for ingress\nDeprecated: Use IngressVIPs"
+                  },
+                  "ingressVIPs": {
+                    "type": "array",
+                    "description": "IngressVIPs contains the VIP(s) for ingress. In dual stack clusters it\ncontains an IPv4 and IPv6 address, otherwise only one VIP"
+                  },
+                  "loadBalancer": {
+                    "type": "object",
+                    "description": "LoadBalancer defines how the load balancer used by the cluster is configured.\nLoadBalancer is available in TechPreview.",
+                    "fields": {
+                      "type": {
+                        "type": "string",
+                        "description": "type defines the type of load balancer used by the cluster on VSphere platform\nwhich can be a user-managed or openshift-managed load balancer\nthat is to be used for the OpenShift API and Ingress endpoints.\nWhen set to OpenShiftManagedDefault the static pods in charge of API and Ingress traffic load-balancing\ndefined in the machine config operator will be deployed.\nWhen set to UserManaged these static pods will not be deployed and it is expected that\nthe load balancer is configured out of band by the deployer.\nWhen omitted, this means no opinion and the platform is left to choose a reasonable default.\nThe default value is OpenShiftManagedDefault.",
+                        "enum": [
+                          "OpenShiftManagedDefault",
+                          "UserManaged"
+                        ],
+                        "default": "OpenShiftManagedDefault"
+                      }
+                    }
+                  },
+                  "network": {
+                    "type": "string",
+                    "description": "Network specifies the name of the network to be used by the cluster.\nDeprecated: Use FailureDomains.Topology.Network"
+                  },
+                  "nodeNetworking": {
+                    "type": "object",
+                    "description": "nodeNetworking contains the definition of internal and external network constraints for\nassigning the node's networking.\nIf this field is omitted, networking defaults to the legacy\naddress selection behavior which is to only support a single address and\nreturn the first one found.",
+                    "fields": {
+                      "external": {
+                        "type": "object",
+                        "description": "external represents the network configuration of the node that is externally routable.",
+                        "fields": {
+                          "excludeNetworkSubnetCidr": {
+                            "type": "array",
+                            "description": "excludeNetworkSubnetCidr IP addresses in subnet ranges will be excluded when selecting\nthe IP address from the VirtualMachine's VM for use in the status.addresses fields."
+                          },
+                          "network": {
+                            "type": "string",
+                            "description": "network VirtualMachine's VM Network names that will be used to when searching\nfor status.addresses fields. Note that if internal.networkSubnetCIDR and\nexternal.networkSubnetCIDR are not set, then the vNIC associated to this network must\nonly have a single IP address assigned to it.\nThe available networks (port groups) can be listed using\n`govc ls 'network/*'`"
+                          },
+                          "networkSubnetCidr": {
+                            "type": "array",
+                            "description": "networkSubnetCidr IP address on VirtualMachine's network interfaces included in the fields' CIDRs\nthat will be used in respective status.addresses fields."
+                          }
+                        }
+                      },
+                      "internal": {
+                        "type": "object",
+                        "description": "internal represents the network configuration of the node that is routable only within the cluster.",
+                        "fields": {
+                          "excludeNetworkSubnetCidr": {
+                            "type": "array",
+                            "description": "excludeNetworkSubnetCidr IP addresses in subnet ranges will be excluded when selecting\nthe IP address from the VirtualMachine's VM for use in the status.addresses fields."
+                          },
+                          "network": {
+                            "type": "string",
+                            "description": "network VirtualMachine's VM Network names that will be used to when searching\nfor status.addresses fields. Note that if internal.networkSubnetCIDR and\nexternal.networkSubnetCIDR are not set, then the vNIC associated to this network must\nonly have a single IP address assigned to it.\nThe available networks (port groups) can be listed using\n`govc ls 'network/*'`"
+                          },
+                          "networkSubnetCidr": {
+                            "type": "array",
+                            "description": "networkSubnetCidr IP address on VirtualMachine's network interfaces included in the fields' CIDRs\nthat will be used in respective status.addresses fields."
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password is the password for the user to use to connect to the vCenter.\nDeprecated: Use VCenters.Password"
+                  },
+                  "resourcePool": {
+                    "type": "string",
+                    "description": "ResourcePool is the absolute path of the resource pool where virtual machines will be\ncreated. The absolute path is of the form /<datacenter>/host/<cluster>/Resources/<resourcepool>.\nDeprecated: Use FailureDomains.Topology.ResourcePool"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "Username is the name of the user to use to connect to the vCenter.\nDeprecated: Use VCenters.Username"
+                  },
+                  "vCenter": {
+                    "type": "string",
+                    "description": "VCenter is the domain name or IP address of the vCenter.\nDeprecated: Use VCenters.Server"
+                  },
+                  "vcenters": {
+                    "type": "array",
+                    "description": "VCenters holds the connection details for services to communicate with vCenter.",
+                    "fields": {
+                      "datacenters": {
+                        "type": "array",
+                        "description": "Datacenter in which VMs are located.",
+                        "required": true
+                      },
+                      "password": {
+                        "type": "string",
+                        "description": "Password is the password for the user to use to connect to the vCenter.",
+                        "required": true
+                      },
+                      "port": {
+                        "type": "integer",
+                        "description": "port is the TCP port that will be used to communicate to\nthe vCenter endpoint. This is typically unchanged from\nthe default of HTTPS TCP/443.",
+                        "default": 443,
+                        "validations": {
+                          "minimum": 1,
+                          "maximum": 32767
+                        }
+                      },
+                      "server": {
+                        "type": "string",
+                        "description": "server is the fully-qualified domain name or the IP address of the vCenter server.",
+                        "required": true
+                      },
+                      "user": {
+                        "type": "string",
+                        "description": "Username is the username that will be used to connect to vCenter",
+                        "required": true
+                      }
+                    }
+                  }
+                }
               },
               "network": {
                 "type": "string",
-                "description": "Network specifies the name of the network to be used by the cluster."
+                "description": "Network specifies the name of the network to be used by the cluster.\nDeprecated: Please use Platform.Infrastructure instead\nSee also: Platform.ConvertDeprecatedFields"
               },
               "vCenter": {
                 "type": "string",
-                "description": "VCenter is the domain name or IP address of the vCenter.",
-                "required": true
+                "description": "VCenter is the domain name or IP address of the vCenter.\nDeprecated: Please use Platform.Infrastructure instead\nSee also: Platform.ConvertDeprecatedFields"
               }
             }
           }
