@@ -1606,6 +1606,103 @@
               }
             }
           },
+          "conditionalUpdateRisks": {
+            "type": "array",
+            "description": "conditionalUpdateRisks contains the list of risks associated with conditionalUpdates.\nWhen performing a conditional update, all its associated risks will be compared with the set of accepted risks in the spec.desiredUpdate.acceptRisks field.\nIf all risks for a conditional update are included in the spec.desiredUpdate.acceptRisks set, the conditional update can proceed, otherwise it is blocked.\nThe risk names in the list must be unique.\nconditionalUpdateRisks must not contain more than 500 entries.",
+            "fields": {
+              "conditions": {
+                "type": "array",
+                "description": "conditions represents the observations of the conditional update\nrisk's current status. Known types are:\n* Applies, for whether the risk applies to the current cluster.\nThe condition's types in the list must be unique.\nconditions must not contain more than one entry.",
+                "fields": {
+                  "lastTransitionTime": {
+                    "type": "string",
+                    "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+                    "required": true
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "message is a human readable message indicating details about the transition.\nThis may be an empty string.",
+                    "required": true
+                  },
+                  "observedGeneration": {
+                    "type": "integer",
+                    "description": "observedGeneration represents the .metadata.generation that the condition was set based upon.\nFor instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance.",
+                    "validations": {
+                      "minimum": 0
+                    }
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition.\nProducers of specific condition types may define expected values and meanings for this field,\nand whether the values are considered a guaranteed API.\nThe value should be a CamelCase string.\nThis field may not be empty.",
+                    "required": true,
+                    "validations": {
+                      "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "status of the condition, one of True, False, Unknown.",
+                    "required": true,
+                    "enum": [
+                      "True",
+                      "False",
+                      "Unknown"
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "type of condition in CamelCase or in foo.example.com/CamelCase.",
+                    "required": true,
+                    "validations": {
+                      "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+                    }
+                  }
+                }
+              },
+              "matchingRules": {
+                "type": "array",
+                "description": "matchingRules is a slice of conditions for deciding which\nclusters match the risk and which do not. The slice is\nordered by decreasing precedence. The cluster-version\noperator will walk the slice in order, and stop after the\nfirst it can successfully evaluate. If no condition can be\nsuccessfully evaluated, the update will not be recommended.",
+                "required": true,
+                "fields": {
+                  "promql": {
+                    "type": "object",
+                    "description": "promql represents a cluster condition based on PromQL.",
+                    "fields": {
+                      "promql": {
+                        "type": "string",
+                        "description": "promql is a PromQL query classifying clusters. This query\nquery should return a 1 in the match case and a 0 in the\ndoes-not-match case. Queries which return no time\nseries, or which return values besides 0 or 1, are\nevaluation failures.",
+                        "required": true
+                      }
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "type represents the cluster-condition type. This defines\nthe members and semantics of any additional properties.",
+                    "required": true,
+                    "enum": [
+                      "Always",
+                      "PromQL"
+                    ]
+                  }
+                }
+              },
+              "message": {
+                "type": "string",
+                "description": "message provides additional information about the risk of\nupdating, in the event that matchingRules match the cluster\nstate. This is only to be consumed by humans. It may\ncontain Line Feed characters (U+000A), which should be\nrendered as new lines.",
+                "required": true
+              },
+              "name": {
+                "type": "string",
+                "description": "name is the CamelCase reason for not recommending a\nconditional update, in the event that matchingRules match the\ncluster state.",
+                "required": true
+              },
+              "url": {
+                "type": "string",
+                "description": "url contains information about this risk.",
+                "required": true
+              }
+            }
+          },
           "conditionalUpdates": {
             "type": "array",
             "description": "conditionalUpdates contains the list of updates that may be\nrecommended for this cluster if it meets specific required\nconditions. Consumers interested in the set of updates that are\nactually recommended for this cluster should use\navailableUpdates. This list may be empty if no updates are\nrecommended, if the update service is unavailable, or if an empty\nor invalid channel has been specified.",
@@ -1692,11 +1789,64 @@
                   }
                 }
               },
+              "riskNames": {
+                "type": "array",
+                "description": "riskNames represents the set of the names of conditionalUpdateRisks that are relevant to this update for some clusters.\nThe Applies condition of each conditionalUpdateRisks entry declares if that risk applies to this cluster.\nA conditional update is accepted only if each of its risks either does not apply to the cluster or is considered acceptable by the cluster administrator.\nThe latter means that the risk names are included in value of the spec.desiredUpdate.acceptRisks field.\nEntries must be unique and must not exceed 256 characters.\nriskNames must not contain more than 500 entries."
+              },
               "risks": {
                 "type": "array",
                 "description": "risks represents the range of issues associated with\nupdating to the target release. The cluster-version\noperator will evaluate all entries, and only recommend the\nupdate if there is at least one entry and all entries\nrecommend the update.",
                 "required": true,
                 "fields": {
+                  "conditions": {
+                    "type": "array",
+                    "description": "conditions represents the observations of the conditional update\nrisk's current status. Known types are:\n* Applies, for whether the risk applies to the current cluster.\nThe condition's types in the list must be unique.\nconditions must not contain more than one entry.",
+                    "fields": {
+                      "lastTransitionTime": {
+                        "type": "string",
+                        "description": "lastTransitionTime is the last time the condition transitioned from one status to another.\nThis should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.",
+                        "required": true
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "message is a human readable message indicating details about the transition.\nThis may be an empty string.",
+                        "required": true
+                      },
+                      "observedGeneration": {
+                        "type": "integer",
+                        "description": "observedGeneration represents the .metadata.generation that the condition was set based upon.\nFor instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date\nwith respect to the current state of the instance.",
+                        "validations": {
+                          "minimum": 0
+                        }
+                      },
+                      "reason": {
+                        "type": "string",
+                        "description": "reason contains a programmatic identifier indicating the reason for the condition's last transition.\nProducers of specific condition types may define expected values and meanings for this field,\nand whether the values are considered a guaranteed API.\nThe value should be a CamelCase string.\nThis field may not be empty.",
+                        "required": true,
+                        "validations": {
+                          "pattern": "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+                        }
+                      },
+                      "status": {
+                        "type": "string",
+                        "description": "status of the condition, one of True, False, Unknown.",
+                        "required": true,
+                        "enum": [
+                          "True",
+                          "False",
+                          "Unknown"
+                        ]
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "type of condition in CamelCase or in foo.example.com/CamelCase.",
+                        "required": true,
+                        "validations": {
+                          "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+                        }
+                      }
+                    }
+                  },
                   "matchingRules": {
                     "type": "array",
                     "description": "matchingRules is a slice of conditions for deciding which\nclusters match the risk and which do not. The slice is\nordered by decreasing precedence. The cluster-version\noperator will walk the slice in order, and stop after the\nfirst it can successfully evaluate. If no condition can be\nsuccessfully evaluated, the update will not be recommended.",
@@ -1811,7 +1961,7 @@
             "fields": {
               "acceptedRisks": {
                 "type": "string",
-                "description": "acceptedRisks records risks which were accepted to initiate the update.\nFor example, it may menition an Upgradeable=False or missing signature\nthat was overridden via desiredUpdate.force, or an update that was\ninitiated despite not being in the availableUpdates set of recommended\nupdate targets."
+                "description": "acceptedRisks records risks which were accepted to initiate the update.\nFor example, it may mention an Upgradeable=False or missing signature\nthat was overridden via desiredUpdate.force, or an update that was\ninitiated despite not being in the availableUpdates set of recommended\nupdate targets."
               },
               "completionTime": {
                 "type": "string",
