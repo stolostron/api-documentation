@@ -9,5 +9,5 @@ mcp==1.27.2
 # TODO(PYSEC-2025-183): pyjwt (transitive via mcp) — disputed by PyJWT upstream; no fix version available as of 2026-05-20.
 # The vulnerability describes weak encryption due to short key lengths, which is an application-level concern.
 # Monitor https://github.com/jpadilla/pyjwt for a fix release.
-# cryptography: transitive dep via mcp->pyjwt[crypto]; pinned for security; updated 2026-05-05
-cryptography==48.0.0
+# cryptography: transitive dep via mcp->pyjwt[crypto]; pinned for security; updated 2026-06-10
+cryptography==48.0.1
