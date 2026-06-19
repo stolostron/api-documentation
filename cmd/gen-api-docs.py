@@ -60,7 +60,7 @@ def parse_go_struct(type_name, go_files, parsed_types):
         return {'kind': type_name, 'fields': [{'name': '...', 'type': '', 'description': 'Recursive reference to ' + type_name, 'validations': []}]}
     parsed_types.add(type_name)
     struct_body, file_path, content = find_go_struct(type_name, go_files)
-    if not struct_body:
+    if not struct_body or not content:
         return {'kind': type_name, 'fields': [{'name': '...', 'type': '', 'description': f'Definition for {type_name} not found', 'validations': []}]}
     struct_comment = ''
     struct_comment_match = re.search(r'// ([^\n]+)\n(.*\n)*?type ' + re.escape(type_name), content)
@@ -73,7 +73,7 @@ def parse_go_struct(type_name, go_files, parsed_types):
             continue
         parts = line.split()
         # Embedded field: only a type, no name
-        if len(parts) == 1:
+        if len(parts) == 1 or (len(parts) == 2 and parts[1].startswith('`')):
             embedded_type = parts[0]
             if not is_primitive(embedded_type):
                 embedded_struct = parse_go_struct(embedded_type, go_files, parsed_types)
@@ -89,19 +89,27 @@ def parse_go_struct(type_name, go_files, parsed_types):
             json_tag_match = re.search(r'`json:"([^"]+)"`', line)
             if json_tag_match:
                 json_tag = json_tag_match.group(1).split(',')[0]
-        field_comment_regex = re.compile(r"// ([^\n]+)\n\s*" + re.escape(field_name) + r"\s")
-        comment_match = field_comment_regex.search(content)
-        description = comment_match.group(1).strip() if comment_match else "No description provided."
+        comment_block_regex = re.compile(r"((?:\s*//[^\n]*\n\s*)+)" + re.escape(field_name) + r"\s")
+        comment_block_match = comment_block_regex.search(struct_body)
+        description = "No description provided."
+        validations = []
+        if comment_block_match:
+            lines = []
+            for comment_line in comment_block_match.group(1).strip().split('\n'):
+                cleaned = comment_line.strip().lstrip('/').strip()
+                if cleaned.startswith('+kubebuilder:validation:'):
+                    validations.append(cleaned[len('+kubebuilder:validation:'):].strip())
+                elif cleaned.startswith('+'):
+                    continue
+                else:
+                    lines.append(cleaned)
+            description = lines[0].strip() if lines else "No description provided."
         field_info = {
             'name': json_tag or field_name,
             'type': field_type,
             'description': description,
-            'validations': []
+            'validations': validations
         }
-        tag_regex = re.compile(r"// \\+kubebuilder:validation:([^\n]+)\n\s*" + re.escape(field_name))
-        tag_matches = tag_regex.findall(content)
-        for tag in tag_matches:
-            field_info['validations'].append(tag.strip())
         if not is_primitive(field_type):
             field_info['inline'] = parse_go_struct(field_type, go_files, parsed_types)
         fields.append(field_info)
@@ -118,9 +126,33 @@ def parse_go_file(file_path, go_files, parsed_types=None):
     if not kind_match:
         return None
     kind = kind_match.group(1)
-    # Find the Spec struct for this Kind
+    if kind.endswith('Spec'):
+        kind = kind[:-4]
+    elif kind.endswith('Status'):
+        kind = kind[:-6]
+    package_match = re.search(r'package (\w+)', content)
+    version = package_match.group(1) if package_match else 'v1alpha1'
     spec_struct_name = kind + 'Spec'
-    return parse_go_struct(spec_struct_name, go_files, parsed_types)
+    spec_result = parse_go_struct(spec_struct_name, go_files, parsed_types)
+    status_struct_name = kind + 'Status'
+    status_result = parse_go_struct(status_struct_name, go_files, set())
+    if not spec_result or 'Definition for' in spec_result.get('fields', [{}])[0].get('description', ''):
+        return None
+    crd_info = {
+        'kind': kind,
+        'group': 'example.com',
+        'version': version,
+        'scope': 'Namespaced',
+        'description': spec_result.get('description', 'No description available.'),
+        'descriptionspec': spec_result.get('description', 'No description available.'),
+        'spec': spec_result.get('fields', []),
+        'fields': spec_result.get('fields', []),
+        'status': []
+    }
+    if status_result and 'Definition for' not in status_result.get('fields', [{}])[0].get('description', ''):
+        crd_info['status'] = status_result.get('fields', [])
+        crd_info['descriptionstatus'] = status_result.get('description', 'No description available.')
+    return crd_info
 
 
 def parse_crd_file(file_path):
@@ -130,6 +162,10 @@ def parse_crd_file(file_path):
     # Filter out Helm template syntax before parsing YAML
     # Remove Helm template blocks like {{- if .Values.manageCRDs }}, {{ .Values.something }}, etc.
     import re
+    # Extract default values from Helm templates if they exist
+    content = re.sub(r'\{\{-?\s*[^|}]+\|\s*default\s+"([^"]+)"\s*-?\}\}', r'\1', content)
+    content = re.sub(r'\{\{-?\s*[^|}]+\|\s*default\s+\'([^\']+)\'\s*-?\}\}', r'\1', content)
+    content = re.sub(r'\{\{-?\s*[^|}]+\|\s*default\s+([^\s}]+)\s*-?\}\}', r'\1', content)
     # Remove Helm template conditionals and loops
     content = re.sub(r'\{\{-?\s*if\s+[^}]+\s*-?\}\}', '', content)
     content = re.sub(r'\{\{-?\s*else\s*-?\}\}', '', content)
@@ -523,9 +559,9 @@ kubectl describe <singular>/<name> -n <namespace>
 def main():
     import sys
     global search_dir
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 1 and os.path.isdir(sys.argv[1]):
         search_dir = sys.argv[1]
-    api_docs_dir = './api-docs'
+    api_docs_dir = os.path.join(search_dir, 'api-docs')
     if not os.path.exists(api_docs_dir):
         os.makedirs(api_docs_dir)
     go_type_files = collect_go_type_files()

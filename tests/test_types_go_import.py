@@ -174,7 +174,6 @@ type TestResourceSpec struct {
     // Description with special characters: < > & " '
     Description string `json:"description"`
 
-    // Field with no comment
     NoComment string `json:"noComment"`
 }
 '''
