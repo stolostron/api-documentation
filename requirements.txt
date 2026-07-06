@@ -5,8 +5,8 @@ PyYAML==6.0.3
 # flake8: used for Python linting (make lint)
 flake8==7.3.0
 # mcp: used by cmd/mcp-server.py (MCP stdio server)
-mcp==1.27.2
+mcp==1.28.1
 # PyJWT: transitive dep via mcp; pinned for security; updated 2026-06-18 to resolve CVE-2026-48522 and CVE-2026-48523
 PyJWT==2.13.0
 # cryptography: transitive dep via mcp->pyjwt[crypto]; pinned for security; updated 2026-06-10
-cryptography==48.0.1
+cryptography==49.0.0
