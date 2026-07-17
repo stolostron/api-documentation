@@ -36,106 +36,11 @@ These URLs can be used directly by AI assistants to fetch the schemas for `relea
 
 ---
 
-## KlusterletAddonConfig
+## MulticlusterRoleAssignment
 
-KlusterletAddonConfig is the Schema for the klusterletaddonconfigs API
+MulticlusterRoleAssignment is the Schema for the multiclusterroleassignments API.
 
-[View a detailed API Reference for KlusterletAddonConfig](klusterletaddonconfig_api.md).
-
----
-
-## ObservabilityAddon
-
-ObservabilityAddon is the Schema for the observabilityaddon API
-
-[View a detailed API Reference for ObservabilityAddon](observabilityaddon_api.md).
-
----
-
-## MultiClusterObservability
-
-MultiClusterObservability defines the configuration for the Observability installation on
-Hub and Managed Clusters all through this one custom resource.
-
-[View a detailed API Reference for MultiClusterObservability](multiclusterobservability_api.md).
-
----
-
-## Observatorium
-
-Observatorium is the Schema for the observatoria API
-
-[View a detailed API Reference for Observatorium](observatorium_api.md).
-
----
-
-## ClusterPermission
-
-ClusterPermission is the Schema for the clusterpermissions API
-
-[View a detailed API Reference for ClusterPermission](clusterpermission_api.md).
-
----
-
-## PolicySet
-
-PolicySet is the schema for the policysets API. A policy set is a logical grouping of policies from the same namespace. The policy set is bound to a placement resource and applies the placement to all policies within the set. The status reports the overall compliance of the set.
-
-[View a detailed API Reference for PolicySet](policyset_api.md).
-
----
-
-## PlacementBinding
-
-PlacementBinding is the schema for the placementbindings API. A PlacementBinding resource binds a managed cluster placement resource to a policy or policy set, along with configurable overrides.
-
-[View a detailed API Reference for PlacementBinding](placementbinding_api.md).
-
----
-
-## Policy
-
-Policy is the schema for the policies API. Policy wraps other policy engine resources in its "policy-templates" array in order to deliver the resources to managed clusters.
-
-[View a detailed API Reference for Policy](policy_api.md).
-
----
-
-## PolicyAutomation
-
-PolicyAutomation is the schema for the policyautomations API. PolicyAutomation configures creation of an AnsibleJob, from the tower.ansible.com API group, to initiate Ansible to run upon noncompliant events of the attached policy, or when you manually initiate the run with the "policy.open-cluster-management.io/rerun=true" annotation.
-
-[View a detailed API Reference for PolicyAutomation](policyautomation_api.md).
-
----
-
-## BackupSchedule
-
-BackupSchedule is an ACM resource that you can use to schedule cluster backups at specified intervals.
-The backupschedule resource creates a set of schedule.velero.io resources to periodically generate backups for
-resources on your ACM hub cluster.
-
-[View a detailed API Reference for BackupSchedule](backupschedule_api.md).
-
----
-
-## Restore
-
-Restore is an ACM resource that you can use to restore resources from a cluster backup to a target cluster.
-The restore resource has properties that you can use to restore only passive data or to restore managed cluster
-activation resources.
-Additionally, it has a property that you can use to periodically check for new backups and automatically restore
-them on the target cluster.
-
-[View a detailed API Reference for Restore](restore_api.md).
-
----
-
-## Search
-
-Search is the schema for the searches API.
-
-[View a detailed API Reference for Search](search_api.md).
+[View a detailed API Reference for MulticlusterRoleAssignment](multiclusterroleassignment_api.md).
 
 ---
 
@@ -156,6 +61,109 @@ to configure the Submariner.
 
 ---
 
+## Search
+
+Search is the schema for the searches API.
+
+[View a detailed API Reference for Search](search_api.md).
+
+---
+
+## Restore
+
+Restore is an ACM resource that you can use to restore resources from a cluster backup to a target cluster.
+The restore resource has properties that you can use to restore only passive data or to restore managed cluster
+activation resources.
+Additionally, it has a property that you can use to periodically check for new backups and automatically restore
+them on the target cluster.
+
+[View a detailed API Reference for Restore](restore_api.md).
+
+---
+
+## BackupSchedule
+
+BackupSchedule is an ACM resource that you can use to schedule cluster backups at specified intervals.
+The backupschedule resource creates a set of schedule.velero.io resources to periodically generate backups for
+resources on your ACM hub cluster.
+
+[View a detailed API Reference for BackupSchedule](backupschedule_api.md).
+
+---
+
+## PolicyAutomation
+
+PolicyAutomation is the schema for the policyautomations API. PolicyAutomation configures creation of an AnsibleJob, from the tower.ansible.com API group, to initiate Ansible to run upon noncompliant events of the attached policy, or when you manually initiate the run with the "policy.open-cluster-management.io/rerun=true" annotation.
+
+[View a detailed API Reference for PolicyAutomation](policyautomation_api.md).
+
+---
+
+## Policy
+
+Policy is the schema for the policies API. Policy wraps other policy engine resources in its "policy-templates" array in order to deliver the resources to managed clusters.
+
+[View a detailed API Reference for Policy](policy_api.md).
+
+---
+
+## PlacementBinding
+
+PlacementBinding is the schema for the placementbindings API. A PlacementBinding resource binds a managed cluster placement resource to a policy or policy set, along with configurable overrides.
+
+[View a detailed API Reference for PlacementBinding](placementbinding_api.md).
+
+---
+
+## PolicySet
+
+PolicySet is the schema for the policysets API. A policy set is a logical grouping of policies from the same namespace. The policy set is bound to a placement resource and applies the placement to all policies within the set. The status reports the overall compliance of the set.
+
+[View a detailed API Reference for PolicySet](policyset_api.md).
+
+---
+
+## KlusterletAddonConfig
+
+KlusterletAddonConfig is the Schema for the klusterletaddonconfigs API
+
+[View a detailed API Reference for KlusterletAddonConfig](klusterletaddonconfig_api.md).
+
+---
+
+## MultiClusterObservability
+
+MultiClusterObservability defines the configuration for the Observability installation on
+Hub and Managed Clusters all through this one custom resource.
+
+[View a detailed API Reference for MultiClusterObservability](multiclusterobservability_api.md).
+
+---
+
+## Observatorium
+
+Observatorium is the Schema for the observatoria API
+
+[View a detailed API Reference for Observatorium](observatorium_api.md).
+
+---
+
+## ObservabilityAddon
+
+ObservabilityAddon is the Schema for the observabilityaddon API
+
+[View a detailed API Reference for ObservabilityAddon](observabilityaddon_api.md).
+
+---
+
+## ClusterPermission
+
+ClusterPermission is the Schema for the clusterpermissions API
+
+[View a detailed API Reference for ClusterPermission](clusterpermission_api.md).
+
+---
+
 ## UserPreference
 
 Description not found in CRD.
@@ -172,43 +180,11 @@ PolicyReport is the Schema for the policyreports API
 
 ---
 
-## MulticlusterRoleAssignment
-
-MulticlusterRoleAssignment is the Schema for the multiclusterroleassignments API.
-
-[View a detailed API Reference for MulticlusterRoleAssignment](multiclusterroleassignment_api.md).
-
----
-
-## ClusterInstance
-
-ClusterInstance is the Schema for the clusterinstances API
-
-[View a detailed API Reference for ClusterInstance](clusterinstance_api.md).
-
----
-
-## InternalHubComponent
-
-Description not found in CRD.
-
-[View a detailed API Reference for InternalHubComponent](internalhubcomponent_api.md).
-
----
-
 ## MulticlusterApplicationSetReport
 
 MulticlusterApplicationSetReport provides a report of the status of an application from all the managed clusters where the application is deployed on. It provides a summary of the number of clusters in the various states. If an error or warning occurred when installing the application on a managed cluster, the conditions, including the waring and error message, is captured in the report.
 
 [View a detailed API Reference for MulticlusterApplicationSetReport](multiclusterapplicationsetreport_api.md).
-
----
-
-## Application
-
-Application is the Schema for the applications API
-
-[View a detailed API Reference for Application](application_api.md).
 
 ---
 
@@ -220,19 +196,30 @@ PlacementRule is the Schema for the placementrules API
 
 ---
 
+## Application
+
+Application is the Schema for the applications API
+
+[View a detailed API Reference for Application](application_api.md).
+
+---
+
+## SubscriptionReport
+
+SubscriptionReport provides a report of the status of the subscriptions on the managed clusters. There are two
+types of subscriptions reports: Application and Cluster. Application type reports provide the status of a particular
+subscription on all the managed clusters. Cluster type reports provide the status of all the subscriptions on a
+particular managed cluster.
+
+[View a detailed API Reference for SubscriptionReport](subscriptionreport_api.md).
+
+---
+
 ## Subscription
 
 Subscription is the Schema for the subscriptions API
 
 [View a detailed API Reference for Subscription](subscription_api.md).
-
----
-
-## Deployable
-
-Deployable is the Schema for the deployables API
-
-[View a detailed API Reference for Deployable](deployable_api.md).
 
 ---
 
@@ -260,14 +247,11 @@ SubscriptionStatus provides detailed status for all the resources that are deplo
 
 ---
 
-## SubscriptionReport
+## Deployable
 
-SubscriptionReport provides a report of the status of the subscriptions on the managed clusters. There are two
-types of subscriptions reports: Application and Cluster. Application type reports provide the status of a particular
-subscription on all the managed clusters. Cluster type reports provide the status of all the subscriptions on a
-particular managed cluster.
+Deployable is the Schema for the deployables API
 
-[View a detailed API Reference for SubscriptionReport](subscriptionreport_api.md).
+[View a detailed API Reference for Deployable](deployable_api.md).
 
 ---
 
@@ -279,11 +263,51 @@ Channel provides a repository containing application resources which can be depl
 
 ---
 
-## ImageClusterInstall
+## ClusterInstance
 
-ImageClusterInstall is the Schema for the imageclusterinstall API
+ClusterInstance is the Schema for the clusterinstances API
 
-[View a detailed API Reference for ImageClusterInstall](imageclusterinstall_api.md).
+[View a detailed API Reference for ClusterInstance](clusterinstance_api.md).
+
+---
+
+## InternalHubComponent
+
+Description not found in CRD.
+
+[View a detailed API Reference for InternalHubComponent](internalhubcomponent_api.md).
+
+---
+
+## DiscoveredCluster
+
+DiscoveredCluster is the Schema for the discoveredclusters API
+
+[View a detailed API Reference for DiscoveredCluster](discoveredcluster_api.md).
+
+---
+
+## DiscoveryConfig
+
+DiscoveryConfig is the Schema for the discoveryconfigs API
+
+[View a detailed API Reference for DiscoveryConfig](discoveryconfig_api.md).
+
+---
+
+## ManagedProxyConfiguration
+
+ManagedProxyConfiguration is the Schema for the managedproxyconfigurations API
+
+[View a detailed API Reference for ManagedProxyConfiguration](managedproxyconfiguration_api.md).
+
+---
+
+## ManagedProxyServiceResolver
+
+ManagedProxyServiceResolver defines a target service that need to expose from a set of managed clusters to the hub. To access a target service on a managed cluster from hub. First, users need to apply a proper ManagedProxyServiceResolver. The managed cluster should match the ManagedClusterSet in the ManagedProxyServiceResolver.Spec. The serviceNamespace and serviceName should also match the target service. A usage example: /examples/access-other-services/main.go
+
+[View a detailed API Reference for ManagedProxyServiceResolver](managedproxyserviceresolver_api.md).
 
 ---
 
@@ -295,195 +319,107 @@ ClusterCurator is the custom resource for the clustercurators API. This kind all
 
 ---
 
-## ClusterProvision
+## Metal3ClusterTemplate
 
-ClusterProvision is the Schema for the clusterprovisions API
+Metal3ClusterTemplate is the Schema for the metal3clustertemplates API.
 
-[View a detailed API Reference for ClusterProvision](clusterprovision_api.md).
-
----
-
-## ClusterSyncLease
-
-ClusterSyncLease is a record of the last time that SyncSets and SelectorSyncSets were applied to a cluster.
-
-[View a detailed API Reference for ClusterSyncLease](clustersynclease_api.md).
+[View a detailed API Reference for Metal3ClusterTemplate](metal3clustertemplate_api.md).
 
 ---
 
-## SyncIdentityProvider
+## IPPool
 
-SyncIdentityProvider is the Schema for the SyncIdentityProvider API
+IPPool is the Schema for the ippools API.
 
-[View a detailed API Reference for SyncIdentityProvider](syncidentityprovider_api.md).
-
----
-
-## ClusterPool
-
-ClusterPool represents a pool of clusters that should be kept ready to be given out to users. Clusters are removed
-from the pool once claimed and then automatically replaced with a new one.
-
-[View a detailed API Reference for ClusterPool](clusterpool_api.md).
+[View a detailed API Reference for IPPool](ippool_api.md).
 
 ---
 
-## SyncSet
+## Metal3Machine
 
-SyncSet is the Schema for the SyncSet API
+Metal3Machine is the Schema for the metal3machines API.
 
-[View a detailed API Reference for SyncSet](syncset_api.md).
-
----
-
-## SelectorSyncIdentityProvider
-
-SelectorSyncIdentityProvider is the Schema for the SelectorSyncIdentityProvider API
-
-[View a detailed API Reference for SelectorSyncIdentityProvider](selectorsyncidentityprovider_api.md).
+[View a detailed API Reference for Metal3Machine](metal3machine_api.md).
 
 ---
 
-## ClusterImageSet
+## IPAddress
 
-ClusterImageSet is the Schema for the clusterimagesets API
+IPAddress is the Schema for the ipaddresses API.
 
-[View a detailed API Reference for ClusterImageSet](clusterimageset_api.md).
-
----
-
-## ClusterState
-
-ClusterState is the Schema for the clusterstates API
-
-[View a detailed API Reference for ClusterState](clusterstate_api.md).
+[View a detailed API Reference for IPAddress](ipaddress_api.md).
 
 ---
 
-## DNSZone
+## Metal3Cluster
 
-DNSZone is the Schema for the dnszones API
+Metal3Cluster is the Schema for the metal3clusters API.
 
-[View a detailed API Reference for DNSZone](dnszone_api.md).
-
----
-
-## FakeClusterInstall
-
-FakeClusterInstall represents a fake request to provision an agent based cluster.
-
-[View a detailed API Reference for FakeClusterInstall](fakeclusterinstall_api.md).
+[View a detailed API Reference for Metal3Cluster](metal3cluster_api.md).
 
 ---
 
-## MachinePoolNameLease
+## Metal3Data
 
-MachinePoolNameLease is the Schema for the MachinePoolNameLeases API. This resource is mostly empty
-as we're primarily relying on the name to determine if a lease is available.
-Note that not all cloud providers require the use of a lease for naming, at present this
-is only required for GCP where we're extremely restricted on name lengths.
+Metal3Data is the Schema for the metal3datas API.
 
-[View a detailed API Reference for MachinePoolNameLease](machinepoolnamelease_api.md).
+[View a detailed API Reference for Metal3Data](metal3data_api.md).
 
 ---
 
-## ClusterRelocate
+## Metal3Remediation
 
-ClusterRelocate is the Schema for the ClusterRelocates API
+Metal3Remediation is the Schema for the metal3remediations API.
 
-[View a detailed API Reference for ClusterRelocate](clusterrelocate_api.md).
-
----
-
-## ClusterDeploymentCustomization
-
-ClusterDeploymentCustomization is the Schema for clusterdeploymentcustomizations API.
-
-[View a detailed API Reference for ClusterDeploymentCustomization](clusterdeploymentcustomization_api.md).
+[View a detailed API Reference for Metal3Remediation](metal3remediation_api.md).
 
 ---
 
-## ClusterDeployment
+## Metal3DataClaim
 
-ClusterDeployment is the Schema for the clusterdeployments API
+Metal3DataClaim is the Schema for the metal3datas API.
 
-[View a detailed API Reference for ClusterDeployment](clusterdeployment_api.md).
-
----
-
-## HiveConfig
-
-HiveConfig is the Schema for the hives API
-
-[View a detailed API Reference for HiveConfig](hiveconfig_api.md).
+[View a detailed API Reference for Metal3DataClaim](metal3dataclaim_api.md).
 
 ---
 
-## SelectorSyncSet
+## IPClaim
 
-SelectorSyncSet is the Schema for the SelectorSyncSet API
+IPClaim is the Schema for the ipclaims API.
 
-[View a detailed API Reference for SelectorSyncSet](selectorsyncset_api.md).
-
----
-
-## Checkpoint
-
-Checkpoint is the Schema for the backup of Hive objects.
-
-[View a detailed API Reference for Checkpoint](checkpoint_api.md).
+[View a detailed API Reference for IPClaim](ipclaim_api.md).
 
 ---
 
-## ClusterDeprovision
+## Metal3MachineTemplate
 
-ClusterDeprovision is the Schema for the clusterdeprovisions API
+Metal3MachineTemplate is the Schema for the metal3machinetemplates API.
 
-[View a detailed API Reference for ClusterDeprovision](clusterdeprovision_api.md).
-
----
-
-## ClusterSync
-
-ClusterSync is the status of all of the SelectorSyncSets and SyncSets that apply to a ClusterDeployment.
-
-[View a detailed API Reference for ClusterSync](clustersync_api.md).
+[View a detailed API Reference for Metal3MachineTemplate](metal3machinetemplate_api.md).
 
 ---
 
-## ClusterClaim
+## Metal3DataTemplate
 
-ClusterClaim represents cluster information that a managed cluster claims
-ClusterClaims with well known names include,
- 1. id.k8s.io, it contains a unique identifier for the cluster.
- 2. clusterset.k8s.io, it contains an identifier that relates the cluster
-    to the ClusterSet in which it belongs.
-ClusterClaims created on a managed cluster will be collected and saved into
-the status of the corresponding ManagedCluster on hub.
+Metal3DataTemplate is the Schema for the metal3datatemplates API.
 
-[View a detailed API Reference for ClusterClaim](clusterclaim_api.md).
+[View a detailed API Reference for Metal3DataTemplate](metal3datatemplate_api.md).
 
 ---
 
-## ClusterProperty
+## Metal3RemediationTemplate
 
-ClusterProperty is the Schema for the clusterproperties API
+Metal3RemediationTemplate is the Schema for the metal3remediationtemplates API.
 
-[View a detailed API Reference for ClusterProperty](clusterproperty_api.md).
+[View a detailed API Reference for Metal3RemediationTemplate](metal3remediationtemplate_api.md).
 
 ---
 
-## AppliedManifestWork
+## ROSANetwork
 
-AppliedManifestWork represents an applied manifestwork on managed cluster that is placed
-on a managed cluster. An AppliedManifestWork links to a manifestwork on a hub recording resources
-deployed in the managed cluster.
-When the agent is removed from managed cluster, cluster-admin on managed cluster
-can delete appliedmanifestwork to remove resources deployed by the agent.
-The name of the appliedmanifestwork must be in the format of
-{hash of hub's first kube-apiserver url}-{manifestwork name}
+ROSANetwork is the schema for the rosanetworks API
 
-[View a detailed API Reference for AppliedManifestWork](appliedmanifestwork_api.md).
+[View a detailed API Reference for ROSANetwork](rosanetwork_api.md).
 
 ---
 
@@ -495,35 +431,19 @@ EKSConfigTemplate is the Amazon EKS Bootstrap Configuration Template API.
 
 ---
 
-## AWSFargateProfile
+## AWSMachinePool
 
-AWSFargateProfile is the Schema for the awsfargateprofiles API.
+AWSMachinePool is the Schema for the awsmachinepools API.
 
-[View a detailed API Reference for AWSFargateProfile](awsfargateprofile_api.md).
-
----
-
-## AWSCluster
-
-AWSCluster is the schema for Amazon EC2 based Kubernetes Cluster API.
-
-[View a detailed API Reference for AWSCluster](awscluster_api.md).
+[View a detailed API Reference for AWSMachinePool](awsmachinepool_api.md).
 
 ---
 
-## AWSManagedClusterTemplate
+## AWSManagedCluster
 
-AWSManagedClusterTemplate is the Schema for the AWSManagedClusterTemplates API.
+AWSManagedCluster is the Schema for the awsmanagedclusters API
 
-[View a detailed API Reference for AWSManagedClusterTemplate](awsmanagedclustertemplate_api.md).
-
----
-
-## ROSANetwork
-
-ROSANetwork is the schema for the rosanetworks API
-
-[View a detailed API Reference for ROSANetwork](rosanetwork_api.md).
+[View a detailed API Reference for AWSManagedCluster](awsmanagedcluster_api.md).
 
 ---
 
@@ -536,99 +456,20 @@ It is used to assume a role using the provided sourceRef.
 
 ---
 
-## EKSConfig
+## AWSClusterStaticIdentity
 
-EKSConfig is the schema for the Amazon EKS Machine Bootstrap Configuration API.
+AWSClusterStaticIdentity is the Schema for the awsclusterstaticidentities API
+It represents a reference to an AWS access key ID and secret access key, stored in a secret.
 
-[View a detailed API Reference for EKSConfig](eksconfig_api.md).
-
----
-
-## AWSMachine
-
-AWSMachine is the schema for Amazon EC2 machines.
-
-[View a detailed API Reference for AWSMachine](awsmachine_api.md).
+[View a detailed API Reference for AWSClusterStaticIdentity](awsclusterstaticidentity_api.md).
 
 ---
 
-## ROSAControlPlane
+## AWSCluster
 
-ROSAControlPlane is the Schema for the ROSAControlPlanes API.
+AWSCluster is the schema for Amazon EC2 based Kubernetes Cluster API.
 
-[View a detailed API Reference for ROSAControlPlane](rosacontrolplane_api.md).
-
----
-
-## AWSClusterTemplate
-
-AWSClusterTemplate is the schema for Amazon EC2 based Kubernetes Cluster Templates.
-
-[View a detailed API Reference for AWSClusterTemplate](awsclustertemplate_api.md).
-
----
-
-## ROSACluster
-
-ROSACluster is the Schema for the ROSAClusters API.
-
-[View a detailed API Reference for ROSACluster](rosacluster_api.md).
-
----
-
-## ROSAMachinePool
-
-ROSAMachinePool is the Schema for the rosamachinepools API.
-
-[View a detailed API Reference for ROSAMachinePool](rosamachinepool_api.md).
-
----
-
-## AWSManagedMachinePool
-
-AWSManagedMachinePool is the Schema for the awsmanagedmachinepools API.
-
-[View a detailed API Reference for AWSManagedMachinePool](awsmanagedmachinepool_api.md).
-
----
-
-## ROSARoleConfig
-
-ROSARoleConfig is the Schema for the rosaroleconfigs API
-
-[View a detailed API Reference for ROSARoleConfig](rosaroleconfig_api.md).
-
----
-
-## AWSManagedControlPlaneTemplate
-
-AWSManagedControlPlaneTemplate is the Schema for the AWSManagedControlPlaneTemplates API.
-
-[View a detailed API Reference for AWSManagedControlPlaneTemplate](awsmanagedcontrolplanetemplate_api.md).
-
----
-
-## AWSMachineTemplate
-
-AWSMachineTemplate is the schema for the Amazon EC2 Machine Templates API.
-
-[View a detailed API Reference for AWSMachineTemplate](awsmachinetemplate_api.md).
-
----
-
-## AWSManagedCluster
-
-AWSManagedCluster is the Schema for the awsmanagedclusters API
-
-[View a detailed API Reference for AWSManagedCluster](awsmanagedcluster_api.md).
-
----
-
-## AWSMachinePool
-
-AWSMachinePool is the Schema for the awsmachinepools API.
-
-[View a detailed API Reference for AWSMachinePool](awsmachinepool_api.md).
+[View a detailed API Reference for AWSCluster](awscluster_api.md).
 
 ---
 
@@ -649,188 +490,107 @@ It is used to grant access to use Cluster API Provider AWS Controller credential
 
 ---
 
-## AWSClusterStaticIdentity
+## AWSClusterTemplate
 
-AWSClusterStaticIdentity is the Schema for the awsclusterstaticidentities API
-It represents a reference to an AWS access key ID and secret access key, stored in a secret.
+AWSClusterTemplate is the schema for Amazon EC2 based Kubernetes Cluster Templates.
 
-[View a detailed API Reference for AWSClusterStaticIdentity](awsclusterstaticidentity_api.md).
-
----
-
-## DiscoveredCluster
-
-DiscoveredCluster is the Schema for the discoveredclusters API
-
-[View a detailed API Reference for DiscoveredCluster](discoveredcluster_api.md).
+[View a detailed API Reference for AWSClusterTemplate](awsclustertemplate_api.md).
 
 ---
 
-## DiscoveryConfig
+## AWSManagedClusterTemplate
 
-DiscoveryConfig is the Schema for the discoveryconfigs API
+AWSManagedClusterTemplate is the Schema for the AWSManagedClusterTemplates API.
 
-[View a detailed API Reference for DiscoveryConfig](discoveryconfig_api.md).
-
----
-
-## IPAddress
-
-IPAddress is the Schema for the ipaddresses API.
-
-[View a detailed API Reference for IPAddress](ipaddress_api.md).
+[View a detailed API Reference for AWSManagedClusterTemplate](awsmanagedclustertemplate_api.md).
 
 ---
 
-## IPClaim
+## ROSACluster
 
-IPClaim is the Schema for the ipclaims API.
+ROSACluster is the Schema for the ROSAClusters API.
 
-[View a detailed API Reference for IPClaim](ipclaim_api.md).
-
----
-
-## IPPool
-
-IPPool is the Schema for the ippools API.
-
-[View a detailed API Reference for IPPool](ippool_api.md).
+[View a detailed API Reference for ROSACluster](rosacluster_api.md).
 
 ---
 
-## ManagedServiceAccount
+## AWSFargateProfile
 
-ManagedServiceAccount is the Schema for the managedserviceaccounts API
+AWSFargateProfile is the Schema for the awsfargateprofiles API.
 
-[View a detailed API Reference for ManagedServiceAccount](managedserviceaccount_api.md).
-
----
-
-## Metal3Data
-
-Metal3Data is the Schema for the metal3datas API.
-
-[View a detailed API Reference for Metal3Data](metal3data_api.md).
+[View a detailed API Reference for AWSFargateProfile](awsfargateprofile_api.md).
 
 ---
 
-## Metal3Machine
+## AWSManagedControlPlaneTemplate
 
-Metal3Machine is the Schema for the metal3machines API.
+AWSManagedControlPlaneTemplate is the Schema for the AWSManagedControlPlaneTemplates API.
 
-[View a detailed API Reference for Metal3Machine](metal3machine_api.md).
-
----
-
-## Metal3MachineTemplate
-
-Metal3MachineTemplate is the Schema for the metal3machinetemplates API.
-
-[View a detailed API Reference for Metal3MachineTemplate](metal3machinetemplate_api.md).
+[View a detailed API Reference for AWSManagedControlPlaneTemplate](awsmanagedcontrolplanetemplate_api.md).
 
 ---
 
-## Metal3Remediation
+## ROSAMachinePool
 
-Metal3Remediation is the Schema for the metal3remediations API.
+ROSAMachinePool is the Schema for the rosamachinepools API.
 
-[View a detailed API Reference for Metal3Remediation](metal3remediation_api.md).
-
----
-
-## Metal3DataClaim
-
-Metal3DataClaim is the Schema for the metal3datas API.
-
-[View a detailed API Reference for Metal3DataClaim](metal3dataclaim_api.md).
+[View a detailed API Reference for ROSAMachinePool](rosamachinepool_api.md).
 
 ---
 
-## Metal3DataTemplate
+## ROSAControlPlane
 
-Metal3DataTemplate is the Schema for the metal3datatemplates API.
+ROSAControlPlane is the Schema for the ROSAControlPlanes API.
 
-[View a detailed API Reference for Metal3DataTemplate](metal3datatemplate_api.md).
-
----
-
-## Metal3RemediationTemplate
-
-Metal3RemediationTemplate is the Schema for the metal3remediationtemplates API.
-
-[View a detailed API Reference for Metal3RemediationTemplate](metal3remediationtemplate_api.md).
+[View a detailed API Reference for ROSAControlPlane](rosacontrolplane_api.md).
 
 ---
 
-## Metal3Cluster
+## AWSMachine
 
-Metal3Cluster is the Schema for the metal3clusters API.
+AWSMachine is the schema for Amazon EC2 machines.
 
-[View a detailed API Reference for Metal3Cluster](metal3cluster_api.md).
-
----
-
-## Metal3ClusterTemplate
-
-Metal3ClusterTemplate is the Schema for the metal3clustertemplates API.
-
-[View a detailed API Reference for Metal3ClusterTemplate](metal3clustertemplate_api.md).
+[View a detailed API Reference for AWSMachine](awsmachine_api.md).
 
 ---
 
-## KlusterletConfig
+## AWSMachineTemplate
 
-KlusterletConfig contains the configuration of a klusterlet including the upgrade strategy, config overrides, proxy configurations etc.
+AWSMachineTemplate is the schema for the Amazon EC2 Machine Templates API.
 
-[View a detailed API Reference for KlusterletConfig](klusterletconfig_api.md).
-
----
-
-## ManagedClusterView
-
-ManagedClusterView is the view of resources on a managed cluster
-
-[View a detailed API Reference for ManagedClusterView](managedclusterview_api.md).
+[View a detailed API Reference for AWSMachineTemplate](awsmachinetemplate_api.md).
 
 ---
 
-## ManagedClusterImageRegistry
+## ROSARoleConfig
 
-ManagedClusterImageRegistry represents the image overridden configuration information.
+ROSARoleConfig is the Schema for the rosaroleconfigs API
 
-[View a detailed API Reference for ManagedClusterImageRegistry](managedclusterimageregistry_api.md).
-
----
-
-## ManagedClusterAction
-
-ManagedClusterAction is the action that will be done on a cluster
-
-[View a detailed API Reference for ManagedClusterAction](managedclusteraction_api.md).
+[View a detailed API Reference for ROSARoleConfig](rosaroleconfig_api.md).
 
 ---
 
-## ManagedClusterInfo
+## EKSConfig
 
-ManagedClusterInfo represents the information of managed cluster that acm hub needs to know
+EKSConfig is the schema for the Amazon EKS Machine Bootstrap Configuration API.
 
-[View a detailed API Reference for ManagedClusterInfo](managedclusterinfo_api.md).
-
----
-
-## ManagedProxyServiceResolver
-
-ManagedProxyServiceResolver defines a target service that need to expose from a set of managed clusters to the hub. To access a target service on a managed cluster from hub. First, users need to apply a proper ManagedProxyServiceResolver. The managed cluster should match the ManagedClusterSet in the ManagedProxyServiceResolver.Spec. The serviceNamespace and serviceName should also match the target service. A usage example: /examples/access-other-services/main.go
-
-[View a detailed API Reference for ManagedProxyServiceResolver](managedproxyserviceresolver_api.md).
+[View a detailed API Reference for EKSConfig](eksconfig_api.md).
 
 ---
 
-## ManagedProxyConfiguration
+## AWSManagedMachinePool
 
-ManagedProxyConfiguration is the Schema for the managedproxyconfigurations API
+AWSManagedMachinePool is the Schema for the awsmanagedmachinepools API.
 
-[View a detailed API Reference for ManagedProxyConfiguration](managedproxyconfiguration_api.md).
+[View a detailed API Reference for AWSManagedMachinePool](awsmanagedmachinepool_api.md).
+
+---
+
+## AgentClusterInstall
+
+AgentClusterInstall represents a request to provision an agent based cluster.
+
+[View a detailed API Reference for AgentClusterInstall](agentclusterinstall_api.md).
 
 ---
 
@@ -842,11 +602,11 @@ Description not found in CRD.
 
 ---
 
-## NMStateConfig
+## Agent
 
-Description not found in CRD.
+Agent is the Schema for the hosts API
 
-[View a detailed API Reference for NMStateConfig](nmstateconfig_api.md).
+[View a detailed API Reference for Agent](agent_api.md).
 
 ---
 
@@ -878,27 +638,168 @@ AgentClassification is the Schema for the AgentClassifications API
 
 ---
 
-## Agent
-
-Agent is the Schema for the hosts API
-
-[View a detailed API Reference for Agent](agent_api.md).
-
----
-
-## AgentClusterInstall
-
-AgentClusterInstall represents a request to provision an agent based cluster.
-
-[View a detailed API Reference for AgentClusterInstall](agentclusterinstall_api.md).
-
----
-
-## InternalEngineComponent
+## NMStateConfig
 
 Description not found in CRD.
 
-[View a detailed API Reference for InternalEngineComponent](internalenginecomponent_api.md).
+[View a detailed API Reference for NMStateConfig](nmstateconfig_api.md).
+
+---
+
+## ManagedClusterImageRegistry
+
+ManagedClusterImageRegistry represents the image overridden configuration information.
+
+[View a detailed API Reference for ManagedClusterImageRegistry](managedclusterimageregistry_api.md).
+
+---
+
+## ManagedClusterInfo
+
+ManagedClusterInfo represents the information of managed cluster that acm hub needs to know
+
+[View a detailed API Reference for ManagedClusterInfo](managedclusterinfo_api.md).
+
+---
+
+## KlusterletConfig
+
+KlusterletConfig contains the configuration of a klusterlet including the upgrade strategy, config overrides, proxy configurations etc.
+
+[View a detailed API Reference for KlusterletConfig](klusterletconfig_api.md).
+
+---
+
+## ManagedClusterAction
+
+ManagedClusterAction is the action that will be done on a cluster
+
+[View a detailed API Reference for ManagedClusterAction](managedclusteraction_api.md).
+
+---
+
+## ManagedClusterView
+
+ManagedClusterView is the view of resources on a managed cluster
+
+[View a detailed API Reference for ManagedClusterView](managedclusterview_api.md).
+
+---
+
+## ImageClusterInstall
+
+ImageClusterInstall is the Schema for the imageclusterinstall API
+
+[View a detailed API Reference for ImageClusterInstall](imageclusterinstall_api.md).
+
+---
+
+## MachineDrainRule
+
+MachineDrainRule is the Schema for the MachineDrainRule API.
+
+[View a detailed API Reference for MachineDrainRule](machinedrainrule_api.md).
+
+---
+
+## ClusterResourceSetBinding
+
+ClusterResourceSetBinding lists all matching ClusterResourceSets with the cluster it belongs to.
+Deprecated: This type will be removed in one of the next releases.
+
+[View a detailed API Reference for ClusterResourceSetBinding](clusterresourcesetbinding_api.md).
+
+---
+
+## ExtensionConfig
+
+ExtensionConfig is the Schema for the ExtensionConfig API.
+
+[View a detailed API Reference for ExtensionConfig](extensionconfig_api.md).
+
+---
+
+## ClusterClass
+
+ClusterClass is a template which can be used to create managed topologies.
+Deprecated: This type will be removed in one of the next releases.
+
+[View a detailed API Reference for ClusterClass](clusterclass_api.md).
+
+---
+
+## MachineHealthCheck
+
+MachineHealthCheck is the Schema for the machinehealthchecks API.
+Deprecated: This type will be removed in one of the next releases.
+
+[View a detailed API Reference for MachineHealthCheck](machinehealthcheck_api.md).
+
+---
+
+## Cluster
+
+Cluster is the Schema for the clusters API.
+
+[View a detailed API Reference for Cluster](cluster_api.md).
+
+---
+
+## MachineDeployment
+
+MachineDeployment is the Schema for the machinedeployments API.
+Deprecated: This type will be removed in one of the next releases.
+
+[View a detailed API Reference for MachineDeployment](machinedeployment_api.md).
+
+---
+
+## ClusterResourceSet
+
+ClusterResourceSet is the Schema for the clusterresourcesets API.
+Deprecated: This type will be removed in one of the next releases.
+
+[View a detailed API Reference for ClusterResourceSet](clusterresourceset_api.md).
+
+---
+
+## MachineSet
+
+MachineSet is the Schema for the machinesets API.
+Deprecated: This type will be removed in one of the next releases.
+
+[View a detailed API Reference for MachineSet](machineset_api.md).
+
+---
+
+## Machine
+
+Machine is the Schema for the machines API.
+Deprecated: This type will be removed in one of the next releases.
+
+[View a detailed API Reference for Machine](machine_api.md).
+
+---
+
+## AppliedManifestWork
+
+AppliedManifestWork represents an applied manifestwork on managed cluster that is placed
+on a managed cluster. An AppliedManifestWork links to a manifestwork on a hub recording resources
+deployed in the managed cluster.
+When the agent is removed from managed cluster, cluster-admin on managed cluster
+can delete appliedmanifestwork to remove resources deployed by the agent.
+The name of the appliedmanifestwork must be in the format of
+{hash of hub's first kube-apiserver url}-{manifestwork name}
+
+[View a detailed API Reference for AppliedManifestWork](appliedmanifestwork_api.md).
+
+---
+
+## ClusterProperty
+
+ClusterProperty is the Schema for the clusterproperties API
+
+[View a detailed API Reference for ClusterProperty](clusterproperty_api.md).
 
 ---
 
@@ -912,64 +813,33 @@ In Hosted mode, ClusterManager will be deployed in the namespace with the same n
 
 ---
 
-## ManifestWorkReplicaSet
+## ManagedCluster
 
-ManifestWorkReplicaSet is the Schema for the ManifestWorkReplicaSet API. This custom resource is able to apply
-ManifestWork using Placement for 0..n ManagedCluster(in their namespaces). It will also remove the ManifestWork custom resources
-when deleted. Lastly the specific ManifestWork custom resources created per ManagedCluster namespace will be adjusted based on PlacementDecision
-changes.
+ManagedCluster represents the desired state and current status
+of a managed cluster. ManagedCluster is a cluster-scoped resource. The name
+is the cluster UID.
+The cluster join process is a double opt-in process. See the following join process steps:
+1. The agent on the managed cluster creates a CSR on the hub with the cluster UID and agent name.
+2. The agent on the managed cluster creates a ManagedCluster on the hub.
+3. The cluster admin on the hub cluster approves the CSR for the UID and agent name of the ManagedCluster.
+4. The cluster admin sets the spec.acceptClient of the ManagedCluster to true.
+5. The cluster admin on the managed cluster creates a credential of the kubeconfig for the hub cluster.
+After the hub cluster creates the cluster namespace, the klusterlet agent on the ManagedCluster pushes
+the credential to the hub cluster to use against the kube-apiserver of the ManagedCluster.
 
-[View a detailed API Reference for ManifestWorkReplicaSet](manifestworkreplicaset_api.md).
-
----
-
-## ClusterManagementAddOn
-
-ClusterManagementAddOn represents the registration of an add-on to the cluster manager.
-This resource allows you to discover which add-ons are available for the cluster manager
-and provides metadata information about the add-ons. The ClusterManagementAddOn name is used
-for the namespace-scoped ManagedClusterAddOn resource.
-ClusterManagementAddOn is a cluster-scoped resource.
-
-[View a detailed API Reference for ClusterManagementAddOn](clustermanagementaddon_api.md).
+[View a detailed API Reference for ManagedCluster](managedcluster_api.md).
 
 ---
 
-## ManagedClusterSet
+## ManifestWork
 
-ManagedClusterSet defines a group of ManagedClusters that you can run
-workloads on. You can define a workload to be deployed on a ManagedClusterSet. See the following options  for the workload:
-- The workload can run on any ManagedCluster in the ManagedClusterSet
-- The workload cannot run on any ManagedCluster outside the ManagedClusterSet
-- The service exposed by the workload can be shared in any ManagedCluster in the ManagedClusterSet
-To assign a ManagedCluster to a certain ManagedClusterSet, add a label with the name cluster.open-cluster-management.io/clusterset
-on the ManagedCluster to refer to the ManagedClusterSet. You are not
-allowed to add or remove this label on a ManagedCluster unless you have an
-RBAC rule to CREATE on a virtual subresource of managedclustersets/join.
-To update this label, you must have the permission on both
-the old and new ManagedClusterSet.
+ManifestWork represents a manifests workload that hub wants to deploy on the managed cluster.
+A manifest workload is defined as a set of Kubernetes resources.
+ManifestWork must be created in the cluster namespace on the hub, so that agent on the
+corresponding managed cluster can access this resource and deploy on the managed
+cluster.
 
-[View a detailed API Reference for ManagedClusterSet](managedclusterset_api.md).
-
----
-
-## AddOnTemplate
-
-AddOnTemplate is the Custom Resource object, it is used to describe
-how to deploy the addon agent and how to register the addon.
-AddOnTemplate is a cluster-scoped resource, and will only be used
-on the hub cluster.
-
-[View a detailed API Reference for AddOnTemplate](addontemplate_api.md).
-
----
-
-## AddOnDeploymentConfig
-
-AddOnDeploymentConfig represents a configuration to customize the deployments of an add-on.
-For example, you can specify the NodePlacement to control the scheduling of the add-on agents.
-
-[View a detailed API Reference for AddOnDeploymentConfig](addondeploymentconfig_api.md).
+[View a detailed API Reference for ManifestWork](manifestwork_api.md).
 
 ---
 
@@ -999,6 +869,65 @@ this ManagedCluster should be evicted accordingly.
 
 ---
 
+## ManagedClusterAddOn
+
+ManagedClusterAddOn is the Custom Resource object which holds the current state
+of an add-on. This object is used by add-on operators to convey their state.
+This resource should be created in the ManagedCluster namespace.
+
+[View a detailed API Reference for ManagedClusterAddOn](managedclusteraddon_api.md).
+
+---
+
+## ManifestWorkReplicaSet
+
+ManifestWorkReplicaSet is the Schema for the ManifestWorkReplicaSet API. This custom resource is able to apply
+ManifestWork using Placement for 0..n ManagedCluster(in their namespaces). It will also remove the ManifestWork custom resources
+when deleted. Lastly the specific ManifestWork custom resources created per ManagedCluster namespace will be adjusted based on PlacementDecision
+changes.
+
+[View a detailed API Reference for ManifestWorkReplicaSet](manifestworkreplicaset_api.md).
+
+---
+
+## AddOnTemplate
+
+AddOnTemplate is the Custom Resource object, it is used to describe
+how to deploy the addon agent and how to register the addon.
+AddOnTemplate is a cluster-scoped resource, and will only be used
+on the hub cluster.
+
+[View a detailed API Reference for AddOnTemplate](addontemplate_api.md).
+
+---
+
+## AddOnDeploymentConfig
+
+AddOnDeploymentConfig represents a configuration to customize the deployments of an add-on.
+For example, you can specify the NodePlacement to control the scheduling of the add-on agents.
+
+[View a detailed API Reference for AddOnDeploymentConfig](addondeploymentconfig_api.md).
+
+---
+
+## ManagedClusterSet
+
+ManagedClusterSet defines a group of ManagedClusters that you can run
+workloads on. You can define a workload to be deployed on a ManagedClusterSet. See the following options  for the workload:
+- The workload can run on any ManagedCluster in the ManagedClusterSet
+- The workload cannot run on any ManagedCluster outside the ManagedClusterSet
+- The service exposed by the workload can be shared in any ManagedCluster in the ManagedClusterSet
+To assign a ManagedCluster to a certain ManagedClusterSet, add a label with the name cluster.open-cluster-management.io/clusterset
+on the ManagedCluster to refer to the ManagedClusterSet. You are not
+allowed to add or remove this label on a ManagedCluster unless you have an
+RBAC rule to CREATE on a virtual subresource of managedclustersets/join.
+To update this label, you must have the permission on both
+the old and new ManagedClusterSet.
+
+[View a detailed API Reference for ManagedClusterSet](managedclusterset_api.md).
+
+---
+
 ## ManagedClusterSetBinding
 
 ManagedClusterSetBinding projects a ManagedClusterSet into a certain namespace.
@@ -1011,13 +940,15 @@ in ManagedClusterSets that are bound in this namespace by higher-level controlle
 
 ---
 
-## ManagedClusterAddOn
+## ClusterManagementAddOn
 
-ManagedClusterAddOn is the Custom Resource object which holds the current state
-of an add-on. This object is used by add-on operators to convey their state.
-This resource should be created in the ManagedCluster namespace.
+ClusterManagementAddOn represents the registration of an add-on to the cluster manager.
+This resource allows you to discover which add-ons are available for the cluster manager
+and provides metadata information about the add-ons. The ClusterManagementAddOn name is used
+for the namespace-scoped ManagedClusterAddOn resource.
+ClusterManagementAddOn is a cluster-scoped resource.
 
-[View a detailed API Reference for ManagedClusterAddOn](managedclusteraddon_api.md).
+[View a detailed API Reference for ClusterManagementAddOn](clustermanagementaddon_api.md).
 
 ---
 
@@ -1026,36 +957,6 @@ This resource should be created in the ManagedCluster namespace.
 ClusterProfile represents a single cluster in a multi-cluster deployment.
 
 [View a detailed API Reference for ClusterProfile](clusterprofile_api.md).
-
----
-
-## ManifestWork
-
-ManifestWork represents a manifests workload that hub wants to deploy on the managed cluster.
-A manifest workload is defined as a set of Kubernetes resources.
-ManifestWork must be created in the cluster namespace on the hub, so that agent on the
-corresponding managed cluster can access this resource and deploy on the managed
-cluster.
-
-[View a detailed API Reference for ManifestWork](manifestwork_api.md).
-
----
-
-## ManagedCluster
-
-ManagedCluster represents the desired state and current status
-of a managed cluster. ManagedCluster is a cluster-scoped resource. The name
-is the cluster UID.
-The cluster join process is a double opt-in process. See the following join process steps:
-1. The agent on the managed cluster creates a CSR on the hub with the cluster UID and agent name.
-2. The agent on the managed cluster creates a ManagedCluster on the hub.
-3. The cluster admin on the hub cluster approves the CSR for the UID and agent name of the ManagedCluster.
-4. The cluster admin sets the spec.acceptClient of the ManagedCluster to true.
-5. The cluster admin on the managed cluster creates a credential of the kubeconfig for the hub cluster.
-After the hub cluster creates the cluster namespace, the klusterlet agent on the ManagedCluster pushes
-the credential to the hub cluster to use against the kube-apiserver of the ManagedCluster.
-
-[View a detailed API Reference for ManagedCluster](managedcluster_api.md).
 
 ---
 
@@ -1082,99 +983,175 @@ AddOnPlacementScore is a namespace scoped resource. The namespace of the resourc
 
 ---
 
-## ClusterResourceSetBinding
+## ClusterRelocate
 
-ClusterResourceSetBinding lists all matching ClusterResourceSets with the cluster it belongs to.
-Deprecated: This type will be removed in one of the next releases.
+ClusterRelocate is the Schema for the ClusterRelocates API
 
-[View a detailed API Reference for ClusterResourceSetBinding](clusterresourcesetbinding_api.md).
-
----
-
-## Machine
-
-Machine is the Schema for the machines API.
-Deprecated: This type will be removed in one of the next releases.
-
-[View a detailed API Reference for Machine](machine_api.md).
+[View a detailed API Reference for ClusterRelocate](clusterrelocate_api.md).
 
 ---
 
-## ExtensionConfig
+## SyncIdentityProvider
 
-ExtensionConfig is the Schema for the ExtensionConfig API.
+SyncIdentityProvider is the Schema for the SyncIdentityProvider API
 
-[View a detailed API Reference for ExtensionConfig](extensionconfig_api.md).
+[View a detailed API Reference for SyncIdentityProvider](syncidentityprovider_api.md).
+
+---
+
+## Checkpoint
+
+Checkpoint is the Schema for the backup of Hive objects.
+
+[View a detailed API Reference for Checkpoint](checkpoint_api.md).
+
+---
+
+## HiveConfig
+
+HiveConfig is the Schema for the hives API
+
+[View a detailed API Reference for HiveConfig](hiveconfig_api.md).
+
+---
+
+## SyncSet
+
+SyncSet is the Schema for the SyncSet API
+
+[View a detailed API Reference for SyncSet](syncset_api.md).
+
+---
+
+## ClusterImageSet
+
+ClusterImageSet is the Schema for the clusterimagesets API
+
+[View a detailed API Reference for ClusterImageSet](clusterimageset_api.md).
+
+---
+
+## FakeClusterInstall
+
+FakeClusterInstall represents a fake request to provision an agent based cluster.
+
+[View a detailed API Reference for FakeClusterInstall](fakeclusterinstall_api.md).
+
+---
+
+## MachinePoolNameLease
+
+MachinePoolNameLease is the Schema for the MachinePoolNameLeases API. This resource is mostly empty
+as we're primarily relying on the name to determine if a lease is available.
+Note that not all cloud providers require the use of a lease for naming, at present this
+is only required for GCP where we're extremely restricted on name lengths.
+
+[View a detailed API Reference for MachinePoolNameLease](machinepoolnamelease_api.md).
+
+---
+
+## DNSZone
+
+DNSZone is the Schema for the dnszones API
+
+[View a detailed API Reference for DNSZone](dnszone_api.md).
+
+---
+
+## ClusterDeployment
+
+ClusterDeployment is the Schema for the clusterdeployments API
+
+[View a detailed API Reference for ClusterDeployment](clusterdeployment_api.md).
+
+---
+
+## ClusterDeprovision
+
+ClusterDeprovision is the Schema for the clusterdeprovisions API
+
+[View a detailed API Reference for ClusterDeprovision](clusterdeprovision_api.md).
+
+---
+
+## ClusterSync
+
+ClusterSync is the status of all of the SelectorSyncSets and SyncSets that apply to a ClusterDeployment.
+
+[View a detailed API Reference for ClusterSync](clustersync_api.md).
+
+---
+
+## ClusterProvision
+
+ClusterProvision is the Schema for the clusterprovisions API
+
+[View a detailed API Reference for ClusterProvision](clusterprovision_api.md).
+
+---
+
+## ClusterPool
+
+ClusterPool represents a pool of clusters that should be kept ready to be given out to users. Clusters are removed
+from the pool once claimed and then automatically replaced with a new one.
+
+[View a detailed API Reference for ClusterPool](clusterpool_api.md).
+
+---
+
+## ClusterState
+
+ClusterState is the Schema for the clusterstates API
+
+[View a detailed API Reference for ClusterState](clusterstate_api.md).
+
+---
+
+## SelectorSyncIdentityProvider
+
+SelectorSyncIdentityProvider is the Schema for the SelectorSyncIdentityProvider API
+
+[View a detailed API Reference for SelectorSyncIdentityProvider](selectorsyncidentityprovider_api.md).
 
 ---
 
 ## MachinePool
 
-MachinePool is the Schema for the machinepools API.
-Deprecated: This type will be removed in one of the next releases.
+MachinePool is the Schema for the machinepools API
 
 [View a detailed API Reference for MachinePool](machinepool_api.md).
 
 ---
 
-## Cluster
+## ClusterSyncLease
 
-Cluster is the Schema for the clusters API.
+ClusterSyncLease is a record of the last time that SyncSets and SelectorSyncSets were applied to a cluster.
 
-[View a detailed API Reference for Cluster](cluster_api.md).
-
----
-
-## MachineHealthCheck
-
-MachineHealthCheck is the Schema for the machinehealthchecks API.
-Deprecated: This type will be removed in one of the next releases.
-
-[View a detailed API Reference for MachineHealthCheck](machinehealthcheck_api.md).
+[View a detailed API Reference for ClusterSyncLease](clustersynclease_api.md).
 
 ---
 
-## ClusterClass
+## ClusterDeploymentCustomization
 
-ClusterClass is a template which can be used to create managed topologies.
-Deprecated: This type will be removed in one of the next releases.
+ClusterDeploymentCustomization is the Schema for clusterdeploymentcustomizations API.
 
-[View a detailed API Reference for ClusterClass](clusterclass_api.md).
-
----
-
-## MachineDrainRule
-
-MachineDrainRule is the Schema for the MachineDrainRule API.
-
-[View a detailed API Reference for MachineDrainRule](machinedrainrule_api.md).
+[View a detailed API Reference for ClusterDeploymentCustomization](clusterdeploymentcustomization_api.md).
 
 ---
 
-## MachineSet
+## SelectorSyncSet
 
-MachineSet is the Schema for the machinesets API.
-Deprecated: This type will be removed in one of the next releases.
+SelectorSyncSet is the Schema for the SelectorSyncSet API
 
-[View a detailed API Reference for MachineSet](machineset_api.md).
-
----
-
-## ClusterResourceSet
-
-ClusterResourceSet is the Schema for the clusterresourcesets API.
-Deprecated: This type will be removed in one of the next releases.
-
-[View a detailed API Reference for ClusterResourceSet](clusterresourceset_api.md).
+[View a detailed API Reference for SelectorSyncSet](selectorsyncset_api.md).
 
 ---
 
-## MachineDeployment
+## ClusterClaim
 
-MachineDeployment is the Schema for the machinedeployments API.
-Deprecated: This type will be removed in one of the next releases.
+ClusterClaim represents a claim to a cluster from a cluster pool.
 
-[View a detailed API Reference for MachineDeployment](machinedeployment_api.md).
+[View a detailed API Reference for ClusterClaim](clusterclaim_api.md).
 
 ---
 
@@ -1186,6 +1163,14 @@ OpenshiftAssistedConfigTemplate is the Schema for the openshiftassistedconfigtem
 
 ---
 
+## OpenshiftAssistedConfig
+
+OpenshiftAssistedConfig is the Schema for the openshiftassistedconfig API
+
+[View a detailed API Reference for OpenshiftAssistedConfig](openshiftassistedconfig_api.md).
+
+---
+
 ## OpenshiftAssistedControlPlane
 
 OpenshiftAssistedControlPlane is the Schema for the openshiftassistedcontrolplane API
@@ -1194,11 +1179,19 @@ OpenshiftAssistedControlPlane is the Schema for the openshiftassistedcontrolplan
 
 ---
 
-## OpenshiftAssistedConfig
+## ManagedServiceAccount
 
-OpenshiftAssistedConfig is the Schema for the openshiftassistedconfig API
+ManagedServiceAccount is the Schema for the managedserviceaccounts API
 
-[View a detailed API Reference for OpenshiftAssistedConfig](openshiftassistedconfig_api.md).
+[View a detailed API Reference for ManagedServiceAccount](managedserviceaccount_api.md).
+
+---
+
+## InternalEngineComponent
+
+Description not found in CRD.
+
+[View a detailed API Reference for InternalEngineComponent](internalenginecomponent_api.md).
 
 ---
 
