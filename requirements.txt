@@ -8,5 +8,5 @@ flake8==7.3.0
 mcp==1.28.1
 # PyJWT: transitive dep via mcp; pinned for security; updated 2026-06-18 to resolve CVE-2026-48522 and CVE-2026-48523
 PyJWT==2.13.0
-# cryptography: transitive dep via mcp->pyjwt[crypto]; pinned for security; updated 2026-06-10
-cryptography==48.0.1
+# cryptography: transitive dep via mcp->pyjwt[crypto]; pinned for security; updated 2026-07-13
+cryptography==49.0.0
