@@ -90,9 +90,20 @@
             "description": "InfraID is an identifier for this cluster generated during installation and used for tagging/naming resources in cloud providers.",
             "required": true
           },
+          "metadataJSONSecretRef": {
+            "type": "object",
+            "description": "MetadataJSONSecretRef references the secret containing the metadata.json emitted by the\ninstaller, potentially scrubbed for sensitive data.",
+            "fields": {
+              "name": {
+                "type": "string",
+                "description": "Name of the referent.\nThis field is effectively required, but due to backwards compatibility is\nallowed to be empty. Instances of this type with an empty value here are\nalmost certainly wrong.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                "default": ""
+              }
+            }
+          },
           "platform": {
             "type": "object",
-            "description": "Platform holds platform-specific cluster metadata",
+            "description": "Platform holds platform-specific cluster metadata.\nDeprecated. Use the Secret referenced by MetadataJSONSecretRef instead. We may stop\npopulating this section in the future.",
             "fields": {
               "aws": {
                 "type": "object",
@@ -100,7 +111,7 @@
                 "fields": {
                   "hostedZoneRole": {
                     "type": "string",
-                    "description": "HostedZoneRole is the role to assume when performing operations\non a hosted zone owned by another account."
+                    "description": "HostedZoneRole is the role to assume when performing operations\non a hosted zone owned by another account.\nDeprecated. Use the Secret referenced by ClusterMetadata.MetadataJSONSecretRef instead. We\nmay stop populating this section in the future."
                   }
                 }
               },
@@ -110,7 +121,7 @@
                 "fields": {
                   "resourceGroupName": {
                     "type": "string",
-                    "description": "ResourceGroupName is the name of the resource group in which the cluster resources were created.",
+                    "description": "ResourceGroupName is the name of the resource group in which the cluster resources were created.\nDeprecated. Use the Secret referenced by ClusterMetadata.MetadataJSONSecretRef instead. We\nmay stop populating this section in the future.",
                     "required": true
                   }
                 }
@@ -121,7 +132,7 @@
                 "fields": {
                   "networkProjectID": {
                     "type": "string",
-                    "description": "NetworkProjectID is used for shared VPC setups"
+                    "description": "NetworkProjectID is used for shared VPC setups\nDeprecated. Use the Secret referenced by ClusterMetadata.MetadataJSONSecretRef instead. We\nmay stop populating this section in the future."
                   }
                 }
               }
