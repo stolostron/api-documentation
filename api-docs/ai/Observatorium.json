@@ -381,6 +381,10 @@
             "type": "string",
             "description": "API image pull policy"
           },
+          "queryTimeout": {
+            "type": "string",
+            "description": "QueryTimeout is the maximum duration for reading the entire request\nincluding the body. Applied to Go HTTP server's ReadTimeout.\nControls the read/query path through the API gateway.\nMust be a valid duration string (e.g., \"5m\", \"300s\").\nDefault: \"5m\""
+          },
           "rbac": {
             "type": "object",
             "description": "RBAC is an RBAC configuration for the Observatorium API.",
@@ -587,6 +591,10 @@
           "version": {
             "type": "string",
             "description": "Version describes the version of API to use."
+          },
+          "writeTimeout": {
+            "type": "string",
+            "description": "WriteTimeout is the maximum duration for writing the response.\nApplied to Go HTTP server's WriteTimeout.\nControls the write/ingest path through the API gateway.\nMust be a valid duration string (e.g., \"5m\", \"12m\").\nDefault: \"12m\""
           }
         }
       },
