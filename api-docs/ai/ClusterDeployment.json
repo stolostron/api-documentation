@@ -355,6 +355,14 @@
                 "type": "string",
                 "description": "clientTimeout defines how long a connection will be held open while\nwaiting for a client response.\nIf unset, the default timeout is 30s"
               },
+              "configurationManagement": {
+                "type": "string",
+                "description": "configurationManagement specifies how OpenShift router should update\nthe HAProxy configuration.  The following values are valid for this\nfield:\n* \"ForkAndReload\".\n* \"Dynamic\".\nOmitting this field means that the user has no opinion and the\nplatform may choose a reasonable default. This default is subject to\nchange over time.  The current default is \"ForkAndReload\".\n\"ForkAndReload\" means that OpenShift router should rewrite the\nHAProxy configuration file and instruct HAProxy to fork and reload.\nThis is OpenShift router's traditional approach.\n\"Dynamic\" means that OpenShift router may use HAProxy's control\nsocket for some configuration updates and fall back to fork and\nreload for other configuration updates.  This is a newer approach,\nwhich may be less mature than ForkAndReload.  This setting can\nimprove load-balancing fairness and metrics accuracy and reduce CPU\nand memory usage if HAProxy has frequent configuration updates for\nroute and endpoints updates.\nNote: The \"Dynamic\" option is currently experimental and should not\nbe enabled on production clusters.",
+                "enum": [
+                  "Dynamic",
+                  "ForkAndReload"
+                ]
+              },
               "connectTimeout": {
                 "type": "string",
                 "description": "connectTimeout defines the maximum time to wait for\na connection attempt to a server/backend to succeed.\nThis field expects an unsigned duration string of decimal numbers, each with optional\nfraction and a unit suffix, e.g. \"300ms\", \"1.5h\" or \"2h45m\".\nValid time units are \"ns\", \"us\" (or \"\u00b5s\" U+00B5 or \"\u03bcs\" U+03BC), \"ms\", \"s\", \"m\", \"h\".\nWhen omitted, this means the user has no opinion and the platform is left\nto choose a reasonable default. This default is subject to change over time.\nThe current default is 5s.",
