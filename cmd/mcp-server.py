@@ -31,6 +31,7 @@ KNOWN_RELEASES = [
     "release-2.14",
     "release-2.15",
     "release-2.16",
+    "release-2.17",
 ]
 DEFAULT_RELEASE = KNOWN_RELEASES[-1]
 

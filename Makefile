@@ -168,7 +168,7 @@ init-release:
 	echo "  git commit -m \"chore: add API docs generation workflow for $$RELEASE_BRANCH\""; \
 	echo ""; \
 	echo "Create the release branch with:"; \
-	echo "  git branch $$RELEASE_BRANCH main && git push origin $$RELEASE_BRANCH"
+	echo "  git branch $$RELEASE_BRANCH main && git push upstream $$RELEASE_BRANCH"
 
 # Test targets
 .PHONY: test
