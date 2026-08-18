@@ -52,56 +52,23 @@ Once committed to your default branch, the API documentation will start to be ge
 
 To add a new release, follow these steps:
 
-1. **Clone the main branch of the repository:**
+1. **Run the release initializer on `main`:**
    ```sh
-   git clone https://github.com/stolostron/api-documents.git
-   cd api-documents
-   git checkout main
+   make init-release
+   ```
+   Enter the release version (e.g. `2.17`) and backplane version (e.g. `2.12`). This will generate `.github/workflows/generate-api-docs-release-2.17.yml`.
+
+2. **Commit and push the workflow to `main`:**
+   ```sh
+   git add .github/workflows/generate-api-docs-release-2.17.yml
+   git commit -m "chore: add API docs generation workflow for release-2.17"
+   git push upstream main
    ```
 
-2. **Create and checkout a new branch for the release:**
-   Replace `release-2.15.0` with your desired release branch name.
+3. **Create and push the release branch:**
    ```sh
-   git checkout -b release-2.15
+   git branch release-2.17 main
+   git push upstream release-2.17
    ```
 
-3. **Copy the existing workflow to the new release version:**
-   ```sh
-   cp .github/workflows/generate-api-docs-release-2.14.yml .github/workflows/generate-api-docs-release-2.15.yml
-   ```
-
-4. **Edit the new workflow file:**
-   - Open `.github/workflows/generate-api-docs-release-2.15.yml` in your editor.
-   - Update the `RELEASE_BRANCH` and `BACKPLANE_BRANCH` environment variables to match your new release. For example:
-     ```yaml
-     env:
-       RELEASE_BRANCH: 'release-2.15.0'
-       BACKPLANE_BRANCH: 'backplane-2.10.0'
-     ```
-   - Optionally, update the workflow `name:` at the top for clarity.
-   - Make sure the release version matches the current release branch you are working on.
-
-5. **Commit and push your changes:**
-   ```sh
-   git add .github/workflows/generate-api-docs-release-2.15.yml
-   git commit -m "chore: add API docs workflow for release-2.15"
-   git push origin release-2.15
-   ```
-
-6. **Merge the change back to main:**
-   - Switch back to the `main` branch:
-     ```sh
-     git checkout main
-     ```
-   - Merge the release branch:
-     ```sh
-     git merge release-2.15
-     ```
-   - Push the updated `main` branch:
-     ```sh
-     git push origin main
-     ```
-
-Once the workflow is committed to your default branch, the APIs will start to be generated daily automatically.
-
-This ensures the new GitHub Action workflow is available and will be used for the new release branch.
+Once the workflow is committed to the default (`main`) branch, the API documentation will be generated daily automatically.

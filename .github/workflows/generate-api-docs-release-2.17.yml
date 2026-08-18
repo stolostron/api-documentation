@@ -23,7 +23,7 @@ jobs:
 
     env:
       RELEASE_BRANCH: 'release-2.17'
-      BACKPLANE_BRANCH: 'backplane-2.17'
+      BACKPLANE_BRANCH: 'backplane-2.12'
       FORCE_DOWNLOAD: 'true'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
