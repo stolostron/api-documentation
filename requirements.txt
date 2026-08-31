@@ -5,12 +5,12 @@ PyYAML==6.0.3
 # flake8: used for Python linting (make lint)
 flake8==7.3.0
 # mcp: used by cmd/mcp-server.py (MCP stdio server); updated 2026-07-17 to resolve CVE-2026-59950
-# updated 2026-08-10 to latest stable 1.x release (1.29.0); NOTE: mcp 2.0.0 is available on
+# updated 2026-08-31 to latest stable 1.x release (1.29.1); NOTE: mcp 2.0.0 is available on
 # PyPI but is a major, backwards-incompatible SDK rework (low-level Server API used by
 # cmd/mcp-server.py was removed) — upstream explicitly recommends staying on 1.x (<2) until
 # migrated, see https://pypi.org/project/mcp/2.0.0/. Do not bump to 2.x without a migration.
-mcp==1.29.0
+mcp==1.29.1
 # PyJWT: transitive dep via mcp; pinned for security; updated 2026-06-18 to resolve CVE-2026-48522 and CVE-2026-48523
 PyJWT==2.13.0
 # cryptography: transitive dep via mcp->pyjwt[crypto]; pinned for security; updated 2026-08-04 to resolve CVE-2026-69247
-cryptography==50.0.0
+cryptography==50.0.1
