@@ -121,7 +121,7 @@
       },
       "preserveOnDelete": {
         "type": "boolean",
-        "description": "PreserveOnDelete allows the user to disconnect a DNSZone from Hive without deprovisioning it.\nThis can also be used to abandon ongoing DNSZone deprovision.\nTypically set automatically due to PreserveOnDelete being set on a ClusterDeployment."
+        "description": "PreserveOnDelete allows the user to disconnect a DNSZone from Hive without deprovisioning it.\nThis can also be used to abandon ongoing DNSZone deprovision.\nTypically set automatically due to PreserveOnDelete being set on a ClusterDeployment.\nNote: PreserveOnDelete only preserves the cloud-provider hosted zone (hive.openshift.io/dnszone\nfinalizer). The NS delegation record in Hive's parent zone is still removed\n(hive.openshift.io/dnsendpoint finalizer) to avoid leaking a dangling reference that would\nnever be cleaned up once the cluster is outside Hive's control. This means DNS for the\norphaned cluster will be broken until its administrator sets up their own delegation."
       },
       "zone": {
         "type": "string",

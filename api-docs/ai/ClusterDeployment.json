@@ -1313,7 +1313,7 @@
       },
       "preserveOnDelete": {
         "type": "boolean",
-        "description": "PreserveOnDelete allows the user to disconnect a cluster from Hive without deprovisioning it. This can also be\nused to abandon ongoing cluster deprovision."
+        "description": "PreserveOnDelete allows the user to disconnect a cluster from Hive without deprovisioning it. This can also be\nused to abandon ongoing cluster deprovision. When ManageDNS is true, this preserves the cloud-provider hosted\nzone but still removes the NS delegation record from Hive's parent zone to avoid leaking a dangling reference.\nDNS for the orphaned cluster will be broken until its administrator sets up their own delegation. See\ndocs/managed-dns.md for details."
       },
       "provisioning": {
         "type": "object",
