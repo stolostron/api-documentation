@@ -11,6 +11,6 @@ flake8==7.4.1
 # migrated, see https://pypi.org/project/mcp/2.0.0/. Do not bump to 2.x without a migration.
 mcp==1.30.0
 # PyJWT: transitive dep via mcp; pinned for security; updated 2026-06-18 to resolve CVE-2026-48522 and CVE-2026-48523
-PyJWT==2.15.0
+PyJWT==2.15.1
 # cryptography: transitive dep via mcp->pyjwt[crypto]; pinned for security; updated 2026-08-04 to resolve CVE-2026-69247
-cryptography==50.0.1
+cryptography==50.0.2
